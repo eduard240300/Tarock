@@ -1,5 +1,7 @@
 package GUI.Template;
 
+import GUI.GameForm.ControllerGameForm;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -16,7 +18,7 @@ public class ClickableImage extends JImage implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 2 && mouseEvent.getButton() == MouseEvent.BUTTON1) {
-            System.out.println("double clicked " + String.valueOf(this.CardPosition));
+            ControllerGameForm.pressedCard(CardPosition);
         }
     }
 

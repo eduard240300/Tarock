@@ -4,19 +4,16 @@ import Domain.User;
 import Repository.Repository;
 
 public class MainService {
-    private Repository repo;
 
-    public MainService() {
-        repo = new Repository();
-    }
+    public MainService() {}
 
     public void setLoggedIn(User user)
     {
-        repo.login(user);
+        Repository.login(user);
     }
 
     public void setLoggedOut()
     {
-        repo.logout();
+        Repository.logout();
     }
 }
