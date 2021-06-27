@@ -2,6 +2,7 @@ package GUI.GameForm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ControllerGameForm {
     public ControllerGameForm(){
@@ -9,9 +10,6 @@ public class ControllerGameForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Pressed Submit Button");
-                GameForm.the1of2Button.setEnabled(true);
-                GameForm.passButton.setEnabled(true);
-                GameForm.cancelGameButton.setEnabled(true);
             }
         });
         GameForm.the1of2Button.addActionListener(new ActionListener() {

@@ -116,13 +116,9 @@ public class ScoreForm extends JFrame{
 
         setSize(1330, 550);
         setTitle("Tarock Client : Score");
-        try
-        {
-            setIconImage(ImageIO.read(new FileInputStream("./src/Resources/icon.png")));
-        }catch(Exception e){}
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
-        //setVisible(true);
+        setVisible(true);
 
         ControllerScoreForm controllerScoreForm = new ControllerScoreForm();
     }

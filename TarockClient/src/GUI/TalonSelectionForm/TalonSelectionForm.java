@@ -78,13 +78,9 @@ public class TalonSelectionForm extends JFrame{
 
         setSize(1330, 510);
         setTitle("Tarock Client : Talon Selection");
-        try
-        {
-            setIconImage(ImageIO.read(new FileInputStream("./src/Resources/icon.png")));
-        }catch(Exception e){}
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
-        //setVisible(true);
+        setVisible(true);
 
         ControllerTalonSelectionForm controllerTalonSelectionForm = new ControllerTalonSelectionForm();
     }

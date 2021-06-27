@@ -38,15 +38,10 @@ public class TalonShowingForm extends JFrame{
                 add(talonCards.get(i).get(j));
             }
         }
-
         setSize(800, 300);
         setTitle("Tarock Client : Talon Selection Showing");
-        try
-        {
-            setIconImage(ImageIO.read(new FileInputStream("./src/Resources/icon.png")));
-        }catch(Exception e){}
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
-        //setVisible(true);
+        setVisible(true);
     }
 }

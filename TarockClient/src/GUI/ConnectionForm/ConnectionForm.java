@@ -44,10 +44,6 @@ public class ConnectionForm extends JFrame{
 
         setSize(540, 220);
         setTitle("Tarock Client : Login");
-        try
-        {
-            setIconImage(ImageIO.read(new FileInputStream("./src/Resources/icon.png")));
-        }catch(Exception e){}
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
         setVisible(true);

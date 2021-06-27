@@ -207,7 +207,7 @@ public class GameForm extends JFrame{
         declarationsPanel.add(numberOfTarocksComboBox);
 
         submitButton = new CustomJButton("Submit", arialDefault);
-        //submitButton.setEnabled(false);
+        submitButton.setEnabled(false);
         submitButton.setBounds(30, 190, 94, 27);
         declarationsPanel.add(submitButton);
 
@@ -331,13 +331,9 @@ public class GameForm extends JFrame{
 
         setSize(1330, 690);
         setTitle("Tarock Client : Game");
-        try
-        {
-            setIconImage(ImageIO.read(new FileInputStream("./src/Resources/icon.png")));
-        }catch(Exception e){}
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
-        //setVisible(true);
+        setVisible(true);
 
         ControllerGameForm controllerGameForm = new ControllerGameForm();
     }

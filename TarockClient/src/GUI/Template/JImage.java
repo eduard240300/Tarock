@@ -19,7 +19,7 @@ public class JImage extends JLabel {
             SID = "0" + String.valueOf(this.CardID);
         else
             SID = String.valueOf(this.CardID);
-        File inputFile = new File("./src/Resources/TarockCards/r" + SID + ".png");
+        File inputFile = new File("./Resources/TarockCards/r" + SID + ".png");
         BufferedImage inputImage = ImageIO.read(inputFile);
         BufferedImage outputImage = new BufferedImage(width,
                 height, inputImage.getType());
