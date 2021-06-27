@@ -5,17 +5,18 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 
 public class ClickableImage extends JImage implements MouseListener {
-    private int ID;
+    public int CardPosition;
 
-    public ClickableImage(int CardID, int width, int height) throws IOException {
+    public ClickableImage(int CardID, int CardPosition, int width, int height) throws IOException {
         super(CardID, width, height);
         super.addMouseListener(this);
+        this.CardPosition = CardPosition;
     }
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 2 && mouseEvent.getButton() == MouseEvent.BUTTON1) {
-            System.out.println("double clicked");
+            System.out.println("double clicked " + String.valueOf(this.CardPosition));
         }
     }
 

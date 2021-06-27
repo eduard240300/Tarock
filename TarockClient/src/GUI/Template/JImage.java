@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class JImage extends JLabel {
-    private int CardID;
+    public int CardID;
     private int width;
     private int height;
 

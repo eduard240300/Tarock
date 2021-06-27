@@ -56,7 +56,7 @@ public class ConnectionForm extends JFrame{
         {
             // The read(), static method of ImageIO class
             // takes InputStream object pointing to the image file
-            setIconImage(ImageIO.read(new FileInputStream("icon.png")));
+            setIconImage(ImageIO.read(new FileInputStream("./src/Resources/icon.png")));
         }catch(Exception e){}
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
