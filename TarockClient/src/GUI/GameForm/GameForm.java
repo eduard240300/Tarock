@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalCheckBoxUI;
 import javax.swing.plaf.metal.MetalRadioButtonUI;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -71,7 +72,7 @@ public class GameForm extends JFrame{
         cardsRound.get(3).setBounds(350, 140, 100, 180);
 
         for(int i=0;i<12;i++){
-            playerCards.add(new ClickableImage(0, i+1,100,175));
+            playerCards.add(new ClickableImage(0, "GameForm",i+1,100,175));
             playerCards.get(i).setBounds(10+110*i, 460, 100, 180);
             add(playerCards.get(i));
         }
@@ -302,6 +303,11 @@ public class GameForm extends JFrame{
         scoreTableData = new String[][]{};
         scoreTableHeader = new String[]{"Player 1", "Player 2", "Player 3", "Player 4", "Declared"};
         JTable scoreTable = new JTable(scoreTableData, scoreTableHeader);
+        scoreTable.setRowHeight(scoreTable.getRowHeight() + 12);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        for(int i=0;i<5;i++)
+            scoreTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         scoreTable.getTableHeader().setFont(arialDefault);
         scoreTable.setFont(arialDefault);
         JScrollPane scoreTableScrollPane = new JScrollPane(scoreTable);
@@ -323,11 +329,6 @@ public class GameForm extends JFrame{
             add(declarationsPlayers.get(i));
         }
 
-        //Repository.currentCards.get(0).setCardID(1);
-        //Repository.setPlayerName(1, "Teodora");
-        //Repository.setPlayerName(2, "Carnat");
-
-
         setSize(1330, 690);
         setTitle("Tarock Client : Game");
         try
@@ -336,6 +337,7 @@ public class GameForm extends JFrame{
         }catch(Exception e){}
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
+        setVisible(true);
 
         ControllerGameForm controllerGameForm = new ControllerGameForm();
     }

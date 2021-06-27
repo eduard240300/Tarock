@@ -50,7 +50,6 @@ public class ConnectionForm extends JFrame{
         }catch(Exception e){}
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
-        setVisible(true);
 
         ControllerConnectionForm controllerConnectionForm = new ControllerConnectionForm();
     }
