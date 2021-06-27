@@ -2,13 +2,22 @@ package Repository;
 
 import Domain.User;
 import Exception.RepositoryException;
+import GUI.Template.JImage;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Repository {
-    private static boolean loggedIn;
-    private static User loggedUser;
+    public static boolean loggedIn;
+    public static User loggedUser;
+    public static List<JImage> currentCards;
+    public static List<JLabel> playerNames;
 
     public Repository()
     {
+        currentCards = new ArrayList<JImage>();
+        playerNames = new ArrayList<JLabel>();
         loggedIn = false;
         loggedUser = null;
     }

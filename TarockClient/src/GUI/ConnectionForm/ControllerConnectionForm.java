@@ -5,6 +5,7 @@ import Service.BCrypt;
 import Service.LoginService;
 import Service.MainService;
 import Validator.UserValidator;
+
 import java.awt.event.ActionEvent;
 
 public class ControllerConnectionForm {

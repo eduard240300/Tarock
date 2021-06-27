@@ -1,11 +1,13 @@
 package GUI.ConnectionForm;
 
+import GUI.Template.CustomJButton;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
 public class ConnectionForm extends JFrame{
     public ConnectionForm(){
@@ -32,11 +34,8 @@ public class ConnectionForm extends JFrame{
         passwordField.setFont(arialDefault);
         passwordField.setBounds(190, 70, 330, 40);
 
-        JButton loginButton = new JButton();
-        loginButton.setText("Login");
+        CustomJButton loginButton = new CustomJButton("Login", arialDefault);
         loginButton.setBounds(120, 120, 300, 40);
-        loginButton.setFont(arialDefault);
-        loginButton.setBackground(Color.lightGray);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,6 +58,7 @@ public class ConnectionForm extends JFrame{
             // takes InputStream object pointing to the image file
             setIconImage(ImageIO.read(new FileInputStream("icon.png")));
         }catch(Exception e){}
+        getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
         setVisible(true);
     }

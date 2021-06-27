@@ -1,0 +1,41 @@
+package GUI.Template;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
+
+public class ClickableImage extends JImage implements MouseListener {
+    private int ID;
+
+    public ClickableImage(int CardID, int width, int height) throws IOException {
+        super(CardID, width, height);
+        super.addMouseListener(this);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+        if (mouseEvent.getClickCount() == 2 && mouseEvent.getButton() == MouseEvent.BUTTON1) {
+            System.out.println("double clicked");
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+
+    }
+}
