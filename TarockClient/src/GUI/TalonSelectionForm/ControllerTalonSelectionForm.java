@@ -1,7 +1,5 @@
 package GUI.TalonSelectionForm;
 
-import GUI.GameForm.GameForm;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
