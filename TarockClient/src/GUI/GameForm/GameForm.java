@@ -4,13 +4,11 @@ import GUI.Template.ClickableImage;
 import GUI.Template.CustomJButton;
 import GUI.Template.JImage;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalCheckBoxUI;
 import javax.swing.plaf.metal.MetalRadioButtonUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

@@ -2,10 +2,8 @@ package GUI.TalonShowingForm;
 
 import GUI.Template.JImage;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

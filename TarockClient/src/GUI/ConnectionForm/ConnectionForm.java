@@ -2,10 +2,8 @@ package GUI.ConnectionForm;
 
 import GUI.Template.CustomJButton;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
 
 public class ConnectionForm extends JFrame{
     public static JTextField usernameField;
