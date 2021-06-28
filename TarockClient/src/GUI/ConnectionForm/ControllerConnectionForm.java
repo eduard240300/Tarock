@@ -22,7 +22,7 @@ public class ControllerConnectionForm {
                 mainService = new MainService();
                 userValidator = new UserValidator();
 
-                String username = ConnectionForm.usernameField.getText();
+                /*String username = ConnectionForm.usernameField.getText();
                 String password = ConnectionForm.passwordField.getText();
                 String ipAddress = "localhost";
                 try {
@@ -46,7 +46,7 @@ public class ControllerConnectionForm {
                 {
                     String message = exception.getMessage();
                     System.out.println(exception.getClass().getName() + " : " + message);
-                }
+                }*/
             }
         });
     }

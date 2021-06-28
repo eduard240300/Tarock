@@ -1,10 +1,13 @@
 package com.eduard240300.TarockWebSite.DBManager;
 
+import com.eduard240300.TarockWebSite.Domain.Session;
 import com.eduard240300.TarockWebSite.Domain.User;
 import com.eduard240300.TarockWebSite.Exception.DBException;
 import com.eduard240300.TarockWebSite.Service.BCrypt;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBManager {
     public static boolean notConnected = true;
@@ -58,5 +61,75 @@ public class DBManager {
         } catch (SQLException e) {
             throw new DBException("Username already exists !");
         }
+    }
+
+    public static List<Session> getSessions(String username) {
+        ResultSet rs;
+        List<Session> sessions= new ArrayList<Session>();
+        try {
+            String statement = "SELECT * FROM Sessions WHERE Creator = " + "'" + username + "'";
+            rs = stmt.executeQuery(statement);
+            try{
+                while(rs.next()) {
+                    int SessionID = rs.getInt("SessionID");
+                    String DateCreated = rs.getTimestamp("DateCreated").toString();
+
+                    String DateEnded;
+                    try {
+                        DateEnded = rs.getTimestamp("DateEnded").toString();
+                    }
+                    catch (Exception e)
+                    {
+                        DateEnded = "";
+                    }
+
+                    String Player1;
+                    try {
+                        Player1 = rs.getString("Player1");
+                    }
+                    catch (Exception e)
+                    {
+                        Player1 = "";
+                    }
+
+                    String Player2;
+                    try {
+                        Player2 = rs.getString("Player2");
+                    }
+                    catch (Exception e)
+                    {
+                        Player2 = "";
+                    }
+
+                    String Player3;
+                    try {
+                        Player3 = rs.getString("Player3");
+                    }
+                    catch (Exception e)
+                    {
+                        Player3 = "";
+                    }
+
+                    String Player4;
+                    try {
+                        Player4 = rs.getString("Player4");
+                    }
+                    catch (Exception e)
+                    {
+                        Player4 = "";
+                    }
+
+                    Session session = new Session(SessionID, username, DateCreated, DateEnded, Player1, Player2, Player3, Player4);
+                    sessions.add(session);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DBException(e.getMessage());
+            }
+        } catch (SQLException e) {
+            throw new DBException(e.getMessage());
+        }
+        return sessions;
     }
 }

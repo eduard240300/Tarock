@@ -15,6 +15,10 @@
         <servlet-name>RegisterController</servlet-name>
         <servlet-class>com.eduard240300.TarockWebSite.Controller.RegisterController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>com.eduard240300.TarockWebSite.Controller.RegisterController</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
