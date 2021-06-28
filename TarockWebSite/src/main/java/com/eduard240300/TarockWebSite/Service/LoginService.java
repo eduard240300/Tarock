@@ -6,21 +6,13 @@ import com.eduard240300.TarockWebSite.Exception.DBException;
 import com.eduard240300.TarockWebSite.Exception.LoginException;
 
 public class LoginService {
-    private DBManager dbManager;
-
-    public LoginService(String ipAddress)
-    {
-        dbManager = new DBManager(ipAddress);
-        dbManager.connect();
-    }
-
-    public void login(User inputUser)
+    public User login(User inputUser)
     {
         User dbUser;
         try{
-            dbUser = dbManager.getUser(inputUser.getUsername());
+            dbUser = DBManager.getUser(inputUser.getUsername());
             if (BCrypt.checkpw(inputUser.getPassword(), dbUser.getPassword())){
-                return;
+                return dbUser;
             }
             else
             {

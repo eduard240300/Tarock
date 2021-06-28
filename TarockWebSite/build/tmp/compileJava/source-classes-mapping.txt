@@ -1,26 +1,32 @@
-com/eduard240300/TarockWebSite/Controller/LoginController.java
- com.eduard240300.TarockWebSite.Controller.LoginController
+com/eduard240300/TarockWebSite/Service/InitializerService.java
+ com.eduard240300.TarockWebSite.Service.InitializerService
 com/eduard240300/TarockWebSite/Domain/User.java
  com.eduard240300.TarockWebSite.Domain.User
-com/eduard240300/TarockWebSite/Service/MainService.java
- com.eduard240300.TarockWebSite.Service.MainService
+com/eduard240300/TarockWebSite/Exception/ValidationException.java
+ com.eduard240300.TarockWebSite.Exception.ValidationException
 com/eduard240300/TarockWebSite/Repository/Repository.java
  com.eduard240300.TarockWebSite.Repository.Repository
+com/eduard240300/TarockWebSite/Service/RegisterService.java
+ com.eduard240300.TarockWebSite.Service.RegisterService
 com/eduard240300/TarockWebSite/Exception/DBException.java
  com.eduard240300.TarockWebSite.Exception.DBException
 com/eduard240300/TarockWebSite/Exception/RepositoryException.java
  com.eduard240300.TarockWebSite.Exception.RepositoryException
-com/eduard240300/TarockWebSite/Service/BCrypt.java
- com.eduard240300.TarockWebSite.Service.BCrypt
-com/eduard240300/TarockWebSite/Validator/UserValidator.java
- com.eduard240300.TarockWebSite.Validator.UserValidator
-com/eduard240300/TarockWebSite/Exception/LoginException.java
- com.eduard240300.TarockWebSite.Exception.LoginException
-com/eduard240300/TarockWebSite/Controller/AssetsController.java
- com.eduard240300.TarockWebSite.Controller.AssetsController
-com/eduard240300/TarockWebSite/DBManager/DBManager.java
- com.eduard240300.TarockWebSite.DBManager.DBManager
 com/eduard240300/TarockWebSite/Service/LoginService.java
  com.eduard240300.TarockWebSite.Service.LoginService
-com/eduard240300/TarockWebSite/Exception/ValidationException.java
- com.eduard240300.TarockWebSite.Exception.ValidationException
+com/eduard240300/TarockWebSite/Service/BCrypt.java
+ com.eduard240300.TarockWebSite.Service.BCrypt
+com/eduard240300/TarockWebSite/DBManager/DBManager.java
+ com.eduard240300.TarockWebSite.DBManager.DBManager
+com/eduard240300/TarockWebSite/Exception/LoginException.java
+ com.eduard240300.TarockWebSite.Exception.LoginException
+com/eduard240300/TarockWebSite/Exception/RegisterException.java
+ com.eduard240300.TarockWebSite.Exception.RegisterException
+com/eduard240300/TarockWebSite/Controller/LoginController.java
+ com.eduard240300.TarockWebSite.Controller.LoginController
+com/eduard240300/TarockWebSite/Controller/RegisterController.java
+ com.eduard240300.TarockWebSite.Controller.RegisterController
+com/eduard240300/TarockWebSite/Validator/UserValidator.java
+ com.eduard240300.TarockWebSite.Validator.UserValidator
+com/eduard240300/TarockWebSite/Service/DataManipulationService.java
+ com.eduard240300.TarockWebSite.Service.DataManipulationService

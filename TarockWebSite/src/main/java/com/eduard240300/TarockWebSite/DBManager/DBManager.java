@@ -2,28 +2,27 @@ package com.eduard240300.TarockWebSite.DBManager;
 
 import com.eduard240300.TarockWebSite.Domain.User;
 import com.eduard240300.TarockWebSite.Exception.DBException;
+import com.eduard240300.TarockWebSite.Service.BCrypt;
 
 import java.sql.*;
 
 public class DBManager {
-    private Statement stmt;
-    private String ipAddress;
+    public static boolean notConnected = true;
+    public static Statement stmt;
+    public static String ipAddress = "localhost";
 
-    public DBManager(String ipAddress) {
-        this.ipAddress = ipAddress; connect();
-    }
-
-    public void connect() {
+    public static void connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://" + ipAddress + "/Tarock", "root", "");
             stmt = con.createStatement();
+            notConnected = false;
         } catch(Exception ex) {
             throw new DBException(ex.getMessage());
         }
     }
 
-    public User getUser(String username) {
+    public static User getUser(String username) {
         ResultSet rs;
         User user = new User(null, null);
         try {
@@ -32,7 +31,9 @@ public class DBManager {
             try{
                 rs.next();
                 String password = rs.getString("Password");
-                user = new User(username, password);
+                String name = rs.getString("Name");
+                String email = rs.getString("Email");
+                user = new User(name, username, password, email);
             }
             catch (Exception e)
             {
@@ -44,16 +45,18 @@ public class DBManager {
         return user;
     }
 
-    /*public boolean updateAsset(Book book) {
-        int r = 0;
+    public static void registerUser(User inputUser) {
+        int error;
         try {
-            r = stmt.executeUpdate("update assets set description='"+ book.getDescription()+"', value="+ book.getValue()+
-                    " where id="+ book.getId());
+            String statement = "INSERT INTO Users(Name, Username, Password, Email)\nVALUES(" +
+                    "'" + inputUser.getName() + "', " +
+                    "'" + inputUser.getUsername() + "', " +
+                    "'" + BCrypt.hashpw(inputUser.getPassword(), BCrypt.gensalt(12)) + "', " +
+                    "'" + inputUser.getEmail() + "'" +
+                    ")";
+            error = stmt.executeUpdate(statement);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DBException("Username already exists !");
         }
-        if (r>0) return true;
-        else return false;
-    }*/
-
+    }
 }

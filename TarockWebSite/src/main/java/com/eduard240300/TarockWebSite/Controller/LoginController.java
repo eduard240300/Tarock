@@ -1,26 +1,16 @@
 package com.eduard240300.TarockWebSite.Controller;
 
-/**
- * Created by forest.
- */
-
-
-import com.eduard240300.TarockWebSite.DBManager.DBManager;
-import com.eduard240300.TarockWebSite.Repository.Repository;
 import com.eduard240300.TarockWebSite.Domain.User;
+import com.eduard240300.TarockWebSite.Repository.Repository;
 import com.eduard240300.TarockWebSite.Service.BCrypt;
+import com.eduard240300.TarockWebSite.Service.DataManipulationService;
 import com.eduard240300.TarockWebSite.Service.LoginService;
-import com.eduard240300.TarockWebSite.Service.MainService;
 import com.eduard240300.TarockWebSite.Validator.UserValidator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
-
 
 public class LoginController extends HttpServlet {
 
@@ -32,44 +22,47 @@ public class LoginController extends HttpServlet {
                           HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher rd = null;
 
-        String username = request.getParameter("user_username");
-        String password = request.getParameter("user_password");
+        String username = request.getParameter("login_username");
+        String password = request.getParameter("login_password");
 
-        LoginService loginService = null;
+        LoginService loginService = new LoginService();
         UserValidator userValidator = new UserValidator();
-        MainService mainService = new MainService();
-
-
-        String ipAddress = "localhost";
-        try {
-            loginService = new LoginService(ipAddress);
-        }
-        catch (RuntimeException exc)
-        {
-            System.out.println(exc.getClass().getName() + " : " + exc.getMessage());
-        }
 
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
         User inputUser = new User(username, password);
+        HttpSession session = request.getSession();
+        String finalMessage = "";
+
+        Cookie loggedIn = new Cookie("loggedIn", "false");
+
         try {
             userValidator.validateUser(inputUser);
-            loginService.login(inputUser);
-            mainService.setLoggedIn(new User(username, hashedPassword));
-            System.out.println("Logged in !");
+            User user = loginService.login(inputUser);
+            loggedIn = new Cookie("loggedIn", "true");
+            Cookie cookieUsername = new Cookie("username", user.getUsername());
+            Cookie cookieName = new Cookie("name", DataManipulationService.processName(user.getName()));
+            Cookie cookieEmail = new Cookie("email", user.getEmail());
+            loggedIn.setMaxAge(24*60*60);
+            cookieUsername.setMaxAge(24*60*60);
+            cookieName.setMaxAge(24*60*60);
+            cookieEmail.setMaxAge(24*60*60);
+            response.addCookie(loggedIn);
+            response.addCookie(cookieUsername);
+            response.addCookie(cookieName);
+            response.addCookie(cookieEmail);
         }
         catch (RuntimeException exception)
         {
-            String message = exception.getMessage();
-            System.out.println(exception.getClass().getName() + " : " + message);
+            finalMessage = "<div class='alert alert-danger'>";
+            finalMessage += DataManipulationService.truncateClassName(exception.getClass().getName()) + " : " + exception.getMessage();
+            finalMessage += "</div>";
+        }
+        if (loggedIn.getComment() == "true") {
+            finalMessage = "<div class='alert alert-success'>Logged in successfully !</div>";
         }
 
-        if (Repository.loggedIn == true) {
-            rd = request.getRequestDispatcher("/success.jsp");
-            HttpSession session = request.getSession();
-        } else {
-            rd = request.getRequestDispatcher("/index.jsp");
-        }
+        session.setAttribute("login_error_message", finalMessage);
+        rd = request.getRequestDispatcher("/index.jsp");
         rd.forward(request, response);
     }
-
 }

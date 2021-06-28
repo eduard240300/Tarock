@@ -4,13 +4,16 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <listener>
+        <listener-class>com.eduard240300.TarockWebSite.Service.InitializerService</listener-class>
+    </listener>
     <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>com.eduard240300.TarockWebSite.Controller.LoginController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AssetsController</servlet-name>
-        <servlet-class>com.eduard240300.TarockWebSite.Controller.AssetsController</servlet-class>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>com.eduard240300.TarockWebSite.Controller.RegisterController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -18,8 +21,8 @@
         <url-pattern>/LoginController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AssetsController</servlet-name>
-        <url-pattern>/AssetsController</url-pattern>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/RegisterController</url-pattern>
     </servlet-mapping>
 
 </web-app>
