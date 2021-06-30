@@ -7,9 +7,9 @@ import com.eduard240300.TarockWebSite.Service.DataManipulationService;
 import com.eduard240300.TarockWebSite.Service.LoginService;
 import com.eduard240300.TarockWebSite.Validator.UserValidator;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 
 public class LoginController extends HttpServlet {

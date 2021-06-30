@@ -9,7 +9,7 @@
     <script src="./functions.js"></script>
     <script>
       if (readCookie("loggedIn") === "true")
-        window.location.href = '/website/main.jsp';
+        window.location.href = '/tarock/main.jsp';
     </script>
   </head>
   <body>
@@ -39,7 +39,7 @@
             <input type="submit" name="login" id="login" class="btn btn-info" value="Login" />
           </div>
           <div class="from-group">
-            <a href="/website/register.jsp">Register</a>
+            <a href="/tarock/register.jsp">Register</a>
           </div>
         </form>
       </div>

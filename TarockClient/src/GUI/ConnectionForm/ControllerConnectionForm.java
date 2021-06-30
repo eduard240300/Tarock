@@ -21,17 +21,10 @@ public class ControllerConnectionForm {
             public void actionPerformed(ActionEvent e) {
                 mainService = new MainService();
                 userValidator = new UserValidator();
+                loginService = new LoginService();
 
-                /*String username = ConnectionForm.usernameField.getText();
+                String username = ConnectionForm.usernameField.getText();
                 String password = ConnectionForm.passwordField.getText();
-                String ipAddress = "localhost";
-                try {
-                    loginService = new LoginService(ipAddress);
-                }
-                catch (RuntimeException exc)
-                {
-                    System.out.println(exc.getClass().getName() + " : " + exc.getMessage());
-                }
 
                 String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
                 User inputUser = new User(username, password);
@@ -46,7 +39,7 @@ public class ControllerConnectionForm {
                 {
                     String message = exception.getMessage();
                     System.out.println(exception.getClass().getName() + " : " + message);
-                }*/
+                }
             }
         });
     }

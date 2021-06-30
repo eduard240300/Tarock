@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.eduard240300.TarockWebSite.DBManager.DBManager" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="jakarta.servlet.http.Cookie" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <script>
         if (readCookie("loggedIn") !== "true")
-            window.location.href = '/website/index.jsp';
+            window.location.href = '/tarock/index.jsp';
     </script>
     <style type="text/css">
         table    { border:ridge 5px red; background-color:lightblue; color:black; }

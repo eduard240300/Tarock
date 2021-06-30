@@ -1,10 +1,12 @@
 package GUI;
 
+import DBManager.DBManager;
 import GUI.ConnectionForm.ConnectionForm;
 import GUI.GameForm.GameForm;
 import GUI.ScoreForm.ScoreForm;
 import GUI.TalonSelectionForm.TalonSelectionForm;
 import GUI.TalonShowingForm.TalonShowingForm;
+import Service.CommunicationService;
 
 import javax.imageio.ImageIO;
 import java.io.FileInputStream;
@@ -17,6 +19,9 @@ public class Main {
     public static TalonShowingForm talonShowingForm;
 
     public static void main(String[] args) throws Exception {
+        DBManager.ipAddress = "185.229.224.215";
+        DBManager.connect();
+
         String iconPath = "./Resources/icon.png";
 
         connectionForm = new ConnectionForm();
@@ -32,5 +37,8 @@ public class Main {
             talonSelectionForm.setIconImage(ImageIO.read(new FileInputStream(iconPath)));
             talonShowingForm.setIconImage(ImageIO.read(new FileInputStream(iconPath)));
         }catch(Exception e){}
+
+        //CommunicationService communicationService = new CommunicationService();
+        //communicationService.start();
     }
 }

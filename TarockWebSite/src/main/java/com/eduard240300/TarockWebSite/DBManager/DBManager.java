@@ -12,12 +12,12 @@ import java.util.List;
 public class DBManager {
     public static boolean notConnected = true;
     public static Statement stmt;
-    public static String ipAddress = "localhost";
+    public static String ipAddress = "185.229.224.215";
 
     public static void connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://" + ipAddress + "/Tarock", "root", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://" + ipAddress + "/Tarock", "root", "0000");
             stmt = con.createStatement();
             notConnected = false;
         } catch(Exception ex) {

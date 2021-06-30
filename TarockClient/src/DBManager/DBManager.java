@@ -6,24 +6,20 @@ import Exception.DBException;
 import java.sql.*;
 
 public class DBManager {
-    private Statement stmt;
-    private String ipAddress;
+    public static Statement stmt;
+    public static String ipAddress;
 
-    public DBManager(String ipAddress) {
-        this.ipAddress = ipAddress; connect();
-    }
-
-    public void connect() {
+    public static void connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://" + ipAddress + "/Tarock", "root", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://" + ipAddress + "/Tarock", "root", "0000");
             stmt = con.createStatement();
         } catch(Exception ex) {
             throw new DBException(ex.getMessage());
         }
     }
 
-    public User getUser(String username) {
+    public static User getUser(String username) {
         ResultSet rs;
         User user = new User(null, null);
         try {

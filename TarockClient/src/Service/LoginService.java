@@ -6,19 +6,13 @@ import Exception.DBException;
 import Exception.LoginException;
 
 public class LoginService {
-    private DBManager dbManager;
-
-    public LoginService(String ipAddress)
-    {
-        dbManager = new DBManager(ipAddress);
-        dbManager.connect();
-    }
+    public LoginService() {}
 
     public void login(User inputUser)
     {
         User dbUser;
         try{
-            dbUser = dbManager.getUser(inputUser.getUsername());
+            dbUser = DBManager.getUser(inputUser.getUsername());
             if (BCrypt.checkpw(inputUser.getPassword(), dbUser.getPassword())){
                 return;
             }

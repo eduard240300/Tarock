@@ -1,7 +1,7 @@
 package com.eduard240300.TarockWebSite.Service;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class CookieService {
     public static Cookie getCookie(HttpServletRequest request, String name)

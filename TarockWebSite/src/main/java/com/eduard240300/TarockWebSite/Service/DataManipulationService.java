@@ -1,5 +1,8 @@
 package com.eduard240300.TarockWebSite.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DataManipulationService {
     public static String truncateClassName(String className){
         int i;
@@ -35,5 +38,37 @@ public class DataManipulationService {
             }
         }
         return false;
+    }
+
+    public static List<String> processMessage(String message)
+    {
+        List<String> listOfCommands = new ArrayList<String>();
+        int i;
+        String currentCommand = "";
+        for(i=0;i<message.length();i++)
+        {
+            if (message.charAt(i) == ';')
+            {
+                listOfCommands.add(currentCommand);
+                currentCommand = "";
+            }
+            else currentCommand = currentCommand + message.charAt(i);
+        }
+        return listOfCommands;
+    }
+
+    public static List<String> processCommand(String command) {
+        List<String> processedCommand = new ArrayList<String>();
+        String object = "";
+        int i;
+        for (i = 0; i < command.length(); i++) {
+            if ((command.charAt(i) == ' ') || (command.charAt(i) == ';')) {
+                processedCommand.add(object);
+                object = "";
+            } else {
+                object = object + command.charAt(i);
+            }
+        }
+        return processedCommand;
     }
 }

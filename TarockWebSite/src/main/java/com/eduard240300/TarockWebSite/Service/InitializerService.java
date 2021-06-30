@@ -2,8 +2,8 @@ package com.eduard240300.TarockWebSite.Service;
 
 import com.eduard240300.TarockWebSite.DBManager.DBManager;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 public class InitializerService implements ServletContextListener {
 
@@ -16,5 +16,7 @@ public class InitializerService implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         if (DBManager.notConnected == true)
             DBManager.connect();
+        //CommunicationService communicationService = new CommunicationService();
+        //communicationService.start();
     }
 }
