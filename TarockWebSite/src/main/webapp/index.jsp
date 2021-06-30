@@ -1,3 +1,5 @@
+<%@ page import="com.eduard240300.TarockWebSite.Service.CookieService" %>
+<%@ page import="jakarta.servlet.http.Cookie" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
@@ -7,6 +9,14 @@
     <link rel="icon" href="images/icon.ico">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="./functions.js"></script>
+    <%
+      //if (CookieService.getCookie(request, "sessionIDforGames") != null)
+      //{
+      //  Cookie newCookie = new Cookie("sessionIDforGames", "");
+      //  newCookie.setMaxAge(0);
+      //  response.addCookie(newCookie);
+      //}
+    %>
     <script>
       if (readCookie("loggedIn") === "true")
         window.location.href = '/tarock/main.jsp';

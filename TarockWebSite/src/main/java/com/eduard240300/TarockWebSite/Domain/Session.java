@@ -24,6 +24,16 @@ public class Session {
         this.player4 = player4;
     }
 
+    public Session(String creator, String dateCreated, String player1, String player2, String player3, String player4)
+    {
+        this.creator = creator;
+        this.dateCreated = dateCreated;
+        this.player1 = player1;
+        this.player2 = player2;
+        this.player3 = player3;
+        this.player4 = player4;
+    }
+
 
     public int getSessionID() {
         return sessionID;

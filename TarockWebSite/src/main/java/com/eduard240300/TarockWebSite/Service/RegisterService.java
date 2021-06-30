@@ -6,7 +6,7 @@ import com.eduard240300.TarockWebSite.Exception.DBException;
 import com.eduard240300.TarockWebSite.Exception.RegisterException;
 
 public class RegisterService {
-    public void register(User inputUser)
+    public static void register(User inputUser)
     {
         try{
             DBManager.registerUser(inputUser);

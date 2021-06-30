@@ -15,6 +15,14 @@
         <servlet-name>RegisterController</servlet-name>
         <servlet-class>com.eduard240300.TarockWebSite.Controller.RegisterController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddSessionController</servlet-name>
+        <servlet-class>com.eduard240300.TarockWebSite.Controller.AddSessionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SeeSessionController</servlet-name>
+        <servlet-class>com.eduard240300.TarockWebSite.Controller.SeeSessionController</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -24,5 +32,14 @@
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSessionController</servlet-name>
+        <url-pattern>/AddSessionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SeeSessionController</servlet-name>
+        <url-pattern>/SeeSessionController</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

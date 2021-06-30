@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.graalvm.compiler.lir.LIRInstruction;
+
 import java.io.IOException;
 
 public class RegisterController extends HttpServlet {
@@ -36,13 +38,11 @@ public class RegisterController extends HttpServlet {
             finalMessage = "<div class='alert alert-danger'>ValidationException : The passwords don't match !</div>";
         else
         {
-            RegisterService registerService = new RegisterService();
-            UserValidator userValidator = new UserValidator();
 
             User inputUser = new User(name, username, password, email);
             try {
-                userValidator.validateUser(inputUser);
-                registerService.register(inputUser);
+                UserValidator.validateUser(inputUser);
+                RegisterService.register(inputUser);
                 finalMessage = "<div class='alert alert-success'>User registered successfully !</div>";
             }
             catch (RuntimeException exception)

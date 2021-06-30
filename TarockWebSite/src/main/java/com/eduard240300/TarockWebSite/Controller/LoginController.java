@@ -25,9 +25,6 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("login_username");
         String password = request.getParameter("login_password");
 
-        LoginService loginService = new LoginService();
-        UserValidator userValidator = new UserValidator();
-
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
         User inputUser = new User(username, password);
         HttpSession session = request.getSession();
@@ -36,8 +33,8 @@ public class LoginController extends HttpServlet {
         Cookie loggedIn = new Cookie("loggedIn", "false");
 
         try {
-            userValidator.validateUser(inputUser);
-            User user = loginService.login(inputUser);
+            UserValidator.validateUser(inputUser);
+            User user = LoginService.login(inputUser);
             loggedIn = new Cookie("loggedIn", "true");
             Cookie cookieUsername = new Cookie("username", user.getUsername());
             Cookie cookieName = new Cookie("name", DataManipulationService.processName(user.getName()));

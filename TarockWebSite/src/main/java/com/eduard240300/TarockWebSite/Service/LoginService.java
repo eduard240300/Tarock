@@ -6,7 +6,7 @@ import com.eduard240300.TarockWebSite.Exception.DBException;
 import com.eduard240300.TarockWebSite.Exception.LoginException;
 
 public class LoginService {
-    public User login(User inputUser)
+    public static User login(User inputUser)
     {
         User dbUser;
         try{

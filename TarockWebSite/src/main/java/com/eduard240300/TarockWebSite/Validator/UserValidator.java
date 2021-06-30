@@ -5,7 +5,7 @@ import com.eduard240300.TarockWebSite.Exception.ValidationException;
 import com.eduard240300.TarockWebSite.Service.DataManipulationService;
 
 public class UserValidator {
-    public void validateUser(User user)
+    public static void validateUser(User user)
     {
         String message = "";
         if (user.getName() != null)
