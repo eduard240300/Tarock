@@ -1,22 +1,12 @@
-<%@ page import="com.eduard240300.TarockWebSite.Service.CookieService" %>
-<%@ page import="jakarta.servlet.http.Cookie" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
     <title>Login Page</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <link rel="icon" href="images/icon.ico">
+    <link rel="icon" href="images/icons/icon.png">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="./functions.js"></script>
-    <%
-      //if (CookieService.getCookie(request, "sessionIDforGames") != null)
-      //{
-      //  Cookie newCookie = new Cookie("sessionIDforGames", "");
-      //  newCookie.setMaxAge(0);
-      //  response.addCookie(newCookie);
-      //}
-    %>
     <script>
       if (readCookie("loggedIn") === "true")
         window.location.href = '/tarock/main.jsp';

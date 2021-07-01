@@ -160,6 +160,7 @@ public class DBManager {
             rs = stmt.executeQuery(statement);
             try{
                 rs.next();
+                int SessionID = rs.getInt("SessionID");
             }
             catch (Exception e)
             {
@@ -271,5 +272,18 @@ public class DBManager {
             throw new DBException(e.getMessage());
         }
         return session;
+    }
+
+    public static void closeSession(int sessionID, String closeTime) {
+        int error;
+        try {
+            String statement = "UPDATE Sessions SET DateEnded = " +
+                    "'" + closeTime + "'" +
+                    " WHERE SessionID = " +
+                    "'" + sessionID + "';";
+            error = stmt.executeUpdate(statement);
+        } catch (SQLException e) {
+            throw new DBException(e.getMessage());
+        }
     }
 }

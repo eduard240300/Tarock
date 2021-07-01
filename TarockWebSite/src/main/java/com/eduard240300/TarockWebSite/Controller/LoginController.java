@@ -25,7 +25,6 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("login_username");
         String password = request.getParameter("login_password");
 
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
         User inputUser = new User(username, password);
         HttpSession session = request.getSession();
         String finalMessage = "";

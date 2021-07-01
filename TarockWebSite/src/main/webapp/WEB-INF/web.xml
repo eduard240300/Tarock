@@ -23,6 +23,10 @@
         <servlet-name>SeeSessionController</servlet-name>
         <servlet-class>com.eduard240300.TarockWebSite.Controller.SeeSessionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CloseSessionController</servlet-name>
+        <servlet-class>com.eduard240300.TarockWebSite.Controller.CloseSessionController</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>SeeSessionController</servlet-name>
         <url-pattern>/SeeSessionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CloseSessionController</servlet-name>
+        <url-pattern>/CloseSessionController</url-pattern>
     </servlet-mapping>
 
 

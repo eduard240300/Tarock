@@ -26,11 +26,12 @@ public class SeeSessionController extends HttpServlet {
         try {
             IntegerValidator.validateInteger(potentialID);
             SeeSessionService.existsSession(CookieService.getCookie(request, "username").getValue(), Integer.parseInt(potentialID));
-            Cookie allowedToSeeGames = new Cookie("sessionIDforGames", potentialID);
-            allowedToSeeGames.setMaxAge(24*60*60);
-            response.addCookie(allowedToSeeGames);
+            session.setAttribute("sessionID", potentialID);
         }
-        catch (RuntimeException exception) { }
+        catch (RuntimeException exception) {
+            if (session.getAttribute("sessionID") != null)
+                session.removeAttribute("sessionID");
+        }
 
         rd = request.getRequestDispatcher("/seeGames.jsp");
         rd.forward(request, response);

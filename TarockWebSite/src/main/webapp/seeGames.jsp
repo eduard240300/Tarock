@@ -11,10 +11,11 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Home Page</title>
+    <title>Games List</title>
     <script src="js/jquery-2.0.3.js"></script>
     <script src="js/ajax-utils.js"></script>
     <script src="./functions.js"></script>
+    <link rel="icon" href="images/icons/icon.png">
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
@@ -22,60 +23,31 @@
     <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/button.css">
     <script>
         if (readCookie("loggedIn") !== "true")
-            window.location.href = '/tarock/index.jsp';
-        if (readCookie("sessionIDforGames") === "")
             window.location.href = '/tarock/index.jsp';
     </script>
     <style type="text/css">
         table    { border:ridge 5px red; background-color:lightblue; color:black; }
         table td { border:inset 1px #000; }
     </style>
-    <style>
-        .button {
-            display: inline-block;
-            padding: 15px 25px;
-            font-size: 24px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            outline: none;
-            color: #fff;
-            background-color: blue;
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 9px #999;
-        }
-
-        .button:hover {background-color: darkblue}
-
-        .button:active {
-            background-color: blue;
-            box-shadow: 0 5px #666;
-            transform: translateY(4px);
-        }
-
-        #outer
-        {
-            width:100%;
-            text-align: center;
-        }
-        .inner
-        {
-            display: inline-block;
-        }
-    </style>
 </head>
 <body style="background-color:rgb(78, 154, 6);">
-<h1 style="text-align: center"><br>Games List for Session <script>document.write(getName(readCookie("sessionIDforGames")))</script><br></h1>
+<%
+    int sessionID = 0;
+    Object sessionObject = session.getAttribute("sessionID");
+    if (sessionObject != null)
+        sessionID = Integer.parseInt(sessionObject.toString());
+    else
+        response.sendRedirect("/tarock/main.jsp");
+%>
+<h1 style="text-align: center"><br>Games List for Session <% out.print(sessionID); %><br></h1>
 <%
     Cookie cookieUsername = CookieService.getCookie(request, "username");
-    Cookie cookieSessionID = CookieService.getCookie(request, "sessionIDforGames");
-    if ((cookieUsername != null) && (cookieSessionID != null))
+    if ((cookieUsername != null) && (sessionObject != null))
     {
         String username = cookieUsername.getValue();
-        int sessionID = Integer.parseInt(cookieSessionID.getValue());
         List<Game> games = DBManager.getGames(sessionID);
         Session newSession = DBManager.getSession(sessionID);
         User player1 = DBManager.getUser(newSession.getPlayer1());
@@ -122,5 +94,10 @@
     <% //</div>
         //</div> %>
 </center>
+<br><br>
+</div>
+<div id="outer">
+    <div class="inner"><button class="button" onclick="location.href='/tarock/main.jsp'">Go back to home page</button></div>
+</div>
 </body>
 </html>

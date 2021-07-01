@@ -1,0 +1,34 @@
+CREATE TABLE Users (
+  Name VARCHAR(100) NOT NULL,
+  Username VARCHAR(100) PRIMARY KEY,
+  Password VARCHAR(300) NOT NULL,
+  Email VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Sessions (
+  SessionID INT PRIMARY KEY AUTO_INCREMENT,
+  Creator VARCHAR(100) NOT NULL,
+  DateCreated TIMESTAMP NOT NULL,
+  DateEnded TIMESTAMP,
+  Player1 VARCHAR(100),
+  Player2 VARCHAR(100),
+  Player3 VARCHAR(100),
+  Player4 VARCHAR(100),
+  FOREIGN KEY(Creator) REFERENCES Users(Username),
+  FOREIGN KEY(Player1) REFERENCES Users(Username),
+  FOREIGN KEY(Player2) REFERENCES Users(Username),
+  FOREIGN KEY(Player3) REFERENCES Users(Username),
+  FOREIGN KEY(Player4) REFERENCES Users(Username)
+);
+
+CREATE TABLE Games (
+  GameID INT PRIMARY KEY AUTO_INCREMENT,
+  SessionID INT NOT NULL,
+  ScorePlayer1 INT NOT NULL,
+  ScorePlayer2 INT NOT NULL,
+  ScorePlayer3 INT NOT NULL,
+  ScorePlayer4 INT NOT NULL,
+  Declaration VARCHAR(200) NOT NULL,
+  Radler INT NOT NULL,
+  FOREIGN KEY(SessionID) REFERENCES Sessions(SessionID)
+);
