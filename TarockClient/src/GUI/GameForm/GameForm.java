@@ -331,7 +331,7 @@ public class GameForm extends JFrame{
         setTitle("Tarock Client : Game");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
-        setVisible(true);
+        //setVisible(true);
 
         ControllerGameForm controllerGameForm = new ControllerGameForm();
     }

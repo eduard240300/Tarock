@@ -1,15 +1,13 @@
 package com.eduard240300.TarockWebSite.Controller;
 
 import com.eduard240300.TarockWebSite.Domain.User;
-import com.eduard240300.TarockWebSite.Repository.Repository;
-import com.eduard240300.TarockWebSite.Service.BCrypt;
 import com.eduard240300.TarockWebSite.Service.DataManipulationService;
 import com.eduard240300.TarockWebSite.Service.LoginService;
 import com.eduard240300.TarockWebSite.Validator.UserValidator;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
+
 import java.io.IOException;
 
 public class LoginController extends HttpServlet {

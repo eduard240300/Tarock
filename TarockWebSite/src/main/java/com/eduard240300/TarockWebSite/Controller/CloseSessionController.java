@@ -1,16 +1,16 @@
 package com.eduard240300.TarockWebSite.Controller;
 
-import com.eduard240300.TarockWebSite.Domain.Session;
-import com.eduard240300.TarockWebSite.Domain.User;
-import com.eduard240300.TarockWebSite.Repository.Repository;
-import com.eduard240300.TarockWebSite.Service.*;
+import com.eduard240300.TarockWebSite.Service.CloseSessionService;
+import com.eduard240300.TarockWebSite.Service.CookieService;
+import com.eduard240300.TarockWebSite.Service.DataManipulationService;
 import com.eduard240300.TarockWebSite.Validator.IntegerValidator;
-import com.eduard240300.TarockWebSite.Validator.SessionValidator;
-import com.eduard240300.TarockWebSite.Validator.UserValidator;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.Timestamp;
 

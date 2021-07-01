@@ -1,6 +1,5 @@
 package GUI;
 
-import DBManager.DBManager;
 import GUI.ConnectionForm.ConnectionForm;
 import GUI.GameForm.GameForm;
 import GUI.ScoreForm.ScoreForm;
@@ -19,16 +18,14 @@ public class Main {
     public static TalonShowingForm talonShowingForm;
 
     public static void main(String[] args) throws Exception {
-        DBManager.ipAddress = "185.229.224.215";
-        DBManager.connect();
 
         String iconPath = "./Resources/icon.png";
 
         connectionForm = new ConnectionForm();
         gameForm = new GameForm();
-        scoreForm = new ScoreForm();
-        talonSelectionForm = new TalonSelectionForm();
-        talonShowingForm = new TalonShowingForm();
+        //scoreForm = new ScoreForm();
+        //talonSelectionForm = new TalonSelectionForm();
+        //talonShowingForm = new TalonShowingForm();
         try
         {
             connectionForm.setIconImage(ImageIO.read(new FileInputStream(iconPath)));
@@ -37,8 +34,5 @@ public class Main {
             talonSelectionForm.setIconImage(ImageIO.read(new FileInputStream(iconPath)));
             talonShowingForm.setIconImage(ImageIO.read(new FileInputStream(iconPath)));
         }catch(Exception e){}
-
-        //CommunicationService communicationService = new CommunicationService();
-        //communicationService.start();
     }
 }

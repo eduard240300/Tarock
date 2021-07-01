@@ -1,7 +1,5 @@
 package com.eduard240300.TarockWebSite.Domain;
 
-import java.sql.Timestamp;
-
 public class Session {
     private int sessionID;
     private String creator;

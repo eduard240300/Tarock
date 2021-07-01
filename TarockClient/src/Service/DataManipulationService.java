@@ -1,4 +1,4 @@
-package com.eduard240300.TarockWebSite.Service;
+package Service;
 
 import java.util.ArrayList;
 import java.util.List;

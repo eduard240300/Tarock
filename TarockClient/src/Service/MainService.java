@@ -16,4 +16,6 @@ public class MainService {
     {
         Repository.logout();
     }
+
+    public void setSessionID(int sessionID) { Repository.sessionID = sessionID;}
 }

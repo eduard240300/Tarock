@@ -6,6 +6,7 @@ import Exception.RepositoryException;
 public class Repository {
     public static boolean loggedIn;
     public static User loggedUser;
+    public static int sessionID;
 
     public Repository()
     {

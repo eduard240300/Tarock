@@ -1,17 +1,15 @@
 package com.eduard240300.TarockWebSite.Controller;
 
 import com.eduard240300.TarockWebSite.Domain.User;
-import com.eduard240300.TarockWebSite.Repository.Repository;
-import com.eduard240300.TarockWebSite.Service.*;
+import com.eduard240300.TarockWebSite.Service.DataManipulationService;
+import com.eduard240300.TarockWebSite.Service.RegisterService;
 import com.eduard240300.TarockWebSite.Validator.UserValidator;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.graalvm.compiler.lir.LIRInstruction;
 
 import java.io.IOException;
 

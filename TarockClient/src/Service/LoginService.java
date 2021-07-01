@@ -1,28 +1,21 @@
 package Service;
 
-import DBManager.DBManager;
 import Domain.User;
 import Exception.DBException;
 import Exception.LoginException;
 
 public class LoginService {
-    public LoginService() {}
+    public CommunicationService communicationService = null;
 
-    public void login(User inputUser)
+    public LoginService()
     {
-        User dbUser;
-        try{
-            dbUser = DBManager.getUser(inputUser.getUsername());
-            if (BCrypt.checkpw(inputUser.getPassword(), dbUser.getPassword())){
-                return;
-            }
-            else
-            {
-                throw new LoginException("Wrong password !");
-            }
-        }
-        catch (DBException dbException) {
-            throw new LoginException(dbException.getMessage());
-        }
+        communicationService = new CommunicationService();
+        communicationService.start();
+    }
+
+    public void login(User user, int sessionID)
+    {
+        CommunicationService.sessionID = sessionID;
+        CommunicationService.user = user;
     }
 }
