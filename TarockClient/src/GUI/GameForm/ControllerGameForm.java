@@ -45,6 +45,8 @@ public class ControllerGameForm {
                     message += "You don't have the pagat ! ";
                 if (Repository.getNumberOfTarocks() < numberOfTarocks)
                     message += "You don't have " + numberOfTarocksString + " tarocks !";
+                if ((Repository.isRequestPlayer) && (pope == -1))
+                    message += "You didn't select a pope !";
                 if (message.equals(""))
                 {
                     Declaration declaration = new Declaration(popeAtFinish, pagatAtFinish, allPopes, trull, numberOfTarocks);

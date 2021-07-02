@@ -11,9 +11,12 @@ import javax.swing.plaf.metal.MetalRadioButtonUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -44,7 +47,7 @@ public class GameForm extends JFrame{
     public static List<JLabel> declarationsPlayers;
     public static List<JLabel> declarationsTurnsLabels;
     public static Font arialDefault;
-    public static Font arialBold;
+    public static Font arialChair;
     public static Font arialBig;
 
     public static void popUpMessage(String message)
@@ -73,7 +76,7 @@ public class GameForm extends JFrame{
 
     public void updateChair()
     {
-        playerLabels.get(Repository.chair).setText(playerLabels.get(Repository.chair).getText() + "(*)");
+        playerLabels.get(Repository.chair).setFont(arialChair);
     }
 
     public void increase1of2()
@@ -183,7 +186,11 @@ public class GameForm extends JFrame{
         declarationsTurnsLabels = new ArrayList<JLabel>();
 
         arialDefault = new Font("Arial", Font.BOLD, 16);
-        arialBold = new Font("Arial", Font.BOLD, 17);
+
+        Map<TextAttribute, Integer> fontAttributes = new HashMap<TextAttribute, Integer>();
+        fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        arialChair = new Font("Arial",Font.BOLD, 16).deriveFont(fontAttributes);
+
         arialBig = new Font("Arial", Font.BOLD, 19);
         setLayout(null);
 

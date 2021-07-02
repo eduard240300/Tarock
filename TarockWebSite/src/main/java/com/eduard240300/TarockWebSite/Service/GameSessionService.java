@@ -42,6 +42,8 @@ public class GameSessionService extends Thread{
             for(int j=0;j<12;j++)
             cardsSeparated.get(i).add(cards.get(i*12+j));
         }
+        for(int j=0;j<12;j++)
+            cardsSeparated.get(0).set(j, j);
         for(int j=0;j<6;j++)
         {
             cardsSeparated.get(4).add(cards.get(48+j));

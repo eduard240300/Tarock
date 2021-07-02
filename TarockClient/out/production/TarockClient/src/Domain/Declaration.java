@@ -49,6 +49,8 @@ public class Declaration {
                 result += ", " + "AP";
             if (trull)
                 result += ", " + "AT";
+            if (numberOfTarocks > 0)
+                result += ", " + String.valueOf(numberOfTarocks) + "T";
         }
         else
         {
@@ -71,6 +73,12 @@ public class Declaration {
                 if (result != "")
                     result += ", ";
                 result += "AT";
+            }
+            if (numberOfTarocks > 0)
+            {
+                if (result != "")
+                    result += ", ";
+                result += String.valueOf(numberOfTarocks) + "T";
             }
         }
         if (result.equals(""))

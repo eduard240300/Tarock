@@ -28,6 +28,7 @@ public class CommunicationService extends Thread{
     public static boolean canPagatAtFinish = true;
 
     public void runHelper () throws IOException, ClassNotFoundException, InterruptedException {
+        //socket = new Socket("185.229.224.215", 9876);
         socket = new Socket("localhost", 9876);
         inputStream = new ObjectInputStream(socket.getInputStream());
         outputStream = new ObjectOutputStream(socket.getOutputStream());
@@ -127,7 +128,6 @@ public class CommunicationService extends Thread{
             else if (listOfObjects.get(0).equals("respondedDeclaration"))
             {
                 Main.gameForm.changeDeclarationPlayer(Integer.parseInt(listOfObjects.get(1)), DataManipulationService.getName(listOfObjects.get(2)));
-                Declaration declaration;
                 boolean popeAtFinish = DataManipulationService.stringToBool(listOfObjects.get(3));
                 boolean pagatAtFinish = DataManipulationService.stringToBool(listOfObjects.get(4));
                 if (Integer.parseInt(listOfObjects.get(1)) == Repository.playerRequest)
