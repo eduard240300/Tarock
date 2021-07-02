@@ -34,8 +34,8 @@ com/eduard240300/TarockWebSite/Exception/ConnectionException.java
  com.eduard240300.TarockWebSite.Exception.ConnectionException
 com/eduard240300/TarockWebSite/Controller/LoginController.java
  com.eduard240300.TarockWebSite.Controller.LoginController
-com/eduard240300/TarockWebSite/Domain/Pair.java
- com.eduard240300.TarockWebSite.Domain.Pair
+com/eduard240300/TarockWebSite/Exception/LoginException.java
+ com.eduard240300.TarockWebSite.Exception.LoginException
 com/eduard240300/TarockWebSite/Controller/AddSessionController.java
  com.eduard240300.TarockWebSite.Controller.AddSessionController
 com/eduard240300/TarockWebSite/Service/RegisterService.java
@@ -58,10 +58,10 @@ com/eduard240300/TarockWebSite/Exception/AddSessionException.java
  com.eduard240300.TarockWebSite.Exception.AddSessionException
 com/eduard240300/TarockWebSite/Validator/UserValidator.java
  com.eduard240300.TarockWebSite.Validator.UserValidator
-com/eduard240300/TarockWebSite/Exception/LoginException.java
- com.eduard240300.TarockWebSite.Exception.LoginException
 com/eduard240300/TarockWebSite/Service/InitializerService.java
  com.eduard240300.TarockWebSite.Service.InitializerService
+com/eduard240300/TarockWebSite/Domain/Pair.java
+ com.eduard240300.TarockWebSite.Domain.Pair
 com/eduard240300/TarockWebSite/Service/ClientService.java
  com.eduard240300.TarockWebSite.Service.ClientService
 com/eduard240300/TarockWebSite/Service/CommunicationService.java

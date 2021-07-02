@@ -99,9 +99,11 @@ public class ClientService extends Thread {
                     if (BCrypt.checkpw(password, dbUser.getPassword()))
                     {
                         try{
-                            DBManager.existsSession(username, sessionID);
                             Session session = DBManager.getSession(sessionID);
-                            if (session.getDateEnded() != "")
+                            if ((!session.getPlayer1().equals(username)) && (!session.getPlayer2().equals(username)) &&
+                                    (!session.getPlayer3().equals(username)) && (!session.getPlayer4().equals(username)))
+                                throw new DBException("Session does not include " + username);
+                            if (!session.getDateEnded().equals(""))
                                 throw new ConnectionException("Session already ended !");
                             write("successful_auth;");
                             this.addClientToList(this, username, session);
