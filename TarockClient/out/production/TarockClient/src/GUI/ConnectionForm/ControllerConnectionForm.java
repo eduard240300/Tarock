@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 
 public class ControllerConnectionForm {
     private static LoginService loginService = null;
-    private static MainService mainService = new MainService();;
+    private static MainService mainService = null;
     private static UserValidator userValidator = new UserValidator();
     private static User user;
     private static String sessionID;
@@ -23,6 +23,8 @@ public class ControllerConnectionForm {
         ConnectionForm.loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (mainService == null)
+                    mainService = new MainService();
                 if (loginService == null)
                     loginService = new LoginService();
 

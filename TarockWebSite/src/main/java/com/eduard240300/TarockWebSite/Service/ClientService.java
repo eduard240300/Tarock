@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientService extends Thread {
@@ -55,6 +56,17 @@ public class ClientService extends Thread {
         CommunicationService.socketsList.add(newPair);
     }
 
+    public ClientService getClientInList(String username)
+    {
+        for(int i=0;i<CommunicationService.socketsList.size();i++)
+        {
+            if (CommunicationService.socketsList.get(i).getKey().equals(username)) {
+                return CommunicationService.socketsList.get(i).getValue();
+            }
+        }
+        return null;
+    }
+
     public List<String> write(String sendMessage) throws IOException, ClassNotFoundException {
         String message = "";
         try {
@@ -77,12 +89,37 @@ public class ClientService extends Thread {
         User player2 = DBManager.getUser(session.getPlayer2());
         User player3 = DBManager.getUser(session.getPlayer3());
         User player4 = DBManager.getUser(session.getPlayer4());
+        List<String> players = new ArrayList<String>();
+        players.add(player1.getUsername());
+        players.add(player2.getUsername());
+        players.add(player3.getUsername());
+        players.add(player4.getUsername());
         String message = "players " + DataManipulationService.processName(player1.getName()) +
                 " " + DataManipulationService.processName(player2.getName()) +
                 " " + DataManipulationService.processName(player3.getName()) +
                 " " + DataManipulationService.processName(player4.getName()) + ";";
         newListOfCommands = write(message);
         System.out.println("Sent : " + message);
+
+        boolean startGameSession = true;
+
+        for(int i=0;i<4;i++)
+        {
+            if (getClientInList(players.get(i)) == null)
+                startGameSession = false;
+        }
+
+        if (startGameSession)
+        {
+            List<ClientService> clientServiceList = new ArrayList<ClientService>();
+            clientServiceList.add(getClientInList(players.get(0)));
+            clientServiceList.add(getClientInList(players.get(1)));
+            clientServiceList.add(getClientInList(players.get(2)));
+            clientServiceList.add(getClientInList(players.get(3)));
+            GameSessionService newGameService = new GameSessionService(clientServiceList, session);
+            CommunicationService.gameSessions.add(newGameService);
+            newGameService.start();
+        }
     }
 
     public void runAuthentication(List<String> listOfCommands) throws IOException, ClassNotFoundException, CommunicationException {

@@ -25,6 +25,14 @@ public class Main {
         Repository.initRepository();
 
         connectionForm = new ConnectionForm();
+
+        if (args.length == 3)
+        {
+            connectionForm.usernameField.setText(args[0]);
+            connectionForm.passwordField.setText(args[1]);
+            connectionForm.sessionIDField.setText(args[2]);
+        }
+
         gameForm = new GameForm();
         //scoreForm = new ScoreForm();
         //talonSelectionForm = new TalonSelectionForm();

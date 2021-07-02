@@ -58,12 +58,7 @@ public class ConnectionForm extends JFrame{
         loginButton.setBounds(20, 170, 500, 40);
         add(loginButton);
 
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Rectangle bounds = env.getMaximumWindowBounds();
-        System.out.println("Screen Bounds: " + bounds);
-
         setSize(540, 270);
-        System.out.println(getInsets());
         setTitle("Tarock Client : Login");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);

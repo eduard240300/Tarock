@@ -19,7 +19,9 @@ public class CommunicationService extends Thread{
     public static ObjectInputStream inputStream;
     public static ObjectOutputStream outputStream;
     public static User user = null;
+    public static String username = "unknown";
     public static int sessionID = 0;
+    public static String playerMode = "";
 
     public void runHelper () throws IOException, ClassNotFoundException, InterruptedException {
         socket = new Socket("localhost", 9876);
@@ -34,7 +36,7 @@ public class CommunicationService extends Thread{
     public void read() throws IOException, ClassNotFoundException, InterruptedException {
         String message = (String) inputStream.readObject();
         String sentMessage = "ok;";
-        System.out.println("Received : " + message);
+        System.out.println(username + " Received : " + message);
         List<String> listOfCommands = DataManipulationService.processMessage(message);
         for(int i=0;i<listOfCommands.size();i++)
         {
@@ -43,6 +45,7 @@ public class CommunicationService extends Thread{
                 while(user == null)
                     Thread.sleep(1);
                 sentMessage = "auth " + user.getUsername() + " " + user.getPassword() + " " + sessionID + ";";
+                username = user.getUsername();
                 user = null;
             } else if (listOfObjects.get(0).equals("failed_auth")) {
                 String errorMessage;
@@ -60,8 +63,46 @@ public class CommunicationService extends Thread{
                     Repository.players.set(j, DataManipulationService.getName(listOfObjects.get(j+1)));
                 Main.gameForm.changePlayerNames();
             }
+            else if (listOfObjects.get(0).equals("chairNumber"))
+            {
+                Repository.chair = Integer.parseInt(listOfObjects.get(1));
+                Main.gameForm.updateChair();
+            }
+            else if (listOfObjects.get(0).equals("cards"))
+            {
+                for(int j=0;j<12;j++)
+                    Repository.cards.set(j, Integer.parseInt(listOfObjects.get(j+1)));
+                Main.gameForm.updateCards();
+            }
+            else if (listOfObjects.get(0).equals("increased1of2"))
+            {
+                Main.gameForm.increase1of2();
+            }
+            else if (listOfObjects.get(0).equals("requestedPlayerMode"))
+            {
+                int requestedChair = Integer.parseInt(listOfObjects.get(1));
+                Main.gameForm.updateNextStatus(requestedChair);
+            }
+            else if (listOfObjects.get(0).equals("requestPlayerMode"))
+            {
+                Main.gameForm.the1of2Button.setEnabled(true);
+                Main.gameForm.passButton.setEnabled(true);
+                Main.gameForm.cancelGameButton.setEnabled(true);
+                while (playerMode.equals(""))
+                    Thread.sleep(1);
+                sentMessage = "playerMode " + playerMode + ";";
+                playerMode = "";
+            }
+            else if (listOfObjects.get(0).equals("respondedPlayerMode"))
+            {
+                Main.gameForm.changeStatusPlayer(Integer.parseInt(listOfObjects.get(1)), listOfObjects.get(2));
+            }
+            else if (listOfObjects.get(0).equals("wipeNextStatus"))
+            {
+                Main.gameForm.updateNextStatus(-1);
+            }
         }
-        System.out.println("Sent : " + sentMessage);
+        System.out.println(username + " Sent : " + sentMessage);
         outputStream.writeObject(sentMessage);
     }
 

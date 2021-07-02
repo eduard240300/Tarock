@@ -1,6 +1,6 @@
 package GUI.Template;
 
-import GUI.GameForm.ControllerGameForm;
+import GUI.GameForm.*;
 import GUI.TalonSelectionForm.ControllerTalonSelectionForm;
 
 import java.awt.event.MouseEvent;

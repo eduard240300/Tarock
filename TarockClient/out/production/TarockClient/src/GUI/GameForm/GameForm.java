@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameForm extends JFrame{
+    public static int the1of2 = 1;
     public static List<JLabel> playerLabels;
     public static List<JImage> cardsRound;
     public static List<ClickableImage> playerCards;
@@ -38,19 +39,65 @@ public class GameForm extends JFrame{
     public static String scoreTableHeader[];
     public static JTable scoreTable;
     public static List<JLabel> declarationsPlayers;
+    public static Font arialDefault;
+    public static Font arialBig;
 
     public void changePlayerNames()
     {
         int i;
         for(i=0;i<4;i++)
         {
-            playerLabels.get(i).setText(Repository.players.get(i) + " : ");
+            playerLabels.get(i).setText((i + 1) + ". " + Repository.players.get(i) + " : ");
             statusPlayers.get(i).setText(Repository.players.get(i) + " : ");
             scoreTableHeader[i] = Repository.players.get(i);
             scoreTable.getColumnModel().getColumn(i).setHeaderValue(scoreTableHeader[i]);
             declarationsPlayers.get(i).setText(Repository.players.get(i) + " : ");
         }
         scoreTable.getTableHeader().repaint();
+    }
+
+    public void updateCards() throws IOException {
+        for(int i=0;i<12;i++)
+            playerCards.get(i).setCardID(Repository.cards.get(i));
+    }
+
+    public void updateChair()
+    {
+        playerLabels.get(Repository.chair).setFont(arialBig);
+    }
+
+    public void increase1of2()
+    {
+        the1of2++;
+        the1of2Button.setText(the1of2 + "/2");
+    }
+
+    public void updateNextStatus(int requestedChair)
+    {
+        if (requestedChair == -1)
+        {
+            for(int i=0;i<4;i++)
+            {
+                playerTurnsLabels.get(i).setText("");
+            }
+        }
+        else{
+            playerTurnsLabels.get(requestedChair).setText("Next");
+            for(int i=0;i<4;i++)
+            {
+                if (i != requestedChair)
+                    playerTurnsLabels.get(i).setText("");
+            }
+        }
+    }
+
+    public void changeStatusPlayer(int player, String status) {
+        String text = Repository.players.get(player) + " : ";
+        if (status.equals("1/2"))
+            text = text + the1of2 + "/2";
+        else if (status.equals("pass"))
+            text = text + "Pass";
+        statusPlayers.get(player).setText(text);
     }
 
     public GameForm() throws IOException {
@@ -61,8 +108,8 @@ public class GameForm extends JFrame{
         playerTurnsLabels = new ArrayList<JLabel>();
         declarationsPlayers = new ArrayList<JLabel>();
 
-        Font arialDefault = new Font("Arial", Font.BOLD, 16);
-        Font arialBig = new Font("Arial", Font.BOLD, 19);
+        arialDefault = new Font("Arial", Font.BOLD, 16);
+        arialBig = new Font("Arial", Font.BOLD, 19);
         setLayout(null);
 
         for(int i=0;i<4;i++)
@@ -107,7 +154,7 @@ public class GameForm extends JFrame{
             add(statusPlayers.get(i));
 
             playerTurnsLabels.add(new JLabel());
-            playerTurnsLabels.get(i).setText("Turn");
+            playerTurnsLabels.get(i).setText("");
             playerTurnsLabels.get(i).setFont(arialDefault);
             playerTurnsLabels.get(i).setBounds(650, 30+i*20, 230, 19);
             add(playerTurnsLabels.get(i));

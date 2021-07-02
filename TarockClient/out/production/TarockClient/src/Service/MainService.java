@@ -4,12 +4,21 @@ import Domain.User;
 import Repository.Repository;
 
 public class MainService {
+    public static CommunicationService communicationService = null;
 
-    public MainService() {}
+    public MainService() {
+        communicationService = new CommunicationService();
+        communicationService.start();
+    }
 
     public void setLoggedIn(User user)
     {
         Repository.login(user);
+    }
+
+    public static void setPlayerMode(String playerMode)
+    {
+        CommunicationService.playerMode = playerMode;
     }
 
     public void setLoggedOut()
