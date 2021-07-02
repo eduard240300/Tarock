@@ -1,6 +1,11 @@
 package GUI.GameForm;
 
+import Domain.Declaration;
+import Exception.*;
+import GUI.ConnectionForm.ConnectionForm;
 import GUI.Main;
+import Repository.Repository;
+import Service.CommunicationService;
 import Service.MainService;
 
 import java.awt.event.ActionEvent;
@@ -12,6 +17,48 @@ public class ControllerGameForm {
         GameForm.submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //TODO
+                boolean popeAtFinish = Main.gameForm.popeAtFinishCheckBox.isSelected();
+                boolean pagatAtFinish = Main.gameForm.pagatAtFinishCheckBox.isSelected();
+                boolean allPopes = Main.gameForm.allPopesCheckBox.isSelected();
+                boolean trull = Main.gameForm.trullCheckBox.isSelected();
+                int numberOfTarocks = 0;
+                String numberOfTarocksString = Main.gameForm.numberOfTarocksComboBox.getSelectedItem().toString();
+                if (!numberOfTarocksString.equals("No"))
+                    numberOfTarocks = Integer.parseInt(numberOfTarocksString);
+                int pope = -1;
+                if (Main.gameForm.heartRadio.isSelected())
+                    pope = 0;
+                else if (Main.gameForm.diamondRadio.isSelected())
+                    pope = 1;
+                else if (Main.gameForm.clubRadio.isSelected())
+                    pope = 2;
+                else if (Main.gameForm.spadeRadio.isSelected())
+                    pope = 3;
+                if (pope != -1)
+                    Repository.chosenPope = pope;
+
+                String message = "";
+                if ((popeAtFinish) && (!Repository.hasChosenPope()))
+                    message += "You don't have the requested pope ! ";
+                if ((pagatAtFinish) && (!Repository.hasPagat()))
+                    message += "You don't have the pagat ! ";
+                if (Repository.getNumberOfTarocks() < numberOfTarocks)
+                    message += "You don't have " + numberOfTarocksString + " tarocks !";
+                if (message.equals(""))
+                {
+                    Declaration declaration = new Declaration(popeAtFinish, pagatAtFinish, allPopes, trull, numberOfTarocks);
+                    if (Repository.isRequestPlayer)
+                    {
+                        declaration.setPope(pope);
+                    }
+                    CommunicationService.declaration = declaration;
+                }
+                else
+                {
+                    GameForm.popUpMessage(message);
+                }
+
                 System.out.println("Pressed Submit Button");
             }
         });

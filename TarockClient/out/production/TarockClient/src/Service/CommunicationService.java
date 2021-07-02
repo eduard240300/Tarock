@@ -1,5 +1,6 @@
 package Service;
 
+import Domain.Declaration;
 import Domain.User;
 import GUI.ConnectionForm.ConnectionForm;
 import GUI.ConnectionForm.ControllerConnectionForm;
@@ -22,6 +23,9 @@ public class CommunicationService extends Thread{
     public static String username = "unknown";
     public static int sessionID = 0;
     public static String playerMode = "";
+    public static Declaration declaration = null;
+    public static boolean canPopeAtFinish = true;
+    public static boolean canPagatAtFinish = true;
 
     public void runHelper () throws IOException, ClassNotFoundException, InterruptedException {
         socket = new Socket("localhost", 9876);
@@ -74,14 +78,10 @@ public class CommunicationService extends Thread{
                     Repository.cards.set(j, Integer.parseInt(listOfObjects.get(j+1)));
                 Main.gameForm.updateCards();
             }
-            else if (listOfObjects.get(0).equals("increased1of2"))
-            {
-                Main.gameForm.increase1of2();
-            }
             else if (listOfObjects.get(0).equals("requestedPlayerMode"))
             {
                 int requestedChair = Integer.parseInt(listOfObjects.get(1));
-                Main.gameForm.updateNextStatus(requestedChair);
+                Main.gameForm.updateNextStatus(requestedChair, "Status");
             }
             else if (listOfObjects.get(0).equals("requestPlayerMode"))
             {
@@ -97,9 +97,48 @@ public class CommunicationService extends Thread{
             {
                 Main.gameForm.changeStatusPlayer(Integer.parseInt(listOfObjects.get(1)), listOfObjects.get(2));
             }
-            else if (listOfObjects.get(0).equals("wipeNextStatus"))
+            else if (listOfObjects.get(0).equals("increased1of2"))
             {
-                Main.gameForm.updateNextStatus(-1);
+                Main.gameForm.increase1of2();
+            }
+            else if (listOfObjects.get(0).equals("playerRequest"))
+            {
+                Main.gameForm.updateNextStatus(-1, "Status");
+                Repository.playerRequest = Integer.parseInt(listOfObjects.get(1));
+                if (Repository.playerRequest == Repository.chair)
+                    Repository.isRequestPlayer = true;
+                Repository.the1of2 = Integer.parseInt(listOfObjects.get(2));
+            }
+            else if (listOfObjects.get(0).equals("requestedDeclaration"))
+            {
+                int requestedChair = Integer.parseInt(listOfObjects.get(1));
+                Main.gameForm.updateNextStatus(requestedChair, "Declaration");
+            }
+            else if (listOfObjects.get(0).equals("requestDeclaration"))
+            {
+                Main.gameForm.resetDeclarationSelection();
+                Main.gameForm.swithDeclarationSelection(canPopeAtFinish, canPagatAtFinish, Repository.isRequestPlayer, true);
+                while (declaration == null)
+                    Thread.sleep(1);
+                sentMessage = "declaration " + declaration.toSendableObject() + ";";
+                declaration = null;
+                Main.gameForm.swithDeclarationSelection(canPopeAtFinish, canPagatAtFinish, Repository.isRequestPlayer, false);
+            }
+            else if (listOfObjects.get(0).equals("respondedDeclaration"))
+            {
+                Main.gameForm.changeDeclarationPlayer(Integer.parseInt(listOfObjects.get(1)), DataManipulationService.getName(listOfObjects.get(2)));
+                Declaration declaration;
+                boolean popeAtFinish = DataManipulationService.stringToBool(listOfObjects.get(3));
+                boolean pagatAtFinish = DataManipulationService.stringToBool(listOfObjects.get(4));
+                if (Integer.parseInt(listOfObjects.get(1)) == Repository.playerRequest)
+                {
+                    int pope = Integer.parseInt(listOfObjects.get(8));
+                    Repository.chosenPope = pope;
+                }
+                if (popeAtFinish)
+                    canPopeAtFinish = false;
+                if (pagatAtFinish)
+                    canPagatAtFinish = false;
             }
         }
         System.out.println(username + " Sent : " + sentMessage);

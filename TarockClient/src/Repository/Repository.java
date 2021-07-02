@@ -13,6 +13,41 @@ public class Repository {
     public static List<String> players;
     public static List<Integer> cards;
     public static int chair;
+    public static int playerRequest = 0;
+    public static int the1of2 = 0;
+    public static int chosenPope = -1;
+    public static boolean isRequestPlayer = false;
+
+    public static boolean hasChosenPope()
+    {
+        for(int i=0;i<12;i++)
+        {
+            if (cards.get(i) == 30+chosenPope*8)
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean hasPagat()
+    {
+        for(int i=0;i<12;i++)
+        {
+            if (cards.get(i) == 1)
+                return true;
+        }
+        return false;
+    }
+
+    public static int getNumberOfTarocks()
+    {
+        int result = 0;
+        for(int i=0;i<12;i++)
+        {
+            if ((cards.get(i) >= 1) && (cards.get(i) <= 22))
+                result++;
+        }
+        return result;
+    }
 
     public static void initRepository()
     {

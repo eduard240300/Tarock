@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 public class GameForm extends JFrame{
     public static int the1of2 = 1;
     public static List<JLabel> playerLabels;
@@ -22,13 +24,14 @@ public class GameForm extends JFrame{
     public static List<ClickableImage> playerCards;
     public static List<JLabel> statusPlayers;
     public static List<JLabel> playerTurnsLabels;
+    public static List<JLabel> teamsLabels;
     public static CustomJButton the1of2Button;
     public static CustomJButton passButton;
     public static CustomJButton cancelGameButton;
     public static JCheckBox popeAtFinishCheckBox;
     public static JCheckBox pagatAtFinishCheckBox;
     public static JCheckBox allPopesCheckBox;
-    public static JCheckBox trulaCheckBox;
+    public static JCheckBox trullCheckBox;
     public static JComboBox<String> numberOfTarocksComboBox;
     public static CustomJButton submitButton;
     public static JRadioButton heartRadio;
@@ -39,8 +42,15 @@ public class GameForm extends JFrame{
     public static String scoreTableHeader[];
     public static JTable scoreTable;
     public static List<JLabel> declarationsPlayers;
+    public static List<JLabel> declarationsTurnsLabels;
     public static Font arialDefault;
+    public static Font arialBold;
     public static Font arialBig;
+
+    public static void popUpMessage(String message)
+    {
+        showMessageDialog(null, message);
+    }
 
     public void changePlayerNames()
     {
@@ -63,7 +73,7 @@ public class GameForm extends JFrame{
 
     public void updateChair()
     {
-        playerLabels.get(Repository.chair).setFont(arialBig);
+        playerLabels.get(Repository.chair).setText(playerLabels.get(Repository.chair).getText() + "(*)");
     }
 
     public void increase1of2()
@@ -72,21 +82,26 @@ public class GameForm extends JFrame{
         the1of2Button.setText(the1of2 + "/2");
     }
 
-    public void updateNextStatus(int requestedChair)
+    public void updateNextStatus(int requestedChair, String type)
     {
+        List<JLabel> updateList = null;
+        if (type.equals("Status"))
+            updateList = playerTurnsLabels;
+        else if (type.equals("Declaration"))
+            updateList = declarationsTurnsLabels;
         if (requestedChair == -1)
         {
             for(int i=0;i<4;i++)
             {
-                playerTurnsLabels.get(i).setText("");
+                updateList.get(i).setText("");
             }
         }
         else{
-            playerTurnsLabels.get(requestedChair).setText("Next");
+            updateList.get(requestedChair).setText("Next");
             for(int i=0;i<4;i++)
             {
                 if (i != requestedChair)
-                    playerTurnsLabels.get(i).setText("");
+                    updateList.get(i).setText("");
             }
         }
     }
@@ -100,15 +115,75 @@ public class GameForm extends JFrame{
         statusPlayers.get(player).setText(text);
     }
 
+    public void changeDeclarationPlayer(int player, String declaration) {
+        int heartCode = 0x2665;
+        int diamondCode = 0x2666;
+        int clubCode = 0x2663;
+        int spadeCode = 0x2660;
+        StringBuilder declarationBuilder = new StringBuilder(declaration);
+
+        if (declaration.charAt(1) == '0')
+            declarationBuilder.setCharAt(1, (char)(heartCode));
+        else if (declaration.charAt(1) == '1')
+            declarationBuilder.setCharAt(1, (char)(diamondCode));
+        else if (declaration.charAt(1) == '2')
+            declarationBuilder.setCharAt(1, (char)(clubCode));
+        else if (declaration.charAt(1) == '3')
+            declarationBuilder.setCharAt(1, (char)(spadeCode));
+
+        String text = Repository.players.get(player) + " : ";
+        text = text + declarationBuilder.toString();
+        declarationsPlayers.get(player).setText(text);
+    }
+
+    public void resetDeclarationSelection() {
+        popeAtFinishCheckBox.setSelected(false);
+        pagatAtFinishCheckBox.setSelected(false);
+        allPopesCheckBox.setSelected(false);
+        trullCheckBox.setSelected(false);
+        numberOfTarocksComboBox.setSelectedIndex(0);
+        heartRadio.setSelected(false);
+        diamondRadio.setSelected(false);
+        clubRadio.setSelected(false);
+        spadeRadio.setSelected(false);
+    }
+
+    public void swithDeclarationSelection(boolean canPopeAtFinish, boolean canPagatAtFinish, boolean isRequestPlayer, boolean value) {
+        if (canPopeAtFinish)
+            popeAtFinishCheckBox.setEnabled(value);
+        if (canPagatAtFinish)
+            pagatAtFinishCheckBox.setEnabled(value);
+        allPopesCheckBox.setEnabled(value);
+        trullCheckBox.setEnabled(value);
+        numberOfTarocksComboBox.setEnabled(value);
+        submitButton.setEnabled(value);
+        if (isRequestPlayer)
+        {
+            heartRadio.setEnabled(value);
+            diamondRadio.setEnabled(value);
+            clubRadio.setEnabled(value);
+            spadeRadio.setEnabled(value);
+            numberOfTarocksComboBox.setEnabled(value);
+        }
+    }
+
     public GameForm() throws IOException {
+        int heartCode = 0x2665;
+        int diamondCode = 0x2666;
+        int clubCode = 0x2663;
+        int spadeCode = 0x2660;
+
         playerLabels = new ArrayList<JLabel>();
         cardsRound = new ArrayList<JImage>();
         playerCards = new ArrayList<ClickableImage>();
         statusPlayers = new ArrayList<JLabel>();
         playerTurnsLabels = new ArrayList<JLabel>();
+        teamsLabels = new ArrayList<JLabel>();
         declarationsPlayers = new ArrayList<JLabel>();
+        declarationsTurnsLabels = new ArrayList<JLabel>();
 
         arialDefault = new Font("Arial", Font.BOLD, 16);
+        arialBold = new Font("Arial", Font.BOLD, 17);
         arialBig = new Font("Arial", Font.BOLD, 19);
         setLayout(null);
 
@@ -158,6 +233,12 @@ public class GameForm extends JFrame{
             playerTurnsLabels.get(i).setFont(arialDefault);
             playerTurnsLabels.get(i).setBounds(650, 30+i*20, 230, 19);
             add(playerTurnsLabels.get(i));
+
+            teamsLabels.add(new JLabel());
+            teamsLabels.get(i).setText("");
+            teamsLabels.get(i).setFont(arialDefault);
+            teamsLabels.get(i).setBounds(720, 30+i*20, 230, 19);
+            add(teamsLabels.get(i));
         }
 
         the1of2Button = new CustomJButton("1/2", arialDefault);
@@ -235,22 +316,22 @@ public class GameForm extends JFrame{
         allPopesCheckBox.setBounds(10, 80, 150, 25);
         declarationsPanel.add(allPopesCheckBox);
 
-        trulaCheckBox = new JCheckBox();
-        trulaCheckBox.setUI(new MetalCheckBoxUI() {
+        trullCheckBox = new JCheckBox();
+        trullCheckBox.setUI(new MetalCheckBoxUI() {
             protected Color getDisabledTextColor() {
-                return trulaCheckBox.getForeground();
+                return trullCheckBox.getForeground();
             }
             protected Icon getDisabledIcon() {
-                return trulaCheckBox.getDisabledIcon();
+                return trullCheckBox.getDisabledIcon();
             }
         });
-        trulaCheckBox.setEnabled(false);
-        trulaCheckBox.setBackground(new Color(78, 154, 6));
-        trulaCheckBox.setFocusPainted(false);
-        trulaCheckBox.setText("Trula");
-        trulaCheckBox.setFont(arialDefault);
-        trulaCheckBox.setBounds(10, 110, 150, 25);
-        declarationsPanel.add(trulaCheckBox);
+        trullCheckBox.setEnabled(false);
+        trullCheckBox.setBackground(new Color(78, 154, 6));
+        trullCheckBox.setFocusPainted(false);
+        trullCheckBox.setText("All trull cards");
+        trullCheckBox.setFont(arialDefault);
+        trullCheckBox.setBounds(10, 110, 150, 25);
+        declarationsPanel.add(trullCheckBox);
 
         JLabel numberOfTarocksLabel = new JLabel();
         numberOfTarocksLabel.setText("No. Tarocks : ");
@@ -294,7 +375,8 @@ public class GameForm extends JFrame{
         heartRadio.setEnabled(false);
         heartRadio.setBackground(new Color(78, 154, 6));
         heartRadio.setFocusPainted(false);
-        heartRadio.setText("Heart");
+        String text = "Heart (" + Character.toString((char)(heartCode)) + ")";
+        heartRadio.setText(text);
         heartRadio.setFont(arialDefault);
         heartRadio.setBounds(10, 20, 117, 25);
         selectPopePanel.add(heartRadio);
@@ -311,7 +393,8 @@ public class GameForm extends JFrame{
         diamondRadio.setEnabled(false);
         diamondRadio.setBackground(new Color(78, 154, 6));
         diamondRadio.setFocusPainted(false);
-        diamondRadio.setText("Diamond");
+        text = "Diamond (" + Character.toString((char)(diamondCode)) + ")";
+        diamondRadio.setText(text);
         diamondRadio.setFont(arialDefault);
         diamondRadio.setBounds(10, 50, 117, 25);
         selectPopePanel.add(diamondRadio);
@@ -328,7 +411,8 @@ public class GameForm extends JFrame{
         clubRadio.setEnabled(false);
         clubRadio.setBackground(new Color(78, 154, 6));
         clubRadio.setFocusPainted(false);
-        clubRadio.setText("Club");
+        text = "Club (" + Character.toString((char)(clubCode)) + ")";
+        clubRadio.setText(text);
         clubRadio.setFont(arialDefault);
         clubRadio.setBounds(10, 80, 117, 25);
         selectPopePanel.add(clubRadio);
@@ -345,7 +429,8 @@ public class GameForm extends JFrame{
         spadeRadio.setEnabled(false);
         spadeRadio.setBackground(new Color(78, 154, 6));
         spadeRadio.setFocusPainted(false);
-        spadeRadio.setText("Spade");
+        text = "Spade (" + Character.toString((char)(spadeCode)) + ")";
+        spadeRadio.setText(text);
         spadeRadio.setFont(arialDefault);
         spadeRadio.setBounds(10, 110, 117, 25);
         selectPopePanel.add(spadeRadio);
@@ -387,8 +472,14 @@ public class GameForm extends JFrame{
             declarationsPlayers.add(new JLabel());
             declarationsPlayers.get(i).setText("Player " + String.valueOf(i+1) + " : ");
             declarationsPlayers.get(i).setFont(arialDefault);
-            declarationsPlayers.get(i).setBounds(830, 360+20*i, 150, 19);
+            declarationsPlayers.get(i).setBounds(830, 360+20*i, 400, 19);
             add(declarationsPlayers.get(i));
+
+            declarationsTurnsLabels.add(new JLabel());
+            declarationsTurnsLabels.get(i).setText("");
+            declarationsTurnsLabels.get(i).setFont(arialDefault);
+            declarationsTurnsLabels.get(i).setBounds(1150, 360+i*20, 230, 19);
+            add(declarationsTurnsLabels.get(i));
         }
 
         setSize(1330, 690);

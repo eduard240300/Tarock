@@ -86,4 +86,20 @@ public class DataManipulationService {
             processedCommand.add(object);
         return processedCommand;
     }
+
+    public static boolean stringToBool(String string)
+    {
+        boolean theBoolean = true;
+        if (string.equals("0"))
+            theBoolean = false;
+        return theBoolean;
+    }
+
+    public static String boolToString(boolean theBoolean)
+    {
+        String string = "1";
+        if (theBoolean == false)
+            string = "0";
+        return string;
+    }
 }

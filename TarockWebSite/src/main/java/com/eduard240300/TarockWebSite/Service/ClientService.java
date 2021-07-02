@@ -99,7 +99,6 @@ public class ClientService extends Thread {
                 " " + DataManipulationService.processName(player3.getName()) +
                 " " + DataManipulationService.processName(player4.getName()) + ";";
         newListOfCommands = write(message);
-        System.out.println("Sent : " + message);
 
         boolean startGameSession = true;
 
@@ -107,6 +106,11 @@ public class ClientService extends Thread {
         {
             if (getClientInList(players.get(i)) == null)
                 startGameSession = false;
+            else
+            {
+                getClientInList(players.get(i)).write("chairNumber " + i + ";");
+                System.out.println("Sent (" + getClientInList(players.get(i)).username + ") : " + "chairNumber " + i + ";");
+            }
         }
 
         if (startGameSession)
