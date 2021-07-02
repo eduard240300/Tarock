@@ -1,6 +1,7 @@
 package com.eduard240300.TarockWebSite.Service;
 
 import com.eduard240300.TarockWebSite.DBManager.DBManager;
+import com.eduard240300.TarockWebSite.Domain.Pair;
 import com.eduard240300.TarockWebSite.Domain.Session;
 import com.eduard240300.TarockWebSite.Domain.User;
 import com.eduard240300.TarockWebSite.Exception.ConnectionException;
@@ -28,13 +29,33 @@ public class ClientService extends Thread {
         inputStream = new ObjectInputStream(socket.getInputStream());
     }
 
-    public String getUsername() throws InterruptedException {
-        while(notExecuted)
-            Thread.sleep(1);
-        return username;
+    public void removeConnection(String username)
+    {
+        for(int i=0;i<CommunicationService.socketsList.size();i++)
+        {
+            if (CommunicationService.socketsList.get(i).getKey().equals(username)) {
+                try {
+                    CommunicationService.socketsList.get(i).getValue().socket.close();
+                }
+                catch(IOException exception)
+                {}
+                CommunicationService.socketsList.remove(i);
+                System.out.println("Removed client " + username);
+            }
+        }
     }
 
-    public List<String> read(String sendMessage) throws IOException, ClassNotFoundException {
+    public void addClientToList(ClientService clientService, String username, Session session)
+    {
+        Pair<String, ClientService, Session> newPair = new Pair<String, ClientService, Session>(clientService);
+        newPair.setKey(username);
+        newPair.setSpecialValue(session);
+        removeConnection(username);
+        System.out.println("Added client " + username);
+        CommunicationService.socketsList.add(newPair);
+    }
+
+    public List<String> write(String sendMessage) throws IOException, ClassNotFoundException {
         String message = "";
         try {
             outputStream.writeObject(sendMessage);
@@ -50,7 +71,22 @@ public class ClientService extends Thread {
         return listOfCommands;
     }
 
-    public void runClient(List<String> listOfCommands) throws IOException, ClassNotFoundException, CommunicationException {
+    public void runGame(Session session) throws IOException, ClassNotFoundException {
+        List<String> newListOfCommands;
+        User player1 = DBManager.getUser(session.getPlayer1());
+        User player2 = DBManager.getUser(session.getPlayer2());
+        User player3 = DBManager.getUser(session.getPlayer3());
+        User player4 = DBManager.getUser(session.getPlayer4());
+        String message = "players " + DataManipulationService.processName(player1.getName()) +
+                " " + DataManipulationService.processName(player2.getName()) +
+                " " + DataManipulationService.processName(player3.getName()) +
+                " " + DataManipulationService.processName(player4.getName()) + ";";
+        newListOfCommands = write(message);
+        System.out.println("Sent : " + message);
+    }
+
+    public void runAuthentication(List<String> listOfCommands) throws IOException, ClassNotFoundException, CommunicationException {
+        List<String> newListOfCommands;
         for(int i=0;i<listOfCommands.size();i++)
         {
             List<String> listOfObjects = DataManipulationService.processCommand(listOfCommands.get(i));
@@ -66,30 +102,36 @@ public class ClientService extends Thread {
                             DBManager.existsSession(username, sessionID);
                             Session session = DBManager.getSession(sessionID);
                             if (session.getDateEnded() != "")
-                                throw new LoginException("Session already ended !");
-                            List<String> newListOfCommands = read("successful_auth;");
-                            System.out.println(newListOfCommands);
-                            notExecuted = false;
+                                throw new ConnectionException("Session already ended !");
+                            write("successful_auth;");
+                            this.addClientToList(this, username, session);
+                            runGame(session);
                         }
-                        catch (RuntimeException exception)
+                        catch (DBException exception)
                         {
-                            List<String> newListOfCommands = read("failed_auth sessionID;");
-                            newListOfCommands = read("require_auth;");
-                            runClient(newListOfCommands);
+                            write("failed_auth sessionID;");
+                            newListOfCommands = write("require_auth;");
+                            runAuthentication(newListOfCommands);
+                        }
+                        catch (ConnectionException exception)
+                        {
+                            write("failed_auth sessionIDEnded;");
+                            newListOfCommands = write("require_auth;");
+                            runAuthentication(newListOfCommands);
                         }
                     }
                     else
                     {
-                        List<String> newListOfCommands = read("failed_auth password;");
-                        newListOfCommands = read("require_auth;");
-                        runClient(newListOfCommands);
+                        write("failed_auth password;");
+                        newListOfCommands = write("require_auth;");
+                        runAuthentication(newListOfCommands);
                     }
                 }
                 catch (DBException dbException)
                 {
-                    List<String> newListOfCommands = read("failed_auth username;");
-                    newListOfCommands = read("require_auth;");
-                    runClient(newListOfCommands);
+                    write("failed_auth username;");
+                    newListOfCommands = write("require_auth;");
+                    runAuthentication(newListOfCommands);
                 }
             }
             else if (listOfObjects.get(0) == "ok") { }
@@ -101,8 +143,8 @@ public class ClientService extends Thread {
     public void run(){
         try {
             System.out.println("Started thread");
-            List<String> listOfCommands = read("require_auth;");
-            runClient(listOfCommands);
+            List<String> listOfCommands = write("require_auth;");
+            runAuthentication(listOfCommands);
         } catch (Exception e) {
             e.printStackTrace();
         }

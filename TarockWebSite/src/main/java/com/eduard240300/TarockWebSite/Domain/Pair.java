@@ -1,8 +1,9 @@
 package com.eduard240300.TarockWebSite.Domain;
 
-public class Pair<K, V> {
+public class Pair<K, V, V2> {
     private K key;
     private V value;
+    private V2 specialValue;
 
     public Pair(K key, V value)
     {
@@ -29,5 +30,13 @@ public class Pair<K, V> {
 
     public void setValue(V value) {
         this.value = value;
+    }
+
+    public V2 getSpecialValue() {
+        return specialValue;
+    }
+
+    public void setSpecialValue(V2 specialValue) {
+        this.specialValue = specialValue;
     }
 }
