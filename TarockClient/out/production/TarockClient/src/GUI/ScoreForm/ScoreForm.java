@@ -28,9 +28,9 @@ public class ScoreForm extends JFrame{
     public static CustomJButton OKButton;
 
     public static void updateCards() throws IOException {
-        if ((5+offset1) >= Repository.cardsWon.get(0).size())
+        if (Repository.cardsWon.get(0).size() <= 6)
             ScoreForm.nextTeam1Button.setEnabled(false);
-        if ((5+offset2) >= Repository.cardsWon.get(1).size())
+        if (Repository.cardsWon.get(1).size() <= 6)
             ScoreForm.nextTeam2Button.setEnabled(false);
 
         for(int i=0;i<6;i++)
@@ -144,6 +144,7 @@ public class ScoreForm extends JFrame{
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
         //setVisible(true);
+        //updateCards();
 
         ControllerScoreForm controllerScoreForm = new ControllerScoreForm();
     }

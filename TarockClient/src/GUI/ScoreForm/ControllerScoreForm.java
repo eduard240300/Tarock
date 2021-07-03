@@ -13,8 +13,10 @@ public class ControllerScoreForm {
         ScoreForm.previousTeam1Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ScoreForm.offset1 > 0)
+                if (ScoreForm.offset1 > 0) {
                     ScoreForm.offset1--;
+                    ScoreForm.nextTeam1Button.setEnabled(true);
+                }
                 if (ScoreForm.offset1 == 0)
                     ScoreForm.previousTeam1Button.setEnabled(false);
                 else
@@ -30,8 +32,10 @@ public class ControllerScoreForm {
         ScoreForm.previousTeam2Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ScoreForm.offset2 > 0)
+                if (ScoreForm.offset2 > 0) {
                     ScoreForm.offset2--;
+                    ScoreForm.nextTeam2Button.setEnabled(true);
+                }
                 if (ScoreForm.offset2 == 0)
                     ScoreForm.previousTeam2Button.setEnabled(false);
                 else
@@ -47,9 +51,11 @@ public class ControllerScoreForm {
         ScoreForm.nextTeam1Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ScoreForm.offset1 < (Repository.cardsWon.get(0).size() - 6))
+                if (ScoreForm.offset1 < (Repository.cardsWon.get(0).size() - 6)) {
                     ScoreForm.offset1++;
-                if ((5+ScoreForm.offset1) >= Repository.cardsWon.get(0).size())
+                    ScoreForm.previousTeam1Button.setEnabled(true);
+                }
+                if (ScoreForm.offset1 == (Repository.cardsWon.get(0).size() - 6))
                     ScoreForm.nextTeam1Button.setEnabled(false);
                 else
                     ScoreForm.nextTeam1Button.setEnabled(true);
@@ -64,9 +70,11 @@ public class ControllerScoreForm {
         ScoreForm.nextTeam2Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ScoreForm.offset2 < (Repository.cardsWon.get(1).size() - 6))
+                if (ScoreForm.offset2 < (Repository.cardsWon.get(1).size() - 6)) {
                     ScoreForm.offset2++;
-                if ((5+ScoreForm.offset2) >= Repository.cardsWon.get(1).size())
+                    ScoreForm.previousTeam2Button.setEnabled(true);
+                }
+                if (ScoreForm.offset2 == (Repository.cardsWon.get(1).size() - 6))
                     ScoreForm.nextTeam2Button.setEnabled(false);
                 else
                     ScoreForm.nextTeam2Button.setEnabled(true);
