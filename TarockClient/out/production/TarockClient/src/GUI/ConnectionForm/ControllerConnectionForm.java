@@ -19,6 +19,12 @@ public class ControllerConnectionForm {
     private static User user;
     private static String sessionID;
 
+    public void resetServices()
+    {
+        loginService = null;
+        mainService = null;
+    }
+
     public ControllerConnectionForm() {
         ConnectionForm.loginButton.addActionListener(new ActionListener() {
             @Override

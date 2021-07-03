@@ -1,8 +1,6 @@
 package GUI.GameForm;
 
 import Domain.Declaration;
-import Exception.*;
-import GUI.ConnectionForm.ConnectionForm;
 import GUI.Main;
 import Repository.Repository;
 import Service.CommunicationService;

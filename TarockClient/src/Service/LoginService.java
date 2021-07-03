@@ -1,8 +1,6 @@
 package Service;
 
 import Domain.User;
-import Exception.DBException;
-import Exception.LoginException;
 
 public class LoginService {
 

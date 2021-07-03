@@ -1,6 +1,7 @@
 package GUI.TalonShowingForm;
 
 import GUI.Template.JImage;
+import Repository.Repository;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +12,14 @@ import java.util.List;
 public class TalonShowingForm extends JFrame{
     public static JLabel talonLabel;
     public static List<List<JImage>> talonCards;
+
+    public void revealTalonPart() throws IOException {
+        int talonPart = Repository.talonPart;
+        for(int i=0;i<2;i++)
+        {
+            talonCards.get(talonPart).get(i).setCardID(Repository.talon.get(talonPart*2+i));
+        }
+    }
 
     public TalonShowingForm() throws IOException {
         talonCards = new ArrayList<>();
@@ -40,6 +49,6 @@ public class TalonShowingForm extends JFrame{
         setTitle("Tarock Client : Talon Selection Showing");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
-        setVisible(true);
+        //setVisible(true);
     }
 }

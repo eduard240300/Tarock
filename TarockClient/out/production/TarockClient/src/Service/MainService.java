@@ -11,7 +11,7 @@ public class MainService {
         communicationService.start();
     }
 
-    public void setLoggedIn(User user)
+    public static void setLoggedIn(User user)
     {
         Repository.login(user);
     }
@@ -21,7 +21,7 @@ public class MainService {
         CommunicationService.playerMode = playerMode;
     }
 
-    public void setLoggedOut()
+    public static void setLoggedOut()
     {
         Repository.logout();
     }

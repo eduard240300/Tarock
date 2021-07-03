@@ -83,6 +83,20 @@ public class ClientService extends Thread {
         return listOfCommands;
     }
 
+    public int getChairNumber(Session session, String username)
+    {
+        int chair = -1;
+        if (session.getPlayer1().equals(username))
+            chair = 0;
+        else if (session.getPlayer2().equals(username))
+            chair = 1;
+        else if (session.getPlayer3().equals(username))
+            chair = 2;
+        else if (session.getPlayer4().equals(username))
+            chair = 3;
+        return chair;
+    }
+
     public void runGame(Session session) throws IOException, ClassNotFoundException {
         List<String> newListOfCommands;
         User player1 = DBManager.getUser(session.getPlayer1());
@@ -100,17 +114,15 @@ public class ClientService extends Thread {
                 " " + DataManipulationService.processName(player4.getName()) + ";";
         newListOfCommands = write(message);
 
+        getClientInList(username).write("chairNumber " + getChairNumber(session, username) + ";");
+        System.out.println("Sent (" + username + ") : " + "chairNumber " + getChairNumber(session, username) + ";");
+
         boolean startGameSession = true;
 
         for(int i=0;i<4;i++)
         {
             if (getClientInList(players.get(i)) == null)
                 startGameSession = false;
-            else
-            {
-                getClientInList(players.get(i)).write("chairNumber " + i + ";");
-                System.out.println("Sent (" + getClientInList(players.get(i)).username + ") : " + "chairNumber " + i + ";");
-            }
         }
 
         if (startGameSession)

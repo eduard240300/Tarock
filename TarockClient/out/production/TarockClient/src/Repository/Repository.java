@@ -4,6 +4,7 @@ import Domain.User;
 import Exception.RepositoryException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Repository {
@@ -12,11 +13,30 @@ public class Repository {
     public static int sessionID;
     public static List<String> players;
     public static List<Integer> cards;
+    public static List<Integer> talon;
+    public static List<Integer> givenCards;
+    public static boolean givenCardsCompleted = false;
     public static int chair;
     public static int playerRequest = 0;
     public static int the1of2 = 0;
+    public static int talonPart = -1;
     public static int chosenPope = -1;
     public static boolean isRequestPlayer = false;
+    public static List<List<Integer>> teams;
+
+    public static boolean isTarock(int cardID)
+    {
+        if ((cardID >= 1) && (cardID <= 22))
+            return true;
+        return false;
+    }
+
+    public static boolean isPope(int cardID)
+    {
+        if ((cardID == 30) || (cardID == 38) || (cardID == 46) || (cardID == 54))
+            return true;
+        return false;
+    }
 
     public static boolean hasChosenPope()
     {
@@ -43,7 +63,7 @@ public class Repository {
         int result = 0;
         for(int i=0;i<12;i++)
         {
-            if ((cards.get(i) >= 1) && (cards.get(i) <= 22))
+            if (isTarock(cards.get(i)))
                 result++;
         }
         return result;
@@ -53,10 +73,16 @@ public class Repository {
     {
         loggedIn = false;
         loggedUser = null;
+        teams = new ArrayList<List<Integer>>();
+        givenCards = new ArrayList<Integer>();
+        for(int i=0;i<2;i++) {
+            teams.add(new ArrayList<Integer>());
+        }
         players = new ArrayList<String>();
         cards = new ArrayList<Integer>();
-        for(int i=0;i<12;i++)
-            cards.add(0);
+        talon = new ArrayList<Integer>();
+        for(int i=0;i<6;i++)
+            talon.add(0);
         players.add("Player 1");
         players.add("Player 2");
         players.add("Player 3");
@@ -83,5 +109,41 @@ public class Repository {
             loggedIn = false;
             loggedUser = null;
         }
+    }
+
+    public static boolean canGive(int cardPosition) {
+        if ((cards.get(cardPosition) == 1) || (cards.get(cardPosition) == 21) ||
+                (cards.get(cardPosition) == 22))
+            return false;
+        if (isPope(cards.get(cardPosition)))
+        {
+            return false;
+        }
+        else if (isTarock(cards.get(cardPosition)))
+        {
+            if (cards.size() == getNumberOfTarocks())
+            {
+                return true;
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public static void addToGivenCards(int cardPosition) {
+        int cardID = cards.get(cardPosition);
+        cards.remove(cardPosition);
+        cards.add(0);
+        givenCards.add(cardID);
+        if (givenCards.size() == 2)
+            givenCardsCompleted = true;
+    }
+
+    public static void addTalonPartToCards() {
+        for(int i=0;i<2;i++)
+        {
+            cards.add(talon.get(talonPart*2+i));
+        }
+        Collections.sort(cards);
     }
 }

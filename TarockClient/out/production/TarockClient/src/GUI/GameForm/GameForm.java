@@ -9,7 +9,6 @@ import javax.swing.*;
 import javax.swing.plaf.metal.MetalCheckBoxUI;
 import javax.swing.plaf.metal.MetalRadioButtonUI;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.font.TextAttribute;
 import java.io.IOException;
@@ -19,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import static javax.swing.JOptionPane.showMessageDialog;
+import GUI.GameForm.*;
 
 public class GameForm extends JFrame{
     public static int the1of2 = 1;
@@ -83,6 +83,18 @@ public class GameForm extends JFrame{
     {
         the1of2++;
         the1of2Button.setText(the1of2 + "/2");
+    }
+
+    public void showTeams()
+    {
+        for(int i=0;i<Repository.teams.get(0).size();i++)
+        {
+            teamsLabels.get(Repository.teams.get(0).get(i)).setText("Team 1");
+        }
+        for(int i=0;i<Repository.teams.get(1).size();i++)
+        {
+            teamsLabels.get(Repository.teams.get(1).get(i)).setText("Team 2");
+        }
     }
 
     public void updateNextStatus(int requestedChair, String type)
@@ -158,15 +170,15 @@ public class GameForm extends JFrame{
             pagatAtFinishCheckBox.setEnabled(value);
         allPopesCheckBox.setEnabled(value);
         trullCheckBox.setEnabled(value);
-        numberOfTarocksComboBox.setEnabled(value);
         submitButton.setEnabled(value);
+        numberOfTarocksComboBox.setEnabled(value);
         if (isRequestPlayer)
         {
             heartRadio.setEnabled(value);
             diamondRadio.setEnabled(value);
             clubRadio.setEnabled(value);
             spadeRadio.setEnabled(value);
-            numberOfTarocksComboBox.setEnabled(value);
+            numberOfTarocksComboBox.setEnabled(false);
         }
     }
 
@@ -216,7 +228,7 @@ public class GameForm extends JFrame{
         cardsRound.get(3).setBounds(350, 140, 100, 180);
 
         for(int i=0;i<12;i++){
-            playerCards.add(new ClickableImage(0, "GameForm",i+1,100,175));
+            playerCards.add(new ClickableImage(0, "GameForm",i,100,175));
             playerCards.get(i).setBounds(10+110*i, 460, 100, 180);
             add(playerCards.get(i));
         }

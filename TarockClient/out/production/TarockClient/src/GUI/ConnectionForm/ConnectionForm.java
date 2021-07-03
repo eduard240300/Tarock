@@ -4,9 +4,11 @@ import GUI.Template.CustomJButton;
 
 import javax.swing.*;
 import java.awt.*;
+
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class ConnectionForm extends JFrame{
+    public static ControllerConnectionForm controllerConnectionForm = null;
     public static JTextField usernameField;
     public static JPasswordField passwordField;
     public static JTextField sessionIDField;
@@ -64,6 +66,6 @@ public class ConnectionForm extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
 
-        ControllerConnectionForm controllerConnectionForm = new ControllerConnectionForm();
+        controllerConnectionForm = new ControllerConnectionForm();
     }
 }

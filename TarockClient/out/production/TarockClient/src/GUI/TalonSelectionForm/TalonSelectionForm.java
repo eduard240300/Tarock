@@ -3,6 +3,7 @@ package GUI.TalonSelectionForm;
 import GUI.Template.ClickableImage;
 import GUI.Template.CustomJButton;
 import GUI.Template.JImage;
+import Repository.Repository;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,32 @@ public class TalonSelectionForm extends JFrame{
     public static CustomJButton giveButton;
     public static List<JImage> givenCards;
     public static List<ClickableImage> playerCards;
+
+    public void updateCards() throws IOException {
+        for(int i=0;i<Repository.cards.size();i++)
+            playerCards.get(i).setCardID(Repository.cards.get(i));
+        for(int i=Repository.cards.size();i<14;i++)
+            playerCards.get(i).setCardID(0);
+    }
+
+    public void updateTalonCards() throws IOException {
+        int talonPart = Repository.talonPart;
+        for(int i=0;i<2;i++)
+            talonCards.get(i).setCardID(Repository.talon.get(talonPart*2+i));
+    }
+
+    public void updateGivenCards() throws IOException {
+        List<Integer> givenCardsRepo = Repository.givenCards;
+        int size = givenCardsRepo.size();
+        for(int i=0;i<size;i++)
+        {
+            givenCards.get(i).setCardID(givenCardsRepo.get(i));
+        }
+    }
+
+    public void updateTalonLabel() throws IOException {
+        talonLabel.setText(Repository.the1of2 + "/2");
+    }
 
     public TalonSelectionForm() throws IOException {
         talonCards = new ArrayList<JImage>();
@@ -56,8 +83,8 @@ public class TalonSelectionForm extends JFrame{
             add(givenCards.get(i));
         }
 
-        for(int i=0;i<12;i++) {
-            playerCards.add(new ClickableImage(0, "TalonSelectionForm",i+1, 100, 175));
+        for(int i=0;i<14;i++) {
+            playerCards.add(new ClickableImage(0, "TalonSelectionForm",i, 100, 175));
             playerCards.get(i).setBounds(10 + 110 * i, 280, 100, 180);
             add(playerCards.get(i));
         }
@@ -72,13 +99,14 @@ public class TalonSelectionForm extends JFrame{
 
         giveButton = new CustomJButton("Give", arialBig);
         giveButton.setBounds(710, 110, 60, 60);
+        giveButton.setEnabled(false);
         add(giveButton);
 
-        setSize(1330, 510);
+        setSize(1600, 510);
         setTitle("Tarock Client : Talon Selection");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
-        setVisible(true);
+        //setVisible(true);
 
         ControllerTalonSelectionForm controllerTalonSelectionForm = new ControllerTalonSelectionForm();
     }

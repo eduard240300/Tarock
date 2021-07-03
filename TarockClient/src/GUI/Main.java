@@ -6,7 +6,6 @@ import GUI.ScoreForm.ScoreForm;
 import GUI.TalonSelectionForm.TalonSelectionForm;
 import GUI.TalonShowingForm.TalonShowingForm;
 import Repository.Repository;
-import Service.CommunicationService;
 
 import javax.imageio.ImageIO;
 import java.io.FileInputStream;
@@ -35,8 +34,8 @@ public class Main {
 
         gameForm = new GameForm();
         //scoreForm = new ScoreForm();
-        //talonSelectionForm = new TalonSelectionForm();
-        //talonShowingForm = new TalonShowingForm();
+        talonSelectionForm = new TalonSelectionForm();
+        talonShowingForm = new TalonShowingForm();
         try
         {
             connectionForm.setIconImage(ImageIO.read(new FileInputStream(iconPath)));

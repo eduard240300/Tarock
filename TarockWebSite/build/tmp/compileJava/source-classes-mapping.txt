@@ -54,8 +54,8 @@ com/eduard240300/TarockWebSite/Controller/LoginController.java
  com.eduard240300.TarockWebSite.Controller.LoginController
 com/eduard240300/TarockWebSite/Validator/SessionValidator.java
  com.eduard240300.TarockWebSite.Validator.SessionValidator
-com/eduard240300/TarockWebSite/Service/CommunicationService.java
- com.eduard240300.TarockWebSite.Service.CommunicationService
+com/eduard240300/TarockWebSite/Domain/Declaration.java
+ com.eduard240300.TarockWebSite.Domain.Declaration
 com/eduard240300/TarockWebSite/Controller/RegisterController.java
  com.eduard240300.TarockWebSite.Controller.RegisterController
 com/eduard240300/TarockWebSite/Controller/CloseSessionController.java
@@ -64,8 +64,8 @@ com/eduard240300/TarockWebSite/Validator/UserValidator.java
  com.eduard240300.TarockWebSite.Validator.UserValidator
 com/eduard240300/TarockWebSite/Service/DataManipulationService.java
  com.eduard240300.TarockWebSite.Service.DataManipulationService
-com/eduard240300/TarockWebSite/Domain/Declaration.java
- com.eduard240300.TarockWebSite.Domain.Declaration
+com/eduard240300/TarockWebSite/Service/CommunicationService.java
+ com.eduard240300.TarockWebSite.Service.CommunicationService
 com/eduard240300/TarockWebSite/Service/ClientService.java
  com.eduard240300.TarockWebSite.Service.ClientService
 com/eduard240300/TarockWebSite/Service/GameSessionService.java

@@ -1,9 +1,6 @@
 package Domain;
 
-import Repository.Repository;
 import Service.DataManipulationService;
-
-import java.util.zip.DataFormatException;
 
 public class Declaration {
     private int the1of2 = 0;

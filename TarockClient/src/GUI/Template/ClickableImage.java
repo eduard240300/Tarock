@@ -1,7 +1,7 @@
 package GUI.Template;
 
-import GUI.GameForm.*;
 import GUI.TalonSelectionForm.ControllerTalonSelectionForm;
+import GUI.GameForm.*;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -23,8 +23,13 @@ public class ClickableImage extends JImage implements MouseListener {
         if (mouseEvent.getClickCount() == 2 && mouseEvent.getButton() == MouseEvent.BUTTON1) {
             if (GUI == "GameForm")
                 ControllerGameForm.pressedCard(CardPosition);
-            else if (GUI == "TalonSelectionForm")
-                ControllerTalonSelectionForm.pressedCard(CardPosition);
+            else if (GUI == "TalonSelectionForm") {
+                try {
+                    ControllerTalonSelectionForm.pressedCard(CardPosition);
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
         }
     }
 
