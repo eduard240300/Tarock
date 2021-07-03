@@ -33,7 +33,7 @@ public class Main {
         }
 
         gameForm = new GameForm();
-        //scoreForm = new ScoreForm();
+        scoreForm = new ScoreForm();
         talonSelectionForm = new TalonSelectionForm();
         talonShowingForm = new TalonShowingForm();
         try

@@ -1,5 +1,6 @@
 package Repository;
 
+import Domain.Round;
 import Domain.User;
 import Exception.RepositoryException;
 
@@ -13,6 +14,7 @@ public class Repository {
     public static int sessionID;
     public static List<String> players;
     public static List<Integer> cards;
+    public static List<List<Integer>> cardsWon;
     public static List<Integer> talon;
     public static List<Integer> givenCards;
     public static boolean givenCardsCompleted = false;
@@ -21,6 +23,8 @@ public class Repository {
     public static int the1of2 = 0;
     public static int talonPart = -1;
     public static int chosenPope = -1;
+    public static List<Round> rounds;
+    public static int round = -1;
     public static boolean isRequestPlayer = false;
     public static List<List<Integer>> teams;
 
@@ -61,7 +65,7 @@ public class Repository {
     public static int getNumberOfTarocks()
     {
         int result = 0;
-        for(int i=0;i<12;i++)
+        for(int i=0;i<cards.size();i++)
         {
             if (isTarock(cards.get(i)))
                 result++;
@@ -69,14 +73,29 @@ public class Repository {
         return result;
     }
 
+    public static int getNumberOfType(int type)
+    {
+        int result = 0;
+        for(int i=0;i<cards.size();i++)
+        {
+            if (Round.isType(cards.get(i), type)) {
+                result++;
+            }
+        }
+        return result;
+    }
+
     public static void initRepository()
     {
+        rounds = new ArrayList<Round>();
         loggedIn = false;
         loggedUser = null;
         teams = new ArrayList<List<Integer>>();
         givenCards = new ArrayList<Integer>();
+        cardsWon = new ArrayList<List<Integer>>();
         for(int i=0;i<2;i++) {
             teams.add(new ArrayList<Integer>());
+            cardsWon.add(new ArrayList<Integer>());
         }
         players = new ArrayList<String>();
         cards = new ArrayList<Integer>();
@@ -111,7 +130,7 @@ public class Repository {
         }
     }
 
-    public static boolean canGive(int cardPosition) {
+    public static boolean canPutCardDown(int cardPosition) {
         if ((cards.get(cardPosition) == 1) || (cards.get(cardPosition) == 21) ||
                 (cards.get(cardPosition) == 22))
             return false;
@@ -145,5 +164,89 @@ public class Repository {
             cards.add(talon.get(talonPart*2+i));
         }
         Collections.sort(cards);
+    }
+
+    public static boolean canGiveCard(int position)
+    {
+        int cardID = cards.get(position);
+        if (!(rounds.size() == round+1)) {
+            System.out.println("First card");
+            return true;
+        }
+        int firstPlayer = rounds.get(rounds.size()-1).getFirstPlayer();
+        System.out.println("FirstPlayer = " + firstPlayer);
+        if (firstPlayer == chair)
+        {
+            System.out.println("FirstPlayer is chair");
+            return true;
+        }
+        else
+        {
+            int firstCardID = rounds.get(rounds.size()-1).getCard(firstPlayer);
+            if (Round.isTarock(firstCardID))
+            {
+                System.out.println("FirstCard is tarock");
+                if (getNumberOfTarocks() == 0) {
+                    System.out.println("You don't have any tarocks !");
+                    return true;
+                }
+                else
+                {
+                    if (Round.isTarock(cardID)) {
+                        System.out.println("You have given a tarock !");
+                        return true;
+                    }
+                    else
+                    {
+                        System.out.println("You didn't give a tarock !");
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                int type = Round.getCardType(firstCardID);
+                System.out.println("Type is : " + type);
+                if (getNumberOfType(type) == 0)
+                {
+                    System.out.println("You don't have any cards of type " + type);
+                    if (getNumberOfTarocks() == 0) {
+                        System.out.println("You have given any card !");
+                        return true;
+                    }
+                    else
+                    {
+                        System.out.println("You have tarocks !");
+                        if (Round.isTarock(cardID)) {
+                            System.out.println("You have given a tarock !");
+                            return true;
+                        }
+                        else
+                        {
+                            System.out.println("You didn't give a tarock !");
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    System.out.println("You have cards of type " + type);
+                    if (Round.isType(cardID, type)) {
+                        System.out.println("You have given a card of type " + type);
+                        return true;
+                    }
+                    else
+                    {
+                        System.out.println("You didn't give a card of type " + type);
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+
+    public static void giveCard(int position)
+    {
+        cards.remove(position);
     }
 }

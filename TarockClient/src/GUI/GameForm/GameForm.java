@@ -22,6 +22,8 @@ import GUI.GameForm.*;
 
 public class GameForm extends JFrame{
     public static int the1of2 = 1;
+    public static String typeOfActivation = "";
+    public static boolean canGiveCard = false;
     public static List<JLabel> playerLabels;
     public static List<JImage> cardsRound;
     public static List<ClickableImage> playerCards;
@@ -46,6 +48,7 @@ public class GameForm extends JFrame{
     public static JTable scoreTable;
     public static List<JLabel> declarationsPlayers;
     public static List<JLabel> declarationsTurnsLabels;
+    public static JLabel previousRoundWonByLabel;
     public static Font arialDefault;
     public static Font arialChair;
     public static Font arialBig;
@@ -53,6 +56,15 @@ public class GameForm extends JFrame{
     public static void popUpMessage(String message)
     {
         showMessageDialog(null, message);
+    }
+
+    public void updateCard(int chair, int cardID) throws IOException {
+        cardsRound.get(chair).setCardID(cardID);
+    }
+
+    public void resetCards() throws IOException {
+        for(int i=0;i<4;i++)
+            updateCard(i, 0);
     }
 
     public void changePlayerNames()
@@ -70,8 +82,10 @@ public class GameForm extends JFrame{
     }
 
     public void updateCards() throws IOException {
-        for(int i=0;i<12;i++)
+        for(int i=0;i<Repository.cards.size();i++)
             playerCards.get(i).setCardID(Repository.cards.get(i));
+        for(int i=Repository.cards.size();i<12;i++)
+            playerCards.get(i).setCardID(0);
     }
 
     public void updateChair()
@@ -164,6 +178,10 @@ public class GameForm extends JFrame{
     }
 
     public void swithDeclarationSelection(boolean canPopeAtFinish, boolean canPagatAtFinish, boolean isRequestPlayer, boolean value) {
+        if (value)
+            typeOfActivation = "Declaration";
+        else
+            typeOfActivation = "";
         if (canPopeAtFinish)
             popeAtFinishCheckBox.setEnabled(value);
         if (canPagatAtFinish)
@@ -180,6 +198,20 @@ public class GameForm extends JFrame{
             spadeRadio.setEnabled(value);
             numberOfTarocksComboBox.setEnabled(false);
         }
+    }
+
+    public void switchNumberOfTarocksSelection(boolean value) {
+        if (value)
+            typeOfActivation = "NumberOfTarocks";
+        else
+            typeOfActivation = "";
+        numberOfTarocksComboBox.setEnabled(value);
+        submitButton.setEnabled(value);
+    }
+
+    public void updatePreviousRoundWonByLabel(String text)
+    {
+        previousRoundWonByLabel.setText("Previous round won by : " + text);
     }
 
     public GameForm() throws IOException {
@@ -500,6 +532,12 @@ public class GameForm extends JFrame{
             declarationsTurnsLabels.get(i).setBounds(1150, 360+i*20, 230, 19);
             add(declarationsTurnsLabels.get(i));
         }
+
+        previousRoundWonByLabel = new JLabel();
+        previousRoundWonByLabel.setText("");
+        previousRoundWonByLabel.setFont(arialDefault);
+        previousRoundWonByLabel.setBounds(470, 420, 400, 19);
+        add(previousRoundWonByLabel);
 
         setSize(1330, 690);
         setTitle("Tarock Client : Game");

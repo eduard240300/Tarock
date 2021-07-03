@@ -1,11 +1,13 @@
 package Service;
 
 import Domain.Declaration;
+import Domain.Round;
 import Domain.User;
 import GUI.ConnectionForm.ConnectionForm;
 import GUI.ConnectionForm.ControllerConnectionForm;
 import GUI.GameForm.GameForm;
 import GUI.Main;
+import GUI.ScoreForm.ScoreForm;
 import Repository.Repository;
 
 import java.io.EOFException;
@@ -25,10 +27,14 @@ public class CommunicationService extends Thread{
     public static int sessionID = 0;
     public static String playerMode = "";
     public static Declaration declaration = null;
-    public static boolean canPopeAtFinish = true;
-    public static boolean canPagatAtFinish = true;
     public static String talonTakeDecision = "";
     public static String talonGiveDecision = "";
+    public static int numberOfTarocks = -1;
+    public static int cardGiven = -1;
+    public static boolean canPopeAtFinish = true;
+    public static boolean canPagatAtFinish = true;
+    public static int round = 0;
+    public static boolean shouldCompleteRound = false;
 
     public void runHelper () throws IOException, ClassNotFoundException, InterruptedException {
         //socket = new Socket("185.229.224.215", 9876);
@@ -236,6 +242,73 @@ public class CommunicationService extends Thread{
                     Main.talonShowingForm.setVisible(false);
                 else if (listOfObjects.get(1).equals("select"))
                     Main.talonSelectionForm.setVisible(false);
+            }
+            else if (listOfObjects.get(0).equals("requestNumberOfTarocks"))
+            {
+                Main.gameForm.switchNumberOfTarocksSelection(true);
+                while (numberOfTarocks == -1)
+                    Thread.sleep(1);
+                sentMessage = "numberOfTarocks " + numberOfTarocks + ";";
+                numberOfTarocks = -1;
+                Main.gameForm.switchNumberOfTarocksSelection(false);
+            }
+            else if (listOfObjects.get(0).equals("beginRound"))
+            {
+                shouldCompleteRound = true;
+                Repository.round = round;
+            }
+            else if (listOfObjects.get(0).equals("requestedCard"))
+            {
+                int requestedChair = Integer.parseInt(listOfObjects.get(1));
+                Main.gameForm.updateNextStatus(requestedChair, "Status");
+            }
+            else if (listOfObjects.get(0).equals("requestCard"))
+            {
+                GameForm.canGiveCard = true;
+                while (cardGiven == -1)
+                    Thread.sleep(1);
+                GameForm.canGiveCard = false;
+                sentMessage = "card " + cardGiven + ";";
+                cardGiven = -1;
+            }
+            else if (listOfObjects.get(0).equals("respondedCard"))
+            {
+                int player = Integer.parseInt(listOfObjects.get(1));
+                if (shouldCompleteRound)
+                {
+                    shouldCompleteRound = false;
+                    Repository.rounds.add(new Round(round, player));
+                    Main.gameForm.resetCards();
+                }
+                int cardID = Integer.parseInt(listOfObjects.get(2));
+
+                Repository.rounds.get(round).addCard(player, cardID);
+                Main.gameForm.updateCard(player, cardID);
+            }
+            else if (listOfObjects.get(0).equals("roundFinished"))
+            {
+                round++;
+                int playerThatWon = Repository.rounds.get(round-1).getPlayerThatWon();
+                Main.gameForm.updatePreviousRoundWonByLabel(Repository.players.get(playerThatWon));
+            }
+            else if (listOfObjects.get(0).equals("showScoreWindow"))
+            {
+                Main.scoreForm.setVisible(true);
+            }
+            else if (listOfObjects.get(0).equals("cardsTeam1"))
+            {
+                for(int j=1;j<listOfObjects.size();j++)
+                {
+                    Repository.cardsWon.get(0).add(Integer.valueOf(listOfObjects.get(j)));
+                }
+            }
+            else if (listOfObjects.get(0).equals("cardsTeam2"))
+            {
+                for(int j=1;j<listOfObjects.size();j++)
+                {
+                    Repository.cardsWon.get(1).add(Integer.valueOf(listOfObjects.get(j)));
+                }
+                ScoreForm.updateCards();
             }
         }
         System.out.println(username + " Sent : " + sentMessage);

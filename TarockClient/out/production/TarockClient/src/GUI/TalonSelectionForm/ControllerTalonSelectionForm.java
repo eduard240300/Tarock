@@ -60,7 +60,7 @@ public class ControllerTalonSelectionForm {
         {
             if (!Repository.givenCardsCompleted)
             {
-                if ((Repository.cards.size() > cardPosition) && (Repository.canGive(cardPosition)))
+                if ((Repository.cards.size() > cardPosition) && (Repository.canPutCardDown(cardPosition)))
                     Repository.addToGivenCards(cardPosition);
                 Main.talonSelectionForm.updateCards();
                 Main.talonSelectionForm.updateGivenCards();

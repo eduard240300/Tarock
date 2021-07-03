@@ -8,6 +8,7 @@ import Service.MainService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ControllerGameForm {
 
@@ -15,50 +16,69 @@ public class ControllerGameForm {
         GameForm.submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
-                boolean popeAtFinish = Main.gameForm.popeAtFinishCheckBox.isSelected();
-                boolean pagatAtFinish = Main.gameForm.pagatAtFinishCheckBox.isSelected();
-                boolean allPopes = Main.gameForm.allPopesCheckBox.isSelected();
-                boolean trull = Main.gameForm.trullCheckBox.isSelected();
-                int numberOfTarocks = 0;
-                String numberOfTarocksString = Main.gameForm.numberOfTarocksComboBox.getSelectedItem().toString();
-                if (!numberOfTarocksString.equals("No"))
-                    numberOfTarocks = Integer.parseInt(numberOfTarocksString);
-                int pope = -1;
-                if (Main.gameForm.heartRadio.isSelected())
-                    pope = 0;
-                else if (Main.gameForm.diamondRadio.isSelected())
-                    pope = 1;
-                else if (Main.gameForm.clubRadio.isSelected())
-                    pope = 2;
-                else if (Main.gameForm.spadeRadio.isSelected())
-                    pope = 3;
-                if (pope != -1)
-                    Repository.chosenPope = pope;
-
-                String message = "";
-                if ((popeAtFinish) && (!Repository.hasChosenPope()))
-                    message += "You don't have the requested pope ! ";
-                if ((pagatAtFinish) && (!Repository.hasPagat()))
-                    message += "You don't have the pagat ! ";
-                if (Repository.getNumberOfTarocks() < numberOfTarocks)
-                    message += "You don't have " + numberOfTarocksString + " tarocks !";
-                if ((Repository.isRequestPlayer) && (pope == -1))
-                    message += "You didn't select a pope !";
-                if (message.equals(""))
+                if (GameForm.typeOfActivation == "Declaration")
                 {
-                    Declaration declaration = new Declaration(popeAtFinish, pagatAtFinish, allPopes, trull, numberOfTarocks);
-                    if (Repository.isRequestPlayer)
+                    boolean popeAtFinish = Main.gameForm.popeAtFinishCheckBox.isSelected();
+                    boolean pagatAtFinish = Main.gameForm.pagatAtFinishCheckBox.isSelected();
+                    boolean allPopes = Main.gameForm.allPopesCheckBox.isSelected();
+                    boolean trull = Main.gameForm.trullCheckBox.isSelected();
+                    int numberOfTarocks = 0;
+                    String numberOfTarocksString = Main.gameForm.numberOfTarocksComboBox.getSelectedItem().toString();
+                    if (!numberOfTarocksString.equals("No"))
+                        numberOfTarocks = Integer.parseInt(numberOfTarocksString);
+                    int pope = -1;
+                    if (Main.gameForm.heartRadio.isSelected())
+                        pope = 0;
+                    else if (Main.gameForm.diamondRadio.isSelected())
+                        pope = 1;
+                    else if (Main.gameForm.clubRadio.isSelected())
+                        pope = 2;
+                    else if (Main.gameForm.spadeRadio.isSelected())
+                        pope = 3;
+                    if (pope != -1)
+                        Repository.chosenPope = pope;
+
+                    String message = "";
+                    if ((popeAtFinish) && (!Repository.hasChosenPope()))
+                        message += "You don't have the requested pope ! ";
+                    if ((pagatAtFinish) && (!Repository.hasPagat()))
+                        message += "You don't have the pagat ! ";
+                    if (Repository.getNumberOfTarocks() < numberOfTarocks)
+                        message += "You don't have " + numberOfTarocksString + " tarocks !";
+                    if ((Repository.isRequestPlayer) && (pope == -1))
+                        message += "You didn't select a pope !";
+                    if (message.equals(""))
                     {
-                        declaration.setPope(pope);
+                        Declaration declaration = new Declaration(popeAtFinish, pagatAtFinish, allPopes, trull, numberOfTarocks);
+                        if (Repository.isRequestPlayer)
+                        {
+                            declaration.setPope(pope);
+                        }
+                        CommunicationService.declaration = declaration;
                     }
-                    CommunicationService.declaration = declaration;
+                    else
+                    {
+                        GameForm.popUpMessage(message);
+                    }
                 }
-                else
+                else if (GameForm.typeOfActivation == "NumberOfTarocks")
                 {
-                    GameForm.popUpMessage(message);
+                    int numberOfTarocks = 0;
+                    String numberOfTarocksString = Main.gameForm.numberOfTarocksComboBox.getSelectedItem().toString();
+                    if (!numberOfTarocksString.equals("No"))
+                        numberOfTarocks = Integer.parseInt(numberOfTarocksString);
+                    String message = "";
+                    if (Repository.getNumberOfTarocks() < numberOfTarocks)
+                        message += "You don't have " + numberOfTarocksString + " tarocks !";
+                    if (message.equals(""))
+                    {
+                        CommunicationService.numberOfTarocks = numberOfTarocks;
+                    }
+                    else
+                    {
+                        GameForm.popUpMessage(message);
+                    }
                 }
-
                 System.out.println("Pressed Submit Button");
             }
         });
@@ -94,8 +114,16 @@ public class ControllerGameForm {
         });
     }
 
-    public static void pressedCard(int CardPosition)
-    {
-        System.out.println("Pressed : " + CardPosition);
+    public static void pressedCard(int cardPosition) throws IOException {
+        System.out.println("Pressed CardID : " + Repository.cards.get(cardPosition));
+        System.out.println("Cards : " + Repository.cards);
+        if ((GameForm.canGiveCard) && (Repository.canGiveCard(cardPosition)))
+        {
+            GameForm.canGiveCard = false;
+            CommunicationService.cardGiven = Repository.cards.get(cardPosition);
+            Repository.giveCard(cardPosition);
+            Main.gameForm.updateCards();
+        }
+        System.out.println("Pressed : " + cardPosition);
     }
 }

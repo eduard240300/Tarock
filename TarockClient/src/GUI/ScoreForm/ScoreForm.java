@@ -2,6 +2,7 @@ package GUI.ScoreForm;
 
 import GUI.Template.CustomJButton;
 import GUI.Template.JImage;
+import Repository.Repository;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScoreForm extends JFrame{
+    public static int offset1 = 0;
+    public static int offset2 = 0;
     public static JLabel team1Label;
     public static JLabel team2Label;
     public static List<JImage> team1Cards;
@@ -23,6 +26,28 @@ public class ScoreForm extends JFrame{
     public static String[][] scoreTableData;
     public static String[] scoreTableHeader;
     public static CustomJButton OKButton;
+
+    public static void updateCards() throws IOException {
+        if ((5+offset1) >= Repository.cardsWon.get(0).size())
+            ScoreForm.nextTeam1Button.setEnabled(false);
+        if ((5+offset2) >= Repository.cardsWon.get(1).size())
+            ScoreForm.nextTeam2Button.setEnabled(false);
+
+        for(int i=0;i<6;i++)
+        {
+            if ((i+offset1) < Repository.cardsWon.get(0).size())
+                team1Cards.get(i).setCardID(Repository.cardsWon.get(0).get(i+offset1));
+            else
+                team1Cards.get(i).setCardID(0);
+        }
+        for(int i=0;i<6;i++)
+        {
+            if ((i+offset2) < Repository.cardsWon.get(1).size())
+                team2Cards.get(i).setCardID(Repository.cardsWon.get(1).get(i+offset2));
+            else
+                team2Cards.get(i).setCardID(0);
+        }
+    }
 
     public ScoreForm() throws IOException {
         team1Cards = new ArrayList<JImage>();
@@ -56,6 +81,7 @@ public class ScoreForm extends JFrame{
 
         previousTeam1Button = new CustomJButton("<", arialDefault);
         previousTeam1Button.setBounds(10, 120, 60, 60);
+        previousTeam1Button.setEnabled(false);
         add(previousTeam1Button);
 
         nextTeam1Button = new CustomJButton(">", arialDefault);
@@ -64,6 +90,7 @@ public class ScoreForm extends JFrame{
 
         previousTeam2Button = new CustomJButton("<", arialDefault);
         previousTeam2Button.setBounds(10, 360, 60, 60);
+        previousTeam2Button.setEnabled(false);
         add(previousTeam2Button);
 
         nextTeam2Button = new CustomJButton(">", arialDefault);
@@ -116,7 +143,7 @@ public class ScoreForm extends JFrame{
         setTitle("Tarock Client : Score");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
-        setVisible(true);
+        //setVisible(true);
 
         ControllerScoreForm controllerScoreForm = new ControllerScoreForm();
     }

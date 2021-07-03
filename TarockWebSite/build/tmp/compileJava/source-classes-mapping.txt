@@ -66,6 +66,8 @@ com/eduard240300/TarockWebSite/Service/DataManipulationService.java
  com.eduard240300.TarockWebSite.Service.DataManipulationService
 com/eduard240300/TarockWebSite/Service/CommunicationService.java
  com.eduard240300.TarockWebSite.Service.CommunicationService
+com/eduard240300/TarockWebSite/Domain/Round.java
+ com.eduard240300.TarockWebSite.Domain.Round
 com/eduard240300/TarockWebSite/Service/ClientService.java
  com.eduard240300.TarockWebSite.Service.ClientService
 com/eduard240300/TarockWebSite/Service/GameSessionService.java
