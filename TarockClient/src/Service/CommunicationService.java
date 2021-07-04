@@ -37,10 +37,10 @@ public class CommunicationService extends Thread{
     public static boolean shouldCompleteRound = false;
 
     public void runHelper () throws IOException, ClassNotFoundException, InterruptedException {
-        //socket = new Socket("185.229.224.215", 9876);
+        //socket = new Socket("localhost", 9876);
         while(true) {
             try {
-                socket = new Socket("localhost", 9876);
+                socket = new Socket("185.229.224.215", 9876);
                 System.out.println("Connected to localhost:9876 !");
                 break;
             } catch (ConnectException connectException) {

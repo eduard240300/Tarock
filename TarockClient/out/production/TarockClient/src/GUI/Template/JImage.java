@@ -20,13 +20,7 @@ public class JImage extends JLabel {
         else
             SID = String.valueOf(this.CardID);
         File inputFile = new File("./Resources/TarockCards/r" + SID + ".png");
-        BufferedImage inputImage = ImageIO.read(inputFile);
-        BufferedImage outputImage = new BufferedImage(width,
-                height, inputImage.getType());
-        Graphics2D g2d = outputImage.createGraphics();
-        g2d.drawImage(inputImage, 0, 0, width, height, null);
-        g2d.dispose();
-        Icon icon = new ImageIcon(outputImage);
+        Icon icon = new ImageIcon(String.valueOf(inputFile));
         setIcon(icon);
     }
 

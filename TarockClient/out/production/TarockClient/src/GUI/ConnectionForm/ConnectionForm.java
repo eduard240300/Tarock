@@ -60,7 +60,10 @@ public class ConnectionForm extends JFrame{
         loginButton.setBounds(20, 170, 500, 40);
         add(loginButton);
 
-        setSize(540, 270);
+        if (System.getProperty("os.name").equals("Linux"))
+            setSize(540, 270);
+        else if (System.getProperty("os.name").equals("Windows 10"))
+            setSize(558,270);
         setTitle("Tarock Client : Login");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);

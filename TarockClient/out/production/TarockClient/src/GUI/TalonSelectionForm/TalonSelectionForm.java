@@ -102,7 +102,10 @@ public class TalonSelectionForm extends JFrame{
         giveButton.setEnabled(false);
         add(giveButton);
 
-        setSize(1550, 510);
+        if (System.getProperty("os.name").equals("Linux"))
+            setSize(1550, 510);
+        else if (System.getProperty("os.name").equals("Windows 10"))
+            setSize(1568, 510);
         setTitle("Tarock Client : Talon Selection");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);

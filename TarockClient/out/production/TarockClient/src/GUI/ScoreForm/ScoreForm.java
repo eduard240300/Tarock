@@ -139,7 +139,10 @@ public class ScoreForm extends JFrame{
         OKButton.setBounds(965, 449, 211, 41);
         add(OKButton);
 
-        setSize(1330, 550);
+        if (System.getProperty("os.name").equals("Linux"))
+            setSize(1330, 550);
+        else if (System.getProperty("os.name").equals("Windows 10"))
+            setSize(1348, 550);
         setTitle("Tarock Client : Score");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);

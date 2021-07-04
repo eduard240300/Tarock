@@ -539,11 +539,16 @@ public class GameForm extends JFrame{
         previousRoundWonByLabel.setBounds(470, 420, 400, 19);
         add(previousRoundWonByLabel);
 
-        setSize(1330, 690);
+        if (System.getProperty("os.name").equals("Linux"))
+            setSize(1330, 690);
+        else if (System.getProperty("os.name").equals("Windows 10"))
+            setSize(1348, 690);
         setTitle("Tarock Client : Game");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
-        //setVisible(true);
+        setVisible(true);
+        
+        playerCards.get(0).setCardID(1);
 
         ControllerGameForm controllerGameForm = new ControllerGameForm();
     }
