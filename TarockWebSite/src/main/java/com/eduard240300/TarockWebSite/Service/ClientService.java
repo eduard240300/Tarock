@@ -104,10 +104,15 @@ public class ClientService extends Thread {
         User player3 = DBManager.getUser(session.getPlayer3());
         User player4 = DBManager.getUser(session.getPlayer4());
         List<String> players = new ArrayList<String>();
-        players.add(player1.getUsername());
-        players.add(player2.getUsername());
-        players.add(player3.getUsername());
-        players.add(player4.getUsername());
+        players.add(player1.getName());
+        players.add(player2.getName());
+        players.add(player3.getName());
+        players.add(player4.getName());
+        List<String> playersUsername = new ArrayList<String>();
+        playersUsername.add(player1.getUsername());
+        playersUsername.add(player2.getUsername());
+        playersUsername.add(player3.getUsername());
+        playersUsername.add(player4.getUsername());
         String message = "players " + DataManipulationService.processName(player1.getName()) +
                 " " + DataManipulationService.processName(player2.getName()) +
                 " " + DataManipulationService.processName(player3.getName()) +
@@ -121,18 +126,18 @@ public class ClientService extends Thread {
 
         for(int i=0;i<4;i++)
         {
-            if (getClientInList(players.get(i)) == null)
+            if (getClientInList(playersUsername.get(i)) == null)
                 startGameSession = false;
         }
 
         if (startGameSession)
         {
             List<ClientService> clientServiceList = new ArrayList<ClientService>();
-            clientServiceList.add(getClientInList(players.get(0)));
-            clientServiceList.add(getClientInList(players.get(1)));
-            clientServiceList.add(getClientInList(players.get(2)));
-            clientServiceList.add(getClientInList(players.get(3)));
-            GameSessionService newGameService = new GameSessionService(clientServiceList, session);
+            clientServiceList.add(getClientInList(playersUsername.get(0)));
+            clientServiceList.add(getClientInList(playersUsername.get(1)));
+            clientServiceList.add(getClientInList(playersUsername.get(2)));
+            clientServiceList.add(getClientInList(playersUsername.get(3)));
+            GameSessionService newGameService = new GameSessionService(clientServiceList, session, players);
             CommunicationService.gameSessions.add(newGameService);
             newGameService.start();
         }

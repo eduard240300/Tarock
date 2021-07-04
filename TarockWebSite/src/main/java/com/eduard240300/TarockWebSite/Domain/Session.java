@@ -96,16 +96,4 @@ public class Session {
     public void setPlayer4(String player4) {
         this.player4 = player4;
     }
-
-    public String getPlayer(int player){
-        if (player == 0)
-            getPlayer1();
-        else if (player == 1)
-            getPlayer2();
-        else if (player == 2)
-            getPlayer3();
-        else if (player == 3)
-            getPlayer4();
-        return null;
-    }
 }

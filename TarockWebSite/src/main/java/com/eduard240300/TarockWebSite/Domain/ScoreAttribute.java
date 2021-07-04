@@ -3,10 +3,10 @@ package com.eduard240300.TarockWebSite.Domain;
 public class ScoreAttribute {
     private int ID;
     private String attributeName;
-    private Object declaredOrDone;
+    private String declaredOrDone;
     private int points;
 
-    public ScoreAttribute(int ID, String attributeName, Object declaredOrDone, int points)
+    public ScoreAttribute(int ID, String attributeName, String declaredOrDone, int points)
     {
         this.ID = ID;
         this.attributeName = attributeName;
@@ -24,11 +24,11 @@ public class ScoreAttribute {
         this.attributeName = attributeName;
     }
 
-    public Object getDeclaredOrDone() {
+    public String getDeclaredOrDone() {
         return declaredOrDone;
     }
 
-    public void setDeclaredOrDone(Object declaredOrDone) {
+    public void setDeclaredOrDone(String declaredOrDone) {
         this.declaredOrDone = declaredOrDone;
     }
 

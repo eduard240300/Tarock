@@ -2,10 +2,12 @@ package GUI.ScoreForm;
 
 import GUI.Template.CustomJButton;
 import GUI.Template.JImage;
+import GUI.Template.RowTable;
 import Repository.Repository;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,8 +25,8 @@ public class ScoreForm extends JFrame{
     public static CustomJButton previousTeam2Button;
     public static CustomJButton nextTeam2Button;
     public static JLabel teamThatWonLabel;
-    public static String[][] scoreTableData;
-    public static String[] scoreTableHeader;
+    public static DefaultTableModel scoreTableModel;
+    public static RowTable scoreTable;
     public static CustomJButton OKButton;
 
     public static void updateCards() throws IOException {
@@ -46,6 +48,15 @@ public class ScoreForm extends JFrame{
                 team2Cards.get(i).setCardID(Repository.cardsWon.get(1).get(i+offset2));
             else
                 team2Cards.get(i).setCardID(0);
+        }
+    }
+
+    public static void updateTable(List<String> declaredOrDone, List<Integer> points)
+    {
+        for(int i=0;i<12;i++)
+        {
+            scoreTable.setValueAt(declaredOrDone.get(i), i, 2);
+            scoreTable.setValueAt(points.get(i), i, 3);
         }
     }
 
@@ -103,37 +114,34 @@ public class ScoreForm extends JFrame{
         teamThatWonLabel.setBounds(820, 20, 501, 31);
         add(teamThatWonLabel);
 
-        scoreTableData = new String[][]{
-                {"1", "Game", "", "2"},
-                {"2", "Pope at finish", "No", ""},
-                {"3", "Pagat at finish", "No", ""},
-                {"4", "All popes", "No", ""},
-                {"5", "Trula", "No", ""},
-                {"6", "Pope Caught", "No", ""},
-                {"7", "Luna Caught", "No", ""},
-                {"8", "Tarocks Player 01", "", ""},
-                {"9", "Tarocks Player 02", "", ""},
-                {"10", "Tarocks Player 03", "", ""},
-                {"11", "Tarocks Player 04", "", ""},
-                {"12", "Total", "", ""}
-        };
-        scoreTableHeader = new String[]{"", "Attribute", "Declared or Done", "Points"};
-        JTable scoreTable = new JTable(scoreTableData, scoreTableHeader);
+        scoreTableModel = new DefaultTableModel();
+        scoreTable = new RowTable(scoreTableModel);
         scoreTable.setRowHeight(scoreTable.getRowHeight() + 12);
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-        for(int i=0;i<4;i++)
-            scoreTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        scoreTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        scoreTable.getColumnModel().getColumn(0).setPreferredWidth(27);
-        scoreTable.getColumnModel().getColumn(1).setPreferredWidth(220);
-        scoreTable.getColumnModel().getColumn(2).setPreferredWidth(171);
-        scoreTable.getColumnModel().getColumn(3).setPreferredWidth(80);
         scoreTable.getTableHeader().setFont(arialDefault);
         scoreTable.setFont(arialDefault);
         JScrollPane scoreTableScrollPane = new JScrollPane(scoreTable);
         scoreTableScrollPane.setBounds(820, 50, 501, 362);
         add(scoreTableScrollPane);
+        scoreTableModel.addColumn("");
+        scoreTableModel.addColumn("Attribute");
+        scoreTableModel.addColumn("Declared or done");
+        scoreTableModel.addColumn("Points");
+        scoreTable.getColumnModel().getColumn(0).setPreferredWidth(27);
+        scoreTable.getColumnModel().getColumn(1).setPreferredWidth(220);
+        scoreTable.getColumnModel().getColumn(2).setPreferredWidth(171);
+        scoreTable.getColumnModel().getColumn(3).setPreferredWidth(80);
+        scoreTableModel.addRow(new String[]{"1", "Game", "", "2"});
+        scoreTableModel.addRow(new String[]{"2", "Pope at finish", "No", ""});
+        scoreTableModel.addRow(new String[]{"3", "Pagat at finish", "No", ""});
+        scoreTableModel.addRow(new String[]{"4", "All popes", "No", ""});
+        scoreTableModel.addRow(new String[]{"5", "All trull cards", "No", ""});
+        scoreTableModel.addRow(new String[]{"6", "Pope Caught", "No", ""});
+        scoreTableModel.addRow(new String[]{"7", "Luna Caught", "No", ""});
+        scoreTableModel.addRow(new String[]{"8", "Tarocks Player 01", "", ""});
+        scoreTableModel.addRow(new String[]{"9", "Tarocks Player 02", "", ""});
+        scoreTableModel.addRow(new String[]{"10", "Tarocks Player 03", "", ""});
+        scoreTableModel.addRow(new String[]{"11", "Tarocks Player 04", "", ""});
+        scoreTableModel.addRow(new String[]{"12", "Total", "", ""});
 
         OKButton = new CustomJButton("OK", arialBig);
         OKButton.setBounds(965, 449, 211, 41);

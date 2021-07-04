@@ -1,41 +1,41 @@
 com/eduard240300/TarockWebSite/Domain/User.java
  com.eduard240300.TarockWebSite.Domain.User
-com/eduard240300/TarockWebSite/Validator/SessionValidator.java
- com.eduard240300.TarockWebSite.Validator.SessionValidator
+com/eduard240300/TarockWebSite/Controller/CloseSessionController.java
+ com.eduard240300.TarockWebSite.Controller.CloseSessionController
 com/eduard240300/TarockWebSite/Controller/RegisterController.java
  com.eduard240300.TarockWebSite.Controller.RegisterController
-com/eduard240300/TarockWebSite/Domain/ScoreAttribute.java
- com.eduard240300.TarockWebSite.Domain.ScoreAttribute
+com/eduard240300/TarockWebSite/Domain/Round.java
+ com.eduard240300.TarockWebSite.Domain.Round
 com/eduard240300/TarockWebSite/Repository/Repository.java
  com.eduard240300.TarockWebSite.Repository.Repository
 com/eduard240300/TarockWebSite/Service/LoginService.java
  com.eduard240300.TarockWebSite.Service.LoginService
 com/eduard240300/TarockWebSite/Exception/CloseSessionException.java
  com.eduard240300.TarockWebSite.Exception.CloseSessionException
-com/eduard240300/TarockWebSite/Service/AddSessionService.java
- com.eduard240300.TarockWebSite.Service.AddSessionService
+com/eduard240300/TarockWebSite/Exception/SeeSessionException.java
+ com.eduard240300.TarockWebSite.Exception.SeeSessionException
 com/eduard240300/TarockWebSite/Controller/SeeSessionController.java
  com.eduard240300.TarockWebSite.Controller.SeeSessionController
 com/eduard240300/TarockWebSite/Service/BCrypt.java
  com.eduard240300.TarockWebSite.Service.BCrypt
-com/eduard240300/TarockWebSite/Domain/Game.java
- com.eduard240300.TarockWebSite.Domain.Game
+com/eduard240300/TarockWebSite/Validator/UserValidator.java
+ com.eduard240300.TarockWebSite.Validator.UserValidator
 com/eduard240300/TarockWebSite/Domain/Declaration.java
  com.eduard240300.TarockWebSite.Domain.Declaration
 com/eduard240300/TarockWebSite/Exception/RegisterException.java
  com.eduard240300.TarockWebSite.Exception.RegisterException
-com/eduard240300/TarockWebSite/DBManager/DBManager.java
- com.eduard240300.TarockWebSite.DBManager.DBManager
-com/eduard240300/TarockWebSite/Service/ScoreService.java
- com.eduard240300.TarockWebSite.Service.ScoreService
+com/eduard240300/TarockWebSite/Service/CookieService.java
+ com.eduard240300.TarockWebSite.Service.CookieService
+com/eduard240300/TarockWebSite/Exception/AddSessionException.java
+ com.eduard240300.TarockWebSite.Exception.AddSessionException
 com/eduard240300/TarockWebSite/Validator/IntegerValidator.java
  com.eduard240300.TarockWebSite.Validator.IntegerValidator
 com/eduard240300/TarockWebSite/Exception/ValidationException.java
  com.eduard240300.TarockWebSite.Exception.ValidationException
-com/eduard240300/TarockWebSite/Domain/Session.java
- com.eduard240300.TarockWebSite.Domain.Session
-com/eduard240300/TarockWebSite/Service/CommunicationService.java
- com.eduard240300.TarockWebSite.Service.CommunicationService
+com/eduard240300/TarockWebSite/Service/DataManipulationService.java
+ com.eduard240300.TarockWebSite.Service.DataManipulationService
+com/eduard240300/TarockWebSite/Exception/RepositoryException.java
+ com.eduard240300.TarockWebSite.Exception.RepositoryException
 com/eduard240300/TarockWebSite/Service/InitializerService.java
  com.eduard240300.TarockWebSite.Service.InitializerService
 com/eduard240300/TarockWebSite/Exception/ConnectionException.java
@@ -44,8 +44,8 @@ com/eduard240300/TarockWebSite/Controller/LoginController.java
  com.eduard240300.TarockWebSite.Controller.LoginController
 com/eduard240300/TarockWebSite/Domain/Pair.java
  com.eduard240300.TarockWebSite.Domain.Pair
-com/eduard240300/TarockWebSite/Controller/AddSessionController.java
- com.eduard240300.TarockWebSite.Controller.AddSessionController
+com/eduard240300/TarockWebSite/Exception/LoginException.java
+ com.eduard240300.TarockWebSite.Exception.LoginException
 com/eduard240300/TarockWebSite/Service/RegisterService.java
  com.eduard240300.TarockWebSite.Service.RegisterService
 com/eduard240300/TarockWebSite/Exception/DBException.java
@@ -54,26 +54,26 @@ com/eduard240300/TarockWebSite/Service/SeeSessionService.java
  com.eduard240300.TarockWebSite.Service.SeeSessionService
 com/eduard240300/TarockWebSite/Service/CloseSessionService.java
  com.eduard240300.TarockWebSite.Service.CloseSessionService
-com/eduard240300/TarockWebSite/Exception/SeeSessionException.java
- com.eduard240300.TarockWebSite.Exception.SeeSessionException
-com/eduard240300/TarockWebSite/Exception/RepositoryException.java
- com.eduard240300.TarockWebSite.Exception.RepositoryException
-com/eduard240300/TarockWebSite/Service/DataManipulationService.java
- com.eduard240300.TarockWebSite.Service.DataManipulationService
-com/eduard240300/TarockWebSite/Service/CookieService.java
- com.eduard240300.TarockWebSite.Service.CookieService
-com/eduard240300/TarockWebSite/Controller/CloseSessionController.java
- com.eduard240300.TarockWebSite.Controller.CloseSessionController
-com/eduard240300/TarockWebSite/Exception/AddSessionException.java
- com.eduard240300.TarockWebSite.Exception.AddSessionException
-com/eduard240300/TarockWebSite/Validator/UserValidator.java
- com.eduard240300.TarockWebSite.Validator.UserValidator
-com/eduard240300/TarockWebSite/Exception/LoginException.java
- com.eduard240300.TarockWebSite.Exception.LoginException
+com/eduard240300/TarockWebSite/Validator/SessionValidator.java
+ com.eduard240300.TarockWebSite.Validator.SessionValidator
+com/eduard240300/TarockWebSite/Service/AddSessionService.java
+ com.eduard240300.TarockWebSite.Service.AddSessionService
+com/eduard240300/TarockWebSite/Domain/ScoreAttribute.java
+ com.eduard240300.TarockWebSite.Domain.ScoreAttribute
+com/eduard240300/TarockWebSite/Domain/Session.java
+ com.eduard240300.TarockWebSite.Domain.Session
+com/eduard240300/TarockWebSite/Controller/AddSessionController.java
+ com.eduard240300.TarockWebSite.Controller.AddSessionController
+com/eduard240300/TarockWebSite/Domain/Game.java
+ com.eduard240300.TarockWebSite.Domain.Game
+com/eduard240300/TarockWebSite/Service/CommunicationService.java
+ com.eduard240300.TarockWebSite.Service.CommunicationService
 com/eduard240300/TarockWebSite/Domain/Score.java
  com.eduard240300.TarockWebSite.Domain.Score
-com/eduard240300/TarockWebSite/Domain/Round.java
- com.eduard240300.TarockWebSite.Domain.Round
+com/eduard240300/TarockWebSite/DBManager/DBManager.java
+ com.eduard240300.TarockWebSite.DBManager.DBManager
+com/eduard240300/TarockWebSite/Service/ScoreService.java
+ com.eduard240300.TarockWebSite.Service.ScoreService
 com/eduard240300/TarockWebSite/Service/ClientService.java
  com.eduard240300.TarockWebSite.Service.ClientService
 com/eduard240300/TarockWebSite/Service/GameSessionService.java

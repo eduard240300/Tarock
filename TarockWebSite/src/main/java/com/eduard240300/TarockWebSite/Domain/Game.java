@@ -22,6 +22,8 @@ public class Game {
         this.radler = radler;
     }
 
+    public Game() { }
+
     public int getGameID() {
         return gameID;
     }
@@ -84,5 +86,30 @@ public class Game {
 
     public void setRadler(boolean radler) {
         this.radler = radler;
+    }
+
+    public void setScorePlayer(int player, int score)
+    {
+        if (player == 0)
+            setScorePlayer1(score);
+        else if (player == 1)
+            setScorePlayer2(score);
+        else if (player == 2)
+            setScorePlayer3(score);
+        else if (player == 3)
+            setScorePlayer4(score);
+    }
+
+    public int getScorePlayer(int player)
+    {
+        if (player == 0)
+            getScorePlayer1();
+        else if (player == 1)
+            getScorePlayer2();
+        else if (player == 2)
+            getScorePlayer3();
+        else if (player == 3)
+            getScorePlayer4();
+        return 0;
     }
 }

@@ -1,8 +1,6 @@
 package com.eduard240300.TarockWebSite.Service;
 
-import com.eduard240300.TarockWebSite.Domain.Declaration;
-import com.eduard240300.TarockWebSite.Domain.Round;
-import com.eduard240300.TarockWebSite.Domain.Session;
+import com.eduard240300.TarockWebSite.Domain.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +10,7 @@ import java.util.List;
 public class GameSessionService extends Thread{
     public List<ClientService> listOfClients;
     public Session session;
+    public List<String> players;
     public int gameNumber = -1;
     public List<Integer> pope;
     public List<List<Integer>> cards;
@@ -27,9 +26,10 @@ public class GameSessionService extends Thread{
     public List<Integer> talonPart; //the part of talon that is chosen
     public List<Integer> playerRequest; //player that requested the 1of2
     public List<Integer> the1of2;
-    public GameSessionService(List<ClientService> listOfClients, Session session){
+    public GameSessionService(List<ClientService> listOfClients, Session session, List<String> players){
         this.listOfClients = listOfClients;
         this.session = session;
+        this.players = players;
         playersStatus = new ArrayList<List<String>>();
         cards = new ArrayList<List<Integer>>();
         cardsSeparated = new ArrayList<List<List<Integer>>>();
@@ -428,7 +428,7 @@ public class GameSessionService extends Thread{
 
         int playerThatWon = round.getPlayerThatWon();
         int team = 1;
-        for (int i=0;i<teams.get(0).size();i++)
+        for (int i=0;i<teams.get(gameNumber).get(0).size();i++)
         {
             if (playerThatWon == teams.get(gameNumber).get(0).get(i))
                 team = 0;
@@ -478,7 +478,35 @@ public class GameSessionService extends Thread{
         if (radlerTimes > 0)
             isRadler = true;
         radlerTimes--;
-        ScoreService.getScore(playerRequest.get(gameNumber), session, teams.get(gameNumber), declarations.get(gameNumber), cardsWon.get(gameNumber), popeInTalon, false);
+        Pair<String, Game, Score> pair = ScoreService.getScore(playerRequest.get(gameNumber), players,
+                teams.get(gameNumber), rounds.get(gameNumber), declarations.get(gameNumber),
+                cardsWon.get(gameNumber), popeInTalon, isRadler);
+        Game game = pair.getValue();
+        Score score = pair.getSpecialValue();
+        for(int i=0;i<4;i++)
+        {
+            message = "score";
+            for(int j=0;j<4;j++)
+            {
+                message += " " + game.getScorePlayer(j);
+            }
+            message += " Dec ";
+            if (isRadler)
+                message += "1;";
+            else
+                message += "0;";
+            listOfClients.get(i).write(message);
+            log(message, i);
+        }
+        for(int i=0;i<4;i++)
+        {
+            message = "scoreDetailed ";
+            message += score.toString();
+            message += ";";
+            listOfClients.get(i).write(message);
+            log(message, i);
+        }
+        runHelper();
     }
 
     public void runHelper() throws IOException, ClassNotFoundException {
@@ -525,7 +553,7 @@ public class GameSessionService extends Thread{
             Collections.sort(cardsSeparated.get(gameNumber).get(i));
 
         //begin
-
+        /*
         for(int i=0;i<cardsSeparated.get(gameNumber).get(0).size();i++)
         {
             int aux = cardsSeparated.get(gameNumber).get(0).get(i);
@@ -537,7 +565,7 @@ public class GameSessionService extends Thread{
                 cardsSeparated.get(gameNumber).get(0).set(i, 23);
             }
         }
-
+        */
         //end
 
         // finished initialization

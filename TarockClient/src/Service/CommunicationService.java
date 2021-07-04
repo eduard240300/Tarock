@@ -125,7 +125,7 @@ public class CommunicationService extends Thread{
                 canPagatAtFinish = true;
                 canAllPopes = true;
                 canTrull = true;
-                round++;
+                round = 0;
                 shouldCompleteRound = false;
 
                 GameForm.the1of2 = 1;
@@ -373,6 +373,17 @@ public class CommunicationService extends Thread{
                 {
                     GameForm.scoreTable.setRowColor(0, Color.RED);
                 }
+            }
+            else if (listOfObjects.get(0).equals("scoreDetailed"))
+            {
+                List<String> declaredOrDone = new ArrayList<String>();
+                List<Integer> points = new ArrayList<Integer>();
+                for(int j=1;j<13;j++)
+                {
+                    declaredOrDone.add(DataManipulationService.getName(listOfObjects.get(j)));
+                    points.add(Integer.parseInt(listOfObjects.get(j+12)));
+                }
+                ScoreForm.updateTable(declaredOrDone, points);
             }
         }
         System.out.println(username + " Sent : " + sentMessage);
