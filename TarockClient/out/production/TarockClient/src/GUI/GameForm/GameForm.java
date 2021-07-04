@@ -1,14 +1,17 @@
 package GUI.GameForm;
 
+import GUI.ScoreForm.ScoreForm;
 import GUI.Template.ClickableImage;
 import GUI.Template.CustomJButton;
 import GUI.Template.JImage;
+import GUI.Template.RowTable;
 import Repository.Repository;
 
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalCheckBoxUI;
 import javax.swing.plaf.metal.MetalRadioButtonUI;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.font.TextAttribute;
 import java.io.IOException;
@@ -19,6 +22,7 @@ import java.util.Map;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 import GUI.GameForm.*;
+import Service.DataManipulationService;
 
 public class GameForm extends JFrame{
     public static int the1of2 = 1;
@@ -43,9 +47,8 @@ public class GameForm extends JFrame{
     public static JRadioButton diamondRadio;
     public static JRadioButton clubRadio;
     public static JRadioButton spadeRadio;
-    public static String scoreTableData[][];
-    public static String scoreTableHeader[];
-    public static JTable scoreTable;
+    public static DefaultTableModel scoreTableModel;
+    public static RowTable scoreTable;
     public static List<JLabel> declarationsPlayers;
     public static List<JLabel> declarationsTurnsLabels;
     public static JLabel previousRoundWonByLabel;
@@ -67,18 +70,41 @@ public class GameForm extends JFrame{
             updateCard(i, 0);
     }
 
-    public void changePlayerNames()
+    public void resetPlayerNames()
     {
-        int i;
-        for(i=0;i<4;i++)
+        for(int i=0;i<4;i++)
         {
             playerLabels.get(i).setText((i + 1) + ". " + Repository.players.get(i) + " : ");
             statusPlayers.get(i).setText(Repository.players.get(i) + " : ");
-            scoreTableHeader[i] = Repository.players.get(i);
-            scoreTable.getColumnModel().getColumn(i).setHeaderValue(scoreTableHeader[i]);
+
             declarationsPlayers.get(i).setText(Repository.players.get(i) + " : ");
         }
-        scoreTable.getTableHeader().repaint();
+        if (scoreTableModel.getColumnCount() == 0)
+        {
+            for(int i=0;i<4;i++)
+            {
+                scoreTableModel.addColumn(Repository.players.get(i));
+            }
+            scoreTableModel.addColumn("Declaration");
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+            for(int i=0;i<5;i++)
+                scoreTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            scoreTable.getColumnModel().getColumn(0).setPreferredWidth(80);
+            scoreTable.getColumnModel().getColumn(1).setPreferredWidth(80);
+            scoreTable.getColumnModel().getColumn(2).setPreferredWidth(80);
+            scoreTable.getColumnModel().getColumn(3).setPreferredWidth(80);
+            scoreTable.getColumnModel().getColumn(4).setPreferredWidth(160);
+        }
+    }
+
+    public void addToScoreTable(int score1, int score2, int score3, int score4, String declaration)
+    {
+        String stringScore1 = String.valueOf(score1);
+        String stringScore2 = String.valueOf(score2);
+        String stringScore3 = String.valueOf(score3);
+        String stringScore4 = String.valueOf(score4);
+        scoreTableModel.addRow(new Object[]{stringScore1, stringScore2, stringScore3, stringScore4, declaration});
     }
 
     public void updateCards() throws IOException {
@@ -93,10 +119,23 @@ public class GameForm extends JFrame{
         playerLabels.get(Repository.chair).setFont(arialChair);
     }
 
+    public void reset1of2()
+    {
+        the1of2Button.setText(the1of2 + "/2");
+    }
+
     public void increase1of2()
     {
         the1of2++;
         the1of2Button.setText(the1of2 + "/2");
+    }
+
+    public void resetTeams()
+    {
+        for(int i=0;i<4;i++)
+        {
+            teamsLabels.get(i).setText("");
+        }
     }
 
     public void showTeams()
@@ -177,7 +216,7 @@ public class GameForm extends JFrame{
         spadeRadio.setSelected(false);
     }
 
-    public void swithDeclarationSelection(boolean canPopeAtFinish, boolean canPagatAtFinish, boolean isRequestPlayer, boolean value) {
+    public void switchDeclarationSelection(boolean canPopeAtFinish, boolean canPagatAtFinish, boolean canAllPopes, boolean canTrull, boolean isRequestPlayer, boolean value) {
         if (value)
             typeOfActivation = "Declaration";
         else
@@ -186,32 +225,32 @@ public class GameForm extends JFrame{
             popeAtFinishCheckBox.setEnabled(value);
         if (canPagatAtFinish)
             pagatAtFinishCheckBox.setEnabled(value);
-        allPopesCheckBox.setEnabled(value);
-        trullCheckBox.setEnabled(value);
+        if (canAllPopes)
+            allPopesCheckBox.setEnabled(value);
+        if (canTrull)
+            trullCheckBox.setEnabled(value);
         submitButton.setEnabled(value);
         numberOfTarocksComboBox.setEnabled(value);
-        if (isRequestPlayer)
-        {
-            heartRadio.setEnabled(value);
-            diamondRadio.setEnabled(value);
-            clubRadio.setEnabled(value);
-            spadeRadio.setEnabled(value);
-            numberOfTarocksComboBox.setEnabled(false);
-        }
     }
 
-    public void switchNumberOfTarocksSelection(boolean value) {
+    public void switchPopeSelection(boolean value) {
         if (value)
-            typeOfActivation = "NumberOfTarocks";
+            typeOfActivation = "Pope";
         else
             typeOfActivation = "";
-        numberOfTarocksComboBox.setEnabled(value);
+        heartRadio.setEnabled(value);
+        diamondRadio.setEnabled(value);
+        clubRadio.setEnabled(value);
+        spadeRadio.setEnabled(value);
         submitButton.setEnabled(value);
     }
 
     public void updatePreviousRoundWonByLabel(String text)
     {
-        previousRoundWonByLabel.setText("Previous round won by : " + text);
+        if (text == "")
+            previousRoundWonByLabel.setText("");
+        else
+            previousRoundWonByLabel.setText("Previous round won by : " + text);
     }
 
     public GameForm() throws IOException {
@@ -498,18 +537,13 @@ public class GameForm extends JFrame{
         scoreLabel.setBounds(820, 10, 150, 19);
         add(scoreLabel);
 
-        scoreTableData = new String[][]{};
-        scoreTableHeader = new String[]{"Player 1", "Player 2", "Player 3", "Player 4", "Declared"};
-        scoreTable = new JTable(scoreTableData, scoreTableHeader);
+        scoreTableModel = new DefaultTableModel();
+        scoreTable = new RowTable(scoreTableModel);
         scoreTable.setRowHeight(scoreTable.getRowHeight() + 12);
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-        for(int i=0;i<5;i++)
-            scoreTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         scoreTable.getTableHeader().setFont(arialDefault);
         scoreTable.setFont(arialDefault);
         JScrollPane scoreTableScrollPane = new JScrollPane(scoreTable);
-        scoreTableScrollPane.setBounds(820, 40, 501, 281);
+        scoreTableScrollPane.setBounds(820, 40, 500, 281);
         add(scoreTableScrollPane);
 
         JLabel declarationsLabel = new JLabel();
@@ -546,9 +580,7 @@ public class GameForm extends JFrame{
         setTitle("Tarock Client : Game");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
-        setVisible(true);
-        
-        playerCards.get(0).setCardID(1);
+        //setVisible(true);
 
         ControllerGameForm controllerGameForm = new ControllerGameForm();
     }

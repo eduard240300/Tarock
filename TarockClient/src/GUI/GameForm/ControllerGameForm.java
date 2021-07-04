@@ -26,6 +26,26 @@ public class ControllerGameForm {
                     String numberOfTarocksString = Main.gameForm.numberOfTarocksComboBox.getSelectedItem().toString();
                     if (!numberOfTarocksString.equals("No"))
                         numberOfTarocks = Integer.parseInt(numberOfTarocksString);
+
+                    String message = "";
+                    if ((popeAtFinish) && (!Repository.hasChosenPope()))
+                        message += "You don't have the requested pope ! ";
+                    if ((pagatAtFinish) && (!Repository.hasPagat()))
+                        message += "You don't have the pagat ! ";
+                    if (Repository.getNumberOfTarocks() < numberOfTarocks)
+                        message += "You don't have " + numberOfTarocksString + " tarocks !";
+                    if (message.equals(""))
+                    {
+                        Declaration declaration = new Declaration(popeAtFinish, pagatAtFinish, allPopes, trull, numberOfTarocks);
+                        CommunicationService.declaration = declaration;
+                    }
+                    else
+                    {
+                        GameForm.popUpMessage(message);
+                    }
+                }
+                else if (GameForm.typeOfActivation == "Pope")
+                {
                     int pope = -1;
                     if (Main.gameForm.heartRadio.isSelected())
                         pope = 0;
@@ -39,40 +59,12 @@ public class ControllerGameForm {
                         Repository.chosenPope = pope;
 
                     String message = "";
-                    if ((popeAtFinish) && (!Repository.hasChosenPope()))
-                        message += "You don't have the requested pope ! ";
-                    if ((pagatAtFinish) && (!Repository.hasPagat()))
-                        message += "You don't have the pagat ! ";
-                    if (Repository.getNumberOfTarocks() < numberOfTarocks)
-                        message += "You don't have " + numberOfTarocksString + " tarocks !";
                     if ((Repository.isRequestPlayer) && (pope == -1))
                         message += "You didn't select a pope !";
+
                     if (message.equals(""))
                     {
-                        Declaration declaration = new Declaration(popeAtFinish, pagatAtFinish, allPopes, trull, numberOfTarocks);
-                        if (Repository.isRequestPlayer)
-                        {
-                            declaration.setPope(pope);
-                        }
-                        CommunicationService.declaration = declaration;
-                    }
-                    else
-                    {
-                        GameForm.popUpMessage(message);
-                    }
-                }
-                else if (GameForm.typeOfActivation == "NumberOfTarocks")
-                {
-                    int numberOfTarocks = 0;
-                    String numberOfTarocksString = Main.gameForm.numberOfTarocksComboBox.getSelectedItem().toString();
-                    if (!numberOfTarocksString.equals("No"))
-                        numberOfTarocks = Integer.parseInt(numberOfTarocksString);
-                    String message = "";
-                    if (Repository.getNumberOfTarocks() < numberOfTarocks)
-                        message += "You don't have " + numberOfTarocksString + " tarocks !";
-                    if (message.equals(""))
-                    {
-                        CommunicationService.numberOfTarocks = numberOfTarocks;
+                        CommunicationService.pope = pope;
                     }
                     else
                     {
@@ -105,10 +97,13 @@ public class ControllerGameForm {
         GameForm.cancelGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainService.setPlayerMode("cancel");
-                Main.gameForm.the1of2Button.setEnabled(false);
-                Main.gameForm.passButton.setEnabled(false);
-                Main.gameForm.cancelGameButton.setEnabled(false);
+                if (Repository.canCancelGame())
+                {
+                    MainService.setPlayerMode("cancel");
+                    Main.gameForm.the1of2Button.setEnabled(false);
+                    Main.gameForm.passButton.setEnabled(false);
+                    Main.gameForm.cancelGameButton.setEnabled(false);
+                }
                 System.out.println("Pressed Cancel Button");
             }
         });

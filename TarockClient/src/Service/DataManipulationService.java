@@ -2,6 +2,7 @@ package Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DataManipulationService {
     public static String truncateClassName(String className){
@@ -101,5 +102,22 @@ public class DataManipulationService {
         if (theBoolean == false)
             string = "0";
         return string;
+    }
+
+    public static String[][] transformStringArray(List<List<String>> input)
+    {
+        String[][] nestedArray = input
+                // using the stream API
+                .stream()
+                // mapping each `List`...
+                .map(
+                        // ... to a resulting array
+                        (l) -> l.toArray(new String[l.size()])
+                )
+                // collecting as a List<String[]>
+                .collect(Collectors.toList())
+                // converting the resulting List<String[]> to a String[][]
+                .toArray(new String[input.size()][]);
+        return nestedArray;
     }
 }

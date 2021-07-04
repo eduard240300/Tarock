@@ -8,17 +8,24 @@ import GUI.ConnectionForm.ControllerConnectionForm;
 import GUI.GameForm.GameForm;
 import GUI.Main;
 import GUI.ScoreForm.ScoreForm;
+import GUI.Template.ClickableImage;
+import GUI.Template.CustomJButton;
+import GUI.Template.JImage;
 import Repository.Repository;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommunicationService extends Thread{
+    public static String ipAddress = "localhost";
     public static Socket socket;
     public static ObjectInputStream inputStream;
     public static ObjectOutputStream outputStream;
@@ -29,10 +36,12 @@ public class CommunicationService extends Thread{
     public static Declaration declaration = null;
     public static String talonTakeDecision = "";
     public static String talonGiveDecision = "";
-    public static int numberOfTarocks = -1;
+    public static int pope = -1;
     public static int cardGiven = -1;
     public static boolean canPopeAtFinish = true;
     public static boolean canPagatAtFinish = true;
+    public static boolean canAllPopes = true;
+    public static boolean canTrull = true;
     public static int round = 0;
     public static boolean shouldCompleteRound = false;
 
@@ -40,7 +49,7 @@ public class CommunicationService extends Thread{
         //socket = new Socket("localhost", 9876);
         while(true) {
             try {
-                socket = new Socket("185.229.224.215", 9876);
+                socket = new Socket(ipAddress, 9876);
                 System.out.println("Connected to localhost:9876 !");
                 break;
             } catch (ConnectException connectException) {
@@ -97,12 +106,46 @@ public class CommunicationService extends Thread{
             {
                 for(int j=0;j<4;j++)
                     Repository.players.set(j, DataManipulationService.getName(listOfObjects.get(j+1)));
-                Main.gameForm.changePlayerNames();
+                Main.gameForm.resetPlayerNames();
             }
             else if (listOfObjects.get(0).equals("chairNumber"))
             {
                 Repository.chair = Integer.parseInt(listOfObjects.get(1));
                 Main.gameForm.updateChair();
+            }
+            else if (listOfObjects.get(0).equals("beginGame"))
+            {
+                playerMode = "";
+                declaration = null;
+                talonTakeDecision = "";
+                talonGiveDecision = "";
+                pope = -1;
+                cardGiven = -1;
+                canPopeAtFinish = true;
+                canPagatAtFinish = true;
+                canAllPopes = true;
+                canTrull = true;
+                round++;
+                shouldCompleteRound = false;
+
+                GameForm.the1of2 = 1;
+                GameForm.typeOfActivation = "";
+                GameForm.canGiveCard = false;
+                GameForm.the1of2Button.setEnabled(false);
+                GameForm.passButton.setEnabled(false);
+                GameForm.cancelGameButton.setEnabled(false);
+                GameForm.submitButton.setEnabled(false);
+
+                Repository.resetRepository();
+                Main.gameForm.resetCards();
+                Main.gameForm.resetPlayerNames();
+                Main.gameForm.updateCards();
+                Main.gameForm.reset1of2();
+                Main.gameForm.resetTeams();
+                Main.gameForm.updateNextStatus(-1, "Status");
+                Main.gameForm.updateNextStatus(-1, "Declaration");
+                Main.gameForm.resetDeclarationSelection();
+                Main.gameForm.updatePreviousRoundWonByLabel("");
             }
             else if (listOfObjects.get(0).equals("cards"))
             {
@@ -120,7 +163,8 @@ public class CommunicationService extends Thread{
             {
                 Main.gameForm.the1of2Button.setEnabled(true);
                 Main.gameForm.passButton.setEnabled(true);
-                Main.gameForm.cancelGameButton.setEnabled(true);
+                if (Repository.canCancelGame())
+                    Main.gameForm.cancelGameButton.setEnabled(true);
                 while (playerMode.equals(""))
                     Thread.sleep(1);
                 sentMessage = "playerMode " + playerMode + ";";
@@ -150,18 +194,20 @@ public class CommunicationService extends Thread{
             else if (listOfObjects.get(0).equals("requestDeclaration"))
             {
                 Main.gameForm.resetDeclarationSelection();
-                Main.gameForm.swithDeclarationSelection(canPopeAtFinish, canPagatAtFinish, Repository.isRequestPlayer, true);
+                Main.gameForm.switchDeclarationSelection(canPopeAtFinish, canPagatAtFinish, canAllPopes, canTrull, Repository.isRequestPlayer, true);
                 while (declaration == null)
                     Thread.sleep(1);
                 sentMessage = "declaration " + declaration.toSendableObject() + ";";
                 declaration = null;
-                Main.gameForm.swithDeclarationSelection(canPopeAtFinish, canPagatAtFinish, Repository.isRequestPlayer, false);
+                Main.gameForm.switchDeclarationSelection(canPopeAtFinish, canPagatAtFinish, canAllPopes, canTrull, Repository.isRequestPlayer, false);
             }
             else if (listOfObjects.get(0).equals("respondedDeclaration"))
             {
                 Main.gameForm.changeDeclarationPlayer(Integer.parseInt(listOfObjects.get(1)), DataManipulationService.getName(listOfObjects.get(2)));
                 boolean popeAtFinish = DataManipulationService.stringToBool(listOfObjects.get(3));
                 boolean pagatAtFinish = DataManipulationService.stringToBool(listOfObjects.get(4));
+                boolean allPopes = DataManipulationService.stringToBool(listOfObjects.get(5));
+                boolean trull = DataManipulationService.stringToBool(listOfObjects.get(6));
                 if (Integer.parseInt(listOfObjects.get(1)) == Repository.playerRequest)
                 {
                     int pope = Integer.parseInt(listOfObjects.get(8));
@@ -171,6 +217,10 @@ public class CommunicationService extends Thread{
                     canPopeAtFinish = false;
                 if (pagatAtFinish)
                     canPagatAtFinish = false;
+                if (allPopes)
+                    canAllPopes = false;
+                if (trull)
+                    canTrull = false;
             }
             else if (listOfObjects.get(0).equals("team1"))
             {
@@ -243,14 +293,14 @@ public class CommunicationService extends Thread{
                 else if (listOfObjects.get(1).equals("select"))
                     Main.talonSelectionForm.setVisible(false);
             }
-            else if (listOfObjects.get(0).equals("requestNumberOfTarocks"))
+            else if (listOfObjects.get(0).equals("requestPope"))
             {
-                Main.gameForm.switchNumberOfTarocksSelection(true);
-                while (numberOfTarocks == -1)
+                Main.gameForm.switchPopeSelection(true);
+                while (pope == -1)
                     Thread.sleep(1);
-                sentMessage = "numberOfTarocks " + numberOfTarocks + ";";
-                numberOfTarocks = -1;
-                Main.gameForm.switchNumberOfTarocksSelection(false);
+                sentMessage = "pope " + pope + ";";
+                pope = -1;
+                Main.gameForm.switchPopeSelection(false);
             }
             else if (listOfObjects.get(0).equals("beginRound"))
             {
@@ -309,6 +359,20 @@ public class CommunicationService extends Thread{
                     Repository.cardsWon.get(1).add(Integer.valueOf(listOfObjects.get(j)));
                 }
                 ScoreForm.updateCards();
+            }
+            else if (listOfObjects.get(0).equals("score"))
+            {
+                int score1 = Integer.parseInt(listOfObjects.get(1));
+                int score2 = Integer.parseInt(listOfObjects.get(2));
+                int score3 = Integer.parseInt(listOfObjects.get(3));
+                int score4 = Integer.parseInt(listOfObjects.get(4));
+                String declaration = listOfObjects.get(5);
+                boolean isRadler = DataManipulationService.stringToBool(listOfObjects.get(6));
+                Main.gameForm.addToScoreTable(score1, score2, score3, score4, declaration);
+                if (isRadler)
+                {
+                    GameForm.scoreTable.setRowColor(0, Color.RED);
+                }
             }
         }
         System.out.println(username + " Sent : " + sentMessage);

@@ -28,7 +28,7 @@ public class Round {
         return cards.get(player);
     }
 
-    public boolean isTarock(int cardID)
+    public static boolean isTarock(int cardID)
     {
         if ((cardID >= 1) && (cardID <= 22))
             return true;

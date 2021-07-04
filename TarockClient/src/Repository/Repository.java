@@ -1,5 +1,6 @@
 package Repository;
 
+import Domain.Declaration;
 import Domain.Round;
 import Domain.User;
 import Exception.RepositoryException;
@@ -87,9 +88,20 @@ public class Repository {
 
     public static void initRepository()
     {
-        rounds = new ArrayList<Round>();
         loggedIn = false;
         loggedUser = null;
+        players = new ArrayList<String>();
+        players.add("Player 1");
+        players.add("Player 2");
+        players.add("Player 3");
+        players.add("Player 4");
+        resetRepository();
+    }
+
+    public static void resetRepository()
+    {
+        givenCardsCompleted = false;
+        rounds = new ArrayList<Round>();
         teams = new ArrayList<List<Integer>>();
         givenCards = new ArrayList<Integer>();
         cardsWon = new ArrayList<List<Integer>>();
@@ -97,15 +109,16 @@ public class Repository {
             teams.add(new ArrayList<Integer>());
             cardsWon.add(new ArrayList<Integer>());
         }
-        players = new ArrayList<String>();
         cards = new ArrayList<Integer>();
         talon = new ArrayList<Integer>();
         for(int i=0;i<6;i++)
             talon.add(0);
-        players.add("Player 1");
-        players.add("Player 2");
-        players.add("Player 3");
-        players.add("Player 4");
+        playerRequest = 0;
+        the1of2 = 0;
+        talonPart = -1;
+        chosenPope = -1;
+        round = -1;
+        isRequestPlayer = false;
     }
 
     public static void login(User newUser)
@@ -164,6 +177,23 @@ public class Repository {
             cards.add(talon.get(talonPart*2+i));
         }
         Collections.sort(cards);
+    }
+
+    public static boolean canCancelGame()
+    {
+        int sumTarocks = 0;
+        for(int i=0;i<cards.size();i++)
+        {
+            if ((cards.get(i) == 30) || (cards.get(i) == 38) || (cards.get(i) == 46) || (cards.get(i) == 54))
+                return false;
+            else if (isTarock(cards.get(i)))
+            {
+                sumTarocks += cards.get(i);
+            }
+        }
+        if (sumTarocks < 11)
+            return true;
+        else return false;
     }
 
     public static boolean canGiveCard(int position)
