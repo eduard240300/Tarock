@@ -107,6 +107,7 @@ public class CommunicationService extends Thread{
                 for(int j=0;j<4;j++)
                     Repository.players.set(j, DataManipulationService.getName(listOfObjects.get(j+1)));
                 Main.gameForm.resetPlayerNames();
+                Main.scoreForm.resetPlayerNames();
             }
             else if (listOfObjects.get(0).equals("chairNumber"))
             {
@@ -172,6 +173,7 @@ public class CommunicationService extends Thread{
             }
             else if (listOfObjects.get(0).equals("respondedPlayerMode"))
             {
+                Repository.resetCardsWon();
                 Main.gameForm.changeStatusPlayer(Integer.parseInt(listOfObjects.get(1)), listOfObjects.get(2));
             }
             else if (listOfObjects.get(0).equals("increased1of2"))
@@ -366,7 +368,7 @@ public class CommunicationService extends Thread{
                 int score2 = Integer.parseInt(listOfObjects.get(2));
                 int score3 = Integer.parseInt(listOfObjects.get(3));
                 int score4 = Integer.parseInt(listOfObjects.get(4));
-                String declaration = listOfObjects.get(5);
+                String declaration = DataManipulationService.getName(listOfObjects.get(5));
                 boolean isRadler = DataManipulationService.stringToBool(listOfObjects.get(6));
                 Main.gameForm.addToScoreTable(score1, score2, score3, score4, declaration);
                 if (isRadler)
@@ -383,6 +385,8 @@ public class CommunicationService extends Thread{
                     declaredOrDone.add(DataManipulationService.getName(listOfObjects.get(j)));
                     points.add(Integer.parseInt(listOfObjects.get(j+12)));
                 }
+                String teamThatWon = DataManipulationService.getName(listOfObjects.get(25));
+                ScoreForm.updateTeamThatWon(teamThatWon);
                 ScoreForm.updateTable(declaredOrDone, points);
             }
         }

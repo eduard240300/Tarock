@@ -12,25 +12,36 @@ public class ScoreService {
         for(int i=0;i<2;i++)
         {
             Declaration declaration = new Declaration(false, false, false, false, 0);
-            for(int j=0;j<teams.get(0).size();j++)
+            for(int j=0;j<teams.get(i).size();j++)
             {
-                if (declarations.get(teams.get(0).get(j)).getPopeAtFinish())
+                if (declarations.get(teams.get(i).get(j)).getPopeAtFinish())
                     declaration.setPopeAtFinish(true);
-                else if (declarations.get(teams.get(0).get(j)).getPagatAtFinish())
+                if (declarations.get(teams.get(i).get(j)).getPagatAtFinish())
                     declaration.setPagatAtFinish(true);
-                else if (declarations.get(teams.get(0).get(j)).getAllPopes())
+                if (declarations.get(teams.get(i).get(j)).getAllPopes())
                     declaration.setAllPopes(true);
-                else if (declarations.get(teams.get(0).get(j)).getTrull())
+                if (declarations.get(teams.get(i).get(j)).getTrull())
                     declaration.setTrull(true);
-                if (teams.get(0).get(j) == playerRequest)
+                if (teams.get(i).get(j) == playerRequest)
                 {
-                    declaration.setThe1of2(declarations.get(teams.get(0).get(j)).getThe1of2());
-                    declaration.setPope(declarations.get(teams.get(0).get(j)).getPope());
+                    declaration.setThe1of2(declarations.get(teams.get(i).get(j)).getThe1of2());
+                    declaration.setPope(declarations.get(teams.get(i).get(j)).getPope());
                 }
             }
             declarationsTeams.add(declaration);
         }
         return declarationsTeams;
+    }
+
+    public static String getDeclarationMessage(List<Declaration> declarationsTeams)
+    {
+        String declarationMessage = "";
+        declarationMessage += "T1(";
+        declarationMessage += declarationsTeams.get(0).toString();
+        declarationMessage += ") T2(";
+        declarationMessage += declarationsTeams.get(1).toString();
+        declarationMessage += ")";
+        return declarationMessage;
     }
 
     public static List<List<Integer>> swapPope(List<List<Integer>> cardsWon, int pope)
@@ -80,6 +91,7 @@ public class ScoreService {
         Score score = new Score();
         score.setRadler(isRadler);
         List<Declaration> declarationsTeams = getDeclarationsTeams(declarations, teams, playerRequest);
+        String declarationMessage = getDeclarationMessage(declarationsTeams);
         int pope = declarations.get(playerRequest).getPope();
         int the1of2 = declarations.get(playerRequest).getThe1of2();
         List<List<Integer>> cardsWonNew = cardsWon;
@@ -132,7 +144,10 @@ public class ScoreService {
         String declaredOrDoneGame = "";
         if (teamThatWon == 1) {
             pointsGame = pointsGame * the1of2;
-            declaredOrDoneGame = "Team 1 lost";
+            declaredOrDoneGame = "Team 2 won";
+        }
+        else{
+            declaredOrDoneGame = "Team 1 won";
         }
 
         score.getAttribute("Game").setPoints(pointsGame);
@@ -148,7 +163,7 @@ public class ScoreService {
         int teamDoneAllPopes = -1;
         int teamDoneAllTrullCards = -1;
         boolean popeCaught = false;
-        int lunaCaughtFromTeam = 0;
+        int lunaCaughtFromTeam = -1;
 
         //get values of variables declaration
         for(int i=0;i<2;i++)
@@ -183,7 +198,7 @@ public class ScoreService {
         //calculate if pagatAtFinish done
         for(int i=0;i<2;i++)
         {
-            for(int j=0;j<teams.get(0).size();j++)
+            for(int j=0;j<teams.get(i).size();j++)
             {
                 if ((rounds.get(11).getCard(teams.get(i).get(j)) == 1) &&
                         (rounds.get(11).getPlayerThatWon() == teams.get(i).get(j))) {
@@ -220,23 +235,24 @@ public class ScoreService {
         }
 
         //calculate if lunaCaught
-        boolean lunaCaught = false;
         int playerThatGaveLuna = -1;
         for(int i=0;i<12;i++)
         {
             for(int j=0;j<4;j++)
             {
                 if ((rounds.get(i).getCard(j) == 21) && (rounds.get(i).getPlayerThatWon() != j)) {
-                    lunaCaught = true;
-                    playerThatGaveLuna = i;
+                    playerThatGaveLuna = j;
                 }
             }
         }
 
-        for(int i=0;i<teams.get(1).size();i++)
+        for(int i=0;i<2;i++)
         {
-            if (playerThatGaveLuna == teams.get(1).get(i))
-                lunaCaughtFromTeam = 1;
+            for(int j=0;j<teams.get(i).size();j++)
+            {
+                if (playerThatGaveLuna == teams.get(i).get(i))
+                    lunaCaughtFromTeam = i;
+            }
         }
 
         //calculate popeAtFinish points
@@ -277,12 +293,12 @@ public class ScoreService {
         {
             if (teamDonePagatAtFinish != -1)
             {
-                declaredOrDonePagatAtFinish = "Declared(T" + (teamDeclaredPagatAtFinish+1) + "and done";
+                declaredOrDonePagatAtFinish = "Declared(T" + (teamDeclaredPagatAtFinish+1) + ") and done";
                 pointsPagatAtFinish = 7;
             }
             else
             {
-                declaredOrDonePagatAtFinish = "Declared(T" + (teamDeclaredPagatAtFinish+1) + "and not done";
+                declaredOrDonePagatAtFinish = "Declared(T" + (teamDeclaredPagatAtFinish+1) + ") and not done";
                 pointsPagatAtFinish = -7;
             }
         }
@@ -290,12 +306,12 @@ public class ScoreService {
         {
             if (teamDonePagatAtFinish != -1)
             {
-                declaredOrDonePagatAtFinish = "Declared(T" + (teamDeclaredPagatAtFinish+1) + "and done";
+                declaredOrDonePagatAtFinish = "Declared(T" + (teamDeclaredPagatAtFinish+1) + ") and done";
                 pointsPagatAtFinish = -7;
             }
             else
             {
-                declaredOrDonePagatAtFinish = "Declared(T" + (teamDeclaredPagatAtFinish+1) + "and not done";
+                declaredOrDonePagatAtFinish = "Declared(T" + (teamDeclaredPagatAtFinish+1) + ") and not done";
                 pointsPagatAtFinish = 7;
             }
         }
@@ -329,18 +345,18 @@ public class ScoreService {
             if (teamDoneAllPopes == 0)
             {
                 declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) +
-                        "and done(T" + (teamDoneAllPopes+1) + ")";
+                        ") and done(T" + (teamDoneAllPopes+1) + ")";
                 pointsAllPopes = 2;
             }
             else if (teamDoneAllPopes == 1)
             {
                 declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) +
-                        "and done(T" + (teamDoneAllPopes+1) + ")";
+                        ") and done(T" + (teamDoneAllPopes+1) + ")";
                 pointsAllPopes = -3;
             }
             else
             {
-                declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) + "and not done";
+                declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) + ") and not done";
                 pointsAllPopes = -2;
             }
         }
@@ -349,18 +365,18 @@ public class ScoreService {
             if (teamDoneAllPopes == 0)
             {
                 declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) +
-                        "and done(T" + (teamDoneAllPopes+1) + ")";
+                        ") and done(T" + (teamDoneAllPopes+1) + ")";
                 pointsAllPopes = 3;
             }
             else if (teamDoneAllPopes == 1)
             {
                 declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) +
-                        "and done(T" + (teamDoneAllPopes+1) + ")";
+                        ") and done(T" + (teamDoneAllPopes+1) + ")";
                 pointsAllPopes = -2;
             }
             else
             {
-                declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) + "and not done";
+                declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) + ") and not done";
                 pointsAllPopes = 2;
             }
         }
@@ -383,6 +399,9 @@ public class ScoreService {
             }
         }
 
+        score.getAttribute("All popes").setPoints(pointsAllPopes);
+        score.getAttribute("All popes").setDeclaredOrDone(declaredOrDoneAllPopes);
+
         //calculate allTrullCards
         int pointsAllTrullCards = -1;
         String declaredOrDoneAllTrullCards = "";
@@ -391,18 +410,18 @@ public class ScoreService {
             if (teamDoneAllTrullCards == 0)
             {
                 declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) +
-                        "and done(T" + (teamDoneAllTrullCards+1) + ")";
+                        ") and done(T" + (teamDoneAllTrullCards+1) + ")";
                 pointsAllTrullCards = 2;
             }
             else if (teamDoneAllTrullCards == 1)
             {
                 declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) +
-                        "and done(T" + (teamDoneAllTrullCards+1) + ")";
+                        ") and done(T" + (teamDoneAllTrullCards+1) + ")";
                 pointsAllTrullCards = -3;
             }
             else
             {
-                declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) + "and not done";
+                declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) + ") and not done";
                 pointsAllTrullCards = -2;
             }
         }
@@ -411,18 +430,18 @@ public class ScoreService {
             if (teamDoneAllTrullCards == 0)
             {
                 declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) +
-                        "and done(T" + (teamDoneAllTrullCards+1) + ")";
+                        ") and done(T" + (teamDoneAllTrullCards+1) + ")";
                 pointsAllTrullCards = 3;
             }
             else if (teamDoneAllTrullCards == 1)
             {
                 declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) +
-                        "and done(T" + (teamDoneAllTrullCards+1) + ")";
+                        ") and done(T" + (teamDoneAllTrullCards+1) + ")";
                 pointsAllTrullCards = -2;
             }
             else
             {
-                declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) + "and not done";
+                declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) + ") and not done";
                 pointsAllTrullCards = 2;
             }
         }
@@ -501,6 +520,7 @@ public class ScoreService {
             }
         }
 
+        score.computeTotal();
         game.setRadler(isRadler);
         int total = score.getAttribute("Total").getPoints();
         if (teams.get(0).size() == 1)
@@ -511,7 +531,7 @@ public class ScoreService {
                 {
                     if (i != playerRequest)
                     {
-                        game.setScorePlayer(playerRequest, -total);
+                        game.setScorePlayer(i, -total);
                     }
                 }
             }
@@ -521,7 +541,7 @@ public class ScoreService {
                 {
                     if (i != playerRequest)
                     {
-                        game.setScorePlayer(playerRequest, total);
+                        game.setScorePlayer(i, total);
                     }
                 }
             }
@@ -535,7 +555,7 @@ public class ScoreService {
                 }
                 for(int i=0;i<teams.get(1).size();i++)
                 {
-                    game.setScorePlayer(teams.get(0).get(i), -total);
+                    game.setScorePlayer(teams.get(1).get(i), -total);
                 }
             }
             else if (teamThatWon == 1) {
@@ -545,13 +565,13 @@ public class ScoreService {
                 }
                 for(int i=0;i<teams.get(1).size();i++)
                 {
-                    game.setScorePlayer(teams.get(0).get(i), total);
+                    game.setScorePlayer(teams.get(1).get(i), total);
                 }
             }
         }
 
-        score.computeTotal();
         Pair<String, Game, Score> pair = new Pair<String,Game,Score>(game);
+        pair.setKey(declarationMessage);
         pair.setSpecialValue(score);
         return pair;
     }

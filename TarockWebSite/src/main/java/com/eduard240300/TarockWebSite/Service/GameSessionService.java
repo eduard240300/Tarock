@@ -481,6 +481,7 @@ public class GameSessionService extends Thread{
         Pair<String, Game, Score> pair = ScoreService.getScore(playerRequest.get(gameNumber), players,
                 teams.get(gameNumber), rounds.get(gameNumber), declarations.get(gameNumber),
                 cardsWon.get(gameNumber), popeInTalon, isRadler);
+        String declarationMessage = pair.getKey();
         Game game = pair.getValue();
         Score score = pair.getSpecialValue();
         for(int i=0;i<4;i++)
@@ -490,7 +491,7 @@ public class GameSessionService extends Thread{
             {
                 message += " " + game.getScorePlayer(j);
             }
-            message += " Dec ";
+            message += " " + DataManipulationService.processName(declarationMessage) + " ";
             if (isRadler)
                 message += "1;";
             else
@@ -502,6 +503,7 @@ public class GameSessionService extends Thread{
         {
             message = "scoreDetailed ";
             message += score.toString();
+            message += " " + DataManipulationService.processName(score.getTeamThatWon());
             message += ";";
             listOfClients.get(i).write(message);
             log(message, i);

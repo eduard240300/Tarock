@@ -64,17 +64,17 @@ com/eduard240300/TarockWebSite/Domain/Session.java
  com.eduard240300.TarockWebSite.Domain.Session
 com/eduard240300/TarockWebSite/Controller/AddSessionController.java
  com.eduard240300.TarockWebSite.Controller.AddSessionController
-com/eduard240300/TarockWebSite/Domain/Game.java
- com.eduard240300.TarockWebSite.Domain.Game
-com/eduard240300/TarockWebSite/Service/CommunicationService.java
- com.eduard240300.TarockWebSite.Service.CommunicationService
 com/eduard240300/TarockWebSite/Domain/Score.java
  com.eduard240300.TarockWebSite.Domain.Score
-com/eduard240300/TarockWebSite/DBManager/DBManager.java
- com.eduard240300.TarockWebSite.DBManager.DBManager
-com/eduard240300/TarockWebSite/Service/ScoreService.java
- com.eduard240300.TarockWebSite.Service.ScoreService
+com/eduard240300/TarockWebSite/Service/CommunicationService.java
+ com.eduard240300.TarockWebSite.Service.CommunicationService
 com/eduard240300/TarockWebSite/Service/ClientService.java
  com.eduard240300.TarockWebSite.Service.ClientService
+com/eduard240300/TarockWebSite/DBManager/DBManager.java
+ com.eduard240300.TarockWebSite.DBManager.DBManager
+com/eduard240300/TarockWebSite/Domain/Game.java
+ com.eduard240300.TarockWebSite.Domain.Game
 com/eduard240300/TarockWebSite/Service/GameSessionService.java
  com.eduard240300.TarockWebSite.Service.GameSessionService
+com/eduard240300/TarockWebSite/Service/ScoreService.java
+ com.eduard240300.TarockWebSite.Service.ScoreService

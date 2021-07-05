@@ -90,11 +90,11 @@ public class GameForm extends JFrame{
             centerRenderer.setHorizontalAlignment( JLabel.CENTER );
             for(int i=0;i<5;i++)
                 scoreTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-            scoreTable.getColumnModel().getColumn(0).setPreferredWidth(80);
-            scoreTable.getColumnModel().getColumn(1).setPreferredWidth(80);
-            scoreTable.getColumnModel().getColumn(2).setPreferredWidth(80);
-            scoreTable.getColumnModel().getColumn(3).setPreferredWidth(80);
-            scoreTable.getColumnModel().getColumn(4).setPreferredWidth(160);
+            scoreTable.getColumnModel().getColumn(0).setPreferredWidth(70);
+            scoreTable.getColumnModel().getColumn(1).setPreferredWidth(70);
+            scoreTable.getColumnModel().getColumn(2).setPreferredWidth(70);
+            scoreTable.getColumnModel().getColumn(3).setPreferredWidth(70);
+            scoreTable.getColumnModel().getColumn(4).setPreferredWidth(200);
         }
     }
 

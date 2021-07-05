@@ -96,6 +96,7 @@ public class Repository {
         players.add("Player 3");
         players.add("Player 4");
         resetRepository();
+        resetCardsWon();
     }
 
     public static void resetRepository()
@@ -104,10 +105,8 @@ public class Repository {
         rounds = new ArrayList<Round>();
         teams = new ArrayList<List<Integer>>();
         givenCards = new ArrayList<Integer>();
-        cardsWon = new ArrayList<List<Integer>>();
         for(int i=0;i<2;i++) {
             teams.add(new ArrayList<Integer>());
-            cardsWon.add(new ArrayList<Integer>());
         }
         cards = new ArrayList<Integer>();
         talon = new ArrayList<Integer>();
@@ -119,6 +118,13 @@ public class Repository {
         chosenPope = -1;
         round = -1;
         isRequestPlayer = false;
+    }
+
+    public static void resetCardsWon(){
+        cardsWon = new ArrayList<List<Integer>>();
+        for(int i=0;i<2;i++) {
+            cardsWon.add(new ArrayList<Integer>());
+        }
     }
 
     public static void login(User newUser)

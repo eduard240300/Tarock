@@ -103,13 +103,13 @@ public class Game {
     public int getScorePlayer(int player)
     {
         if (player == 0)
-            getScorePlayer1();
+            return getScorePlayer1();
         else if (player == 1)
-            getScorePlayer2();
+            return getScorePlayer2();
         else if (player == 2)
-            getScorePlayer3();
+            return getScorePlayer3();
         else if (player == 3)
-            getScorePlayer4();
+            return getScorePlayer4();
         return 0;
     }
 }

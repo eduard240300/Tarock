@@ -1,0 +1,9 @@
+Bug-uri:
+
+Culoarea
+Apare scorul prea repede
+Sunt dezactivate butoanele la selectie talon
+Imi apare declaratia de data trecuta la selectie
+Trebuie resetate cartile talon show
+Butonul OK trebuie sa inchida Window-ul de Scor
+Trebuie memorate in DB game-ul.
