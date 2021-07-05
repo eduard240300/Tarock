@@ -5,5 +5,9 @@ Apare scorul prea repede
 Sunt dezactivate butoanele la selectie talon
 Imi apare declaratia de data trecuta la selectie
 Trebuie resetate cartile talon show
+Trebuie adunate la scorul prezent scorurile precedente.
+Trebuie create in server doua entitati List<Score>, List<Game>
 Butonul OK trebuie sa inchida Window-ul de Scor
-Trebuie memorate in DB game-ul.
+Trebuie memorate in DB game-urile.
+La Declaration "T1() T2()" trebuie pus semnul la popa
+Trebuie puse in site restrictie de 10 caractere la Username.
