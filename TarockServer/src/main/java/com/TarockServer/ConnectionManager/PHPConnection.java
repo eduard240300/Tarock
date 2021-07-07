@@ -18,7 +18,7 @@ public class PHPConnection {
         try {
             byte[] post = inputString.getBytes();
 
-            URL u = new URL("http://185.229.224.215/tarock/controllerHelper.php");
+            URL u = new URL("http://185.229.224.215/controllerHelper.php");
             HttpURLConnection con = (HttpURLConnection) u.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
@@ -78,46 +78,46 @@ public class PHPConnection {
     public static Session getSession(int sessionID) {
         Session session = new Session();
         String post = "functionName=getSession&sessionID=" + sessionID;
-        List<Pair<String, String>> userJSON = DataManipulationService.JSONtoList(PHPConnection.read(post));
-        if (userJSON.get(0).getKey().equals("exception"))
+        List<Pair<String, String>> sessionJSON = DataManipulationService.JSONtoList(PHPConnection.read(post));
+        if (sessionJSON.get(0).getKey().equals("exception"))
         {
-            throw new PHPException(userJSON.get(0).getValue());
+            throw new PHPException(sessionJSON.get(0).getValue());
         }
         else
         {
-            for(int i=0;i<userJSON.size();i++)
+            for(int i=0;i<sessionJSON.size();i++)
             {
-                if (userJSON.get(i).getKey().equals("sessionID"))
+                if (sessionJSON.get(i).getKey().equals("sessionID"))
                 {
-                    session.setSessionID(Integer.parseInt(userJSON.get(i).getValue()));
+                    session.setSessionID(Integer.parseInt(sessionJSON.get(i).getValue()));
                 }
-                else if (userJSON.get(i).getKey().equals("creator"))
+                else if (sessionJSON.get(i).getKey().equals("creator"))
                 {
-                    session.setCreator(userJSON.get(i).getValue());
+                    session.setCreator(sessionJSON.get(i).getValue());
                 }
-                else if (userJSON.get(i).getKey().equals("dateCreated"))
+                else if (sessionJSON.get(i).getKey().equals("dateCreated"))
                 {
-                    session.setDateCreated(DataManipulationService.getName(userJSON.get(i).getValue()));
+                    session.setDateCreated(DataManipulationService.getName(sessionJSON.get(i).getValue()));
                 }
-                else if (userJSON.get(i).getKey().equals("dateClosed"))
+                else if (sessionJSON.get(i).getKey().equals("dateClosed"))
                 {
-                    session.setDateClosed(DataManipulationService.getName(userJSON.get(i).getValue()));
+                    session.setDateClosed(DataManipulationService.getName(sessionJSON.get(i).getValue()));
                 }
-                else if (userJSON.get(i).getKey().equals("player1"))
+                else if (sessionJSON.get(i).getKey().equals("player1"))
                 {
-                    session.setPlayer1(userJSON.get(i).getValue());
+                    session.setPlayer1(sessionJSON.get(i).getValue());
                 }
-                else if (userJSON.get(i).getKey().equals("player2"))
+                else if (sessionJSON.get(i).getKey().equals("player2"))
                 {
-                    session.setPlayer2(userJSON.get(i).getValue());
+                    session.setPlayer2(sessionJSON.get(i).getValue());
                 }
-                else if (userJSON.get(i).getKey().equals("player3"))
+                else if (sessionJSON.get(i).getKey().equals("player3"))
                 {
-                    session.setPlayer3(userJSON.get(i).getValue());
+                    session.setPlayer3(sessionJSON.get(i).getValue());
                 }
-                else if (userJSON.get(i).getKey().equals("player4"))
+                else if (sessionJSON.get(i).getKey().equals("player4"))
                 {
-                    session.setPlayer4(userJSON.get(i).getValue());
+                    session.setPlayer4(sessionJSON.get(i).getValue());
                 }
             }
             return session;

@@ -10,11 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70d3e364-245f-4546-918d-810c193e89da" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../TarockClient/src/GUI/Template/MyWindowListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/lib/BCrypt.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/lib/Bytes.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/TarockClient.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/TarockClient.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ConnectionForm/ConnectionForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ConnectionForm/ConnectionForm.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ConnectionForm/ControllerConnectionForm$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ConnectionForm/ControllerConnectionForm$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ConnectionForm/ControllerConnectionForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ConnectionForm/ControllerConnectionForm.class" afterDir="false" />
@@ -32,38 +27,15 @@
       <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonSelectionForm/TalonSelectionForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonSelectionForm/TalonSelectionForm.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonShowingForm/TalonShowingForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonShowingForm/TalonShowingForm.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Service/CommunicationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Service/CommunicationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/lib/BCrypt.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/lib/Bytes.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ConnectionForm/ConnectionForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ConnectionForm/ConnectionForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ConnectionForm/ControllerConnectionForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ConnectionForm/ControllerConnectionForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/GameForm/GameForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/GameForm/GameForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ScoreForm/ScoreForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ScoreForm/ScoreForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/TalonSelectionForm/TalonSelectionForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/TalonSelectionForm/TalonSelectionForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/TalonShowingForm/TalonShowingForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/TalonShowingForm/TalonShowingForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Service/CommunicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Service/CommunicationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/GUI/ConnectionForm/ConnectionForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/GUI/ConnectionForm/ConnectionForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/GUI/ConnectionForm/ControllerConnectionForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/GUI/ConnectionForm/ControllerConnectionForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/GUI/GameForm/GameForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/GUI/GameForm/GameForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/GUI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/GUI/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/GUI/ScoreForm/ScoreForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/GUI/ScoreForm/ScoreForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/GUI/TalonSelectionForm/TalonSelectionForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/GUI/TalonSelectionForm/TalonSelectionForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/GUI/TalonShowingForm/TalonShowingForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/GUI/TalonShowingForm/TalonShowingForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/Service/CommunicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/Service/CommunicationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/ConnectionManager/PHPConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/ConnectionManager/PHPConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Service/ClientService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Service/ClientService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/TarockServer_jar/TarockServer.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/TarockServer_jar/TarockServer.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/TarockServer/ConnectionManager/PHPConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/TarockServer/ConnectionManager/PHPConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/TarockServer/Service/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/TarockServer/Service/ClientService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +70,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/Bytes.jar" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.10459435" />
     <property name="project.structure.side.proportion" value="0.4496208" />
   </component>
@@ -170,6 +142,7 @@
       <workItem from="1625670071606" duration="126000" />
       <workItem from="1625670203917" duration="3031000" />
       <workItem from="1625674506181" duration="3625000" />
+      <workItem from="1625686875776" duration="944000" />
     </task>
     <servers />
   </component>

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Bytes">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/Bytes.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
