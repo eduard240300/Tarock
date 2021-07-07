@@ -9,7 +9,7 @@ import java.util.List;
 
 public class GameSessionService extends Thread{
     public List<ClientService> listOfClients;
-    public .Session session;
+    public Session session;
     public List<String> players;
     public int gameNumber = -1;
     public List<Integer> pope;

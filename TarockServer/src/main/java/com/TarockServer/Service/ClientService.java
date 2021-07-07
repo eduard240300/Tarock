@@ -5,6 +5,7 @@ import com.TarockServer.Domain.Triple;
 import com.TarockServer.Domain.Session;
 import com.TarockServer.Domain.User;
 import com.TarockServer.Exception.ConnectionException;
+import com.TarockServer.Exception.LoginException;
 import com.TarockServer.Exception.PHPException;
 import com.TarockServer.Domain.*;
 
@@ -152,20 +153,21 @@ public class ClientService extends Thread {
                 String password = listOfObjects.get(2);
                 int sessionID = Integer.valueOf(listOfObjects.get(3));
                 try {
+                    PHPConnection.getUser(username);
                     if (PHPConnection.verifyPassword(username, password))
                     {
                         try{
                             Session session = PHPConnection.getSession(sessionID);
                             if ((!session.getPlayer1().equals(username)) && (!session.getPlayer2().equals(username)) &&
                                     (!session.getPlayer3().equals(username)) && (!session.getPlayer4().equals(username)))
-                                throw new PHPException("Session does not include " + username);
+                                throw new LoginException("Session does not include " + username);
                             if (!session.getDateClosed().equals(""))
                                 throw new ConnectionException("Session already ended !");
                             write("successful_auth;");
                             this.addClientToList(this, username, session);
                             runGame(session);
                         }
-                        catch (PHPException exception)
+                        catch (LoginException exception)
                         {
                             write("failed_auth sessionID;");
                             newListOfCommands = write("require_auth;");
