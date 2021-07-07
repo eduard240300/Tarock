@@ -4,19 +4,15 @@ com/TarockServer/Exception/LoginException.java
  com.TarockServer.Exception.LoginException
 com/TarockServer/Exception/ValidationException.java
  com.TarockServer.Exception.ValidationException
-com/TarockServer/Validator/IntegerValidator.java
- com.TarockServer.Validator.IntegerValidator
-at/favre/lib/bytes/Util.java
- at.favre.lib.bytes.Util
- at.favre.lib.bytes.Util$Byte
- at.favre.lib.bytes.Util$BytesIterator
- at.favre.lib.bytes.Util$Converter
- at.favre.lib.bytes.Util$File
- at.favre.lib.bytes.Util$Obj
- at.favre.lib.bytes.Util$Validation
+com/TarockServer/Service/CommunicationService.java
+ com.TarockServer.Service.CommunicationService
+com/TarockServer/Service/GameSessionService.java
+ com.TarockServer.Service.GameSessionService
 at/favre/lib/crypto/bcrypt/BCryptFormatter.java
  at.favre.lib.crypto.bcrypt.BCryptFormatter
  at.favre.lib.crypto.bcrypt.BCryptFormatter$Default
+module-info.java
+ module-info
 com/TarockServer/Exception/RepositoryException.java
  com.TarockServer.Exception.RepositoryException
 com/TarockServer/Validator/SessionValidator.java
@@ -117,8 +113,8 @@ at/favre/lib/crypto/bcrypt/IllegalBCryptFormatException.java
  at.favre.lib.crypto.bcrypt.IllegalBCryptFormatException
 com/TarockServer/Service/LoginService.java
  com.TarockServer.Service.LoginService
-com/TarockServer/ConnectionManager/PHPConnection.java
- com.TarockServer.ConnectionManager.PHPConnection
+com/TarockServer/Service/ClientService.java
+ com.TarockServer.Service.ClientService
 at/favre/lib/crypto/bcrypt/BCryptOpenBSDProtocol.java
  at.favre.lib.crypto.bcrypt.BCryptOpenBSDProtocol
 com/TarockServer/Exception/ConnectionException.java
@@ -141,9 +137,15 @@ com/TarockServer/Domain/Score.java
  com.TarockServer.Domain.Score
 com/TarockServer/Service/DataManipulationService.java
  com.TarockServer.Service.DataManipulationService
-com/TarockServer/Service/ClientService.java
- com.TarockServer.Service.ClientService
-com/TarockServer/Service/CommunicationService.java
- com.TarockServer.Service.CommunicationService
-com/TarockServer/Service/GameSessionService.java
- com.TarockServer.Service.GameSessionService
+at/favre/lib/bytes/Util.java
+ at.favre.lib.bytes.Util
+ at.favre.lib.bytes.Util$Byte
+ at.favre.lib.bytes.Util$BytesIterator
+ at.favre.lib.bytes.Util$Converter
+ at.favre.lib.bytes.Util$File
+ at.favre.lib.bytes.Util$Obj
+ at.favre.lib.bytes.Util$Validation
+com/TarockServer/Validator/IntegerValidator.java
+ com.TarockServer.Validator.IntegerValidator
+com/TarockServer/ConnectionManager/PHPConnection.java
+ com.TarockServer.ConnectionManager.PHPConnection

@@ -1,6 +1,7 @@
 package GUI.TalonShowingForm;
 
 import GUI.Template.JImage;
+import GUI.Template.MyWindowListener;
 import Repository.Repository;
 
 import javax.swing.*;
@@ -53,6 +54,7 @@ public class TalonShowingForm extends JFrame{
         setTitle("Tarock Client : Talon Selection Showing");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
+        addWindowListener(new MyWindowListener());
         //setVisible(true);
     }
 }

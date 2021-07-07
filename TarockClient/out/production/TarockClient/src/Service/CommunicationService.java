@@ -21,11 +21,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommunicationService extends Thread{
-    public static String ipAddress = "localhost";
+    public static String ipAddress = "";
     public static Socket socket;
     public static ObjectInputStream inputStream;
     public static ObjectOutputStream outputStream;
@@ -44,36 +45,48 @@ public class CommunicationService extends Thread{
     public static boolean canTrull = true;
     public static int round = 0;
     public static boolean shouldCompleteRound = false;
+    public static boolean connected = false;
 
     public void runHelper () throws IOException, ClassNotFoundException, InterruptedException {
         //socket = new Socket("localhost", 9876);
         while(true) {
             try {
-                socket = new Socket(ipAddress, 9876);
-                System.out.println("Connected to localhost:9876 !");
-                break;
+                if (ipAddress != "") {
+                    socket = new Socket(ipAddress, 9876);
+                    connected = true;
+                    System.out.println("Connected to localhost:9876 !");
+                    break;
+                }
             } catch (ConnectException connectException) {
-                //System.out.println("Could not connect !");
+                ConnectionForm.popUpMessage("Could not connect to server !");
+            }
+            catch (UnknownHostException unknownHostException)
+            {
+                ipAddress = "";
+                ConnectionForm.popUpMessage("Server is down or IP is incorrect !");
             }
             Thread.sleep(200);
         }
-        inputStream = new ObjectInputStream(socket.getInputStream());
-        outputStream = new ObjectOutputStream(socket.getOutputStream());
-        while(true)
+        if (connected)
         {
-            try {
-                read();
-            }
-            catch(EOFException eofException)
+            inputStream = new ObjectInputStream(socket.getInputStream());
+            outputStream = new ObjectOutputStream(socket.getOutputStream());
+            while(true)
             {
-                GameForm.popUpMessage("Server forcefully closed !");
-                Main.gameForm.setVisible(false);
-                Main.gameForm = new GameForm();
-                Main.connectionForm.setVisible(true);
-                ConnectionForm.controllerConnectionForm.resetServices();
-                MainService.setLoggedOut();
-                stop();
-                break;
+                try {
+                    read();
+                }
+                catch(EOFException eofException)
+                {
+                    GameForm.popUpMessage("Server forcefully closed !");
+                    Main.gameForm.setVisible(false);
+                    Main.gameForm = new GameForm();
+                    Main.connectionForm.setVisible(true);
+                    ConnectionForm.controllerConnectionForm.resetServices();
+                    MainService.setLoggedOut();
+                    stop();
+                    break;
+                }
             }
         }
     }

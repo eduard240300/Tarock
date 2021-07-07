@@ -1,10 +1,7 @@
 package GUI.GameForm;
 
 import GUI.ScoreForm.ScoreForm;
-import GUI.Template.ClickableImage;
-import GUI.Template.CustomJButton;
-import GUI.Template.JImage;
-import GUI.Template.RowTable;
+import GUI.Template.*;
 import Repository.Repository;
 
 import javax.swing.*;
@@ -580,6 +577,7 @@ public class GameForm extends JFrame{
         setTitle("Tarock Client : Game");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
+        addWindowListener(new MyWindowListener());
         //setVisible(true);
 
         ControllerGameForm controllerGameForm = new ControllerGameForm();

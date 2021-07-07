@@ -2,6 +2,7 @@ package GUI.ScoreForm;
 
 import GUI.Template.CustomJButton;
 import GUI.Template.JImage;
+import GUI.Template.MyWindowListener;
 import GUI.Template.RowTable;
 import Repository.Repository;
 
@@ -172,6 +173,7 @@ public class ScoreForm extends JFrame{
         setTitle("Tarock Client : Score");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
+        addWindowListener(new MyWindowListener());
         //setVisible(true);
         //updateCards();
 

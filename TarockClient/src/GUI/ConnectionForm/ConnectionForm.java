@@ -1,6 +1,7 @@
 package GUI.ConnectionForm;
 
 import GUI.Template.CustomJButton;
+import GUI.Template.MyWindowListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,7 @@ public class ConnectionForm extends JFrame{
     public static JTextField usernameField;
     public static JPasswordField passwordField;
     public static JTextField sessionIDField;
+    public static JTextField ipAddressField;
     public static CustomJButton loginButton;
 
     public static void popUpMessage(String message)
@@ -56,17 +58,30 @@ public class ConnectionForm extends JFrame{
         sessionIDField.setBounds(190, 120, 330, 40);
         add(sessionIDField);
 
+        JLabel ipAddressLabel = new JLabel();
+        ipAddressLabel.setFont(arialDefault);
+        ipAddressLabel.setText("Server IP : ");
+        ipAddressLabel.setBounds(20, 170, 300,40);
+        add(ipAddressLabel);
+
+        ipAddressField = new JTextField();
+        ipAddressField.setFont(arialDefault);
+        ipAddressField.setText("localhost");
+        ipAddressField.setBounds(190, 170, 330, 40);
+        add(ipAddressField);
+
         loginButton = new CustomJButton("Start/Resume Session", arialDefault);
-        loginButton.setBounds(20, 170, 500, 40);
+        loginButton.setBounds(20, 220, 500, 40);
         add(loginButton);
 
         if (System.getProperty("os.name").equals("Linux"))
-            setSize(540, 270);
+            setSize(540, 320);
         else if (System.getProperty("os.name").equals("Windows 10"))
-            setSize(558,270);
+            setSize(558,320);
         setTitle("Tarock Client : Login");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
+        addWindowListener(new MyWindowListener());
         setVisible(true);
 
         controllerConnectionForm = new ControllerConnectionForm();

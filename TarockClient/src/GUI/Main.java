@@ -6,7 +6,6 @@ import GUI.ScoreForm.ScoreForm;
 import GUI.TalonSelectionForm.TalonSelectionForm;
 import GUI.TalonShowingForm.TalonShowingForm;
 import Repository.Repository;
-import Service.CommunicationService;
 
 import javax.imageio.ImageIO;
 import java.io.FileInputStream;
@@ -32,9 +31,12 @@ public class Main {
             connectionForm.passwordField.setText(args[1]);
             connectionForm.sessionIDField.setText(args[2]);
         }
-        else if (args.length == 1)
+        else if (args.length == 4)
         {
-            CommunicationService.ipAddress = args[0];
+            connectionForm.usernameField.setText(args[0]);
+            connectionForm.passwordField.setText(args[1]);
+            connectionForm.sessionIDField.setText(args[2]);
+            connectionForm.ipAddressField.setText(args[3]);
         }
 
         gameForm = new GameForm();

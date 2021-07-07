@@ -2,10 +2,7 @@ package GUI.ConnectionForm;
 
 import Domain.User;
 import GUI.Main;
-import Service.BCrypt;
-import Service.DataManipulationService;
-import Service.LoginService;
-import Service.MainService;
+import Service.*;
 import Validator.IntegerValidator;
 import Validator.UserValidator;
 
@@ -29,6 +26,8 @@ public class ControllerConnectionForm {
         ConnectionForm.loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                CommunicationService.ipAddress = ConnectionForm.ipAddressField.getText();
+
                 if (mainService == null)
                     mainService = new MainService();
                 if (loginService == null)

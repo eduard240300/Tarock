@@ -153,21 +153,26 @@ public class ClientService extends Thread {
                 String password = listOfObjects.get(2);
                 int sessionID = Integer.valueOf(listOfObjects.get(3));
                 try {
-                    PHPConnection.getUser(username);
+                    try{
+                        PHPConnection.getUser(username);
+                    }
+                    catch (PHPException phpException) {
+                        throw new LoginException(phpException.getMessage());
+                    }
                     if (PHPConnection.verifyPassword(username, password))
                     {
                         try{
                             Session session = PHPConnection.getSession(sessionID);
                             if ((!session.getPlayer1().equals(username)) && (!session.getPlayer2().equals(username)) &&
                                     (!session.getPlayer3().equals(username)) && (!session.getPlayer4().equals(username)))
-                                throw new LoginException("Session does not include " + username);
+                                throw new PHPException("Session does not include " + username);
                             if (!session.getDateClosed().equals(""))
                                 throw new ConnectionException("Session already ended !");
                             write("successful_auth;");
                             this.addClientToList(this, username, session);
                             runGame(session);
                         }
-                        catch (LoginException exception)
+                        catch (PHPException exception)
                         {
                             write("failed_auth sessionID;");
                             newListOfCommands = write("require_auth;");
@@ -187,7 +192,7 @@ public class ClientService extends Thread {
                         runAuthentication(newListOfCommands);
                     }
                 }
-                catch (PHPException dbException)
+                catch (LoginException dbException)
                 {
                     write("failed_auth username;");
                     newListOfCommands = write("require_auth;");

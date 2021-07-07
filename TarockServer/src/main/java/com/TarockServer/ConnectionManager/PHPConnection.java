@@ -18,7 +18,7 @@ public class PHPConnection {
         try {
             byte[] post = inputString.getBytes();
 
-            URL u = new URL("http://localhost/TarockWebsite/controllerHelper.php");
+            URL u = new URL("http://185.229.224.215/tarock/controllerHelper.php");
             HttpURLConnection con = (HttpURLConnection) u.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);

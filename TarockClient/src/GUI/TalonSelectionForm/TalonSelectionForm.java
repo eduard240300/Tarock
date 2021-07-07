@@ -3,6 +3,7 @@ package GUI.TalonSelectionForm;
 import GUI.Template.ClickableImage;
 import GUI.Template.CustomJButton;
 import GUI.Template.JImage;
+import GUI.Template.MyWindowListener;
 import Repository.Repository;
 
 import javax.swing.*;
@@ -109,6 +110,7 @@ public class TalonSelectionForm extends JFrame{
         setTitle("Tarock Client : Talon Selection");
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
+        addWindowListener(new MyWindowListener());
         //setVisible(true);
 
         ControllerTalonSelectionForm controllerTalonSelectionForm = new ControllerTalonSelectionForm();
