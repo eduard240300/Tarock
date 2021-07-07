@@ -9,6 +9,7 @@
     </content>
     <orderEntry type="jdk" jdkName="10" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="lib" level="project" />
+    <orderEntry type="library" name="BCrypt" level="project" />
+    <orderEntry type="library" name="Bytes" level="project" />
   </component>
 </module>

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="70d3e364-245f-4546-918d-810c193e89da" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../TarockClient/.idea/libraries/BCrypt.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TarockClient/.idea/libraries/Bytes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TarockServer-1/TarockServer.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/BCrypt.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Bytes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/TarockServer.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockClient/.idea/libraries/lib.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockClient/TarockClient.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/TarockClient.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockClient/lib/mysql-connector-java-8.0.24.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/pid1.info" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/pid1.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/pid2.info" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/pid2.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/pid3.info" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/pid3.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/pid4.info" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/pid4.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/start.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/.idea/libraries/lib.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/TarockClient.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/TarockClient.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/lib/mysql-connector-java-8.0.24.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TarockServer.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ConnectionManager/PHPConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Declaration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Game.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Pair.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Round.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Score.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/ScoreAttribute.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Session.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exception/ConnectionException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exception/DBException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exception/LoginException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exception/RepositoryException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exception/ValidationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/Repository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/ClientService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/CommunicationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/DataManipulationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/GameSessionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/InitializerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/LoginService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/ScoreService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Validator/IntegerValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Validator/SessionValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Validator/UserValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/6.7.1/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/6.7.1/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/6.7.1/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/6.7.1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/6.7.1/javaCompile/classAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/6.7.1/javaCompile/javaCompile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/6.7.1/javaCompile/taskHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/checksums/md5-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/checksums/sha1-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/configuration-cache/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.idea/libraries/json_simple_1_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.idea/libraries/mysql_connector_java_8_0_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.idea/libraries/servlet_api.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/TarockWebSite.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Controller/AddSessionController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Controller/CloseSessionController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Controller/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Controller/RegisterController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Controller/SeeSessionController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/DBManager/DBManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Domain/Declaration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Domain/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Domain/Pair.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Domain/Round.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Domain/Score.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Domain/ScoreAttribute.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Domain/Session.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Domain/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Exception/AddSessionException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Exception/CloseSessionException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Exception/ConnectionException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Exception/DBException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Exception/LoginException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Exception/RegisterException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Exception/RepositoryException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Exception/SeeSessionException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Exception/ValidationException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Repository/Repository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/AddSessionService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/BCrypt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/ClientService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/CloseSessionService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/CommunicationService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/CookieService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/DataManipulationService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/GameSessionService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/InitializerService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/LoginService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/RegisterService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/ScoreService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Service/SeeSessionService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Validator/IntegerValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Validator/SessionValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/classes/java/main/com/eduard240300/TarockWebSite/Validator/UserValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/libs/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/resources/main/META-INF/beans.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/resources/main/META-INF/persistence.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/build/tmp/war/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Controller/AddSessionController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Controller/CloseSessionController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Controller/LoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Controller/RegisterController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Controller/SeeSessionController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/DBManager/DBManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Domain/Declaration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Domain/Game.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Domain/Pair.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Domain/Round.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Domain/Score.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Domain/ScoreAttribute.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Domain/Session.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Domain/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Exception/AddSessionException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Exception/CloseSessionException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Exception/ConnectionException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Exception/DBException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Exception/LoginException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Exception/RegisterException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Exception/RepositoryException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Exception/SeeSessionException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Exception/ValidationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Repository/Repository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/AddSessionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/BCrypt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/ClientService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/CloseSessionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/CommunicationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/CookieService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/DataManipulationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/GameSessionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/InitializerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/LoginService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/RegisterService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/ScoreService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Service/SeeSessionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Validator/IntegerValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Validator/SessionValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/java/com/eduard240300/TarockWebSite/Validator/UserValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/resources/META-INF/beans.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/resources/META-INF/persistence.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/WEB-INF/lib/json-simple-1.1.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.24.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/WEB-INF/lib/servlet-api.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/addSession.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/closeSession.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/css/button.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/css/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/css/util.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/OpenSans/OpenSans-Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/OpenSans/OpenSans-BoldItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/OpenSans/OpenSans-ExtraBold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/OpenSans/OpenSans-ExtraBoldItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/OpenSans/OpenSans-Italic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/OpenSans/OpenSans-Light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/OpenSans/OpenSans-LightItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/OpenSans/OpenSans-Regular.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/OpenSans/OpenSans-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/OpenSans/OpenSans-SemiBold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/OpenSans/OpenSans-SemiBoldItalic.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/HELP-US-OUT.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/css/font-awesome.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/css/font-awesome.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/fonts/FontAwesome.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/animated.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/bordered-pulled.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/core.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/fixed-width.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/font-awesome.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/icons.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/larger.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/list.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/mixins.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/path.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/rotated-flipped.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/screen-reader.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/stacked.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/less/variables.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_animated.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_bordered-pulled.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_core.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_fixed-width.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_icons.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_larger.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_list.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_mixins.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_path.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_rotated-flipped.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_screen-reader.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_stacked.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/_variables.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/fonts/font-awesome-4.7.0/scss/font-awesome.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/functions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/images/icons/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/images/icons/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/js/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/logout.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/main.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/register.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/seeGames.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/animate/animate.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/css/bootstrap-grid.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/css/bootstrap-grid.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/css/bootstrap-grid.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/css/bootstrap-grid.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/css/bootstrap-reboot.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/css/bootstrap-reboot.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/css/bootstrap-reboot.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/css/bootstrap-reboot.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/css/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/css/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/js/popper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/js/popper.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/bootstrap/js/tooltip.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/jquery/jquery-3.2.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/perfect-scrollbar/perfect-scrollbar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/perfect-scrollbar/perfect-scrollbar.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/select2/select2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/select2/select2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/select2/select2.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/src/main/webapp/vendor/select2/select2.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/target/TarockWebSite-1.0-SNAPSHOT.war" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/target/TarockWebSite-1.0-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/target/classes/META-INF/beans.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TarockWebSite/target/classes/META-INF/persistence.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sqlQuery.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../sqlQuery.sql" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1uzYpX6Xo496BRunnhphVBh1tZD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/Bytes.jar" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.10459435" />
+    <property name="project.structure.side.proportion" value="0.4496208" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/src" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TarockServer" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" value="" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="70d3e364-245f-4546-918d-810c193e89da" name="Default Changelist" comment="" />
+      <created>1625670069735</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1625670069735</updated>
+      <workItem from="1625670071606" duration="126000" />
+      <workItem from="1625670203917" duration="619000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

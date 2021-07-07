@@ -1,4 +1,4 @@
-CREATE TABLE Users (
+CREATE TABLE Users_Tarock (
   Name VARCHAR(100) NOT NULL,
   Username VARCHAR(100) PRIMARY KEY,
   Password VARCHAR(300) NOT NULL,
@@ -8,17 +8,17 @@ CREATE TABLE Users (
 CREATE TABLE Sessions (
   SessionID INT PRIMARY KEY AUTO_INCREMENT,
   Creator VARCHAR(100) NOT NULL,
-  DateCreated TIMESTAMP NOT NULL,
-  DateEnded TIMESTAMP,
+  DateCreated DATETIME NOT NULL,
+  DateClosed DATETIME,
   Player1 VARCHAR(100),
   Player2 VARCHAR(100),
   Player3 VARCHAR(100),
   Player4 VARCHAR(100),
-  FOREIGN KEY(Creator) REFERENCES Users(Username),
-  FOREIGN KEY(Player1) REFERENCES Users(Username),
-  FOREIGN KEY(Player2) REFERENCES Users(Username),
-  FOREIGN KEY(Player3) REFERENCES Users(Username),
-  FOREIGN KEY(Player4) REFERENCES Users(Username)
+  FOREIGN KEY(Creator) REFERENCES Users_Tarock(Username),
+  FOREIGN KEY(Player1) REFERENCES Users_Tarock(Username),
+  FOREIGN KEY(Player2) REFERENCES Users_Tarock(Username),
+  FOREIGN KEY(Player3) REFERENCES Users_Tarock(Username),
+  FOREIGN KEY(Player4) REFERENCES Users_Tarock(Username)
 );
 
 CREATE TABLE Games (

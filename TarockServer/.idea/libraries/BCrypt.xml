@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="BCrypt">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/BCrypt.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
