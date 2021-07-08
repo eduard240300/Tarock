@@ -9,30 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70d3e364-245f-4546-918d-810c193e89da" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/TarockClient.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/TarockClient.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/Service/CommunicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/Service/CommunicationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/ConnectionManager/PHPConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/ConnectionManager/PHPConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/GUI/StatusForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/GUI/StatusForm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Service/GameSessionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Service/GameSessionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/TarockServer_jar/TarockServer.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/TarockServer_jar/TarockServer.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/TarockServer/ConnectionManager/PHPConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/TarockServer/ConnectionManager/PHPConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/TarockServer/GUI/StatusForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/TarockServer/GUI/StatusForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/TarockServer/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/TarockServer/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/TarockServer/Service/DataManipulationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/TarockServer/Service/DataManipulationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/TarockServer/Service/GameSessionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/TarockServer/Service/GameSessionService.java" afterDir="false" />
-    </list>
+    <list default="true" id="70d3e364-245f-4546-918d-810c193e89da" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -141,7 +118,7 @@
       <workItem from="1625670203917" duration="3031000" />
       <workItem from="1625674506181" duration="3625000" />
       <workItem from="1625686875776" duration="1555000" />
-      <workItem from="1625742779837" duration="17756000" />
+      <workItem from="1625742779837" duration="17851000" />
     </task>
     <servers />
   </component>
