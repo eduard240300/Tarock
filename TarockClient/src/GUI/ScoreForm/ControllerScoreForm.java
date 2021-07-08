@@ -1,6 +1,5 @@
 package GUI.ScoreForm;
 
-import GUI.GameForm.GameForm;
 import GUI.Main;
 import Repository.Repository;
 

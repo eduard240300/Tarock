@@ -1,6 +1,5 @@
 package GUI.Template;
 
-import GUI.ConnectionForm.ConnectionForm;
 import GUI.Main;
 
 import java.awt.event.WindowEvent;

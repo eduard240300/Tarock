@@ -1,7 +1,7 @@
 package com.TarockServer.Service;
 
-import com.TarockServer.Domain.Triple;
 import com.TarockServer.Domain.Session;
+import com.TarockServer.Domain.Triple;
 import com.TarockServer.Main;
 
 import java.io.IOException;

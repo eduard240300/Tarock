@@ -1,8 +1,8 @@
 package GUI.TalonSelectionForm;
 
 import GUI.Main;
-import Service.CommunicationService;
 import Repository.Repository;
+import Service.CommunicationService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

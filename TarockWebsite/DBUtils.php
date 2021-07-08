@@ -131,7 +131,7 @@ class DBUtils {
 
 	public function addGame($game)
 	{
-		$query = "INSERT INTO Games(SessionID, ScorePlayer1, ScorePlayer2, ScorePlayer3, ScorePlayer4, Declaration, Radler)
+		$query = "INSERT INTO Games(SessionID, ScorePlayer1, ScorePlayer2, ScorePlayer3, ScorePlayer4, Declaration, Radler, RadlerTimes)
 		VALUES(";
 		$query = $query . $game["sessionID"] . ", ";
 		$query = $query . $game["scorePlayer1"] . ", ";
@@ -139,7 +139,8 @@ class DBUtils {
 		$query = $query . $game["scorePlayer3"] . ", ";
 		$query = $query . $game["scorePlayer4"] . ", ";
 		$query = $query . "'" . $game["declaration"] . "'" . ", ";
-		$query = $query . $game["radler"] . ");";
+		$query = $query . $game["radler"] . ", ";
+		$query = $query . $game["radlerTimes"] . ");";
 
 		$statement = $this->pdo->prepare($query);
 		return $statement->execute();

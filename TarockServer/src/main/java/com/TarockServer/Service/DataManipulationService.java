@@ -4,7 +4,6 @@ import com.TarockServer.Domain.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.StringBuilder;
 
 public class DataManipulationService {
     public static String truncateClassName(String className){

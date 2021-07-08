@@ -9,13 +9,8 @@ import GUI.GameForm.GameForm;
 import GUI.Main;
 import GUI.ScoreForm.ScoreForm;
 import GUI.TalonSelectionForm.TalonSelectionForm;
-import GUI.TalonShowingForm.TalonShowingForm;
-import GUI.Template.ClickableImage;
-import GUI.Template.CustomJButton;
-import GUI.Template.JImage;
 import Repository.Repository;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.EOFException;
 import java.io.IOException;
@@ -60,6 +55,7 @@ public class CommunicationService extends Thread{
                     break;
                 }
             } catch (ConnectException connectException) {
+                ipAddress = "";
                 ConnectionForm.popUpMessage("Could not connect to server !");
             }
             catch (UnknownHostException unknownHostException)
@@ -85,7 +81,7 @@ public class CommunicationService extends Thread{
                     Main.gameForm = new GameForm();
                     Main.connectionForm.setVisible(true);
                     ConnectionForm.controllerConnectionForm.resetServices();
-                    MainService.setLoggedOut();
+                    Repository.logout();
                     stop();
                     break;
                 }

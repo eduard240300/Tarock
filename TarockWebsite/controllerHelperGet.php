@@ -62,7 +62,8 @@ $aResult = array();
                     $scorePlayer4 = $_GET['scorePlayer4'];
                     $declaration = $_GET['declaration'];
                     $radler = $_GET['radler'];
-                    $newGame = new Game("0", $sessionID, $scorePlayer1, $scorePlayer2, $scorePlayer3, $scorePlayer4, $declaration, $radler);
+                    $radlerTimes = $_GET['radlerTimes'];
+                    $newGame = new Game("0", $sessionID, $scorePlayer1, $scorePlayer2, $scorePlayer3, $scorePlayer4, $declaration, $radler, $radlerTimes);
                     $result = $controller->addGame($newGame->jsonSerialize());
                     $aResult['result'] = $controller->processName($result);
                 }
@@ -99,6 +100,7 @@ $aResult = array();
                     $aResult['scorePlayer4'] = $controller->processName($game->getScorePlayer4());
                     $aResult['declaration'] = $game->getDeclaration();
                     $aResult['radler'] = $controller->processName($game->getRadler());
+                    $aResult['radlerTimes'] = $controller->processName($game->getRadlerTimes());
                 }
                 else
                 {

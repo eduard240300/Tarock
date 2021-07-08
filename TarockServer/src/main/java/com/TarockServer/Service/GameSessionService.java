@@ -3,7 +3,6 @@ package com.TarockServer.Service;
 import com.TarockServer.ConnectionManager.PHPConnection;
 import com.TarockServer.Domain.*;
 import com.TarockServer.Main;
-import com.TarockServer.Repository.Repository;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,13 +70,10 @@ public class GameSessionService extends Thread{
         String creator = session.getCreator();
         games = PHPConnection.getGames(creator, session.getSessionID());
         offsetGameNumber = games.size();
-        for(int i=0;i<games.size();i++)
-        {
-            for(int j=0;j<4;j++)
-            {
+        for(int i=0;i<games.size();i++) {
+            for (int j = 0; j < 4; j++) {
                 message = "score";
-                for(int k=0;k<4;k++)
-                {
+                for (int k = 0; k < 4; k++) {
                     message += " " + games.get(i).getScorePlayer(k);
                 }
                 message += " " + DataManipulationService.processName(games.get(i).getDeclaration()) + " ";
@@ -86,6 +82,7 @@ public class GameSessionService extends Thread{
                 log(message, j);
             }
         }
+        radlerTimes = games.get(games.size()-1).getRadlerTimes();
     }
 
     public int numberOf1of2()
@@ -517,6 +514,7 @@ public class GameSessionService extends Thread{
                 teams.get(gameNumber), rounds.get(gameNumber), declarations.get(gameNumber),
                 cardsWon.get(gameNumber), popeInTalon, isRadler);
         Game game = pair.getKey();
+        game.setRadlerTimes(radlerTimes);
         Score score = pair.getValue();
         if (games.size() > 0)
         {

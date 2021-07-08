@@ -3,11 +3,7 @@ package com.TarockServer.GUI;
 import com.TarockServer.Service.DataManipulationService;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class StatusForm extends JFrame{
     public static JTextArea statusTextArea;

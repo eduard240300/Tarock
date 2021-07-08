@@ -118,8 +118,8 @@ at/favre/lib/bytes/BytesTransformers.java
 at/favre/lib/bytes/BaseEncoding.java
  at.favre.lib.bytes.BaseEncoding
  at.favre.lib.bytes.BaseEncoding$Alphabet
-com/TarockServer/Repository/Repository.java
- com.TarockServer.Repository.Repository
+com/TarockServer/Validator/UserValidator.java
+ com.TarockServer.Validator.UserValidator
 at/favre/lib/crypto/bcrypt/BCrypt.java
  at.favre.lib.crypto.bcrypt.BCrypt
  at.favre.lib.crypto.bcrypt.BCrypt$HashData
@@ -147,8 +147,6 @@ com/TarockServer/Validator/SessionValidator.java
  com.TarockServer.Validator.SessionValidator
 com/TarockServer/Domain/Declaration.java
  com.TarockServer.Domain.Declaration
-com/TarockServer/Validator/UserValidator.java
- com.TarockServer.Validator.UserValidator
 com/TarockServer/Service/ClientService.java
  com.TarockServer.Service.ClientService
 com/TarockServer/Service/GameSessionService.java

@@ -69,7 +69,7 @@ class Model {
 		$games = array();
 		foreach($resultset as $key=>$val) {
 			$game = $val;
-			$newGame = new Game($game['GameID'], $game['SessionID'], $game['ScorePlayer1'], $game['ScorePlayer2'], $game['ScorePlayer3'], $game['ScorePlayer4'], $game['Declaration'], $game['Radler']);
+			$newGame = new Game($game['GameID'], $game['SessionID'], $game['ScorePlayer1'], $game['ScorePlayer2'], $game['ScorePlayer3'], $game['ScorePlayer4'], $game['Declaration'], $game['Radler'], $game['RadlerTimes']);
 	    	array_push($games, $newGame);
 		}
 
@@ -93,7 +93,7 @@ class Model {
 		$games = array();
 		foreach($resultset as $key=>$val) {
 			$game = $val;
-			$newGame = new Game($game['GameID'], $game['SessionID'], $game['ScorePlayer1'], $game['ScorePlayer2'], $game['ScorePlayer3'], $game['ScorePlayer4'], $game['Declaration'], $game['Radler']);
+			$newGame = new Game($game['GameID'], $game['SessionID'], $game['ScorePlayer1'], $game['ScorePlayer2'], $game['ScorePlayer3'], $game['ScorePlayer4'], $game['Declaration'], $game['Radler'], $game['RadlerTimes']);
 			array_push($games, $newGame);
 		}
 

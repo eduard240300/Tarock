@@ -9,8 +9,9 @@ class Game implements JsonSerializable {
     private $scorePlayer4;
     private $declaration;
     private $radler;
+	private $radlerTimes;
 
-	public function __construct($gameID, $sessionID, $scorePlayer1, $scorePlayer2, $scorePlayer3, $scorePlayer4, $declaration, $radler) {
+	public function __construct($gameID, $sessionID, $scorePlayer1, $scorePlayer2, $scorePlayer3, $scorePlayer4, $declaration, $radler, $radlerTimes) {
 		$this->gameID = $gameID;
 		$this->sessionID = $sessionID;
 		$this->scorePlayer1 = $scorePlayer1;
@@ -19,6 +20,7 @@ class Game implements JsonSerializable {
 		$this->scorePlayer4 = $scorePlayer4;
 		$this->declaration = $declaration;
 		$this->radler = $radler;
+		$this->radlerTimes = $radlerTimes;
 	}
 
 	public function getGameID() {
@@ -44,6 +46,9 @@ class Game implements JsonSerializable {
 	}
 	public function getRadler() {
 		return $this->radler;
+	}
+	public function getRadlerTimes() {
+		return $this->radlerTimes;
 	}
 	public function jsonSerialize() {
         return get_object_vars($this);

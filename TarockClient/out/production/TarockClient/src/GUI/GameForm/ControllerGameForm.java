@@ -4,7 +4,6 @@ import Domain.Declaration;
 import GUI.Main;
 import Repository.Repository;
 import Service.CommunicationService;
-import Service.MainService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -76,7 +75,7 @@ public class ControllerGameForm {
         GameForm.the1of2Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainService.setPlayerMode("1/2");
+                CommunicationService.playerMode = "1/2";
                 Main.gameForm.the1of2Button.setEnabled(false);
                 Main.gameForm.passButton.setEnabled(false);
                 Main.gameForm.cancelGameButton.setEnabled(false);
@@ -85,7 +84,7 @@ public class ControllerGameForm {
         GameForm.passButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainService.setPlayerMode("pass");
+                CommunicationService.playerMode = "pass";
                 Main.gameForm.the1of2Button.setEnabled(false);
                 Main.gameForm.passButton.setEnabled(false);
                 Main.gameForm.cancelGameButton.setEnabled(false);
@@ -96,7 +95,7 @@ public class ControllerGameForm {
             public void actionPerformed(ActionEvent e) {
                 if (Repository.canCancelGame())
                 {
-                    MainService.setPlayerMode("cancel");
+                    CommunicationService.playerMode = "cancel";
                     Main.gameForm.the1of2Button.setEnabled(false);
                     Main.gameForm.passButton.setEnabled(false);
                     Main.gameForm.cancelGameButton.setEnabled(false);

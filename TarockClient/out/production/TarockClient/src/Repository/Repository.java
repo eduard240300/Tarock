@@ -1,6 +1,5 @@
 package Repository;
 
-import Domain.Declaration;
 import Domain.Round;
 import Domain.User;
 import Exception.RepositoryException;

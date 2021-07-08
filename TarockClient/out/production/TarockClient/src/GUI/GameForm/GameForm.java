@@ -1,6 +1,5 @@
 package GUI.GameForm;
 
-import GUI.ScoreForm.ScoreForm;
 import GUI.Template.*;
 import Repository.Repository;
 
@@ -18,8 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import static javax.swing.JOptionPane.showMessageDialog;
-import GUI.GameForm.*;
-import Service.DataManipulationService;
 
 public class GameForm extends JFrame{
     public static int heartCode = 0x2665;

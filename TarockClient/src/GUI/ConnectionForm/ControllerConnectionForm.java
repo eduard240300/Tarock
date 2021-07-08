@@ -2,7 +2,11 @@ package GUI.ConnectionForm;
 
 import Domain.User;
 import GUI.Main;
-import Service.*;
+import Repository.Repository;
+import Service.BCrypt;
+import Service.CommunicationService;
+import Service.DataManipulationService;
+import Service.LoginService;
 import Validator.IntegerValidator;
 import Validator.UserValidator;
 
@@ -11,7 +15,7 @@ import java.awt.event.ActionListener;
 
 public class ControllerConnectionForm {
     private static LoginService loginService = null;
-    private static MainService mainService = null;
+    private static CommunicationService communicationService = null;
     private static UserValidator userValidator = new UserValidator();
     private static User user;
     private static String sessionID;
@@ -19,7 +23,6 @@ public class ControllerConnectionForm {
     public void resetServices()
     {
         loginService = null;
-        mainService = null;
     }
 
     public ControllerConnectionForm() {
@@ -28,8 +31,10 @@ public class ControllerConnectionForm {
             public void actionPerformed(ActionEvent e) {
                 CommunicationService.ipAddress = ConnectionForm.ipAddressField.getText();
 
-                if (mainService == null)
-                    mainService = new MainService();
+                if (communicationService == null) {
+                    communicationService = new CommunicationService();
+                    communicationService.start();
+                }
                 if (loginService == null)
                     loginService = new LoginService();
 
@@ -57,8 +62,8 @@ public class ControllerConnectionForm {
 
     public static void finishLogin()
     {
-        mainService.setLoggedIn(user);
-        mainService.setSessionID(Integer.parseInt(sessionID));
+        Repository.login(user);
+        Repository.sessionID = Integer.parseInt(sessionID);
         Main.gameForm.setVisible(true);
         Main.connectionForm.setVisible(false);
         System.out.println("Logged in !");

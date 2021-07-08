@@ -9,8 +9,9 @@ public class Game {
     private int scorePlayer4;
     private String declaration;
     private boolean radler;
+    private int radlerTimes;
 
-    public Game(int gameID, int sessionID, int scorePlayer1, int scorePlayer2, int scorePlayer3, int scorePlayer4, String declaration, boolean radler)
+    public Game(int gameID, int sessionID, int scorePlayer1, int scorePlayer2, int scorePlayer3, int scorePlayer4, String declaration, boolean radler, int radlerTimes)
     {
         this.gameID = gameID;
         this.sessionID = sessionID;
@@ -20,6 +21,7 @@ public class Game {
         this.scorePlayer4 = scorePlayer4;
         this.declaration = declaration;
         this.radler = radler;
+        this.radlerTimes = radlerTimes;
     }
 
     public Game() { }
@@ -111,5 +113,13 @@ public class Game {
         else if (player == 3)
             return getScorePlayer4();
         return 0;
+    }
+
+    public int getRadlerTimes() {
+        return radlerTimes;
+    }
+
+    public void setRadlerTimes(int radlerTimes) {
+        this.radlerTimes = radlerTimes;
     }
 }

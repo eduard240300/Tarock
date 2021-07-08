@@ -30,5 +30,6 @@ CREATE TABLE Games (
   ScorePlayer4 INT NOT NULL,
   Declaration VARCHAR(200) NOT NULL,
   Radler INT NOT NULL,
+  RadlerTimes INT NOT NULL,
   FOREIGN KEY(SessionID) REFERENCES Sessions(SessionID)
 );

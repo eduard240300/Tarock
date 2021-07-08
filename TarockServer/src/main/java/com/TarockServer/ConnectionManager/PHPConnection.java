@@ -1,20 +1,22 @@
 package com.TarockServer.ConnectionManager;
 
-import java.io.*;
-import java.net.*;
-import java.util.ArrayList;
-import java.util.List;
-
+import at.favre.lib.bytes.Bytes;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.TarockServer.Domain.Game;
-import com.TarockServer.Exception.*;
-
 import com.TarockServer.Domain.Pair;
 import com.TarockServer.Domain.Session;
 import com.TarockServer.Domain.User;
+import com.TarockServer.Exception.PHPException;
 import com.TarockServer.Main;
 import com.TarockServer.Service.DataManipulationService;
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import at.favre.lib.bytes.Bytes;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PHPConnection {
     public static String read(String inputString){
@@ -141,6 +143,7 @@ public class PHPConnection {
         }
         post += "&declaration=" + DataManipulationService.processDeclaration(game.getDeclaration());
         post += "&radler=" + DataManipulationService.boolToString(game.getRadler());
+        post += "&radlerTimes=" + game.getRadlerTimes();
         List<Pair<String, String>> sessionJSON = DataManipulationService.JSONtoList(PHPConnection.read(post));
         if (sessionJSON.get(0).getKey().equals("exception"))
         {
@@ -197,6 +200,10 @@ public class PHPConnection {
                 else if (gameJSON.get(j).getKey().equals("radler"))
                 {
                     game.setRadler(DataManipulationService.stringToBool(gameJSON.get(j).getValue()));
+                }
+                else if (gameJSON.get(j).getKey().equals("radlerTimes"))
+                {
+                    game.setRadlerTimes(Integer.parseInt(gameJSON.get(j).getValue()));
                 }
             }
             games.add(game);

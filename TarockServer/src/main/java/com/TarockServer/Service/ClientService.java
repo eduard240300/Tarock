@@ -1,13 +1,12 @@
 package com.TarockServer.Service;
 
 import com.TarockServer.ConnectionManager.PHPConnection;
-import com.TarockServer.Domain.Triple;
 import com.TarockServer.Domain.Session;
+import com.TarockServer.Domain.Triple;
 import com.TarockServer.Domain.User;
 import com.TarockServer.Exception.ConnectionException;
 import com.TarockServer.Exception.LoginException;
 import com.TarockServer.Exception.PHPException;
-import com.TarockServer.Domain.*;
 import com.TarockServer.Main;
 
 import java.io.EOFException;
@@ -68,6 +67,17 @@ public class ClientService extends Thread {
         return null;
     }
 
+    public Session getSessionInList(String username)
+    {
+        for(int i=0;i<CommunicationService.socketsList.size();i++)
+        {
+            if (CommunicationService.socketsList.get(i).getKey().equals(username)) {
+                return CommunicationService.socketsList.get(i).getValue2();
+            }
+        }
+        return null;
+    }
+
     public List<String> write(String sendMessage) throws IOException, ClassNotFoundException {
         String message = "";
         try {
@@ -77,7 +87,16 @@ public class ClientService extends Thread {
         catch (EOFException exception)
         {
             socket.close();
+            Session session = getSessionInList(username);
             Main.statusForm.addToStatusTextArea(exception.getMessage());
+            for(int i=0;i<CommunicationService.gameSessions.size();i++)
+            {
+                if (CommunicationService.gameSessions.get(i).session.getSessionID() == session.getSessionID())
+                {
+                    CommunicationService.gameSessions.get(i).stop();
+                    CommunicationService.gameSessions.remove(i);
+                }
+            }
             Thread.currentThread().stop();
         }
         List<String> listOfCommands = DataManipulationService.processMessage(message);

@@ -17,7 +17,7 @@ public class TalonShowingForm extends JFrame{
     public void updateCards() throws IOException {
         for(int i=0;i<3;i++)
         {
-            Repository.talonPart = 0;
+            Repository.talonPart = i;
             revealTalonPart();
         }
         Repository.talonPart = -1;
