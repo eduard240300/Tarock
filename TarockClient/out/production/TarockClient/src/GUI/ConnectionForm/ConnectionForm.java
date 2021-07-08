@@ -66,7 +66,7 @@ public class ConnectionForm extends JFrame{
 
         ipAddressField = new JTextField();
         ipAddressField.setFont(arialDefault);
-        ipAddressField.setText("localhost");
+        ipAddressField.setText("");
         ipAddressField.setBounds(190, 170, 330, 40);
         add(ipAddressField);
 

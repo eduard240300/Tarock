@@ -22,7 +22,7 @@ if(isset($_POST["see"]))
   }
   else
   {
-    if ($controller->existsSessionForUsername($username, $sessionID))
+    if ($controller->existsSession($sessionID))
     {
       setcookie("sessionID", $sessionID, time()+60*10);
       header("location:games.php");

@@ -1,6 +1,6 @@
-Bug-uri:
+Bugs:
 
-add to sessions field numberRadler
+Valat este 8 puncte
 
 Resolved : 
 Trebuie adunate la scorul prezent scorurile precedente. (Resolved)
@@ -13,3 +13,4 @@ Butonul OK trebuie sa inchida Window-ul de Scor (Resolved)
 Culoarea la scor (Resolved)
 Trebuie memorate in DB game-urile. (Resolved)
 Imi apare declaratia de data trecuta la selectie (Resolved)
+add to games field radlerTimes(Resolved)

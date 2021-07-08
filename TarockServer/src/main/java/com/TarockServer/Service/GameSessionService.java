@@ -82,7 +82,8 @@ public class GameSessionService extends Thread{
                 log(message, j);
             }
         }
-        radlerTimes = games.get(games.size()-1).getRadlerTimes();
+        if (games.size() > 0)
+            radlerTimes = games.get(games.size()-1).getRadlerTimes();
     }
 
     public int numberOf1of2()
