@@ -21,7 +21,6 @@ public class ControllerScoreForm {
                     ScoreForm.previousTeam1Button.setEnabled(false);
                 else
                     ScoreForm.previousTeam1Button.setEnabled(true);
-                System.out.println("Pressed previousTeam1Button Button");
                 try {
                     Main.scoreForm.updateCards();
                 } catch (IOException exception) {
@@ -40,7 +39,6 @@ public class ControllerScoreForm {
                     ScoreForm.previousTeam2Button.setEnabled(false);
                 else
                     ScoreForm.previousTeam2Button.setEnabled(true);
-                System.out.println("Pressed previousTeam2Button Button");
                 try {
                     Main.scoreForm.updateCards();
                 } catch (IOException exception) {
@@ -59,7 +57,6 @@ public class ControllerScoreForm {
                     ScoreForm.nextTeam1Button.setEnabled(false);
                 else
                     ScoreForm.nextTeam1Button.setEnabled(true);
-                System.out.println("Pressed nextTeam1Button Button");
                 try {
                     Main.scoreForm.updateCards();
                 } catch (IOException exception) {
@@ -78,7 +75,6 @@ public class ControllerScoreForm {
                     ScoreForm.nextTeam2Button.setEnabled(false);
                 else
                     ScoreForm.nextTeam2Button.setEnabled(true);
-                System.out.println("Pressed nextTeam2Button Button");
                 try {
                     Main.scoreForm.updateCards();
                 } catch (IOException exception) {
@@ -89,7 +85,7 @@ public class ControllerScoreForm {
         ScoreForm.OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Pressed OKButton Button");
+                Main.scoreForm.setVisible(false);
             }
         });
     }

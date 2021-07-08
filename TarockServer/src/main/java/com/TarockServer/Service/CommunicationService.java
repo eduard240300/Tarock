@@ -2,6 +2,7 @@ package com.TarockServer.Service;
 
 import com.TarockServer.Domain.Triple;
 import com.TarockServer.Domain.Session;
+import com.TarockServer.Main;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -22,9 +23,9 @@ public class CommunicationService extends Thread{
         while (true) {
             Socket socket = server.accept();
             ClientService clientService = new ClientService(socket);
-            System.out.println("Accepted new user");
+            Main.statusForm.addToStatusTextArea("Accepted new user");
             clientService.start();
-            System.out.println("Started client socket");
+            Main.statusForm.addToStatusTextArea("Started client socket");
         }
     }
 

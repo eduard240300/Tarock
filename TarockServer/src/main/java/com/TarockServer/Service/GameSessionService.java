@@ -1,6 +1,9 @@
 package com.TarockServer.Service;
 
+import com.TarockServer.ConnectionManager.PHPConnection;
 import com.TarockServer.Domain.*;
+import com.TarockServer.Main;
+import com.TarockServer.Repository.Repository;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +14,7 @@ public class GameSessionService extends Thread{
     public List<ClientService> listOfClients;
     public Session session;
     public List<String> players;
+    public int offsetGameNumber = -1;
     public int gameNumber = -1;
     public List<Integer> pope;
     public List<List<Integer>> cards;
@@ -26,6 +30,9 @@ public class GameSessionService extends Thread{
     public List<Integer> talonPart; //the part of talon that is chosen
     public List<Integer> playerRequest; //player that requested the 1of2
     public List<Integer> the1of2;
+    public List<Game> games;
+    public List<Score> scores;
+
     public GameSessionService(List<ClientService> listOfClients, Session session, List<String> players){
         this.listOfClients = listOfClients;
         this.session = session;
@@ -41,16 +48,43 @@ public class GameSessionService extends Thread{
         talonPart = new ArrayList<Integer>();
         playerRequest = new ArrayList<Integer>();
         the1of2 = new ArrayList<Integer>();
+        scores = new ArrayList<Score>();
     }
 
     public void log(String message, int player)
     {
-        System.out.println("Sent (" + listOfClients.get(player).username + ") : " + message);
+        if ((message.charAt(0) == 'c') && (message.charAt(1) == 'a') & (message.charAt(2) == 'r'))
+        {
+            message = "sentCards;";
+        }
+        Main.statusForm.addToStatusTextArea("Sent (" + listOfClients.get(player).username + ") : " + message);
     }
 
     public void logReceived(Object message, int player)
     {
-        System.out.println("Received (" + listOfClients.get(player).username + ") : " + message);
+        Main.statusForm.addToStatusTextArea("Received (" + listOfClients.get(player).username + ") : " + message);
+    }
+
+    public void getAllPreviousGames() throws IOException, ClassNotFoundException {
+        String message;
+        String creator = session.getCreator();
+        games = PHPConnection.getGames(creator, session.getSessionID());
+        offsetGameNumber = games.size();
+        for(int i=0;i<games.size();i++)
+        {
+            for(int j=0;j<4;j++)
+            {
+                message = "score";
+                for(int k=0;k<4;k++)
+                {
+                    message += " " + games.get(i).getScorePlayer(k);
+                }
+                message += " " + DataManipulationService.processName(games.get(i).getDeclaration()) + " ";
+                message += DataManipulationService.boolToString(games.get(i).getRadler()) + ";";
+                listOfClients.get(i).write(message);
+                log(message, i);
+            }
+        }
     }
 
     public int numberOf1of2()
@@ -263,7 +297,7 @@ public class GameSessionService extends Thread{
             listOfClients.get(i).write(message);
             log(message, i);
         }
-        System.out.println(declarations);
+        Main.statusForm.addToStatusTextArea(declarations.toString());
     }
 
     public void requestDeclaration(int player) throws IOException, ClassNotFoundException {
@@ -317,7 +351,7 @@ public class GameSessionService extends Thread{
             listOfClients.get(i).write(message);
             log(message, i);
         }
-        System.out.println(declarations);
+        Main.statusForm.addToStatusTextArea(declarations.toString());
     }
 
     public void requestPlayerMode(int player) throws IOException, ClassNotFoundException {
@@ -361,7 +395,7 @@ public class GameSessionService extends Thread{
         if (listOfObjects.get(0).equals("playerMode"))
         {
             playersStatus.get(gameNumber).set(player, listOfObjects.get(1));
-            System.out.println("ListOfObjects.get(1) = " + listOfObjects.get(1));
+            Main.statusForm.addToStatusTextArea("ListOfObjects.get(1) = " + listOfObjects.get(1));
             if (listOfObjects.get(1).equals("1/2"))
             {
                 message = "increased1of2;";
@@ -373,7 +407,7 @@ public class GameSessionService extends Thread{
                 }
             }
         }
-        System.out.println(playersStatus);
+        Main.statusForm.addToStatusTextArea(playersStatus.toString());
     }
 
     public void doHand(int hand) throws IOException, ClassNotFoundException {
@@ -478,12 +512,25 @@ public class GameSessionService extends Thread{
         if (radlerTimes > 0)
             isRadler = true;
         radlerTimes--;
-        Triple<String, Game, Score> triple = ScoreService.getScore(playerRequest.get(gameNumber), players,
+        Pair<Game, Score> pair = ScoreService.getScore(playerRequest.get(gameNumber), players,
                 teams.get(gameNumber), rounds.get(gameNumber), declarations.get(gameNumber),
                 cardsWon.get(gameNumber), popeInTalon, isRadler);
-        String declarationMessage = triple.getKey();
-        Game game = triple.getValue1();
-        Score score = triple.getValue2();
+        Game game = pair.getKey();
+        Score score = pair.getValue();
+        if (games.size() > 0)
+        {
+            for(int k=0;k<4;k++)
+            {
+                int previousScore = games.get(games.size()-1).getScorePlayer(k);
+                int totalScore = previousScore + game.getScorePlayer(k);
+                game.setScorePlayer(k, totalScore);
+            }
+        }
+        game.setSessionID(session.getSessionID());
+        games.add(game);
+        String creator = session.getCreator();
+        PHPConnection.addGame(creator, game);
+        scores.add(score);
         for(int i=0;i<4;i++)
         {
             message = "score";
@@ -491,11 +538,8 @@ public class GameSessionService extends Thread{
             {
                 message += " " + game.getScorePlayer(j);
             }
-            message += " " + DataManipulationService.processName(declarationMessage) + " ";
-            if (isRadler)
-                message += "1;";
-            else
-                message += "0;";
+            message += " " + DataManipulationService.processName(game.getDeclaration()) + " ";
+            message += DataManipulationService.boolToString(isRadler) + ";";
             listOfClients.get(i).write(message);
             log(message, i);
         }
@@ -554,25 +598,11 @@ public class GameSessionService extends Thread{
         for(int i=0;i<4;i++)
             Collections.sort(cardsSeparated.get(gameNumber).get(i));
 
-        //begin
-        /*
-        for(int i=0;i<cardsSeparated.get(gameNumber).get(0).size();i++)
-        {
-            int aux = cardsSeparated.get(gameNumber).get(0).get(i);
-            if (Round.isTarock(cardsSeparated.get(gameNumber).get(0).get(i)))
-            {
-                cardsSeparated.get(gameNumber).get(0).set(i, 23);
-            }
-            if ((aux == 30) || (aux == 38) || (aux == 46) || (aux == 54)){
-                cardsSeparated.get(gameNumber).get(0).set(i, 23);
-            }
-        }
-        */
-        //end
+        getAllPreviousGames();
 
         // finished initialization
         String message;
-        int firstRequest = (gameNumber)%4;
+        int firstRequest = (gameNumber+offsetGameNumber)%4;
         int lastRequest = firstRequest + 4;
 
         for(int i=0;i<4;i++)

@@ -206,14 +206,11 @@ public class Repository {
     {
         int cardID = cards.get(position);
         if (!(rounds.size() == round+1)) {
-            System.out.println("First card");
             return true;
         }
         int firstPlayer = rounds.get(rounds.size()-1).getFirstPlayer();
-        System.out.println("FirstPlayer = " + firstPlayer);
         if (firstPlayer == chair)
         {
-            System.out.println("FirstPlayer is chair");
             return true;
         }
         else
@@ -221,20 +218,16 @@ public class Repository {
             int firstCardID = rounds.get(rounds.size()-1).getCard(firstPlayer);
             if (Round.isTarock(firstCardID))
             {
-                System.out.println("FirstCard is tarock");
                 if (getNumberOfTarocks() == 0) {
-                    System.out.println("You don't have any tarocks !");
                     return true;
                 }
                 else
                 {
                     if (Round.isTarock(cardID)) {
-                        System.out.println("You have given a tarock !");
                         return true;
                     }
                     else
                     {
-                        System.out.println("You didn't give a tarock !");
                         return false;
                     }
                 }
@@ -242,38 +235,29 @@ public class Repository {
             else
             {
                 int type = Round.getCardType(firstCardID);
-                System.out.println("Type is : " + type);
                 if (getNumberOfType(type) == 0)
                 {
-                    System.out.println("You don't have any cards of type " + type);
                     if (getNumberOfTarocks() == 0) {
-                        System.out.println("You have given any card !");
                         return true;
                     }
                     else
                     {
-                        System.out.println("You have tarocks !");
                         if (Round.isTarock(cardID)) {
-                            System.out.println("You have given a tarock !");
                             return true;
                         }
                         else
                         {
-                            System.out.println("You didn't give a tarock !");
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    System.out.println("You have cards of type " + type);
                     if (Round.isType(cardID, type)) {
-                        System.out.println("You have given a card of type " + type);
                         return true;
                     }
                     else
                     {
-                        System.out.println("You didn't give a card of type " + type);
                         return false;
                     }
                 }

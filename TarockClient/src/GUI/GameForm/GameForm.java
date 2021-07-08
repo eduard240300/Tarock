@@ -22,6 +22,10 @@ import GUI.GameForm.*;
 import Service.DataManipulationService;
 
 public class GameForm extends JFrame{
+    public static int heartCode = 0x2665;
+    public static int diamondCode = 0x2666;
+    public static int clubCode = 0x2663;
+    public static int spadeCode = 0x2660;
     public static int the1of2 = 1;
     public static String typeOfActivation = "";
     public static boolean canGiveCard = false;
@@ -40,6 +44,7 @@ public class GameForm extends JFrame{
     public static JCheckBox trullCheckBox;
     public static JComboBox<String> numberOfTarocksComboBox;
     public static CustomJButton submitButton;
+    public static ButtonGroup popeButtonGroup;
     public static JRadioButton heartRadio;
     public static JRadioButton diamondRadio;
     public static JRadioButton clubRadio;
@@ -97,10 +102,20 @@ public class GameForm extends JFrame{
 
     public void addToScoreTable(int score1, int score2, int score3, int score4, String declaration)
     {
+        StringBuilder declarationBuilder = new StringBuilder(declaration);
         String stringScore1 = String.valueOf(score1);
         String stringScore2 = String.valueOf(score2);
         String stringScore3 = String.valueOf(score3);
         String stringScore4 = String.valueOf(score4);
+        if (declaration.charAt(4) == '0')
+            declarationBuilder.setCharAt(4, (char)(heartCode));
+        else if (declaration.charAt(4) == '1')
+            declarationBuilder.setCharAt(4, (char)(diamondCode));
+        else if (declaration.charAt(4) == '2')
+            declarationBuilder.setCharAt(4, (char)(clubCode));
+        else if (declaration.charAt(4) == '3')
+            declarationBuilder.setCharAt(4, (char)(spadeCode));
+        declaration = declarationBuilder.toString();
         scoreTableModel.addRow(new Object[]{stringScore1, stringScore2, stringScore3, stringScore4, declaration});
     }
 
@@ -181,10 +196,6 @@ public class GameForm extends JFrame{
     }
 
     public void changeDeclarationPlayer(int player, String declaration) {
-        int heartCode = 0x2665;
-        int diamondCode = 0x2666;
-        int clubCode = 0x2663;
-        int spadeCode = 0x2660;
         StringBuilder declarationBuilder = new StringBuilder(declaration);
 
         if (declaration.charAt(1) == '0')
@@ -207,10 +218,7 @@ public class GameForm extends JFrame{
         allPopesCheckBox.setSelected(false);
         trullCheckBox.setSelected(false);
         numberOfTarocksComboBox.setSelectedIndex(0);
-        heartRadio.setSelected(false);
-        diamondRadio.setSelected(false);
-        clubRadio.setSelected(false);
-        spadeRadio.setSelected(false);
+        popeButtonGroup.clearSelection();
     }
 
     public void switchDeclarationSelection(boolean canPopeAtFinish, boolean canPagatAtFinish, boolean canAllPopes, boolean canTrull, boolean isRequestPlayer, boolean value) {
@@ -251,11 +259,6 @@ public class GameForm extends JFrame{
     }
 
     public GameForm() throws IOException {
-        int heartCode = 0x2665;
-        int diamondCode = 0x2666;
-        int clubCode = 0x2663;
-        int spadeCode = 0x2660;
-
         playerLabels = new ArrayList<JLabel>();
         cardsRound = new ArrayList<JImage>();
         playerCards = new ArrayList<ClickableImage>();
@@ -522,7 +525,7 @@ public class GameForm extends JFrame{
         spadeRadio.setBounds(10, 110, 117, 25);
         selectPopePanel.add(spadeRadio);
 
-        ButtonGroup popeButtonGroup = new ButtonGroup();
+        popeButtonGroup = new ButtonGroup();
         popeButtonGroup.add(heartRadio);
         popeButtonGroup.add(diamondRadio);
         popeButtonGroup.add(clubRadio);

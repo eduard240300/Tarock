@@ -14,6 +14,15 @@ public class TalonShowingForm extends JFrame{
     public static JLabel talonLabel;
     public static List<List<JImage>> talonCards;
 
+    public void updateCards() throws IOException {
+        for(int i=0;i<3;i++)
+        {
+            Repository.talonPart = 0;
+            revealTalonPart();
+        }
+        Repository.talonPart = -1;
+    }
+
     public void revealTalonPart() throws IOException {
         int talonPart = Repository.talonPart;
         for(int i=0;i<2;i++)

@@ -51,7 +51,7 @@ import java.util.*;
  * <pre>
  *     Bytes b = Bytes.from(array).mutable();
  *     b.not();
- *     System.out.println(b.encodeHex());
+ *     Main.statusForm.addToStatusTextArea(b.encodeHex());
  * </pre>
  *
  * <h3>Comparable</h3>

@@ -85,7 +85,7 @@ public class ScoreService {
             return 0;
     }
 
-    public static Triple<String, Game, Score> getScore(int playerRequest, List<String> players, List<List<Integer>> teams, List<Round> rounds, List<Declaration> declarations, List<List<Integer>> cardsWon, boolean popeInTalon, boolean isRadler)
+    public static Pair<Game, Score> getScore(int playerRequest, List<String> players, List<List<Integer>> teams, List<Round> rounds, List<Declaration> declarations, List<List<Integer>> cardsWon, boolean popeInTalon, boolean isRadler)
     {
         Game game = new Game();
         Score score = new Score();
@@ -522,6 +522,7 @@ public class ScoreService {
 
         score.computeTotal();
         game.setRadler(isRadler);
+        game.setDeclaration(declarationMessage);
         int total = score.getAttribute("Total").getPoints();
         if (teams.get(0).size() == 1)
         {
@@ -570,10 +571,8 @@ public class ScoreService {
             }
         }
 
-        Triple<String, Game, Score> triple = new Triple<String,Game,Score>(declarationMessage);
-        triple.setValue1(game);
-        triple.setValue2(score);
-        return triple;
+        Pair<Game, Score> pair = new Pair<Game,Score>(game, score);
+        return pair;
     }
 
     public static void calculateScoreTarocks(int teamThatWon, int player, List<List<Integer>> teams, List<Declaration> declarations, Score score)

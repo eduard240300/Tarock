@@ -71,7 +71,6 @@ public class ControllerGameForm {
                         GameForm.popUpMessage(message);
                     }
                 }
-                System.out.println("Pressed Submit Button");
             }
         });
         GameForm.the1of2Button.addActionListener(new ActionListener() {
@@ -81,7 +80,6 @@ public class ControllerGameForm {
                 Main.gameForm.the1of2Button.setEnabled(false);
                 Main.gameForm.passButton.setEnabled(false);
                 Main.gameForm.cancelGameButton.setEnabled(false);
-                System.out.println("Pressed 1 of 2 Button");
             }
         });
         GameForm.passButton.addActionListener(new ActionListener() {
@@ -91,7 +89,6 @@ public class ControllerGameForm {
                 Main.gameForm.the1of2Button.setEnabled(false);
                 Main.gameForm.passButton.setEnabled(false);
                 Main.gameForm.cancelGameButton.setEnabled(false);
-                System.out.println("Pressed Pass Button");
             }
         });
         GameForm.cancelGameButton.addActionListener(new ActionListener() {
@@ -104,14 +101,11 @@ public class ControllerGameForm {
                     Main.gameForm.passButton.setEnabled(false);
                     Main.gameForm.cancelGameButton.setEnabled(false);
                 }
-                System.out.println("Pressed Cancel Button");
             }
         });
     }
 
     public static void pressedCard(int cardPosition) throws IOException {
-        System.out.println("Pressed CardID : " + Repository.cards.get(cardPosition));
-        System.out.println("Cards : " + Repository.cards);
         if ((GameForm.canGiveCard) && (Repository.canGiveCard(cardPosition)))
         {
             GameForm.canGiveCard = false;
@@ -119,6 +113,5 @@ public class ControllerGameForm {
             Repository.giveCard(cardPosition);
             Main.gameForm.updateCards();
         }
-        System.out.println("Pressed : " + cardPosition);
     }
 }

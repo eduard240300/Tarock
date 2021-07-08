@@ -8,6 +8,7 @@ import com.TarockServer.Exception.ConnectionException;
 import com.TarockServer.Exception.LoginException;
 import com.TarockServer.Exception.PHPException;
 import com.TarockServer.Domain.*;
+import com.TarockServer.Main;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class ClientService extends Thread {
                 catch(IOException exception)
                 {}
                 CommunicationService.socketsList.remove(i);
-                System.out.println("Removed client " + username);
+                Main.statusForm.addToStatusTextArea("Removed client " + username);
             }
         }
     }
@@ -52,7 +53,7 @@ public class ClientService extends Thread {
         newPair.setValue1(clientService);
         newPair.setValue2(session);
         removeConnection(username);
-        System.out.println("Added client " + username);
+        Main.statusForm.addToStatusTextArea("Added client " + username);
         CommunicationService.socketsList.add(newPair);
     }
 
@@ -76,7 +77,7 @@ public class ClientService extends Thread {
         catch (EOFException exception)
         {
             socket.close();
-            System.out.println(exception.getMessage());
+            Main.statusForm.addToStatusTextArea(exception.getMessage());
             Thread.currentThread().stop();
         }
         List<String> listOfCommands = DataManipulationService.processMessage(message);
@@ -120,7 +121,7 @@ public class ClientService extends Thread {
         newListOfCommands = write(message);
 
         getClientInList(username).write("chairNumber " + getChairNumber(session, username) + ";");
-        System.out.println("Sent (" + username + ") : " + "chairNumber " + getChairNumber(session, username) + ";");
+        Main.statusForm.addToStatusTextArea("Sent (" + username + ") : " + "chairNumber " + getChairNumber(session, username) + ";");
 
         boolean startGameSession = true;
 
@@ -207,7 +208,7 @@ public class ClientService extends Thread {
 
     public void run(){
         try {
-            System.out.println("Started thread");
+            Main.statusForm.addToStatusTextArea("Started thread");
             List<String> listOfCommands = write("require_auth;");
             runAuthentication(listOfCommands);
         } catch (Exception e) {

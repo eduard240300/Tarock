@@ -8,6 +8,8 @@ import GUI.ConnectionForm.ControllerConnectionForm;
 import GUI.GameForm.GameForm;
 import GUI.Main;
 import GUI.ScoreForm.ScoreForm;
+import GUI.TalonSelectionForm.TalonSelectionForm;
+import GUI.TalonShowingForm.TalonShowingForm;
 import GUI.Template.ClickableImage;
 import GUI.Template.CustomJButton;
 import GUI.Template.JImage;
@@ -54,7 +56,7 @@ public class CommunicationService extends Thread{
                 if (ipAddress != "") {
                     socket = new Socket(ipAddress, 9876);
                     connected = true;
-                    System.out.println("Connected to localhost:9876 !");
+                    System.out.println("Connected to " + ipAddress + ":9876 !");
                     break;
                 }
             } catch (ConnectException connectException) {
@@ -149,8 +151,13 @@ public class CommunicationService extends Thread{
                 GameForm.passButton.setEnabled(false);
                 GameForm.cancelGameButton.setEnabled(false);
                 GameForm.submitButton.setEnabled(false);
-
                 Repository.resetRepository();
+
+                TalonSelectionForm.nextButton.setEnabled(true);
+                TalonSelectionForm.takeButton.setEnabled(true);
+                TalonSelectionForm.giveButton.setEnabled(false);
+                Main.talonShowingForm.updateCards();
+
                 Main.gameForm.resetCards();
                 Main.gameForm.resetPlayerNames();
                 Main.gameForm.updateCards();
@@ -290,7 +297,6 @@ public class CommunicationService extends Thread{
                     Repository.talonPart = Repository.talonPart + 1;
                     Repository.talonPart = Repository.talonPart % 3;
                     Repository.the1of2++;
-                    System.out.println(username + " : the1of2 = " + Repository.the1of2);
                 }
             }
             else if (listOfObjects.get(0).equals("requestTalonReplacement"))

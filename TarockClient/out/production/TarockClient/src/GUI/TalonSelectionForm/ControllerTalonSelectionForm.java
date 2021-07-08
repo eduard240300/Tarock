@@ -25,7 +25,6 @@ public class ControllerTalonSelectionForm {
                 TalonSelectionForm.takeButton.setEnabled(false);
                 TalonSelectionForm.nextButton.setEnabled(false);
                 TalonSelectionForm.giveButton.setEnabled(true);
-                System.out.println("Pressed takeButton Button");
             }
         });
         TalonSelectionForm.nextButton.addActionListener(new ActionListener() {
@@ -34,9 +33,7 @@ public class ControllerTalonSelectionForm {
                 CommunicationService.talonTakeDecision = "next";
                 Repository.talonPart++;
                 Repository.the1of2++;
-                System.out.println(Repository.players.get(Repository.chair) + " : the1of2 = " + Repository.the1of2);
                 Repository.talonPart = Repository.talonPart % 3;
-                System.out.println("Pressed nextButton Button");
             }
         });
         TalonSelectionForm.giveButton.addActionListener(new ActionListener() {
@@ -50,7 +47,6 @@ public class ControllerTalonSelectionForm {
                     CommunicationService.talonGiveDecision = message;
                     TalonSelectionForm.giveButton.setEnabled(false);
                 }
-                System.out.println("Pressed giveButton Button");
             }
         });
     }
@@ -66,6 +62,5 @@ public class ControllerTalonSelectionForm {
                 Main.talonSelectionForm.updateGivenCards();
             }
         }
-        System.out.println("Pressed : " + cardPosition + " Talon");
     }
 }

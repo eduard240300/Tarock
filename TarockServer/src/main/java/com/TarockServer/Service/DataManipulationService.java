@@ -152,4 +152,14 @@ public class DataManipulationService {
         output.add(pair);
         return output;
     }
+
+    public static String eliminateNewLines(String line){
+        StringBuilder result = new StringBuilder();
+        for(int i=0;i<line.length();i++)
+        {
+            if (line.charAt(i) != '\n')
+                result.append(line.charAt(i));
+        }
+        return result.toString();
+    }
 }

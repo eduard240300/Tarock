@@ -54,7 +54,7 @@ public class CommunicationService extends Thread{
                 if (ipAddress != "") {
                     socket = new Socket(ipAddress, 9876);
                     connected = true;
-                    System.out.println("Connected to localhost:9876 !");
+                    System.out.println("Connected to " + ipAddress + ":9876 !");
                     break;
                 }
             } catch (ConnectException connectException) {
@@ -290,7 +290,6 @@ public class CommunicationService extends Thread{
                     Repository.talonPart = Repository.talonPart + 1;
                     Repository.talonPart = Repository.talonPart % 3;
                     Repository.the1of2++;
-                    System.out.println(username + " : the1of2 = " + Repository.the1of2);
                 }
             }
             else if (listOfObjects.get(0).equals("requestTalonReplacement"))

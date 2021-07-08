@@ -1,68 +1,19 @@
-at/favre/lib/bytes/BytesFactory.java
- at.favre.lib.bytes.BytesFactory
 com/TarockServer/Exception/LoginException.java
  com.TarockServer.Exception.LoginException
 com/TarockServer/Exception/ValidationException.java
  com.TarockServer.Exception.ValidationException
-com/TarockServer/Service/CommunicationService.java
- com.TarockServer.Service.CommunicationService
-com/TarockServer/Service/GameSessionService.java
- com.TarockServer.Service.GameSessionService
-at/favre/lib/crypto/bcrypt/BCryptFormatter.java
- at.favre.lib.crypto.bcrypt.BCryptFormatter
- at.favre.lib.crypto.bcrypt.BCryptFormatter$Default
-module-info.java
- module-info
-com/TarockServer/Exception/RepositoryException.java
- com.TarockServer.Exception.RepositoryException
-com/TarockServer/Validator/SessionValidator.java
- com.TarockServer.Validator.SessionValidator
-at/favre/lib/bytes/BytesTransformer.java
- at.favre.lib.bytes.BytesTransformer
- at.favre.lib.bytes.BytesTransformer$1
- at.favre.lib.bytes.BytesTransformer$BitSwitchTransformer
- at.favre.lib.bytes.BytesTransformer$BitWiseOperatorTransformer
- at.favre.lib.bytes.BytesTransformer$BitWiseOperatorTransformer$Mode
- at.favre.lib.bytes.BytesTransformer$ConcatTransformer
- at.favre.lib.bytes.BytesTransformer$CopyTransformer
- at.favre.lib.bytes.BytesTransformer$MessageDigestTransformer
- at.favre.lib.bytes.BytesTransformer$NegateTransformer
- at.favre.lib.bytes.BytesTransformer$ResizeTransformer
- at.favre.lib.bytes.BytesTransformer$ResizeTransformer$Mode
- at.favre.lib.bytes.BytesTransformer$ReverseTransformer
- at.favre.lib.bytes.BytesTransformer$ShiftTransformer
- at.favre.lib.bytes.BytesTransformer$ShiftTransformer$Type
-at/favre/lib/bytes/BytesTransformers.java
- at.favre.lib.bytes.BytesTransformers
- at.favre.lib.bytes.BytesTransformers$ChecksumTransformer
- at.favre.lib.bytes.BytesTransformers$ChecksumTransformer$Mode
- at.favre.lib.bytes.BytesTransformers$GzipCompressor
- at.favre.lib.bytes.BytesTransformers$HmacTransformer
- at.favre.lib.bytes.BytesTransformers$ShuffleTransformer
- at.favre.lib.bytes.BytesTransformers$SortTransformer
- at.favre.lib.bytes.BytesTransformers$SortTransformer$UnsignedByteComparator
-com/TarockServer/Main.java
- com.TarockServer.Main
+com/TarockServer/Domain/User.java
+ com.TarockServer.Domain.User
+com/TarockServer/GUI/MyWindowListener.java
+ com.TarockServer.GUI.MyWindowListener
+at/favre/lib/crypto/bcrypt/IllegalBCryptFormatException.java
+ at.favre.lib.crypto.bcrypt.IllegalBCryptFormatException
 com/TarockServer/Service/ScoreService.java
  com.TarockServer.Service.ScoreService
-at/favre/lib/bytes/BaseEncoding.java
- at.favre.lib.bytes.BaseEncoding
- at.favre.lib.bytes.BaseEncoding$Alphabet
-com/TarockServer/Repository/Repository.java
- com.TarockServer.Repository.Repository
-at/favre/lib/crypto/bcrypt/BCrypt.java
- at.favre.lib.crypto.bcrypt.BCrypt
- at.favre.lib.crypto.bcrypt.BCrypt$HashData
- at.favre.lib.crypto.bcrypt.BCrypt$Hasher
- at.favre.lib.crypto.bcrypt.BCrypt$Result
- at.favre.lib.crypto.bcrypt.BCrypt$Verifyer
- at.favre.lib.crypto.bcrypt.BCrypt$Version
 com/TarockServer/Domain/Triple.java
  com.TarockServer.Domain.Triple
 at/favre/lib/crypto/bcrypt/LongPasswordStrategies.java
  at.favre.lib.crypto.bcrypt.LongPasswordStrategies
-at/favre/lib/bytes/BytesValidators.java
- at.favre.lib.bytes.BytesValidators
 at/favre/lib/bytes/BinaryToTextEncoding.java
  at.favre.lib.bytes.BinaryToTextEncoding
  at.favre.lib.bytes.BinaryToTextEncoding$Base64Encoding
@@ -74,14 +25,6 @@ at/favre/lib/bytes/BinaryToTextEncoding.java
 at/favre/lib/crypto/bcrypt/Radix64Encoder.java
  at.favre.lib.crypto.bcrypt.Radix64Encoder
  at.favre.lib.crypto.bcrypt.Radix64Encoder$Default
-com/TarockServer/Domain/Game.java
- com.TarockServer.Domain.Game
-com/TarockServer/Domain/Declaration.java
- com.TarockServer.Domain.Declaration
-com/TarockServer/Domain/Session.java
- com.TarockServer.Domain.Session
-com/TarockServer/Domain/ScoreAttribute.java
- com.TarockServer.Domain.ScoreAttribute
 at/favre/lib/bytes/Base64.java
  at.favre.lib.bytes.Base64
 at/favre/lib/crypto/bcrypt/LongPasswordStrategy.java
@@ -106,21 +49,10 @@ com/TarockServer/Exception/PHPException.java
 at/favre/lib/bytes/Bytes.java
  at.favre.lib.bytes.Bytes
  at.favre.lib.bytes.Bytes$Factory
-at/favre/lib/crypto/bcrypt/BCryptParser.java
- at.favre.lib.crypto.bcrypt.BCryptParser
- at.favre.lib.crypto.bcrypt.BCryptParser$Default
-at/favre/lib/crypto/bcrypt/IllegalBCryptFormatException.java
- at.favre.lib.crypto.bcrypt.IllegalBCryptFormatException
-com/TarockServer/Service/LoginService.java
- com.TarockServer.Service.LoginService
-com/TarockServer/Service/ClientService.java
- com.TarockServer.Service.ClientService
+com/TarockServer/Validator/IntegerValidator.java
+ com.TarockServer.Validator.IntegerValidator
 at/favre/lib/crypto/bcrypt/BCryptOpenBSDProtocol.java
  at.favre.lib.crypto.bcrypt.BCryptOpenBSDProtocol
-com/TarockServer/Exception/ConnectionException.java
- com.TarockServer.Exception.ConnectionException
-com/TarockServer/Domain/User.java
- com.TarockServer.Domain.User
 at/favre/lib/bytes/BytesValidator.java
  at.favre.lib.bytes.BytesValidator
  at.favre.lib.bytes.BytesValidator$1
@@ -145,7 +77,79 @@ at/favre/lib/bytes/Util.java
  at.favre.lib.bytes.Util$File
  at.favre.lib.bytes.Util$Obj
  at.favre.lib.bytes.Util$Validation
-com/TarockServer/Validator/IntegerValidator.java
- com.TarockServer.Validator.IntegerValidator
+at/favre/lib/crypto/bcrypt/BCryptParser.java
+ at.favre.lib.crypto.bcrypt.BCryptParser
+ at.favre.lib.crypto.bcrypt.BCryptParser$Default
+at/favre/lib/bytes/BytesFactory.java
+ at.favre.lib.bytes.BytesFactory
+com/TarockServer/Exception/ConnectionException.java
+ com.TarockServer.Exception.ConnectionException
+at/favre/lib/crypto/bcrypt/BCryptFormatter.java
+ at.favre.lib.crypto.bcrypt.BCryptFormatter
+ at.favre.lib.crypto.bcrypt.BCryptFormatter$Default
+module-info.java
+ module-info
+com/TarockServer/Exception/RepositoryException.java
+ com.TarockServer.Exception.RepositoryException
+at/favre/lib/bytes/BytesTransformer.java
+ at.favre.lib.bytes.BytesTransformer
+ at.favre.lib.bytes.BytesTransformer$1
+ at.favre.lib.bytes.BytesTransformer$BitSwitchTransformer
+ at.favre.lib.bytes.BytesTransformer$BitWiseOperatorTransformer
+ at.favre.lib.bytes.BytesTransformer$BitWiseOperatorTransformer$Mode
+ at.favre.lib.bytes.BytesTransformer$ConcatTransformer
+ at.favre.lib.bytes.BytesTransformer$CopyTransformer
+ at.favre.lib.bytes.BytesTransformer$MessageDigestTransformer
+ at.favre.lib.bytes.BytesTransformer$NegateTransformer
+ at.favre.lib.bytes.BytesTransformer$ResizeTransformer
+ at.favre.lib.bytes.BytesTransformer$ResizeTransformer$Mode
+ at.favre.lib.bytes.BytesTransformer$ReverseTransformer
+ at.favre.lib.bytes.BytesTransformer$ShiftTransformer
+ at.favre.lib.bytes.BytesTransformer$ShiftTransformer$Type
+at/favre/lib/bytes/BytesTransformers.java
+ at.favre.lib.bytes.BytesTransformers
+ at.favre.lib.bytes.BytesTransformers$ChecksumTransformer
+ at.favre.lib.bytes.BytesTransformers$ChecksumTransformer$Mode
+ at.favre.lib.bytes.BytesTransformers$GzipCompressor
+ at.favre.lib.bytes.BytesTransformers$HmacTransformer
+ at.favre.lib.bytes.BytesTransformers$ShuffleTransformer
+ at.favre.lib.bytes.BytesTransformers$SortTransformer
+ at.favre.lib.bytes.BytesTransformers$SortTransformer$UnsignedByteComparator
+at/favre/lib/bytes/BaseEncoding.java
+ at.favre.lib.bytes.BaseEncoding
+ at.favre.lib.bytes.BaseEncoding$Alphabet
+com/TarockServer/Repository/Repository.java
+ com.TarockServer.Repository.Repository
+at/favre/lib/crypto/bcrypt/BCrypt.java
+ at.favre.lib.crypto.bcrypt.BCrypt
+ at.favre.lib.crypto.bcrypt.BCrypt$HashData
+ at.favre.lib.crypto.bcrypt.BCrypt$Hasher
+ at.favre.lib.crypto.bcrypt.BCrypt$Result
+ at.favre.lib.crypto.bcrypt.BCrypt$Verifyer
+ at.favre.lib.crypto.bcrypt.BCrypt$Version
+at/favre/lib/bytes/BytesValidators.java
+ at.favre.lib.bytes.BytesValidators
+com/TarockServer/Domain/Game.java
+ com.TarockServer.Domain.Game
+com/TarockServer/Domain/Declaration.java
+ com.TarockServer.Domain.Declaration
+com/TarockServer/Domain/Session.java
+ com.TarockServer.Domain.Session
+com/TarockServer/Domain/ScoreAttribute.java
+ com.TarockServer.Domain.ScoreAttribute
+com/TarockServer/GUI/StatusForm.java
+ com.TarockServer.GUI.StatusForm
+com/TarockServer/Service/CommunicationService.java
+ com.TarockServer.Service.CommunicationService
+com/TarockServer/Service/LoginService.java
+ com.TarockServer.Service.LoginService
+com/TarockServer/Service/ClientService.java
+ com.TarockServer.Service.ClientService
+com/TarockServer/Service/GameSessionService.java
+ com.TarockServer.Service.GameSessionService
+com/TarockServer/Validator/SessionValidator.java
+ com.TarockServer.Validator.SessionValidator
+com/TarockServer/Main.java
+ com.TarockServer.Main
 com/TarockServer/ConnectionManager/PHPConnection.java
  com.TarockServer.ConnectionManager.PHPConnection
