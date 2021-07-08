@@ -87,11 +87,11 @@ if(!isset($_COOKIE["username"]))
    <table align="center">
     <tr>
      <td><input type="button" onclick="location.href='addSession.php';" value="Add Session" /></td>
+     <td><input type="button" onclick="location.href='seeGames.php';" value="See Games for Session" /></td>
      <td><input type="button" onclick="location.href='closeSession.php';" value="Close Session" /></td>
     </tr>
    </table>
    </h4>
-   <?php $conn = null; ?>
   </div>
  </body>
 </html>

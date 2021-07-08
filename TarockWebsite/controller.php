@@ -68,6 +68,11 @@ class Controller
         return $this->model->addSession($creator, $player1, $player2, $player3, $player4);
     }
 
+    public function addGame($game)
+    {
+        return $this->model->addGame($game);
+    }
+
     public function closeSession($sessionID)
     {
         return $this->model->closeSession($sessionID);
@@ -82,8 +87,20 @@ class Controller
         return $this->model->getSession($sessionID);
     }
 
+    public function getGame($sessionID, $gameRow) {
+        return $this->model->getGame($sessionID, $gameRow);
+    }
+
     public function getSessions($username) {
        return $this->model->getSessions($username);
+    }
+
+    public function getGames($sessionID) {
+        return $this->model->getGames($sessionID);
+    }
+
+    public function getGamesSize($sessionID) {
+        return $this->model->getGamesSize($sessionID);
     }
 }
 

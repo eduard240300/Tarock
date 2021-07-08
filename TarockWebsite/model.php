@@ -2,6 +2,7 @@
 
 require_once 'DBUtils.php';
 require_once 'session.php';
+require_once 'game.php';
 
 class Model {
 	private $db;
@@ -41,6 +42,11 @@ class Model {
 		return $this->db->addSession($creator, $player1, $player2, $player3, $player4);
 	}
 
+	public function addGame($game)
+    {
+        return $this->db->addGame($game);
+    }
+
 	public function closeSession($sessionID)
     {
         return $this->db->closeSession($sessionID);
@@ -58,6 +64,18 @@ class Model {
 	    return $sessions[0];
 	}
 
+	public function getGame($sessionID, $gameRow) {
+        $resultset = $this->db->getGame($sessionID, $gameRow);
+		$games = array();
+		foreach($resultset as $key=>$val) {
+			$game = $val;
+			$newGame = new Game($game['GameID'], $game['SessionID'], $game['ScorePlayer1'], $game['ScorePlayer2'], $game['ScorePlayer3'], $game['ScorePlayer4'], $game['Declaration'], $game['Radler']);
+	    	array_push($games, $newGame);
+		}
+
+	    return $games[0];
+    }
+
 	public function getSessions($username) {
 		$resultset = $this->db->selectSessions($username);
 		$sessions = array();
@@ -69,6 +87,29 @@ class Model {
 
 	    return $sessions;
 	}
+
+	public function getGames($sessionID) {
+        $resultset = $this->db->selectGames($sessionID);
+		$games = array();
+		foreach($resultset as $key=>$val) {
+			$game = $val;
+			$newGame = new Game($game['GameID'], $game['SessionID'], $game['ScorePlayer1'], $game['ScorePlayer2'], $game['ScorePlayer3'], $game['ScorePlayer4'], $game['Declaration'], $game['Radler']);
+			array_push($games, $newGame);
+		}
+
+	    return $games;
+    }
+
+	public function getGamesSize($sessionID) {
+        $resultset = $this->db->selectGames($sessionID);
+		$games = array();
+		foreach($resultset as $key=>$val) {
+			$game = $val;
+			array_push($games, $game);
+		}
+
+	    return $cnt = count($games);
+    }
 }
 
 ?>

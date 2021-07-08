@@ -7,16 +7,16 @@ $controller = new Controller();
 
 $aResult = array();
 
-    if( !isset($_POST['functionName']) ) 
+    if( !isset($_GET['functionName']) ) 
     {
         $aResult['error'] = 'No function name!';
     }
 
     if( !isset($aResult['error']) ) {
 
-        switch($_POST['functionName']) {
+        switch($_GET['functionName']) {
             case "getUser":
-                $username = $_POST['username'];
+                $username = $_GET['username'];
                 if ($controller->existsUsername($username))
                 {
                     $user = $controller->getUser($username);
@@ -32,7 +32,7 @@ $aResult = array();
                 break;
             
             case "getSession":
-                $sessionID = $_POST['sessionID'];
+                $sessionID = $_GET['sessionID'];
                 if ($controller->existsSession($sessionID))
                 {
                     $session = $controller->getSession($sessionID);
@@ -52,16 +52,16 @@ $aResult = array();
                 break;
 
             case "addGame":
-                $username = $_POST['username'];
-                $sessionID = $_POST['sessionID'];
+                $username = $_GET['username'];
+                $sessionID = $_GET['sessionID'];
                 if ($controller->existsSessionForUsername($username, $sessionID))
                 {
-                    $scorePlayer1 = $_POST['scorePlayer1'];
-                    $scorePlayer2 = $_POST['scorePlayer2'];
-                    $scorePlayer3 = $_POST['scorePlayer3'];
-                    $scorePlayer4 = $_POST['scorePlayer4'];
-                    $declaration = $_POST['declaration'];
-                    $radler = $_POST['radler'];
+                    $scorePlayer1 = $_GET['scorePlayer1'];
+                    $scorePlayer2 = $_GET['scorePlayer2'];
+                    $scorePlayer3 = $_GET['scorePlayer3'];
+                    $scorePlayer4 = $_GET['scorePlayer4'];
+                    $declaration = $_GET['declaration'];
+                    $radler = $_GET['radler'];
                     $newGame = new Game("0", $sessionID, $scorePlayer1, $scorePlayer2, $scorePlayer3, $scorePlayer4, $declaration, $radler);
                     $result = $controller->addGame($newGame->jsonSerialize());
                     $aResult['result'] = $controller->processName($result);
@@ -73,8 +73,8 @@ $aResult = array();
                 break;
 
             case "getGamesSize":
-                $username = $_POST['username'];
-                $sessionID = $_POST['sessionID'];
+                $username = $_GET['username'];
+                $sessionID = $_GET['sessionID'];
                 if ($controller->existsSessionForUsername($username, $sessionID))
                 {
                     $aResult['result'] = $controller->processName($controller->getGamesSize($sessionID));
@@ -86,8 +86,8 @@ $aResult = array();
                 break;
 
             case "getGame":
-                $gameRow = $_POST['gameRow'];
-                $sessionID = $_POST['sessionID'];
+                $gameRow = $_GET['gameRow'];
+                $sessionID = $_GET['sessionID'];
                 if ($controller->existsSession($sessionID))
                 {
                     $game = $controller->getGame($sessionID, $gameRow);
@@ -107,7 +107,7 @@ $aResult = array();
                 break;
 
             default:
-                $aResult['error'] = 'Not found function '.$_POST['functionName'].'!';
+                $aResult['error'] = 'Not found function '.$_GET['functionName'].'!';
                 break;
         }
 

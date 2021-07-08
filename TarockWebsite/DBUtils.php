@@ -1,5 +1,7 @@
 <?php
 
+require_once("game.php");
+
 class DBUtils {
 	private $host = '127.0.0.1';
 	private $db   = 'Tarock';
@@ -127,6 +129,22 @@ class DBUtils {
 		));
 	}
 
+	public function addGame($game)
+	{
+		$query = "INSERT INTO Games(SessionID, ScorePlayer1, ScorePlayer2, ScorePlayer3, ScorePlayer4, Declaration, Radler)
+		VALUES(";
+		$query = $query . $game["sessionID"] . ", ";
+		$query = $query . $game["scorePlayer1"] . ", ";
+		$query = $query . $game["scorePlayer2"] . ", ";
+		$query = $query . $game["scorePlayer3"] . ", ";
+		$query = $query . $game["scorePlayer4"] . ", ";
+		$query = $query . "'" . $game["declaration"] . "'" . ", ";
+		$query = $query . $game["radler"] . ");";
+
+		$statement = $this->pdo->prepare($query);
+		return $statement->execute();
+	}
+
 	public function closeSession($sessionID)
 	{
 		$dateClosed = new DateTime();
@@ -161,6 +179,16 @@ class DBUtils {
         return $statement->fetchAll();
 	}
 
+	public function getGame($sessionID, $gameRow)
+	{
+		$query="SELECT * FROM Games WHERE SessionID = " . $sessionID . " ORDER BY GameID ASC LIMIT 1 OFFSET " . $gameRow . ";";
+		
+		$statement = $this->pdo->prepare($query);
+		$statement->execute();
+		
+        return $statement->fetchAll();
+	}
+
 	public function selectSessions($username) {
 		$query="SELECT * FROM Sessions
 		WHERE Creator = :username";
@@ -168,6 +196,19 @@ class DBUtils {
 		$statement->execute(
 			array(
 			 'username' => $username
+			)
+		);
+		
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+	public function selectGames($sessionID) {
+		$query="SELECT * FROM Games
+		WHERE SessionID = :sessionID";
+		$statement = $this->pdo->prepare($query);
+		$statement->execute(
+			array(
+			 'sessionID' => $sessionID
 			)
 		);
 		
