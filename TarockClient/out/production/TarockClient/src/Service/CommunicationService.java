@@ -8,6 +8,8 @@ import GUI.ConnectionForm.ControllerConnectionForm;
 import GUI.GameForm.GameForm;
 import GUI.Main;
 import GUI.ScoreForm.ScoreForm;
+import GUI.TalonSelectionForm.TalonSelectionForm;
+import GUI.TalonShowingForm.TalonShowingForm;
 import GUI.Template.ClickableImage;
 import GUI.Template.CustomJButton;
 import GUI.Template.JImage;
@@ -149,8 +151,13 @@ public class CommunicationService extends Thread{
                 GameForm.passButton.setEnabled(false);
                 GameForm.cancelGameButton.setEnabled(false);
                 GameForm.submitButton.setEnabled(false);
-
                 Repository.resetRepository();
+
+                TalonSelectionForm.nextButton.setEnabled(true);
+                TalonSelectionForm.takeButton.setEnabled(true);
+                TalonSelectionForm.giveButton.setEnabled(false);
+                Main.talonShowingForm.updateCards();
+
                 Main.gameForm.resetCards();
                 Main.gameForm.resetPlayerNames();
                 Main.gameForm.updateCards();
@@ -385,7 +392,7 @@ public class CommunicationService extends Thread{
                 Main.gameForm.addToScoreTable(score1, score2, score3, score4, declaration);
                 if (isRadler)
                 {
-                    GameForm.scoreTable.setRowColor(0, Color.RED);
+                    GameForm.scoreTable.setRowColor(GameForm.scoreTable.getRowCount()-1, Color.RED);
                 }
             }
             else if (listOfObjects.get(0).equals("scoreDetailed"))

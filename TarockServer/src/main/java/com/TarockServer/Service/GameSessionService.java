@@ -32,6 +32,7 @@ public class GameSessionService extends Thread{
     public List<Integer> the1of2;
     public List<Game> games;
     public List<Score> scores;
+    public boolean neverInitializedGames = true;
 
     public GameSessionService(List<ClientService> listOfClients, Session session, List<String> players){
         this.listOfClients = listOfClients;
@@ -81,8 +82,8 @@ public class GameSessionService extends Thread{
                 }
                 message += " " + DataManipulationService.processName(games.get(i).getDeclaration()) + " ";
                 message += DataManipulationService.boolToString(games.get(i).getRadler()) + ";";
-                listOfClients.get(i).write(message);
-                log(message, i);
+                listOfClients.get(j).write(message);
+                log(message, j);
             }
         }
     }
@@ -415,7 +416,7 @@ public class GameSessionService extends Thread{
         List<String> listOfObjects;
         int firstRequest = -1;
         if (hand == 0)
-            firstRequest = (gameNumber) % 4;
+            firstRequest = (gameNumber+offsetGameNumber)%4;
         else
             firstRequest = rounds.get(gameNumber).get(hand - 1).getPlayerThatWon();
         Round round = new Round(hand, firstRequest);
@@ -598,7 +599,10 @@ public class GameSessionService extends Thread{
         for(int i=0;i<4;i++)
             Collections.sort(cardsSeparated.get(gameNumber).get(i));
 
-        getAllPreviousGames();
+        if (neverInitializedGames) {
+            getAllPreviousGames();
+            neverInitializedGames = false;
+        }
 
         // finished initialization
         String message;
@@ -625,12 +629,18 @@ public class GameSessionService extends Thread{
         if (numberOf1of2() == 0)
         {
             radlerTimes = 4;
-            for(int i=0;i<4;i++)
-            {
-                message = "score 0 0 0 0 Radler 1;";
-                listOfClients.get(i).write(message);
-                log(message, i);
-            }
+            playersStatus.remove(gameNumber);
+            cards.remove(gameNumber);
+            cardsSeparated.remove(gameNumber);
+            declarations.remove(gameNumber);
+            teams.remove(gameNumber);
+            rounds.remove(gameNumber);
+            cardsWon.remove(gameNumber);
+            pope.remove(gameNumber);
+            talonPart.remove(gameNumber);
+            playerRequest.remove(gameNumber);
+            the1of2.remove(gameNumber);
+            gameNumber--;
             runHelper();
         }
         while(numberOf1of2() > 1)

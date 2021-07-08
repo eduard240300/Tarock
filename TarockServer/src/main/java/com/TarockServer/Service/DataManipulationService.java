@@ -144,7 +144,9 @@ public class DataManipulationService {
             }
             else if (isInQuote)
             {
-                if (inputJSON.charAt(i) != '\\')
+                if (inputJSON.charAt(i) == '*')
+                    message.append(',');
+                else if (inputJSON.charAt(i) != '\\')
                     message.append(inputJSON.charAt(i));
             }
         }
@@ -161,5 +163,20 @@ public class DataManipulationService {
                 result.append(line.charAt(i));
         }
         return result.toString();
+    }
+
+    public static String processDeclaration(String declaration){
+        String newName = "";
+        int i;
+        for(i=0;i<declaration.length();i++)
+        {
+            if (declaration.charAt(i) == ' ')
+                newName += '_';
+            else if (declaration.charAt(i) == ',')
+                newName += '*';
+            else
+                newName += declaration.charAt(i);
+        }
+        return newName;
     }
 }

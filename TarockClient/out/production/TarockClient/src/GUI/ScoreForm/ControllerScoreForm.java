@@ -85,7 +85,7 @@ public class ControllerScoreForm {
         ScoreForm.OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
+                Main.scoreForm.setVisible(false);
             }
         });
     }

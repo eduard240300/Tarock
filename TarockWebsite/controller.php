@@ -37,6 +37,49 @@ class Controller
         return $result;
     }
 
+    public function getPope($char)
+    {
+        if ($char === "0")
+        {
+            $unicodeChar = "\u{2665}";
+        }
+        else if ($char === "1")
+        {
+            $unicodeChar = "\u{2666}";
+        }
+        else if ($char === "2")
+        {
+            $unicodeChar = "\u{2663}";
+        }
+        else
+        {
+            $unicodeChar = "\u{2660}";
+        }
+        return $unicodeChar;
+    }
+
+    public function processDeclaration($string)
+    {
+        $result = "";
+        $iter = str_split($string);
+        $cursor = 0;
+        foreach($iter as $char)
+        {
+            if ($cursor == 4)
+            {
+                $result = $result . $this->getPope($char);
+            }
+            else if ($char === "_")
+                $result = $result . " ";
+            else if ($char === "*")
+                $result = $result . ",";
+            else
+                $result = $result . $char;
+            $cursor = $cursor + 1;
+        }
+        return $result;
+    }
+
     public function existsUsername($username) {
 		return $this->model->existsUsername($username);
 	}

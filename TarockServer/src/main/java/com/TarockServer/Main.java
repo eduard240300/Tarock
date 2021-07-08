@@ -18,12 +18,10 @@ public class Main {
     public static StatusForm statusForm;
 
     public static void main(String args[]) throws Exception {
-        //statusForm = new StatusForm();
-        //statusForm.setIconImage(ImageIO.read(new FileInputStream("./Resources/icon.png")));
+        statusForm = new StatusForm();
+        statusForm.setIconImage(ImageIO.read(new FileInputStream("./Resources/icon.png")));
 
-        //CommunicationService communicationService = new CommunicationService();
-        //communicationService.start();
-
-        PHPConnection.getGames("eduard", 5);
+        CommunicationService communicationService = new CommunicationService();
+        communicationService.start();
     }
 }

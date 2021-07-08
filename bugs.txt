@@ -1,8 +1,6 @@
 Bug-uri:
 
-Culoarea la scor
-Imi apare declaratia de data trecuta la selectie (Will see)
-Trebuie memorate in DB game-urile.
+add to sessions field numberRadler
 
 Resolved : 
 Trebuie adunate la scorul prezent scorurile precedente. (Resolved)
@@ -12,3 +10,6 @@ Trebuie resetate cartile talon show (Resolved)
 Trebuie puse in site restrictie de 10 caractere la Username. (Resolved)
 La Declaration "T1() T2()" trebuie pus semnul la popa (Resolved)
 Butonul OK trebuie sa inchida Window-ul de Scor (Resolved)
+Culoarea la scor (Resolved)
+Trebuie memorate in DB game-urile. (Resolved)
+Imi apare declaratia de data trecuta la selectie (Resolved)

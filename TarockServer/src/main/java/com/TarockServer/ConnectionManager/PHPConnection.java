@@ -139,7 +139,7 @@ public class PHPConnection {
         {
             post += "&scorePlayer" + (i+1) + "=" + game.getScorePlayer(i);
         }
-        post += "&declaration=" + DataManipulationService.processName(game.getDeclaration());
+        post += "&declaration=" + DataManipulationService.processDeclaration(game.getDeclaration());
         post += "&radler=" + DataManipulationService.boolToString(game.getRadler());
         List<Pair<String, String>> sessionJSON = DataManipulationService.JSONtoList(PHPConnection.read(post));
         if (sessionJSON.get(0).getKey().equals("exception"))

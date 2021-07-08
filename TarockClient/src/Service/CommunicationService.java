@@ -392,7 +392,7 @@ public class CommunicationService extends Thread{
                 Main.gameForm.addToScoreTable(score1, score2, score3, score4, declaration);
                 if (isRadler)
                 {
-                    GameForm.scoreTable.setRowColor(0, Color.RED);
+                    GameForm.scoreTable.setRowColor(GameForm.scoreTable.getRowCount()-1, Color.RED);
                 }
             }
             else if (listOfObjects.get(0).equals("scoreDetailed"))

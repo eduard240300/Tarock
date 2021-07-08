@@ -15,8 +15,8 @@ public class StatusForm extends JFrame{
 
     public static void addToStatusTextArea(String line)
     {
-        //statusTextArea.append(DataManipulationService.eliminateNewLines(line) + '\n');
-        //statusScrollPane.getVerticalScrollBar().setValue(statusScrollPane.getVerticalScrollBar().getMaximum());
+        statusTextArea.append(DataManipulationService.eliminateNewLines(line) + '\n');
+        statusScrollPane.getVerticalScrollBar().setValue(statusScrollPane.getVerticalScrollBar().getMaximum());
     }
 
     public StatusForm(){

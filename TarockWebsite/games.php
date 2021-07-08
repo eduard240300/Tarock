@@ -84,7 +84,7 @@ if(!isset($_COOKIE["sessionID"]))
       <td><center><?php echo $game->getScorePlayer2(); ?></center></td>
       <td><center><?php echo $game->getScorePlayer3(); ?></center></td>
       <td><center><?php echo $game->getScorePlayer4(); ?></center></td>
-      <td><center><?php echo $game->getDeclaration(); ?></center></td>
+      <td><center><?php echo $controller->processDeclaration($game->getDeclaration()); ?></center></td>
      </tr>
      <?php } ?>
     </tbody>

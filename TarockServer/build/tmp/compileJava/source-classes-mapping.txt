@@ -40,8 +40,8 @@ at/favre/lib/bytes/ReadOnlyBytes.java
 at/favre/lib/bytes/MutableBytes.java
  at.favre.lib.bytes.MutableBytes
  at.favre.lib.bytes.MutableBytes$Factory
-com/TarockServer/Validator/UserValidator.java
- com.TarockServer.Validator.UserValidator
+com/TarockServer/Domain/Session.java
+ com.TarockServer.Domain.Session
 com/TarockServer/Domain/Round.java
  com.TarockServer.Domain.Round
 com/TarockServer/Exception/PHPException.java
@@ -65,10 +65,10 @@ at/favre/lib/bytes/BytesValidator.java
  at.favre.lib.bytes.BytesValidator$PrePostFix
 com/TarockServer/Domain/Pair.java
  com.TarockServer.Domain.Pair
-com/TarockServer/Domain/Score.java
- com.TarockServer.Domain.Score
-com/TarockServer/Service/DataManipulationService.java
- com.TarockServer.Service.DataManipulationService
+com/TarockServer/Main.java
+ com.TarockServer.Main
+com/TarockServer/Service/CommunicationService.java
+ com.TarockServer.Service.CommunicationService
 at/favre/lib/bytes/Util.java
  at.favre.lib.bytes.Util
  at.favre.lib.bytes.Util$Byte
@@ -131,25 +131,25 @@ at/favre/lib/bytes/BytesValidators.java
  at.favre.lib.bytes.BytesValidators
 com/TarockServer/Domain/Game.java
  com.TarockServer.Domain.Game
-com/TarockServer/Domain/Declaration.java
- com.TarockServer.Domain.Declaration
-com/TarockServer/Domain/Session.java
- com.TarockServer.Domain.Session
 com/TarockServer/Domain/ScoreAttribute.java
  com.TarockServer.Domain.ScoreAttribute
-com/TarockServer/GUI/StatusForm.java
- com.TarockServer.GUI.StatusForm
-com/TarockServer/Service/CommunicationService.java
- com.TarockServer.Service.CommunicationService
 com/TarockServer/Service/LoginService.java
  com.TarockServer.Service.LoginService
+com/TarockServer/ConnectionManager/PHPConnection.java
+ com.TarockServer.ConnectionManager.PHPConnection
+com/TarockServer/Domain/Score.java
+ com.TarockServer.Domain.Score
+com/TarockServer/GUI/StatusForm.java
+ com.TarockServer.GUI.StatusForm
+com/TarockServer/Service/DataManipulationService.java
+ com.TarockServer.Service.DataManipulationService
+com/TarockServer/Validator/SessionValidator.java
+ com.TarockServer.Validator.SessionValidator
+com/TarockServer/Domain/Declaration.java
+ com.TarockServer.Domain.Declaration
+com/TarockServer/Validator/UserValidator.java
+ com.TarockServer.Validator.UserValidator
 com/TarockServer/Service/ClientService.java
  com.TarockServer.Service.ClientService
 com/TarockServer/Service/GameSessionService.java
  com.TarockServer.Service.GameSessionService
-com/TarockServer/Validator/SessionValidator.java
- com.TarockServer.Validator.SessionValidator
-com/TarockServer/Main.java
- com.TarockServer.Main
-com/TarockServer/ConnectionManager/PHPConnection.java
- com.TarockServer.ConnectionManager.PHPConnection
