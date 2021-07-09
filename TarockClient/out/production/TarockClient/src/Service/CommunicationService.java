@@ -152,6 +152,7 @@ public class CommunicationService extends Thread{
                 TalonSelectionForm.nextButton.setEnabled(true);
                 TalonSelectionForm.takeButton.setEnabled(true);
                 TalonSelectionForm.giveButton.setEnabled(false);
+                Main.talonSelectionForm.updateGivenCards();
                 Main.talonShowingForm.updateCards();
 
                 Main.gameForm.resetCards();
@@ -163,6 +164,9 @@ public class CommunicationService extends Thread{
                 Main.gameForm.updateNextStatus(-1, "Declaration");
                 Main.gameForm.resetDeclarationSelection();
                 Main.gameForm.updatePreviousRoundWonByLabel("");
+
+                ScoreForm.offset1 = 0;
+                ScoreForm.offset2 = 0;
             }
             else if (listOfObjects.get(0).equals("cards"))
             {
@@ -375,6 +379,19 @@ public class CommunicationService extends Thread{
                 {
                     Repository.cardsWon.get(1).add(Integer.valueOf(listOfObjects.get(j)));
                 }
+
+                ScoreForm.previousTeam1Button.setEnabled(true);
+                ScoreForm.previousTeam2Button.setEnabled(true);
+
+                if (Repository.cardsWon.get(0).size() <= 6)
+                    ScoreForm.nextTeam1Button.setEnabled(false);
+                else
+                    ScoreForm.nextTeam1Button.setEnabled(true);
+                if (Repository.cardsWon.get(1).size() <= 6)
+                    ScoreForm.nextTeam2Button.setEnabled(false);
+                else
+                    ScoreForm.nextTeam2Button.setEnabled(true);
+
                 ScoreForm.updateCards();
             }
             else if (listOfObjects.get(0).equals("score"))

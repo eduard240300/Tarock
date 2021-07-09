@@ -1,6 +1,6 @@
 Bugs:
 
-Valat este 8 puncte
+Solo
 
 Resolved : 
 Trebuie adunate la scorul prezent scorurile precedente. (Resolved)
@@ -14,3 +14,6 @@ Culoarea la scor (Resolved)
 Trebuie memorate in DB game-urile. (Resolved)
 Imi apare declaratia de data trecuta la selectie (Resolved)
 add to games field radlerTimes(Resolved)
+LunaCaught error (Resolved)
+ScoreShowing reset offsets
+Valat este 8 puncte (Resolved)

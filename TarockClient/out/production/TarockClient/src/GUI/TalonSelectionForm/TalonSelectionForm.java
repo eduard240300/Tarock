@@ -41,6 +41,10 @@ public class TalonSelectionForm extends JFrame{
         {
             givenCards.get(i).setCardID(givenCardsRepo.get(i));
         }
+        for(int i=size;i<2;i++)
+        {
+            givenCards.get(i).setCardID(0);
+        }
     }
 
     public void updateTalonLabel() throws IOException {

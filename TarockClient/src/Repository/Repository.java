@@ -72,6 +72,29 @@ public class Repository {
         }
         return result;
     }
+    public static int getNumberOfSpecialCards()
+    {
+        int result = 0;
+        for(int i=0;i<cards.size();i++)
+        {
+            if (isTarock(cards.get(i)))
+                result++;
+            else if ((cards.get(i) == 30) || (cards.get(i) == 38) || (cards.get(i) == 46) || (cards.get(i) == 54))
+                result++;
+        }
+        return result;
+    }
+
+    public static int sizeWithout0(List<Integer> list)
+    {
+        int size = 0;
+        for(int i=0;i<list.size();i++)
+        {
+            if (list.get(i) != 0)
+                size++;
+        }
+        return size;
+    }
 
     public static int getNumberOfType(int type)
     {
@@ -158,7 +181,7 @@ public class Repository {
         }
         else if (isTarock(cards.get(cardPosition)))
         {
-            if (cards.size() == getNumberOfTarocks())
+            if (sizeWithout0(cards) == getNumberOfSpecialCards())
             {
                 return true;
             }

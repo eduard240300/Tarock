@@ -226,12 +226,13 @@ public class GameSessionService extends Thread{
                     cardsWon.get(gameNumber).get(1).add(cardsSeparated.get(gameNumber).get(4).get(i));
                 }
             }
-            cardsSeparated.get(gameNumber).get(playerRequest.get(gameNumber)).remove((Object) card1);
-            cardsSeparated.get(gameNumber).get(playerRequest.get(gameNumber)).remove((Object) card2);
             for(int i=0;i<2;i++)
             {
                 cardsSeparated.get(gameNumber).get(playerRequest.get(gameNumber)).add(cardsSeparated.get(gameNumber).get(4).get(talonPart.get(gameNumber)*2+i));
             }
+            cardsSeparated.get(gameNumber).get(playerRequest.get(gameNumber)).remove((Object) card1);
+            cardsSeparated.get(gameNumber).get(playerRequest.get(gameNumber)).remove((Object) card2);
+
             cardsSeparated.get(gameNumber).remove(4);
             Collections.sort(cardsSeparated.get(gameNumber).get(playerRequest.get(gameNumber)));
             computeTeams();

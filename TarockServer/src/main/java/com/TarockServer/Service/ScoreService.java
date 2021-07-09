@@ -142,12 +142,24 @@ public class ScoreService {
         score.setTeamThatWon(tagTeamThatWon);
         int pointsGame = 2;
         String declaredOrDoneGame = "";
-        if (teamThatWon == 1) {
-            pointsGame = pointsGame * the1of2;
-            declaredOrDoneGame = "Team 2 won";
+        if (cardsWon.get(0).size() == 50) //valat
+        {
+            pointsGame = 8;
+            declaredOrDoneGame = "Valat (T1)";
         }
-        else{
-            declaredOrDoneGame = "Team 1 won";
+        else if (cardsWon.get(1).size() == 52)
+        {
+            pointsGame = 8 * the1of2;
+            declaredOrDoneGame = "Valat (T2)";
+        }
+        else {
+
+            if (teamThatWon == 1) {
+                pointsGame = pointsGame * the1of2;
+                declaredOrDoneGame = "Team 2 won";
+            } else {
+                declaredOrDoneGame = "Team 1 won";
+            }
         }
 
         score.getAttribute("Game").setPoints(pointsGame);
@@ -250,7 +262,7 @@ public class ScoreService {
         {
             for(int j=0;j<teams.get(i).size();j++)
             {
-                if (playerThatGaveLuna == teams.get(i).get(i))
+                if (playerThatGaveLuna == teams.get(i).get(j))
                     lunaCaughtFromTeam = i;
             }
         }

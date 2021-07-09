@@ -195,14 +195,17 @@ public class GameForm extends JFrame{
     public void changeDeclarationPlayer(int player, String declaration) {
         StringBuilder declarationBuilder = new StringBuilder(declaration);
 
-        if (declaration.charAt(1) == '0')
-            declarationBuilder.setCharAt(1, (char)(heartCode));
-        else if (declaration.charAt(1) == '1')
-            declarationBuilder.setCharAt(1, (char)(diamondCode));
-        else if (declaration.charAt(1) == '2')
-            declarationBuilder.setCharAt(1, (char)(clubCode));
-        else if (declaration.charAt(1) == '3')
-            declarationBuilder.setCharAt(1, (char)(spadeCode));
+        if ((declaration.length() < 3) || (declaration.charAt(2) != 'T'))
+        {
+            if (declaration.charAt(1) == '0')
+                declarationBuilder.setCharAt(1, (char)(heartCode));
+            else if (declaration.charAt(1) == '1')
+                declarationBuilder.setCharAt(1, (char)(diamondCode));
+            else if (declaration.charAt(1) == '2')
+                declarationBuilder.setCharAt(1, (char)(clubCode));
+            else if (declaration.charAt(1) == '3')
+                declarationBuilder.setCharAt(1, (char)(spadeCode));
+        }
 
         String text = Repository.players.get(player) + " : ";
         text = text + declarationBuilder.toString();
