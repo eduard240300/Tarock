@@ -4,6 +4,13 @@
 require_once("controller.php");
 $controller = new Controller();
 
+require_once 'mobile_detect.php';
+$detect = new Mobile_Detect;
+
+if ($detect->isMobile() || $detect->isTablet()) {
+ header("location:mobile/register.php");
+}
+
 if(isset($_COOKIE["username"]))
 {
   header("location:sessions.php");

@@ -106,6 +106,16 @@ class Controller
 		return $this->model->addUser($name, $username, $password, $email);
 	}
 
+    public function deleteUser($username)
+	{
+		return $this->model->deleteUser($username);
+	}
+
+    public function changeUser($username, $password)
+	{
+		return $this->model->changeUser($username, $password);
+	}
+
     public function addSession($creator, $player1, $player2, $player3, $player4)
     {
         return $this->model->addSession($creator, $player1, $player2, $player3, $player4);
@@ -144,6 +154,17 @@ class Controller
 
     public function getGamesSize($sessionID) {
         return $this->model->getGamesSize($sessionID);
+    }
+
+    public function echoTr($game)
+    {
+        if ($game->getRadler() == "1"){
+            echo '<tr class="radler">';
+        }
+        else
+        {
+            echo '<tr class="noRadler">';
+        }
     }
 }
 

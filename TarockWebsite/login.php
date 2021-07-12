@@ -6,6 +6,13 @@ include_once("controller.php");
 
 $controller = new Controller();
 
+require_once 'mobile_detect.php';
+$detect = new Mobile_Detect;
+
+if ($detect->isMobile() || $detect->isTablet()) {
+ header("location:mobile/login.php");
+}
+
 if(isset($_COOKIE["username"]))
 {
  header("location:sessions.php");
@@ -25,7 +32,7 @@ if(isset($_POST["login"]))
   if($existsUsername)
   {
    $user = $controller->getUser($_POST["username"]);
-   if(password_verify($_POST["password"] , $user["Password"]))
+   if(password_verify($_POST["password"], $user["Password"]))
    {
     setcookie("name", $user["Name"], time()+60*60*24);
     setcookie("username", $user["Username"], time()+60*60*24);

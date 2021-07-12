@@ -37,6 +37,16 @@ class Model {
 		return $this->db->addUser($name, $username, $password, $email);
 	}
 
+	public function deleteUser($username)
+	{
+		return $this->db->deleteUser($username);
+	}
+
+	public function changeUser($username, $password)
+	{
+		return $this->db->changeUser($username, $password);
+	}
+
 	public function addSession($creator, $player1, $player2, $player3, $player4)
 	{
 		return $this->db->addSession($creator, $player1, $player2, $player3, $player4);

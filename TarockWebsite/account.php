@@ -1,6 +1,13 @@
 <?php
 //account.php
 
+require_once 'mobile_detect.php';
+$detect = new Mobile_Detect;
+
+if ($detect->isMobile() || $detect->isTablet()) {
+ header("location:mobile/account.php");
+}
+
 if(!isset($_COOKIE["username"]))
 {
  header("location:login.php");

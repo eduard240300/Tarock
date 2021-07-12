@@ -1,9 +1,16 @@
 <?php
-//index.php
+//sessions.php
 
 include_once("controller.php");
 
 $controller = new Controller();
+
+require_once 'mobile_detect.php';
+$detect = new Mobile_Detect;
+
+if ($detect->isMobile() || $detect->isTablet()) {
+ header("location:mobile/sessions.php");
+}
 
 if(!isset($_COOKIE["username"]))
 {

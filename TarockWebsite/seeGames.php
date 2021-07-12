@@ -1,5 +1,12 @@
 <?php
-//add.php
+//seeGames.php
+
+require_once 'mobile_detect.php';
+$detect = new Mobile_Detect;
+
+if ($detect->isMobile() || $detect->isTablet()) {
+ header("location:mobile/seeGames.php");
+}
 
 if(!isset($_COOKIE["username"]))
 {
@@ -62,7 +69,7 @@ else{
     ?>
    </div>
    <br />
-   <h4 align="center"><a href="index.php">Back to Home Page</a></h4>
+   <h4 align="center"><a href="sessions.php">Back to Home Page</a></h4>
    </div>
    <br />
    <div class="container">
@@ -74,7 +81,7 @@ else{
       <span><?php echo $message; ?></span>
       <form method="post">
        <div class="form-group">
-        <label>SessionID</label>
+        <label>Session ID</label>
         <input type="text" name="sessionID" id="sessionID" class="form-control" />
        </div>
        <div class="form-group">

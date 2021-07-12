@@ -1,21 +1,22 @@
 <?php
 //games.php
 
-include_once("controller.php");
+include_once("../controller.php");
 
 $controller = new Controller();
 
-require_once 'mobile_detect.php';
+require_once '../mobile_detect.php';
 $detect = new Mobile_Detect;
 
-if ($detect->isMobile() || $detect->isTablet()) {
- header("location:mobile/games.php");
+if ( (!$detect->isMobile()) and (!$detect->isTablet())) {
+ header("location:../games.php");
 }
 
 if(!isset($_COOKIE["username"]))
 {
  header("location:login.php");
 }
+
 if(!isset($_COOKIE["sessionID"]))
 {
  header("location:sessions.php");
@@ -26,32 +27,34 @@ if(!isset($_COOKIE["sessionID"]))
 <html>
  <head>
   <title>Games for Session <?php echo $_COOKIE["sessionID"]; ?></title>
-  <link rel="icon" href="images/icon.png">
-  <script src="./resources/jquery.min.js"></script>
-  <link rel="stylesheet" href="./resources/bootstrap.min.css" />
-  <script src="./resources/bootstrap.min.js"></script>
+  <link rel="icon" href="../images/icon.png">
+  <script src="../resources/jquery.min.js"></script>
+  <link rel="stylesheet" href="../resources/bootstrap.min.css" />
+  <script src="../resources/bootstrap.min.js"></script>
  </head>
  <body>
+  <style type="text/css">
+   td {
+   padding: 20px 20px 20px 20px;
+   align: center;
+  }
+  </style>
   <br />
-  <div class="container">
+  <div class="w3-container">
    <br />
-   <div align="right">
-    <a href="sessions.php">Sessions</a>
-    <a href="account.php">My Account</a>
-    <a href="logout.php">Logout</a>
-    <img src="images/standard.png" width="40" height="40">
-    <?php
-     echo $_COOKIE["name"];
-    ?>
+   <div>
+    <table align="center" style="font-size:6vw;">
+     <tr>
+      <td><a href="sessions.php">Sessions</a></td>
+      <td><a href="account.php">My Account</a></td>
+      <td><a href="logout.php">Logout</a></td>
+     </tr>
+    </table>
    </div>
    <br />
    <?php
-   if(isset($_COOKIE["username"]))
-   {
-    echo '<h2 align="center">List of Games for Session ' . $_COOKIE["sessionID"] . '</h2>';
-   }
+    echo '<h2 align="center" style="font-size:7vw;">List of Games for Session ' . $_COOKIE["sessionID"] . '</h2>';
    ?>
-   <h2> </h2>
    <?php
     $sessionID = $_COOKIE["sessionID"];
     $games = $controller->getGames($sessionID);
@@ -64,7 +67,7 @@ if(!isset($_COOKIE["sessionID"]))
     $cnt = count($games);
    ?>
    <?php if ($cnt > 0): ?>
-   <h4>
+   <h1>
    <style type="text/css">
     td {
     padding: 10px 10px 10px 10px;
@@ -79,7 +82,6 @@ if(!isset($_COOKIE["sessionID"]))
      background:white
     } 
    </style>
-   <?php //controller->printStyle($games); ?>
    <table align="center" border="1">
     <thead>
      <tr>
@@ -106,8 +108,8 @@ if(!isset($_COOKIE["sessionID"]))
    </table>
    <?php endif; ?>
    </h4>
-   <h2></h2>
-   <center><h4>Legend : Blue = Radler</h4></center>
+   <h2><br></h2>
+   <center><h4 style="font-size:4vw;">Legend : Blue = Radler</h4></center>
   </div>
  </body>
 </html>

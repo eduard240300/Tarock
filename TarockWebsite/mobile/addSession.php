@@ -1,11 +1,11 @@
 <?php
 //addSession.php
 
-require_once 'mobile_detect.php';
+require_once '../mobile_detect.php';
 $detect = new Mobile_Detect;
 
-if ($detect->isMobile() || $detect->isTablet()) {
- header("location:mobile/addSession.php");
+if ( (!$detect->isMobile()) and (!$detect->isTablet())) {
+ header("location:../addSesion.php");
 }
 
 if(!isset($_COOKIE["username"]))
@@ -13,7 +13,7 @@ if(!isset($_COOKIE["username"]))
  header("location:login.php");
 }
 
-include_once("controller.php");
+include_once("../controller.php");
 
 $controller = new Controller();
 
@@ -70,54 +70,58 @@ else{
 <html>
  <head>
   <title>Add Session</title>
-  <link rel="icon" href="images/icon.png">
-  <script src="./resources/jquery.min.js"></script>
-  <link rel="stylesheet" href="./resources/bootstrap.min.css" />
-  <script src="./resources/bootstrap.min.js"></script>
+  <link rel="icon" href="../images/icon.png">
+  <script src="../resources/jquery.min.js"></script>
+  <link rel="stylesheet" href="../resources/bootstrap.min.css" />
+  <script src="../resources/bootstrap.min.js"></script>
  </head>
  <body>
+ <style type="text/css">
+   td {
+   padding: 20px 20px 20px 20px;
+   align: center;
+  }
+  </style>
   <br />
-  <div class="container">
+  <div class="w3-container">
    <br />
-   <div align="right">
-    <a href="sessions.php">Sessions</a>
-    <a href="account.php">My Account</a>
-    <a href="logout.php">Logout</a>
-    <img src="images/standard.png" width="40" height="40">
-    <?php
-     echo $_COOKIE["name"];
-    ?>
+   <div>
+    <table align="center" style="font-size:6vw;">
+     <tr>
+      <td><a href="sessions.php">Sessions</a></td>
+      <td><a href="account.php">My Account</a></td>
+      <td><a href="logout.php">Logout</a></td>
+     </tr>
+    </table>
    </div>
    <br />
-   <h4 align="center"><a href="sessions.php">Back to Home Page</a></h4>
+   <h4 align="center" style="font-size:6vw;"><a href="sessions.php">Back to Home Page</a></h4>
    </div>
    <br />
-   <div class="container">
-    <h2 align="center">Add Session</h2>
+   <div class="w3-container">
     <br />
     <div class="panel panel-default">
-     <div class="panel-heading">Add Session</div>
      <div class="panel-body">
-      <span><?php echo $message; ?></span>
+      <span style="font-size:6vw;"><?php echo $message; ?></span>
       <form method="post">
        <div class="form-group">
-        <label>Player 1</label>
-        <input type="text" name="player1" id="player1" class="form-control" />
+        <label style="font-size:6vw;">Player 1</label>
+        <input type="text" name="player1" id="player1" class="form-control" style="font-size:7vw; height: 9vw;" />
        </div>
        <div class="form-group">
-        <label>Player 2</label>
-        <input type="text" name="player2" id="player2" class="form-control" />
+        <label style="font-size:6vw;">Player 2</label>
+        <input type="text" name="player2" id="player2" class="form-control" style="font-size:7vw; height: 9vw;" />
        </div>
        <div class="form-group">
-        <label>Player 3</label>
-        <input type="text" name="player3" id="player3" class="form-control" />
+        <label style="font-size:6vw;">Player 3</label>
+        <input type="text" name="player3" id="player3" class="form-control" style="font-size:7vw; height: 9vw;" />
        </div>
        <div class="form-group">
-        <label>Player 4</label>
-        <input type="text" name="player4" id="player4" class="form-control" />
+        <label style="font-size:6vw;">Player 4</label>
+        <input type="text" name="player4" id="player4" class="form-control" style="font-size:7vw; height: 9vw;" />
        </div>
        <div class="form-group">
-        <input type="submit" name="add" id="add" class="btn btn-info" value="Add Session" />
+        <center><input type="submit" name="add" id="add" class="btn btn-info" value="Add Session" style="font-size:7vw;"/></center>
        </div>
       </form>
      </div>

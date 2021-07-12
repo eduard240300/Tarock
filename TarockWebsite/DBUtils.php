@@ -108,6 +108,30 @@ class DBUtils {
 		));
 	}
 
+	public function deleteUser($username)
+	{
+		echo "123";
+
+		$query = "DELETE FROM Users_Tarock WHERE Username = " . "'" . $username . "';";
+		echo $query;
+
+		$statement = $this->pdo->prepare($query);
+		return $statement->execute();
+	}
+
+	public function changeUser($username, $password)
+	{
+		$query = "UPDATE Users_Tarock
+		SET Password = :password
+		WHERE Username = :username;";
+
+		$statement = $this->pdo->prepare($query);
+		return $statement->execute(array(
+				'username' => $username,
+				'password' => password_hash($password, PASSWORD_DEFAULT)
+		));
+	}
+
 	public function addSession($creator, $player1, $player2, $player3, $player4)
 	{
 		$dateCreated = new DateTime();
