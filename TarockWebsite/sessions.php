@@ -33,6 +33,7 @@ if(!isset($_COOKIE["username"]))
    <br />
    <div align="right">
     <a href="sessions.php">Sessions</a>
+    <a href="downloads.php">Downloads</a>
     <a href="account.php">My Account</a>
     <a href="logout.php">Logout</a>
     <img src="images/standard.png" width="40" height="40">

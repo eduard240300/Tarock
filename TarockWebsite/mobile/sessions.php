@@ -38,10 +38,11 @@ if(!isset($_COOKIE["username"]))
   <div class="w3-container">
    <br />
    <div>
-    <table align="center" style="font-size:6vw;">
+    <table align="center" style="font-size:5vw;">
      <tr>
       <td><a href="sessions.php">Sessions</a></td>
-      <td><a href="account.php">My Account</a></td>
+      <td><a href="downloads.php">Downloads</a></td>
+      <td><a href="account.php">Account</a></td>
       <td><a href="logout.php">Logout</a></td>
      </tr>
     </table>

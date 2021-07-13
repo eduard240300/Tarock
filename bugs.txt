@@ -1,6 +1,7 @@
 Bugs:
 
 Solo
+Modifica culoarea rosie scor radler
 
 Resolved : 
 Trebuie adunate la scorul prezent scorurile precedente. (Resolved)
@@ -15,5 +16,5 @@ Trebuie memorate in DB game-urile. (Resolved)
 Imi apare declaratia de data trecuta la selectie (Resolved)
 add to games field radlerTimes(Resolved)
 LunaCaught error (Resolved)
-ScoreShowing reset offsets
+ScoreShowing reset offsets (Resolved)
 Valat este 8 puncte (Resolved)
