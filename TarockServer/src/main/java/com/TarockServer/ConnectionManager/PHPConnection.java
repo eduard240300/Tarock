@@ -7,7 +7,7 @@ import com.TarockServer.Domain.Pair;
 import com.TarockServer.Domain.Session;
 import com.TarockServer.Domain.User;
 import com.TarockServer.Exception.PHPException;
-import com.TarockServer.Main;
+import com.TarockServer.GUI.StatusForm;
 import com.TarockServer.Service.DataManipulationService;
 
 import java.io.ByteArrayOutputStream;
@@ -17,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PHPConnection {
     public static String read(String inputString){
@@ -34,15 +35,15 @@ public class PHPConnection {
                 throw new Exception("Server returned bad response code: " + con.getResponseCode() + " " + con.getResponseMessage());
             }
             InputStream in = con.getInputStream();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             byte[] buff = new byte[8192];
-            int cur = 0;
+            int cur;
             while ((cur = in.read(buff)) > 0) {
-                baos.write(buff, 0, cur);
+                outputStream.write(buff, 0, cur);
             }
             in.close();
-            Main.statusForm.addToStatusTextArea("Received from website : " + new String(baos.toByteArray()));
-            return new String(baos.toByteArray());
+            StatusForm.addToStatusTextArea("Received from website : " + outputStream.toString());
+            return outputStream.toString();
         }
         catch (Exception e) { e.printStackTrace();}
         return null;
@@ -51,29 +52,17 @@ public class PHPConnection {
     public static User getUser(String username) {
         User user = new User();
         String post = "functionName=getUser&username=" + username;
-        List<Pair<String, String>> userJSON = DataManipulationService.JSONtoList(PHPConnection.read(post));
+        List<Pair<String, String>> userJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));
         if (userJSON.get(0).getKey().equals("exception"))
         {
             throw new PHPException(userJSON.get(0).getValue());
         }
         else {
-            for(int i=0;i<userJSON.size();i++)
-            {
-                if (userJSON.get(i).getKey().equals("name"))
-                {
-                    user.setName(userJSON.get(i).getValue());
-                }
-                else if (userJSON.get(i).getKey().equals("username"))
-                {
-                    user.setUsername(userJSON.get(i).getValue());
-                }
-                else if (userJSON.get(i).getKey().equals("password"))
-                {
-                    user.setPassword(userJSON.get(i).getValue());
-                }
-                else if (userJSON.get(i).getKey().equals("email"))
-                {
-                    user.setEmail(userJSON.get(i).getValue());
+            for (Pair<String, String> stringStringPair : userJSON) {
+                switch (stringStringPair.getKey()) {
+                    case "name" -> user.setName(stringStringPair.getValue());
+                    case "username" -> user.setUsername(stringStringPair.getValue());
+                    case "password" -> user.setPassword(stringStringPair.getValue());
                 }
             }
             return user;
@@ -83,46 +72,22 @@ public class PHPConnection {
     public static Session getSession(int sessionID) {
         Session session = new Session();
         String post = "functionName=getSession&sessionID=" + sessionID;
-        List<Pair<String, String>> sessionJSON = DataManipulationService.JSONtoList(PHPConnection.read(post));
+        List<Pair<String, String>> sessionJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));
         if (sessionJSON.get(0).getKey().equals("exception"))
         {
             throw new PHPException(sessionJSON.get(0).getValue());
         }
         else
         {
-            for(int i=0;i<sessionJSON.size();i++)
-            {
-                if (sessionJSON.get(i).getKey().equals("sessionID"))
-                {
-                    session.setSessionID(Integer.parseInt(sessionJSON.get(i).getValue()));
-                }
-                else if (sessionJSON.get(i).getKey().equals("creator"))
-                {
-                    session.setCreator(sessionJSON.get(i).getValue());
-                }
-                else if (sessionJSON.get(i).getKey().equals("dateCreated"))
-                {
-                    session.setDateCreated(DataManipulationService.getName(sessionJSON.get(i).getValue()));
-                }
-                else if (sessionJSON.get(i).getKey().equals("dateClosed"))
-                {
-                    session.setDateClosed(DataManipulationService.getName(sessionJSON.get(i).getValue()));
-                }
-                else if (sessionJSON.get(i).getKey().equals("player1"))
-                {
-                    session.setPlayer1(sessionJSON.get(i).getValue());
-                }
-                else if (sessionJSON.get(i).getKey().equals("player2"))
-                {
-                    session.setPlayer2(sessionJSON.get(i).getValue());
-                }
-                else if (sessionJSON.get(i).getKey().equals("player3"))
-                {
-                    session.setPlayer3(sessionJSON.get(i).getValue());
-                }
-                else if (sessionJSON.get(i).getKey().equals("player4"))
-                {
-                    session.setPlayer4(sessionJSON.get(i).getValue());
+            for (Pair<String, String> stringStringPair : sessionJSON) {
+                switch (stringStringPair.getKey()) {
+                    case "sessionID" -> session.setSessionID(Integer.parseInt(stringStringPair.getValue()));
+                    case "creator" -> session.setCreator(stringStringPair.getValue());
+                    case "dateClosed" -> session.setDateClosed(DataManipulationService.getName(stringStringPair.getValue()));
+                    case "player1" -> session.setPlayer1(stringStringPair.getValue());
+                    case "player2" -> session.setPlayer2(stringStringPair.getValue());
+                    case "player3" -> session.setPlayer3(stringStringPair.getValue());
+                    case "player4" -> session.setPlayer4(stringStringPair.getValue());
                 }
             }
             return session;
@@ -135,16 +100,16 @@ public class PHPConnection {
     }
 
     public static void addGame(String username, Game game) {
-        String post = "functionName=addGame&username=" + username;
-        post += "&sessionID=" + game.getSessionID();
+        StringBuilder post = new StringBuilder("functionName=addGame&username=" + username);
+        post.append("&sessionID=").append(game.getSessionID());
         for(int i=0;i<4;i++)
         {
-            post += "&scorePlayer" + (i+1) + "=" + game.getScorePlayer(i);
+            post.append("&scorePlayer").append(i + 1).append("=").append(game.getScorePlayer(i));
         }
-        post += "&declaration=" + DataManipulationService.processDeclaration(game.getDeclaration());
-        post += "&radler=" + DataManipulationService.boolToString(game.getRadler());
-        post += "&radlerTimes=" + game.getRadlerTimes();
-        List<Pair<String, String>> sessionJSON = DataManipulationService.JSONtoList(PHPConnection.read(post));
+        post.append("&declaration=").append(DataManipulationService.processDeclaration(game.getDeclaration()));
+        post.append("&radler=").append(DataManipulationService.boolToString(game.getRadler()));
+        post.append("&radlerTimes=").append(game.getRadlerTimes());
+        List<Pair<String, String>> sessionJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post.toString())));
         if (sessionJSON.get(0).getKey().equals("exception"))
         {
             throw new PHPException(sessionJSON.get(0).getValue());
@@ -153,10 +118,10 @@ public class PHPConnection {
 
     public static List<Game> getGames(String creator, int sessionID) {
         int gamesSize = 0;
-        List<Game> games = new ArrayList<Game>();
+        List<Game> games = new ArrayList<>();
         String post = "functionName=getGamesSize&username=" + creator;
         post += "&sessionID=" + sessionID;
-        List<Pair<String, String>> gameJSON = DataManipulationService.JSONtoList(PHPConnection.read(post));
+        List<Pair<String, String>> gameJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));
         if (gameJSON.get(0).getKey().equals("result"))
         {
             gamesSize = Integer.parseInt(gameJSON.get(0).getValue());
@@ -165,45 +130,18 @@ public class PHPConnection {
         {
             post = "functionName=getGame&sessionID=" + sessionID;
             post += "&gameRow=" + i;
-            gameJSON = DataManipulationService.JSONtoList(PHPConnection.read(post));
+            gameJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));
             Game game = new Game();
-            for(int j=0;j<gameJSON.size();j++)
-            {
-                if (gameJSON.get(j).getKey().equals("gameID"))
-                {
-                    game.setGameID(Integer.parseInt(gameJSON.get(j).getValue()));
-                }
-                else if (gameJSON.get(j).getKey().equals("sessionID"))
-                {
-                    game.setSessionID(Integer.parseInt(gameJSON.get(j).getValue()));
-                }
-                else if (gameJSON.get(j).getKey().equals("scorePlayer1"))
-                {
-                    game.setScorePlayer1(Integer.parseInt(gameJSON.get(j).getValue()));
-                }
-                else if (gameJSON.get(j).getKey().equals("scorePlayer2"))
-                {
-                    game.setScorePlayer2(Integer.parseInt(gameJSON.get(j).getValue()));
-                }
-                else if (gameJSON.get(j).getKey().equals("scorePlayer3"))
-                {
-                    game.setScorePlayer3(Integer.parseInt(gameJSON.get(j).getValue()));
-                }
-                else if (gameJSON.get(j).getKey().equals("scorePlayer4"))
-                {
-                    game.setScorePlayer4(Integer.parseInt(gameJSON.get(j).getValue()));
-                }
-                else if (gameJSON.get(j).getKey().equals("declaration"))
-                {
-                    game.setDeclaration(gameJSON.get(j).getValue());
-                }
-                else if (gameJSON.get(j).getKey().equals("radler"))
-                {
-                    game.setRadler(DataManipulationService.stringToBool(gameJSON.get(j).getValue()));
-                }
-                else if (gameJSON.get(j).getKey().equals("radlerTimes"))
-                {
-                    game.setRadlerTimes(Integer.parseInt(gameJSON.get(j).getValue()));
+            for (Pair<String, String> stringStringPair : gameJSON) {
+                switch (stringStringPair.getKey()) {
+                    case "sessionID" -> game.setSessionID(Integer.parseInt(stringStringPair.getValue()));
+                    case "scorePlayer1" -> game.setScorePlayer1(Integer.parseInt(stringStringPair.getValue()));
+                    case "scorePlayer2" -> game.setScorePlayer2(Integer.parseInt(stringStringPair.getValue()));
+                    case "scorePlayer3" -> game.setScorePlayer3(Integer.parseInt(stringStringPair.getValue()));
+                    case "scorePlayer4" -> game.setScorePlayer4(Integer.parseInt(stringStringPair.getValue()));
+                    case "declaration" -> game.setDeclaration(stringStringPair.getValue());
+                    case "radler" -> game.setRadler(DataManipulationService.stringToBool(stringStringPair.getValue()));
+                    case "radlerTimes" -> game.setRadlerTimes(Integer.parseInt(stringStringPair.getValue()));
                 }
             }
             games.add(game);

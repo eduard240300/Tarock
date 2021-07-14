@@ -7,7 +7,7 @@ import com.TarockServer.Domain.User;
 import com.TarockServer.Exception.ConnectionException;
 import com.TarockServer.Exception.LoginException;
 import com.TarockServer.Exception.PHPException;
-import com.TarockServer.Main;
+import com.TarockServer.GUI.StatusForm;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -22,7 +22,6 @@ public class ClientService extends Thread {
     public ObjectInputStream inputStream;
     public ObjectOutputStream outputStream;
     public String username = null;
-    private boolean notExecuted = true;
 
     public ClientService(Socket socket) throws IOException {
         this.socket = socket;
@@ -30,6 +29,7 @@ public class ClientService extends Thread {
         inputStream = new ObjectInputStream(socket.getInputStream());
     }
 
+    @SuppressWarnings("SuspiciousListRemoveInLoop")
     public void removeConnection(String username)
     {
         for(int i=0;i<CommunicationService.socketsList.size();i++)
@@ -38,21 +38,21 @@ public class ClientService extends Thread {
                 try {
                     CommunicationService.socketsList.get(i).getValue1().socket.close();
                 }
-                catch(IOException exception)
+                catch(IOException ignored)
                 {}
                 CommunicationService.socketsList.remove(i);
-                Main.statusForm.addToStatusTextArea("Removed client " + username);
+                StatusForm.addToStatusTextArea("Removed client " + username);
             }
         }
     }
 
     public void addClientToList(ClientService clientService, String username, Session session)
     {
-        Triple<String, ClientService, Session> newPair = new Triple<String, ClientService, Session>(username);
+        Triple<String, ClientService, Session> newPair = new Triple<>(username);
         newPair.setValue1(clientService);
         newPair.setValue2(session);
         removeConnection(username);
-        Main.statusForm.addToStatusTextArea("Added client " + username);
+        StatusForm.addToStatusTextArea("Added client " + username);
         CommunicationService.socketsList.add(newPair);
     }
 
@@ -78,6 +78,7 @@ public class ClientService extends Thread {
         return null;
     }
 
+    @SuppressWarnings({"deprecation", "SuspiciousListRemoveInLoop"})
     public List<String> write(String sendMessage) throws IOException, ClassNotFoundException {
         String message = "";
         try {
@@ -88,7 +89,7 @@ public class ClientService extends Thread {
         {
             socket.close();
             Session session = getSessionInList(username);
-            Main.statusForm.addToStatusTextArea(exception.getMessage());
+            StatusForm.addToStatusTextArea(exception.getMessage());
             for(int i=0;i<CommunicationService.gameSessions.size();i++)
             {
                 if (CommunicationService.gameSessions.get(i).session.getSessionID() == session.getSessionID())
@@ -99,8 +100,7 @@ public class ClientService extends Thread {
             }
             Thread.currentThread().stop();
         }
-        List<String> listOfCommands = DataManipulationService.processMessage(message);
-        return listOfCommands;
+        return DataManipulationService.processMessage(message);
     }
 
     public int getChairNumber(Session session, String username)
@@ -118,29 +118,23 @@ public class ClientService extends Thread {
     }
 
     public void runGame(Session session) throws IOException, ClassNotFoundException {
-        List<String> newListOfCommands;
         User player1 = PHPConnection.getUser(session.getPlayer1());
         User player2 = PHPConnection.getUser(session.getPlayer2());
         User player3 = PHPConnection.getUser(session.getPlayer3());
         User player4 = PHPConnection.getUser(session.getPlayer4());
-        List<String> players = new ArrayList<String>();
+        List<String> players = new ArrayList<>();
         players.add(player1.getName());
         players.add(player2.getName());
         players.add(player3.getName());
         players.add(player4.getName());
-        List<String> playersUsername = new ArrayList<String>();
+        List<String> playersUsername = new ArrayList<>();
         playersUsername.add(player1.getUsername());
         playersUsername.add(player2.getUsername());
         playersUsername.add(player3.getUsername());
         playersUsername.add(player4.getUsername());
-        String message = "players " + DataManipulationService.processName(player1.getName()) +
-                " " + DataManipulationService.processName(player2.getName()) +
-                " " + DataManipulationService.processName(player3.getName()) +
-                " " + DataManipulationService.processName(player4.getName()) + ";";
-        newListOfCommands = write(message);
 
         getClientInList(username).write("chairNumber " + getChairNumber(session, username) + ";");
-        Main.statusForm.addToStatusTextArea("Sent (" + username + ") : " + "chairNumber " + getChairNumber(session, username) + ";");
+        StatusForm.addToStatusTextArea("Sent (" + username + ") : " + "chairNumber " + getChairNumber(session, username) + ";");
 
         boolean startGameSession = true;
 
@@ -152,7 +146,7 @@ public class ClientService extends Thread {
 
         if (startGameSession)
         {
-            List<ClientService> clientServiceList = new ArrayList<ClientService>();
+            List<ClientService> clientServiceList = new ArrayList<>();
             clientServiceList.add(getClientInList(playersUsername.get(0)));
             clientServiceList.add(getClientInList(playersUsername.get(1)));
             clientServiceList.add(getClientInList(playersUsername.get(2)));
@@ -165,23 +159,20 @@ public class ClientService extends Thread {
 
     public void runAuthentication(List<String> listOfCommands) throws IOException, ClassNotFoundException {
         List<String> newListOfCommands;
-        for(int i=0;i<listOfCommands.size();i++)
-        {
-            List<String> listOfObjects = DataManipulationService.processCommand(listOfCommands.get(i));
+        for (String listOfCommand : listOfCommands) {
+            List<String> listOfObjects = DataManipulationService.processCommand(listOfCommand);
             if (listOfObjects.get(0).equals("auth")) {
                 username = listOfObjects.get(1);
                 String password = listOfObjects.get(2);
-                int sessionID = Integer.valueOf(listOfObjects.get(3));
+                int sessionID = Integer.parseInt(listOfObjects.get(3));
                 try {
-                    try{
+                    try {
                         PHPConnection.getUser(username);
-                    }
-                    catch (PHPException phpException) {
+                    } catch (PHPException phpException) {
                         throw new LoginException(phpException.getMessage());
                     }
-                    if (PHPConnection.verifyPassword(username, password))
-                    {
-                        try{
+                    if (PHPConnection.verifyPassword(username, password)) {
+                        try {
                             Session session = PHPConnection.getSession(sessionID);
                             if ((!session.getPlayer1().equals(username)) && (!session.getPlayer2().equals(username)) &&
                                     (!session.getPlayer3().equals(username)) && (!session.getPlayer4().equals(username)))
@@ -191,43 +182,33 @@ public class ClientService extends Thread {
                             write("successful_auth;");
                             this.addClientToList(this, username, session);
                             runGame(session);
-                        }
-                        catch (PHPException exception)
-                        {
+                        } catch (PHPException exception) {
                             write("failed_auth sessionID;");
                             newListOfCommands = write("require_auth;");
                             runAuthentication(newListOfCommands);
-                        }
-                        catch (ConnectionException exception)
-                        {
+                        } catch (ConnectionException exception) {
                             write("failed_auth sessionIDEnded;");
                             newListOfCommands = write("require_auth;");
                             runAuthentication(newListOfCommands);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         write("failed_auth password;");
                         newListOfCommands = write("require_auth;");
                         runAuthentication(newListOfCommands);
                     }
-                }
-                catch (LoginException dbException)
-                {
+                } catch (LoginException dbException) {
                     write("failed_auth username;");
                     newListOfCommands = write("require_auth;");
                     runAuthentication(newListOfCommands);
                 }
-            }
-            else if (listOfObjects.get(0) == "ok") { }
-            else
+            } else
                 throw new ConnectionException("Invalid authentication !");
         }
     }
 
     public void run(){
         try {
-            Main.statusForm.addToStatusTextArea("Started thread");
+            StatusForm.addToStatusTextArea("Started thread");
             List<String> listOfCommands = write("require_auth;");
             runAuthentication(listOfCommands);
         } catch (Exception e) {

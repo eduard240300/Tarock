@@ -1,7 +1,6 @@
 package com.TarockServer.Domain;
 
 public class Game {
-    private int gameID;
     private int sessionID;
     private int scorePlayer1;
     private int scorePlayer2;
@@ -11,28 +10,7 @@ public class Game {
     private boolean radler;
     private int radlerTimes;
 
-    public Game(int gameID, int sessionID, int scorePlayer1, int scorePlayer2, int scorePlayer3, int scorePlayer4, String declaration, boolean radler, int radlerTimes)
-    {
-        this.gameID = gameID;
-        this.sessionID = sessionID;
-        this.scorePlayer1 = scorePlayer1;
-        this.scorePlayer2 = scorePlayer2;
-        this.scorePlayer3 = scorePlayer3;
-        this.scorePlayer4 = scorePlayer4;
-        this.declaration = declaration;
-        this.radler = radler;
-        this.radlerTimes = radlerTimes;
-    }
-
     public Game() { }
-
-    public int getGameID() {
-        return gameID;
-    }
-
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
-    }
 
     public int getSessionID() {
         return sessionID;

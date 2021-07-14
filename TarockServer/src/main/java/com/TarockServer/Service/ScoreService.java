@@ -6,9 +6,76 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScoreService {
+    public static void getPointsMethod(String type, int teamDeclared, int teamDone, Score score)
+    {
+        int points;
+        String declaredOrDone;
+        if (teamDeclared == 0)
+        {
+            if (teamDone == 0)
+            {
+                declaredOrDone = "Declared(T" + (teamDeclared+1) +
+                        ") and done(T" + (teamDone+1) + ")";
+                points = 2;
+            }
+            else if (teamDone == 1)
+            {
+                declaredOrDone = "Declared(T" + (teamDeclared+1) +
+                        ") and done(T" + (teamDone+1) + ")";
+                points = -3;
+            }
+            else
+            {
+                declaredOrDone = "Declared(T" + (teamDeclared+1) + ") and not done";
+                points = -2;
+            }
+        }
+        else if (teamDeclared == 1)
+        {
+            if (teamDone == 0)
+            {
+                declaredOrDone = "Declared(T" + (teamDeclared+1) +
+                        ") and done(T" + (teamDone+1) + ")";
+                points = 3;
+            }
+            else if (teamDone == 1)
+            {
+                declaredOrDone = "Declared(T" + (teamDeclared+1) +
+                        ") and done(T" + (teamDone+1) + ")";
+                points = -2;
+            }
+            else
+            {
+                declaredOrDone = "Declared(T" + (teamDeclared+1) + ") and not done";
+                points = 2;
+            }
+        }
+        else
+        {
+            if (teamDone == 0)
+            {
+                declaredOrDone = "Done(T" + (teamDone+1) + ")";
+                points = 1;
+            }
+            else if (teamDone == 1)
+            {
+                declaredOrDone = "Done(T" + (teamDone+1) + ")";
+                points = -1;
+            }
+            else
+            {
+                declaredOrDone = "No";
+                points = 0;
+            }
+        }
+
+        score.getAttribute(type).setPoints(points);
+        score.getAttribute(type).setDeclaredOrDone(declaredOrDone);
+    }
+
     public static List<Declaration> getDeclarationsTeams(List<Declaration> declarations, List<List<Integer>> teams, int playerRequest)
     {
-        List<Declaration> declarationsTeams = new ArrayList<Declaration>();
+        List<Declaration> declarationsTeams = new ArrayList<>();
         for(int i=0;i<2;i++)
         {
             Declaration declaration = new Declaration(false, false, false, false, 0);
@@ -44,7 +111,7 @@ public class ScoreService {
         return declarationMessage;
     }
 
-    public static List<List<Integer>> swapPope(List<List<Integer>> cardsWon, int pope)
+    public static void swapPope(List<List<Integer>> cardsWon, int pope)
     {
         int positionPope = -1;
         int positionPlainCard = -1;
@@ -65,7 +132,6 @@ public class ScoreService {
         int swapCard = cardsWon.get(0).get(positionPlainCard);
         cardsWon.get(0).set(positionPlainCard, cardsWon.get(1).get(positionPope));
         cardsWon.get(1).set(positionPope, swapCard);
-        return cardsWon;
     }
 
     public static int getScoreCard(int cardID)
@@ -94,26 +160,26 @@ public class ScoreService {
         String declarationMessage = getDeclarationMessage(declarationsTeams);
         int pope = declarations.get(playerRequest).getPope();
         int the1of2 = declarations.get(playerRequest).getThe1of2();
-        List<List<Integer>> cardsWonNew = cardsWon;
-        if (popeInTalon)
-            cardsWonNew = swapPope(cardsWon, pope);
+        if (popeInTalon) {
+            swapPope(cardsWon, pope);
+        }
 
         int teamThatWon = 0;
-        List<Double> pointsTeams = new ArrayList<Double>();
+        List<Double> pointsTeams = new ArrayList<>();
 
         //calculate points won by each team
         for(int i=0;i<2;i++)
         {
             double pointsTeam = 0;
 
-            for(int j=0;j<cardsWonNew.get(i).size();j++)
+            for(int j = 0; j< cardsWon.get(i).size(); j++)
             {
-                if (getScoreCard(cardsWonNew.get(i).get(j)) == 0) {
+                if (getScoreCard(cardsWon.get(i).get(j)) == 0) {
                     pointsTeam++;
                 }
                 else
                 {
-                    pointsTeam += (getScoreCard(cardsWonNew.get(i).get(j)) * 3 - 2);
+                    pointsTeam += (getScoreCard(cardsWon.get(i).get(j)) * 3 - 2);
                 }
             }
 
@@ -125,23 +191,23 @@ public class ScoreService {
             teamThatWon = 1;
 
         //calculate game points
-        String tagTeamThatWon = "Team 0" + (teamThatWon+1);
-        tagTeamThatWon += "(";
+        StringBuilder tagTeamThatWon = new StringBuilder("Team 0" + (teamThatWon + 1));
+        tagTeamThatWon.append("(");
         for(int i=0;i<teams.get(teamThatWon).size();i++)
         {
             if (i==0)
             {
-                tagTeamThatWon += players.get(teams.get(teamThatWon).get(i));
+                tagTeamThatWon.append(players.get(teams.get(teamThatWon).get(i)));
             }
             else
             {
-                tagTeamThatWon += " + " + players.get(teams.get(teamThatWon).get(i));
+                tagTeamThatWon.append(" + ").append(players.get(teams.get(teamThatWon).get(i)));
             }
         }
-        tagTeamThatWon += ")";
-        score.setTeamThatWon(tagTeamThatWon);
+        tagTeamThatWon.append(")");
+        score.setTeamThatWon(tagTeamThatWon.toString());
         int pointsGame = 2;
-        String declaredOrDoneGame = "";
+        String declaredOrDoneGame;
         if (cardsWon.get(0).size() == 50) //valat
         {
             pointsGame = 8;
@@ -195,8 +261,10 @@ public class ScoreService {
         boolean team1WonLastRound = false;
         for(int i=0;i<teams.get(0).size();i++)
         {
-            if (playerThatWonLastRound == teams.get(0).get(i))
+            if (playerThatWonLastRound == teams.get(0).get(i)) {
                 team1WonLastRound = true;
+                break;
+            }
         }
 
         //calculate if popeAtFinish done
@@ -242,8 +310,10 @@ public class ScoreService {
         //calculate if popeCaught
         for(int i=0;i<cardsWon.get(1).size();i++)
         {
-            if (cardsWon.get(1).get(i) == 30+pope*8)
+            if (cardsWon.get(1).get(i) == 30 + pope * 8) {
                 popeCaught = true;
+                break;
+            }
         }
 
         //calculate if lunaCaught
@@ -262,14 +332,16 @@ public class ScoreService {
         {
             for(int j=0;j<teams.get(i).size();j++)
             {
-                if (playerThatGaveLuna == teams.get(i).get(j))
+                if (playerThatGaveLuna == teams.get(i).get(j)) {
                     lunaCaughtFromTeam = i;
+                    break;
+                }
             }
         }
 
         //calculate popeAtFinish points
-        int pointsPopeAtFinish = -1;
-        String declaredOrDonePopeAtFinish = "";
+        int pointsPopeAtFinish;
+        String declaredOrDonePopeAtFinish;
         if (declaredPopeAtFinish)
         {
             if (donePopeAtFinish)
@@ -300,7 +372,7 @@ public class ScoreService {
 
         //calculate pagatAtFinish points
         int pointsPagatAtFinish = -1;
-        String declaredOrDonePagatAtFinish = "";
+        String declaredOrDonePagatAtFinish;
         if (teamDeclaredPagatAtFinish == 0)
         {
             if (teamDonePagatAtFinish != -1)
@@ -337,7 +409,6 @@ public class ScoreService {
             else if (teamDonePagatAtFinish == 1)
             {
                 declaredOrDonePagatAtFinish = "Done(T" + (teamDonePagatAtFinish+1) + ")";
-                pointsPagatAtFinish = -1;
             }
             else
             {
@@ -350,142 +421,17 @@ public class ScoreService {
         score.getAttribute("Pagat at finish").setDeclaredOrDone(declaredOrDonePagatAtFinish);
 
         //calculate allPopes
-        int pointsAllPopes = -1;
-        String declaredOrDoneAllPopes = "";
-        if (teamDeclaredAllPopes == 0)
-        {
-            if (teamDoneAllPopes == 0)
-            {
-                declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) +
-                        ") and done(T" + (teamDoneAllPopes+1) + ")";
-                pointsAllPopes = 2;
-            }
-            else if (teamDoneAllPopes == 1)
-            {
-                declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) +
-                        ") and done(T" + (teamDoneAllPopes+1) + ")";
-                pointsAllPopes = -3;
-            }
-            else
-            {
-                declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) + ") and not done";
-                pointsAllPopes = -2;
-            }
-        }
-        else if (teamDeclaredAllPopes == 1)
-        {
-            if (teamDoneAllPopes == 0)
-            {
-                declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) +
-                        ") and done(T" + (teamDoneAllPopes+1) + ")";
-                pointsAllPopes = 3;
-            }
-            else if (teamDoneAllPopes == 1)
-            {
-                declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) +
-                        ") and done(T" + (teamDoneAllPopes+1) + ")";
-                pointsAllPopes = -2;
-            }
-            else
-            {
-                declaredOrDoneAllPopes = "Declared(T" + (teamDeclaredAllPopes+1) + ") and not done";
-                pointsAllPopes = 2;
-            }
-        }
-        else
-        {
-            if (teamDoneAllPopes == 0)
-            {
-                declaredOrDoneAllPopes = "Done(T" + (teamDoneAllPopes+1) + ")";
-                pointsAllPopes = 1;
-            }
-            else if (teamDoneAllPopes == 1)
-            {
-                declaredOrDoneAllPopes = "Done(T" + (teamDoneAllPopes+1) + ")";
-                pointsAllPopes = -1;
-            }
-            else
-            {
-                declaredOrDoneAllPopes = "No";
-                pointsAllPopes = 0;
-            }
-        }
-
-        score.getAttribute("All popes").setPoints(pointsAllPopes);
-        score.getAttribute("All popes").setDeclaredOrDone(declaredOrDoneAllPopes);
+        getPointsMethod("All popes", teamDeclaredAllPopes, teamDoneAllPopes, score);
 
         //calculate allTrullCards
-        int pointsAllTrullCards = -1;
-        String declaredOrDoneAllTrullCards = "";
-        if (teamDeclaredAllTrullCards == 0)
-        {
-            if (teamDoneAllTrullCards == 0)
-            {
-                declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) +
-                        ") and done(T" + (teamDoneAllTrullCards+1) + ")";
-                pointsAllTrullCards = 2;
-            }
-            else if (teamDoneAllTrullCards == 1)
-            {
-                declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) +
-                        ") and done(T" + (teamDoneAllTrullCards+1) + ")";
-                pointsAllTrullCards = -3;
-            }
-            else
-            {
-                declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) + ") and not done";
-                pointsAllTrullCards = -2;
-            }
-        }
-        else if (teamDeclaredAllTrullCards == 1)
-        {
-            if (teamDoneAllTrullCards == 0)
-            {
-                declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) +
-                        ") and done(T" + (teamDoneAllTrullCards+1) + ")";
-                pointsAllTrullCards = 3;
-            }
-            else if (teamDoneAllTrullCards == 1)
-            {
-                declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) +
-                        ") and done(T" + (teamDoneAllTrullCards+1) + ")";
-                pointsAllTrullCards = -2;
-            }
-            else
-            {
-                declaredOrDoneAllTrullCards = "Declared(T" + (teamDeclaredAllTrullCards+1) + ") and not done";
-                pointsAllTrullCards = 2;
-            }
-        }
-        else
-        {
-            if (teamDoneAllTrullCards == 0)
-            {
-                declaredOrDoneAllTrullCards = "Done(T" + (teamDoneAllTrullCards+1) + ")";
-                pointsAllTrullCards = 1;
-            }
-            else if (teamDoneAllTrullCards == 1)
-            {
-                declaredOrDoneAllTrullCards = "Done(T" + (teamDoneAllTrullCards+1) + ")";
-                pointsAllTrullCards = -1;
-            }
-            else
-            {
-                declaredOrDoneAllTrullCards = "No";
-                pointsAllTrullCards = 0;
-            }
-        }
-
-        score.getAttribute("All trull cards").setPoints(pointsAllTrullCards);
-        score.getAttribute("All trull cards").setDeclaredOrDone(declaredOrDoneAllTrullCards);
+        getPointsMethod("All trull cards", teamDeclaredAllTrullCards, teamDoneAllTrullCards, score);
 
         //calculate popeCaught
         int pointsPopeCaught = -1;
-        String declaredOrDonePopeCaught = "";
+        String declaredOrDonePopeCaught;
         if (popeCaught)
         {
             declaredOrDonePopeCaught = "Yes";
-            pointsPopeCaught = -1;
         }
         else
         {
@@ -498,11 +444,10 @@ public class ScoreService {
 
         //calculate lunaCaught
         int pointsLunaCaught = -1;
-        String declaredOrDoneLunaCaught = "";
+        String declaredOrDoneLunaCaught;
         if (lunaCaughtFromTeam == 0)
         {
             declaredOrDoneLunaCaught = "Caught by T2";
-            pointsLunaCaught = -1;
         }
         else if (lunaCaughtFromTeam == 1)
         {
@@ -548,7 +493,7 @@ public class ScoreService {
                     }
                 }
             }
-            else if (teamThatWon == 1) {
+            else {
                 game.setScorePlayer(playerRequest, -total * 3);
                 for(int i=0;i<4;i++)
                 {
@@ -571,7 +516,7 @@ public class ScoreService {
                     game.setScorePlayer(teams.get(1).get(i), -total);
                 }
             }
-            else if (teamThatWon == 1) {
+            else {
                 for(int i=0;i<teams.get(0).size();i++)
                 {
                     game.setScorePlayer(teams.get(0).get(i), -total);
@@ -583,22 +528,23 @@ public class ScoreService {
             }
         }
 
-        Pair<Game, Score> pair = new Pair<Game,Score>(game, score);
-        return pair;
+        return new Pair<>(game, score);
     }
 
     public static void calculateScoreTarocks(int teamThatWon, int player, List<List<Integer>> teams, List<Declaration> declarations, Score score)
     {
         //calculate TarocksPlayer
-        int pointsTarocksPlayer = -1;
-        String declaredOrDoneTarocksPlayer = "";
+        int pointsTarocksPlayer;
+        String declaredOrDoneTarocksPlayer;
         int teamPlayer = -1;
         for(int i=0;i<2;i++)
         {
             for(int j=0;j<teams.get(i).size();j++)
             {
-                if (teams.get(i).get(j) == player)
+                if (teams.get(i).get(j) == player) {
                     teamPlayer = i;
+                    break;
+                }
             }
         }
         if (declarations.get(player).getNumberOfTarocks() == 8)

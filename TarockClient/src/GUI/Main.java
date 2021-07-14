@@ -27,16 +27,16 @@ public class Main {
 
         if (args.length == 3)
         {
-            connectionForm.usernameField.setText(args[0]);
-            connectionForm.passwordField.setText(args[1]);
-            connectionForm.sessionIDField.setText(args[2]);
+            ConnectionForm.usernameField.setText(args[0]);
+            ConnectionForm.passwordField.setText(args[1]);
+            ConnectionForm.sessionIDField.setText(args[2]);
         }
         else if (args.length == 4)
         {
-            connectionForm.usernameField.setText(args[0]);
-            connectionForm.passwordField.setText(args[1]);
-            connectionForm.sessionIDField.setText(args[2]);
-            connectionForm.ipAddressField.setText(args[3]);
+            ConnectionForm.usernameField.setText(args[0]);
+            ConnectionForm.passwordField.setText(args[1]);
+            ConnectionForm.sessionIDField.setText(args[2]);
+            ConnectionForm.ipAddressField.setText(args[3]);
         }
 
         gameForm = new GameForm();
@@ -50,6 +50,6 @@ public class Main {
             scoreForm.setIconImage(ImageIO.read(new FileInputStream(iconPath)));
             talonSelectionForm.setIconImage(ImageIO.read(new FileInputStream(iconPath)));
             talonShowingForm.setIconImage(ImageIO.read(new FileInputStream(iconPath)));
-        }catch(Exception e){}
+        }catch(Exception ignored){}
     }
 }

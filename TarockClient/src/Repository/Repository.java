@@ -30,16 +30,12 @@ public class Repository {
 
     public static boolean isTarock(int cardID)
     {
-        if ((cardID >= 1) && (cardID <= 22))
-            return true;
-        return false;
+        return (cardID >= 1) && (cardID <= 22);
     }
 
     public static boolean isPope(int cardID)
     {
-        if ((cardID == 30) || (cardID == 38) || (cardID == 46) || (cardID == 54))
-            return true;
-        return false;
+        return (cardID == 30) || (cardID == 38) || (cardID == 46) || (cardID == 54);
     }
 
     public static boolean hasChosenPope()
@@ -65,9 +61,8 @@ public class Repository {
     public static int getNumberOfTarocks()
     {
         int result = 0;
-        for(int i=0;i<cards.size();i++)
-        {
-            if (isTarock(cards.get(i)))
+        for (Integer card : cards) {
+            if (isTarock(card))
                 result++;
         }
         return result;
@@ -75,11 +70,10 @@ public class Repository {
     public static int getNumberOfSpecialCards()
     {
         int result = 0;
-        for(int i=0;i<cards.size();i++)
-        {
-            if (isTarock(cards.get(i)))
+        for (Integer card : cards) {
+            if (isTarock(card))
                 result++;
-            else if ((cards.get(i) == 30) || (cards.get(i) == 38) || (cards.get(i) == 46) || (cards.get(i) == 54))
+            else if ((card == 30) || (card == 38) || (card == 46) || (card == 54))
                 result++;
         }
         return result;
@@ -88,9 +82,8 @@ public class Repository {
     public static int sizeWithout0(List<Integer> list)
     {
         int size = 0;
-        for(int i=0;i<list.size();i++)
-        {
-            if (list.get(i) != 0)
+        for (Integer integer : list) {
+            if (integer != 0)
                 size++;
         }
         return size;
@@ -99,9 +92,8 @@ public class Repository {
     public static int getNumberOfType(int type)
     {
         int result = 0;
-        for(int i=0;i<cards.size();i++)
-        {
-            if (Round.isType(cards.get(i), type)) {
+        for (Integer card : cards) {
+            if (Round.isType(card, type)) {
                 result++;
             }
         }
@@ -112,7 +104,7 @@ public class Repository {
     {
         loggedIn = false;
         loggedUser = null;
-        players = new ArrayList<String>();
+        players = new ArrayList<>();
         players.add("Player 1");
         players.add("Player 2");
         players.add("Player 3");
@@ -124,14 +116,14 @@ public class Repository {
     public static void resetRepository()
     {
         givenCardsCompleted = false;
-        rounds = new ArrayList<Round>();
-        teams = new ArrayList<List<Integer>>();
-        givenCards = new ArrayList<Integer>();
+        rounds = new ArrayList<>();
+        teams = new ArrayList<>();
+        givenCards = new ArrayList<>();
         for(int i=0;i<2;i++) {
-            teams.add(new ArrayList<Integer>());
+            teams.add(new ArrayList<>());
         }
-        cards = new ArrayList<Integer>();
-        talon = new ArrayList<Integer>();
+        cards = new ArrayList<>();
+        talon = new ArrayList<>();
         for(int i=0;i<6;i++)
             talon.add(0);
         playerRequest = 0;
@@ -143,15 +135,15 @@ public class Repository {
     }
 
     public static void resetCardsWon(){
-        cardsWon = new ArrayList<List<Integer>>();
+        cardsWon = new ArrayList<>();
         for(int i=0;i<2;i++) {
-            cardsWon.add(new ArrayList<Integer>());
+            cardsWon.add(new ArrayList<>());
         }
     }
 
     public static void login(User newUser)
     {
-        if (loggedIn == true)
+        if (loggedIn)
             throw new RepositoryException("Already logged in !");
         else
         {
@@ -162,7 +154,7 @@ public class Repository {
 
     public static void logout()
     {
-        if (loggedIn == false)
+        if (!loggedIn)
             throw new RepositoryException("Not logged in !");
         else
         {
@@ -181,11 +173,7 @@ public class Repository {
         }
         else if (isTarock(cards.get(cardPosition)))
         {
-            if (sizeWithout0(cards) == getNumberOfSpecialCards())
-            {
-                return true;
-            }
-            return false;
+            return sizeWithout0(cards) == getNumberOfSpecialCards();
         }
         return true;
     }
@@ -210,18 +198,14 @@ public class Repository {
     public static boolean canCancelGame()
     {
         int sumTarocks = 0;
-        for(int i=0;i<cards.size();i++)
-        {
-            if ((cards.get(i) == 30) || (cards.get(i) == 38) || (cards.get(i) == 46) || (cards.get(i) == 54))
+        for (Integer card : cards) {
+            if ((card == 30) || (card == 38) || (card == 46) || (card == 54))
                 return false;
-            else if (isTarock(cards.get(i)))
-            {
-                sumTarocks += cards.get(i);
+            else if (isTarock(card)) {
+                sumTarocks += card;
             }
         }
-        if (sumTarocks < 11)
-            return true;
-        else return false;
+        return sumTarocks < 11;
     }
 
     public static boolean canGiveCard(int position)
@@ -245,13 +229,7 @@ public class Repository {
                 }
                 else
                 {
-                    if (Round.isTarock(cardID)) {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return Round.isTarock(cardID);
                 }
             }
             else
@@ -264,24 +242,12 @@ public class Repository {
                     }
                     else
                     {
-                        if (Round.isTarock(cardID)) {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                        return Round.isTarock(cardID);
                     }
                 }
                 else
                 {
-                    if (Round.isType(cardID, type)) {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return Round.isType(cardID, type);
                 }
             }
         }

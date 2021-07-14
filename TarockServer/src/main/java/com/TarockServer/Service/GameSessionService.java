@@ -2,7 +2,7 @@ package com.TarockServer.Service;
 
 import com.TarockServer.ConnectionManager.PHPConnection;
 import com.TarockServer.Domain.*;
-import com.TarockServer.Main;
+import com.TarockServer.GUI.StatusForm;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,18 +37,18 @@ public class GameSessionService extends Thread{
         this.listOfClients = listOfClients;
         this.session = session;
         this.players = players;
-        playersStatus = new ArrayList<List<String>>();
-        cards = new ArrayList<List<Integer>>();
-        cardsSeparated = new ArrayList<List<List<Integer>>>();
-        declarations = new ArrayList<List<Declaration>>();
-        teams = new ArrayList<List<List<Integer>>>();
-        rounds = new ArrayList<List<Round>>();
-        cardsWon = new ArrayList<List<List<Integer>>>();
-        pope = new ArrayList<Integer>();
-        talonPart = new ArrayList<Integer>();
-        playerRequest = new ArrayList<Integer>();
-        the1of2 = new ArrayList<Integer>();
-        scores = new ArrayList<Score>();
+        playersStatus = new ArrayList<>();
+        cards = new ArrayList<>();
+        cardsSeparated = new ArrayList<>();
+        declarations = new ArrayList<>();
+        teams = new ArrayList<>();
+        rounds = new ArrayList<>();
+        cardsWon = new ArrayList<>();
+        pope = new ArrayList<>();
+        talonPart = new ArrayList<>();
+        playerRequest = new ArrayList<>();
+        the1of2 = new ArrayList<>();
+        scores = new ArrayList<>();
     }
 
     public void log(String message, int player)
@@ -57,29 +57,29 @@ public class GameSessionService extends Thread{
         {
             message = "sentCards;";
         }
-        Main.statusForm.addToStatusTextArea("Sent (" + listOfClients.get(player).username + ") : " + message);
+        StatusForm.addToStatusTextArea("Sent (" + listOfClients.get(player).username + ") : " + message);
     }
 
     public void logReceived(Object message, int player)
     {
-        Main.statusForm.addToStatusTextArea("Received (" + listOfClients.get(player).username + ") : " + message);
+        StatusForm.addToStatusTextArea("Received (" + listOfClients.get(player).username + ") : " + message);
     }
 
     public void getAllPreviousGames() throws IOException, ClassNotFoundException {
-        String message;
+        StringBuilder message;
         String creator = session.getCreator();
         games = PHPConnection.getGames(creator, session.getSessionID());
         offsetGameNumber = games.size();
-        for(int i=0;i<games.size();i++) {
+        for (Game game : games) {
             for (int j = 0; j < 4; j++) {
-                message = "score";
+                message = new StringBuilder("score");
                 for (int k = 0; k < 4; k++) {
-                    message += " " + games.get(i).getScorePlayer(k);
+                    message.append(" ").append(game.getScorePlayer(k));
                 }
-                message += " " + DataManipulationService.processName(games.get(i).getDeclaration()) + " ";
-                message += DataManipulationService.boolToString(games.get(i).getRadler()) + ";";
-                listOfClients.get(j).write(message);
-                log(message, j);
+                message.append(" ").append(DataManipulationService.processName(game.getDeclaration())).append(" ");
+                message.append(DataManipulationService.boolToString(game.getRadler())).append(";");
+                listOfClients.get(j).write(message.toString());
+                log(message.toString(), j);
             }
         }
         if (games.size() > 0)
@@ -105,8 +105,10 @@ public class GameSessionService extends Thread{
         {
             for(int j=0;j<12;j++)
             {
-                if (cardsSeparated.get(gameNumber).get(i).get(j) == 30+pope.get(gameNumber)*8)
+                if (cardsSeparated.get(gameNumber).get(i).get(j) == 30 + pope.get(gameNumber) * 8) {
                     playerThatHasPope = i;
+                    break;
+                }
             }
         }
         if ((playerThatHasPope == -1) || (playerThatHasPope == playerRequest.get(gameNumber)))
@@ -128,22 +130,22 @@ public class GameSessionService extends Thread{
     }
 
     public void sendTeams() throws IOException, ClassNotFoundException {
-        String message = "team1";
+        StringBuilder message = new StringBuilder("team1");
         for(int j=0;j<teams.get(gameNumber).get(0).size();j++)
         {
-            message += " " + String.valueOf(teams.get(gameNumber).get(0).get(j));
+            message.append(" ").append(teams.get(gameNumber).get(0).get(j));
         }
-        message += ";team2";
+        message.append(";team2");
         for(int j=0;j<teams.get(gameNumber).get(1).size();j++)
         {
-            message += " " + String.valueOf(teams.get(gameNumber).get(1).get(j));
+            message.append(" ").append(teams.get(gameNumber).get(1).get(j));
         }
-        message += ";";
+        message.append(";");
 
         for(int i=0;i<4;i++)
         {
-            listOfClients.get(i).write(message);
-            log(message, i);
+            listOfClients.get(i).write(message.toString());
+            log(message.toString(), i);
         }
     }
 
@@ -151,31 +153,31 @@ public class GameSessionService extends Thread{
         boolean talonSelected = false;
         List<String> listOfCommands;
         List<String> listOfObjects;
-        String message;
+        StringBuilder message;
         for(int i=0;i<4;i++)
         {
-            message = "talon";
+            message = new StringBuilder("talon");
             for(int j=0;j<6;j++)
             {
-                message += " " + cardsSeparated.get(gameNumber).get(4).get(j);
+                message.append(" ").append(cardsSeparated.get(gameNumber).get(4).get(j));
             }
-            message += ";";
-            listOfClients.get(i).write(message);
-            log(message, i);
+            message.append(";");
+            listOfClients.get(i).write(message.toString());
+            log(message.toString(), i);
         }
         for(int i=0;i<4;i++)
         {
             if (i != playerRequest.get(gameNumber)) {
-                message = "requestedTalonSelection " + playerRequest.get(gameNumber) + ";";
-                listOfClients.get(i).write(message);
-                log(message, i);
+                message = new StringBuilder("requestedTalonSelection " + playerRequest.get(gameNumber) + ";");
+                listOfClients.get(i).write(message.toString());
+                log(message.toString(), i);
             }
         }
         while(!talonSelected)
         {
-            message = "requestTalonSelection;";
-            listOfCommands = listOfClients.get(playerRequest.get(gameNumber)).write(message);
-            log(message, playerRequest.get(gameNumber));
+            message = new StringBuilder("requestTalonSelection;");
+            listOfCommands = listOfClients.get(playerRequest.get(gameNumber)).write(message.toString());
+            log(message.toString(), playerRequest.get(gameNumber));
             logReceived(listOfCommands, playerRequest.get(gameNumber));
             listOfObjects = DataManipulationService.processCommand(listOfCommands.get(0));
             if (listOfObjects.get(0).equals("talonSelection"))
@@ -183,8 +185,10 @@ public class GameSessionService extends Thread{
                 if (listOfObjects.get(1).equals("next")) {
                     for(int k=0;k<2;k++)
                     {
-                        if (cardsSeparated.get(gameNumber).get(4).get(talonPart.get(gameNumber)*2+k) == 30+pope.get(gameNumber)*8)
+                        if (cardsSeparated.get(gameNumber).get(4).get(talonPart.get(gameNumber) * 2 + k) == 30 + pope.get(gameNumber) * 8) {
                             showTeamsAfterTalonSelection = true;
+                            break;
+                        }
                     }
                     talonPart.set(gameNumber, talonPart.get(gameNumber) + 1);
                     the1of2.set(gameNumber, the1of2.get(gameNumber) + 1);
@@ -198,16 +202,16 @@ public class GameSessionService extends Thread{
                 {
                     if (i != playerRequest.get(gameNumber))
                     {
-                        message = "respondedTalonSelection " + listOfObjects.get(1) + ";";
-                        listOfClients.get(i).write(message);
-                        log(message, i);
+                        message = new StringBuilder("respondedTalonSelection " + listOfObjects.get(1) + ";");
+                        listOfClients.get(i).write(message.toString());
+                        log(message.toString(), i);
                     }
                 }
             }
         }
-        message = "requestTalonReplacement;";
-        listOfCommands = listOfClients.get(playerRequest.get(gameNumber)).write(message);
-        log(message, playerRequest.get(gameNumber));
+        message = new StringBuilder("requestTalonReplacement;");
+        listOfCommands = listOfClients.get(playerRequest.get(gameNumber)).write(message.toString());
+        log(message.toString(), playerRequest.get(gameNumber));
         logReceived(listOfCommands, playerRequest.get(gameNumber));
         listOfObjects = DataManipulationService.processCommand(listOfCommands.get(0));
         if (listOfObjects.get(0).equals("talonReplacement"))
@@ -238,22 +242,22 @@ public class GameSessionService extends Thread{
             computeTeams();
             if (showTeamsAfterTalonSelection)
                 sendTeams();
-            message = "cards";
+            message = new StringBuilder("cards");
             for(int j=0;j<12;j++)
-                message = message + " " + String.valueOf(cardsSeparated.get(gameNumber).get(playerRequest.get(gameNumber)).get(j));
-            message = message + ";";
-            listOfClients.get(playerRequest.get(gameNumber)).write(message);
-            log(message, playerRequest.get(gameNumber));
+                message.append(" ").append(cardsSeparated.get(gameNumber).get(playerRequest.get(gameNumber)).get(j));
+            message.append(";");
+            listOfClients.get(playerRequest.get(gameNumber)).write(message.toString());
+            log(message.toString(), playerRequest.get(gameNumber));
         }
         for(int i=0;i<4;i++)
         {
-            message = "closeTalonWindow";
+            message = new StringBuilder("closeTalonWindow");
             if (i == playerRequest.get(gameNumber))
-                message += " select;";
+                message.append(" select;");
             else
-                message += " show;";
-            listOfClients.get(i).write(message);
-            log(message, i);
+                message.append(" show;");
+            listOfClients.get(i).write(message.toString());
+            log(message.toString(), i);
         }
     }
 
@@ -274,7 +278,7 @@ public class GameSessionService extends Thread{
         listOfObjects = DataManipulationService.processCommand(listOfCommands.get(0));
         if (listOfObjects.get(0).equals("pope"))
         {
-            int pope = Integer.valueOf(listOfObjects.get(1));
+            int pope = Integer.parseInt(listOfObjects.get(1));
             Declaration declaration = new Declaration(false, false, false, false, 0);
             declaration.setPope(pope);
             declaration.setThe1of2(the1of2.get(gameNumber));
@@ -297,7 +301,7 @@ public class GameSessionService extends Thread{
             listOfClients.get(i).write(message);
             log(message, i);
         }
-        Main.statusForm.addToStatusTextArea(declarations.toString());
+        StatusForm.addToStatusTextArea(declarations.toString());
     }
 
     public void requestDeclaration(int player) throws IOException, ClassNotFoundException {
@@ -326,7 +330,7 @@ public class GameSessionService extends Thread{
             boolean pagatAtFinish = DataManipulationService.stringToBool(listOfObjects.get(2));
             boolean allPopes = DataManipulationService.stringToBool(listOfObjects.get(3));
             boolean trull = DataManipulationService.stringToBool(listOfObjects.get(4));
-            int numberOfTarocks = Integer.valueOf(listOfObjects.get(5));
+            int numberOfTarocks = Integer.parseInt(listOfObjects.get(5));
             declaration = new Declaration(popeAtFinish, pagatAtFinish, allPopes, trull, numberOfTarocks);
             if (player == playerRequest.get(gameNumber))
             {
@@ -351,7 +355,7 @@ public class GameSessionService extends Thread{
             listOfClients.get(i).write(message);
             log(message, i);
         }
-        Main.statusForm.addToStatusTextArea(declarations.toString());
+        StatusForm.addToStatusTextArea(declarations.toString());
     }
 
     public void requestPlayerMode(int player) throws IOException, ClassNotFoundException {
@@ -395,7 +399,7 @@ public class GameSessionService extends Thread{
         if (listOfObjects.get(0).equals("playerMode"))
         {
             playersStatus.get(gameNumber).set(player, listOfObjects.get(1));
-            Main.statusForm.addToStatusTextArea("ListOfObjects.get(1) = " + listOfObjects.get(1));
+            StatusForm.addToStatusTextArea("ListOfObjects.get(1) = " + listOfObjects.get(1));
             if (listOfObjects.get(1).equals("1/2"))
             {
                 message = "increased1of2;";
@@ -407,21 +411,21 @@ public class GameSessionService extends Thread{
                 }
             }
         }
-        Main.statusForm.addToStatusTextArea(playersStatus.toString());
+        StatusForm.addToStatusTextArea(playersStatus.toString());
     }
 
     public void doHand(int hand) throws IOException, ClassNotFoundException {
         List<String> listOfCommands;
         List<String> listOfObjects;
-        int firstRequest = -1;
+        int firstRequest;
         if (hand == 0)
             firstRequest = (gameNumber+offsetGameNumber)%4;
         else
             firstRequest = rounds.get(gameNumber).get(hand - 1).getPlayerThatWon();
-        Round round = new Round(hand, firstRequest);
+        Round round = new Round(firstRequest);
 
         int lastRequest = firstRequest + 4;
-        String message = "";
+        String message;
 
         for(int i=0;i<4;i++)
         {
@@ -445,7 +449,7 @@ public class GameSessionService extends Thread{
             int cardGiven = -1;
             if (listOfObjects.get(0).equals("card"))
             {
-                cardGiven = Integer.valueOf(listOfObjects.get(1));
+                cardGiven = Integer.parseInt(listOfObjects.get(1));
                 round.addCard(i%4, cardGiven);
             }
             for(int j=0;j<4;j++)
@@ -464,8 +468,10 @@ public class GameSessionService extends Thread{
         int team = 1;
         for (int i=0;i<teams.get(gameNumber).get(0).size();i++)
         {
-            if (playerThatWon == teams.get(gameNumber).get(0).get(i))
+            if (playerThatWon == teams.get(gameNumber).get(0).get(i)) {
                 team = 0;
+                break;
+            }
         }
         for(int i=0;i<4;i++)
         {
@@ -481,32 +487,32 @@ public class GameSessionService extends Thread{
     }
 
     public void doRounds() throws IOException, ClassNotFoundException {
-        String message;
+        StringBuilder message;
         for(int i=0;i<12;i++)
         {
             doHand(i);
         }
         for(int i=0;i<4;i++)
         {
-            message = "showScoreWindow;";
-            listOfClients.get(i).write(message);
-            log(message, i);
+            message = new StringBuilder("showScoreWindow;");
+            listOfClients.get(i).write(message.toString());
+            log(message.toString(), i);
         }
 
         Collections.sort(cardsWon.get(gameNumber).get(0));
         Collections.sort(cardsWon.get(gameNumber).get(1));
 
-        message = "cardsTeam1";
+        message = new StringBuilder("cardsTeam1");
         for(int j=0;j<cardsWon.get(gameNumber).get(0).size();j++)
-            message += " " + cardsWon.get(gameNumber).get(0).get(j);
-        message += ";cardsTeam2";
+            message.append(" ").append(cardsWon.get(gameNumber).get(0).get(j));
+        message.append(";cardsTeam2");
         for(int j=0;j<cardsWon.get(gameNumber).get(1).size();j++)
-            message += " " + cardsWon.get(gameNumber).get(1).get(j);
-        message += ";";
+            message.append(" ").append(cardsWon.get(gameNumber).get(1).get(j));
+        message.append(";");
         for(int i=0;i<4;i++)
         {
-            listOfClients.get(i).write(message);
-            log(message, i);
+            listOfClients.get(i).write(message.toString());
+            log(message.toString(), i);
         }
         boolean isRadler = false;
         if (radlerTimes > 0)
@@ -534,24 +540,24 @@ public class GameSessionService extends Thread{
         scores.add(score);
         for(int i=0;i<4;i++)
         {
-            message = "score";
+            message = new StringBuilder("score");
             for(int j=0;j<4;j++)
             {
-                message += " " + game.getScorePlayer(j);
+                message.append(" ").append(game.getScorePlayer(j));
             }
-            message += " " + DataManipulationService.processName(game.getDeclaration()) + " ";
-            message += DataManipulationService.boolToString(isRadler) + ";";
-            listOfClients.get(i).write(message);
-            log(message, i);
+            message.append(" ").append(DataManipulationService.processName(game.getDeclaration())).append(" ");
+            message.append(DataManipulationService.boolToString(isRadler)).append(";");
+            listOfClients.get(i).write(message.toString());
+            log(message.toString(), i);
         }
         for(int i=0;i<4;i++)
         {
-            message = "scoreDetailed ";
-            message += score.toString();
-            message += " " + DataManipulationService.processName(score.getTeamThatWon());
-            message += ";";
-            listOfClients.get(i).write(message);
-            log(message, i);
+            message = new StringBuilder("scoreDetailed ");
+            message.append(score.toString());
+            message.append(" ").append(DataManipulationService.processName(score.getTeamThatWon()));
+            message.append(";");
+            listOfClients.get(i).write(message.toString());
+            log(message.toString(), i);
         }
         runHelper();
     }
@@ -562,20 +568,20 @@ public class GameSessionService extends Thread{
         gameNumber++;
         showTeamsAfterTalonSelection = false;
         popeInTalon = false;
-        playersStatus.add(new ArrayList<String>());
-        cards.add(new ArrayList<Integer>());
-        cardsSeparated.add(new ArrayList<List<Integer>>());
-        declarations.add(new ArrayList<Declaration>());
-        teams.add(new ArrayList<List<Integer>>());
-        rounds.add(new ArrayList<Round>());
-        cardsWon.add(new ArrayList<List<Integer>>());
+        playersStatus.add(new ArrayList<>());
+        cards.add(new ArrayList<>());
+        cardsSeparated.add(new ArrayList<>());
+        declarations.add(new ArrayList<>());
+        teams.add(new ArrayList<>());
+        rounds.add(new ArrayList<>());
+        cardsWon.add(new ArrayList<>());
         pope.add(-1);
         talonPart.add(-1);
         playerRequest.add(-1);
         the1of2.add(1);
         for(int i=0;i<2;i++) {
-            teams.get(gameNumber).add(new ArrayList<Integer>());
-            cardsWon.get(gameNumber).add(new ArrayList<Integer>());
+            teams.get(gameNumber).add(new ArrayList<>());
+            cardsWon.get(gameNumber).add(new ArrayList<>());
         }
         for(int i=0;i<4;i++) {
             playersStatus.get(gameNumber).add("");
@@ -586,7 +592,7 @@ public class GameSessionService extends Thread{
         Collections.shuffle(cards.get(gameNumber));
 
         for(int i=0;i<5;i++)
-            cardsSeparated.get(gameNumber).add(new ArrayList<Integer>());
+            cardsSeparated.get(gameNumber).add(new ArrayList<>());
         for(int i=0;i<4;i++)
         {
             for(int j=0;j<12;j++)
@@ -605,24 +611,24 @@ public class GameSessionService extends Thread{
         }
 
         // finished initialization
-        String message;
+        StringBuilder message;
         int firstRequest = (gameNumber+offsetGameNumber)%4;
         int lastRequest = firstRequest + 4;
 
         for(int i=0;i<4;i++)
         {
-            message = "beginGame;";
-            listOfClients.get(i).write(message);
-            log(message, i);
+            message = new StringBuilder("beginGame;");
+            listOfClients.get(i).write(message.toString());
+            log(message.toString(), i);
         }
         for(int i=0;i<4;i++)
         {
-            message = "cards";
+            message = new StringBuilder("cards");
             for(int j=0;j<12;j++)
-                message = message + " " + String.valueOf(cardsSeparated.get(gameNumber).get(i).get(j));
-            message = message + ";";
-            listOfClients.get(i).write(message);
-            log(message, i);
+                message.append(" ").append(cardsSeparated.get(gameNumber).get(i).get(j));
+            message.append(";");
+            listOfClients.get(i).write(message.toString());
+            log(message.toString(), i);
         }
         for(int i=firstRequest;i<lastRequest;i++)
             requestPlayerMode(i%4);
@@ -658,9 +664,9 @@ public class GameSessionService extends Thread{
         talonPart.set(gameNumber, (the1of2.get(gameNumber) - 1) % 3);
         for(int i=0;i<4;i++)
         {
-            message = "playerRequest " + playerRequest.get(gameNumber) + " " + the1of2.get(gameNumber) + ";";
-            listOfClients.get(i).write(message);
-            log(message, i);
+            message = new StringBuilder("playerRequest " + playerRequest.get(gameNumber) + " " + the1of2.get(gameNumber) + ";");
+            listOfClients.get(i).write(message.toString());
+            log(message.toString(), i);
         }
 
         requestPope();
@@ -677,21 +683,21 @@ public class GameSessionService extends Thread{
         }
         for(int i=0;i<4;i++)
         {
-            message = "clearDeclarationTurn;";
-            listOfClients.get(i).write(message);
-            log(message, i);
+            message = new StringBuilder("clearDeclarationTurn;");
+            listOfClients.get(i).write(message.toString());
+            log(message.toString(), i);
         }
 
         declarations.get(gameNumber).get(playerRequest1).setThe1of2(the1of2.get(gameNumber));
         for(int j=0;j<4;j++)
         {
-            message = "respondedDeclaration " + playerRequest.get(gameNumber) +
+            message = new StringBuilder("respondedDeclaration " + playerRequest.get(gameNumber) +
                     " " + DataManipulationService.processName(declarations
                     .get(gameNumber).get(playerRequest.get(gameNumber)).toString()) +
                     " " + declarations.get(gameNumber).get(playerRequest.get(gameNumber))
-                    .toSendableObject() + ";";
-            listOfClients.get(j).write(message);
-            log(message, j);
+                    .toSendableObject() + ";");
+            listOfClients.get(j).write(message.toString());
+            log(message.toString(), j);
         }
         doRounds();
     }

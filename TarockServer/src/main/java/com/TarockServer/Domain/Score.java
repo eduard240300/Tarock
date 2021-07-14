@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Score {
-    private List<ScoreAttribute> attributes;
+    private final List<ScoreAttribute> attributes;
     boolean isRadler = false;
     private String teamThatWon;
 
     public Score(){
-        attributes = new ArrayList<ScoreAttribute>();
+        attributes = new ArrayList<>();
         attributes.add(new ScoreAttribute(0, "Game", "", 2));
         attributes.add(new ScoreAttribute(1, "Pope at finish", "No", 0));
         attributes.add(new ScoreAttribute(2, "Pagat at finish", "No", 0));
@@ -28,18 +28,18 @@ public class Score {
 
     public String toString()
     {
-        String string = "";
+        StringBuilder string = new StringBuilder();
         for(int i=0;i<12;i++)
         {
-            if (!string.equals(""))
-                string += " ";
-            string += DataManipulationService.processName(getAttributeByID(i).getDeclaredOrDone());
+            if (!string.toString().equals(""))
+                string.append(" ");
+            string.append(DataManipulationService.processName(getAttributeByID(i).getDeclaredOrDone()));
         }
         for(int i=0;i<12;i++)
         {
-            string += " " + String.valueOf(getAttributeByID(i).getPoints());
+            string.append(" ").append(getAttributeByID(i).getPoints());
         }
-        return string;
+        return string.toString();
     }
 
     public void setRadler(boolean isRadler)
@@ -66,11 +66,9 @@ public class Score {
 
     public ScoreAttribute getAttributeByID(int ID)
     {
-        for(int i=0;i<attributes.size();i++)
-        {
-            if (attributes.get(i).getID() == ID)
-            {
-                return attributes.get(i);
+        for (ScoreAttribute attribute : attributes) {
+            if (attribute.getID() == ID) {
+                return attribute;
             }
         }
         return null;
@@ -78,26 +76,12 @@ public class Score {
 
     public ScoreAttribute getAttribute(String name)
     {
-        for(int i=0;i<attributes.size();i++)
-        {
-            if (attributes.get(i).getAttributeName().equals(name))
-            {
-                return attributes.get(i);
+        for (ScoreAttribute attribute : attributes) {
+            if (attribute.getAttributeName().equals(name)) {
+                return attribute;
             }
         }
         return null;
-    }
-
-    public void setAttribute(String name, String declaredOrDone, int points)
-    {
-        for(int i=0;i<attributes.size();i++)
-        {
-            if (attributes.get(i).getAttributeName().equals(name))
-            {
-                attributes.get(i).setDeclaredOrDone(declaredOrDone);
-                attributes.get(i).setPoints(points);
-            }
-        }
     }
 
     public String getTeamThatWon()

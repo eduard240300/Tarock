@@ -1,7 +1,7 @@
 package com.TarockServer.Domain;
 
 public class Triple<K, V1, V2> {
-    private K key;
+    private final K key;
     private V1 value1;
     private V2 value2;
 
@@ -12,10 +12,6 @@ public class Triple<K, V1, V2> {
 
     public K getKey() {
         return key;
-    }
-
-    public void setKey(K key) {
-        this.key = key;
     }
 
     public V1 getValue1() {

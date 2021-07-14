@@ -42,70 +42,70 @@ if(!isset($_COOKIE["username"]))
                         <td><a href="logout.php">Logout</a></td>
                     </tr>
                 </table>
-        </div>
-        <br />
-        <h1 align="center" style="font-size:5vw;">Downloads Page</h1>
-        <center><h1>
-        <style type="text/css">
-            td {
-                padding: 10px 10px 10px 10px;
-                align: center;
-            }
-        </style>
-        <table align="center" border="1px">
-            <thead>
-                <tr>
-                    <td><center>Nr</center></td>
-                    <td><center>Name</center></td>
-                    <td><center>Ver.</center></td>
-                    <td><center>Operating System</center></td>
-                    <td><center></center></td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><center>1</center></td>
-                    <td><center>Tarock Client</center></td>
-                    <td><center>1.0</center></td>
-                    <td><center>Windows 10 x64</center></td>
-                    <td><center><form method="get" action="../releases/windows/Tarock-Client-Setup.exe">
-                        <button type="submit"><h1>Download</h1></button>
-                        </form></center>
-                    </td>
-                </tr>
-                <tr>
-                    <td><center>2</center></td>
-                    <td><center>Tarock Client</center></td>
-                    <td><center>1.0</center></td>
-                    <td><center>Ubuntu 20.04 amd64</center></td>
-                    <td><center><form method="get" action="../releases/linux/tarock-client_1.0-1_amd64.deb">
-                        <button type="submit"><h1>Download</h1></button>
-                        </form></center>
-                    </td>
-                </tr>
-                <tr>
-                    <td><center>3</center></td>
-                    <td><center>Tarock Server</center></td>
-                    <td><center>1.0</center></td>
-                    <td><center>Windows 10 x64</center></td>
-                    <td><center><form method="get" action="../releases/windows/Tarock-Server-Setup.exe">
-                        <button type="submit"><h1>Download</h1></button>
-                        </form></center>
-                    </td>
-                </tr>
-                <tr>
-                    <td><center>4</center></td>
-                    <td><center>Tarock Server</center></td>
-                    <td><center>1.0</center></td>
-                    <td><center>Ubuntu 20.04 amd64</center></td>
-                    <td><center><form method="get" action="../releases/linux/tarock-server_1.0-1_amd64.deb">
-                        <button type="submit"><h1>Download</h1></button>
-                        </form></center>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        </h1></center>
+            </div>
+            <br />
+            <h1 align="center" style="font-size:5vw;">Downloads Page</h1>
+            <center><h1>
+            <style type="text/css">
+                td {
+                    padding: 10px 10px 10px 10px;
+                    align: center;
+                }
+            </style>
+            <table align="center" border="1px">
+                <thead>
+                    <tr>
+                        <td><center>Nr</center></td>
+                        <td><center>Name</center></td>
+                        <td><center>Ver.</center></td>
+                        <td><center>Operating System</center></td>
+                        <td><center></center></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><center>1</center></td>
+                        <td><center>Tarock Client</center></td>
+                        <td><center>1.0</center></td>
+                        <td><center>Windows 10 x64</center></td>
+                        <td><center><form method="get" action="../releases/windows/Tarock-Client-Setup.exe">
+                            <button type="submit"><h1>Download</h1></button>
+                            </form></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><center>2</center></td>
+                        <td><center>Tarock Client</center></td>
+                        <td><center>1.0</center></td>
+                        <td><center>Ubuntu 20.04 amd64</center></td>
+                        <td><center><form method="get" action="../releases/linux/tarock-client_1.0-1_amd64.deb">
+                            <button type="submit"><h1>Download</h1></button>
+                            </form></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><center>3</center></td>
+                        <td><center>Tarock Server</center></td>
+                        <td><center>1.0</center></td>
+                        <td><center>Windows 10 x64</center></td>
+                        <td><center><form method="get" action="../releases/windows/Tarock-Server-Setup.exe">
+                            <button type="submit"><h1>Download</h1></button>
+                            </form></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><center>4</center></td>
+                        <td><center>Tarock Server</center></td>
+                        <td><center>1.0</center></td>
+                        <td><center>Ubuntu 20.04 amd64</center></td>
+                        <td><center><form method="get" action="../releases/linux/tarock-server_1.0-1_amd64.deb">
+                            <button type="submit"><h1>Download</h1></button>
+                            </form></center>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </h1></center>
         </div>
     </body>
 </html>

@@ -6,89 +6,66 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataManipulationService {
-    public static String truncateClassName(String className){
-        int i;
-        String result = "";
-        i = className.length()-1;
-        while(className.charAt(i) != '.')
-            i--;
-        int j;
-        for(j=i+1;j<className.length();j++)
-            result += className.charAt(j);
-        return result;
-    }
-
     public static String processName(String name){
-        String newName = "";
+        StringBuilder newName = new StringBuilder();
         int i;
         for(i=0;i<name.length();i++)
         {
             if (name.charAt(i) == ' ')
-                newName += '_';
+                newName.append('_');
             else
-                newName += name.charAt(i);
+                newName.append(name.charAt(i));
         }
-        return newName;
-    }
-
-    public static boolean containsChar(String input, char charInput)
-    {
-        int i;
-        for(i=0;i<input.length();i++) {
-            if (input.charAt(i) == charInput) {
-                return true;
-            }
-        }
-        return false;
+        return newName.toString();
     }
 
     public static List<String> processMessage(String message)
     {
-        List<String> listOfCommands = new ArrayList<String>();
+        List<String> listOfCommands = new ArrayList<>();
         int i;
-        String currentCommand = "";
+        StringBuilder currentCommand = new StringBuilder();
         for(i=0;i<message.length();i++)
         {
             if (message.charAt(i) == ';')
             {
-                listOfCommands.add(currentCommand);
-                currentCommand = "";
+                listOfCommands.add(currentCommand.toString());
+                currentCommand = new StringBuilder();
             }
-            else currentCommand = currentCommand + message.charAt(i);
+            else currentCommand.append(message.charAt(i));
         }
         return listOfCommands;
     }
 
     public static List<String> processCommand(String command) {
-        List<String> processedCommand = new ArrayList<String>();
-        String object = "";
+        List<String> processedCommand = new ArrayList<>();
+        StringBuilder object = new StringBuilder();
         int i;
         for (i = 0; i < command.length(); i++) {
             if (command.charAt(i) == ' ') {
-                processedCommand.add(object);
-                object = "";
+                processedCommand.add(object.toString());
+                object = new StringBuilder();
             } else {
-                object = object + command.charAt(i);
+                object.append(command.charAt(i));
             }
         }
-        if (object != "")
-            processedCommand.add(object);
+        if (!object.toString().equals(""))
+            processedCommand.add(object.toString());
         return processedCommand;
     }
 
     public static String getName(String name){
-        String newName = "";
+        StringBuilder newName = new StringBuilder();
         int i;
         for(i=0;i<name.length();i++)
         {
             if (name.charAt(i) == '_')
-                newName += ' ';
+                newName.append(' ');
             else if (name.charAt(i) == '.')
-                newName += ':';
+                newName.append(':');
             else
-                newName += name.charAt(i);
+                newName.append(name.charAt(i));
         }
-        return newName;
+        return newName.toString();
     }
 
     public static boolean stringToBool(String string)
@@ -102,7 +79,7 @@ public class DataManipulationService {
     public static String boolToString(boolean theBoolean)
     {
         String string = "1";
-        if (theBoolean == false)
+        if (!theBoolean)
             string = "0";
         return string;
     }
@@ -112,11 +89,11 @@ public class DataManipulationService {
         boolean isKey = true;
         boolean isInQuote = false;
 
-        StringBuilder message = new StringBuilder("");
+        StringBuilder message = new StringBuilder();
         String key = "";
         String value = "";
 
-        List<Pair<String, String>> output = new ArrayList<Pair<String, String>>();
+        List<Pair<String, String>> output = new ArrayList<>();
         for(int i=0;i<inputJSON.length();i++)
         {
             if (inputJSON.charAt(i) == '"')
@@ -128,7 +105,7 @@ public class DataManipulationService {
                         key = message.toString();
                     else
                         value = message.toString();
-                    message = new StringBuilder("");
+                    message = new StringBuilder();
                 }
             }
             else if (inputJSON.charAt(i) == ':')
@@ -138,7 +115,7 @@ public class DataManipulationService {
             else if (inputJSON.charAt(i) == ',')
             {
                 isKey = true;
-                Pair<String, String> pair = new Pair<String, String>(key, value);
+                Pair<String, String> pair = new Pair<>(key, value);
                 output.add(pair);
             }
             else if (isInQuote)
@@ -149,7 +126,7 @@ public class DataManipulationService {
                     message.append(inputJSON.charAt(i));
             }
         }
-        Pair<String, String> pair = new Pair<String, String>(key, value);
+        Pair<String, String> pair = new Pair<>(key, value);
         output.add(pair);
         return output;
     }
@@ -165,17 +142,17 @@ public class DataManipulationService {
     }
 
     public static String processDeclaration(String declaration){
-        String newName = "";
+        StringBuilder newName = new StringBuilder();
         int i;
         for(i=0;i<declaration.length();i++)
         {
             if (declaration.charAt(i) == ' ')
-                newName += '_';
+                newName.append('_');
             else if (declaration.charAt(i) == ',')
-                newName += '*';
+                newName.append('*');
             else
-                newName += declaration.charAt(i);
+                newName.append(declaration.charAt(i));
         }
-        return newName;
+        return newName.toString();
     }
 }

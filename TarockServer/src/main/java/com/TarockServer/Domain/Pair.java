@@ -1,7 +1,7 @@
 package com.TarockServer.Domain;
 
 public class Pair<K, V> {
-    private K key;
+    private final K key;
     private V value;
 
     public Pair(K key, V value)
@@ -12,10 +12,6 @@ public class Pair<K, V> {
 
     public K getKey() {
         return key;
-    }
-
-    public void setKey(K key) {
-        this.key = key;
     }
 
     public V getValue() {

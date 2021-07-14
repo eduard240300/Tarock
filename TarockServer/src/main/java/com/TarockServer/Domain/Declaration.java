@@ -8,7 +8,7 @@ public class Declaration {
     private boolean pagatAtFinish;
     private boolean allPopes;
     private boolean trull;
-    private int numberOfTarocks;
+    private final int numberOfTarocks;
     private int pope = -1;
 
     public Declaration(boolean popeAtFinish, boolean pagatAtFinish, boolean allPopes, boolean trull, int numberOfTarocks)
@@ -29,7 +29,7 @@ public class Declaration {
         result += DataManipulationService.boolToString(trull) + " ";
         result += String.valueOf(numberOfTarocks);
         if (pope != -1)
-            result += " " + String.valueOf(pope);
+            result += " " + pope;
         return result;
     }
 
@@ -47,35 +47,33 @@ public class Declaration {
             if (trull)
                 result += ", " + "AT";
             if (numberOfTarocks > 0)
-                result += ", " + String.valueOf(numberOfTarocks) + "T";
+                result += ", " + numberOfTarocks + "T";
         }
         else
         {
             if (popeAtFinish) {
-                if (result != "")
-                    result += ", ";
                 result += "PF";
             }
             if (pagatAtFinish) {
-                if (result != "")
+                if (!result.equals(""))
                     result += ", ";
                 result += "1F";
             }
             if (allPopes) {
-                if (result != "")
+                if (!result.equals(""))
                     result += ", ";
                 result += "AP";
             }
             if (trull) {
-                if (result != "")
+                if (!result.equals(""))
                     result += ", ";
                 result += "AT";
             }
             if (numberOfTarocks > 0)
             {
-                if (result != "")
+                if (!result.equals(""))
                     result += ", ";
-                result += String.valueOf(numberOfTarocks) + "T";
+                result += numberOfTarocks + "T";
             }
         }
         if (result.equals(""))
@@ -117,10 +115,6 @@ public class Declaration {
 
     public int getNumberOfTarocks() {
         return numberOfTarocks;
-    }
-
-    public void setNumberOfTarocks(int numberOfTarocks) {
-        this.numberOfTarocks = numberOfTarocks;
     }
 
     public int getPope() {

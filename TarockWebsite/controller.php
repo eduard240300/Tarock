@@ -131,11 +131,6 @@ class Controller
         return $this->model->closeSession($sessionID);
     }
 
-    public function addSessionDateEnded($dateEnded)
-    {
-        $this->model->addSessionDateEnded($dateEnded);
-    }
-
     public function getSession($sessionID) {
         return $this->model->getSession($sessionID);
     }

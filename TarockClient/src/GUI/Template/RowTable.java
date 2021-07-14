@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class RowTable extends JTable
 {
-    Map rowColor = new HashMap();
+    Map<Integer, Color> rowColor = new HashMap<>();
 
     public RowTable(TableModel model)
     {
@@ -23,7 +23,7 @@ public class RowTable extends JTable
 
         if (!isRowSelected(row))
         {
-            Color color = (Color) rowColor.get( row );
+            Color color = rowColor.get( row );
             c.setBackground(color == null ? getBackground() : color);
         }
 

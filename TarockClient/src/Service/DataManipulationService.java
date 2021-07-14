@@ -2,89 +2,64 @@ package Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DataManipulationService {
     public static String truncateClassName(String className){
         int i;
-        String result = "";
+        StringBuilder result = new StringBuilder();
         i = className.length()-1;
         while(className.charAt(i) != '.')
             i--;
         int j;
         for(j=i+1;j<className.length();j++)
-            result += className.charAt(j);
-        return result;
-    }
-
-    public static String processName(String name){
-        String newName = "";
-        int i;
-        for(i=0;i<name.length();i++)
-        {
-            if (name.charAt(i) == ' ')
-                newName += '_';
-            else
-                newName += name.charAt(i);
-        }
-        return newName;
+            result.append(className.charAt(j));
+        return result.toString();
     }
 
     public static String getName(String name){
-        String newName = "";
+        StringBuilder newName = new StringBuilder();
         int i;
         for(i=0;i<name.length();i++)
         {
             if (name.charAt(i) == '_')
-                newName += ' ';
+                newName.append(' ');
             else
-                newName += name.charAt(i);
+                newName.append(name.charAt(i));
         }
-        return newName;
-    }
-
-    public static boolean containsChar(String input, char charInput)
-    {
-        int i;
-        for(i=0;i<input.length();i++) {
-            if (input.charAt(i) == charInput) {
-                return true;
-            }
-        }
-        return false;
+        return newName.toString();
     }
 
     public static List<String> processMessage(String message)
     {
-        List<String> listOfCommands = new ArrayList<String>();
+        List<String> listOfCommands = new ArrayList<>();
         int i;
-        String currentCommand = "";
+        StringBuilder currentCommand = new StringBuilder();
         for(i=0;i<message.length();i++)
         {
             if (message.charAt(i) == ';')
             {
-                listOfCommands.add(currentCommand);
-                currentCommand = "";
+                listOfCommands.add(currentCommand.toString());
+                currentCommand = new StringBuilder();
             }
-            else currentCommand = currentCommand + message.charAt(i);
+            else currentCommand.append(message.charAt(i));
         }
         return listOfCommands;
     }
 
     public static List<String> processCommand(String command) {
-        List<String> processedCommand = new ArrayList<String>();
-        String object = "";
+        List<String> processedCommand = new ArrayList<>();
+        StringBuilder object = new StringBuilder();
         int i;
         for (i = 0; i < command.length(); i++) {
             if (command.charAt(i) == ' ') {
-                processedCommand.add(object);
-                object = "";
+                processedCommand.add(object.toString());
+                object = new StringBuilder();
             } else {
-                object = object + command.charAt(i);
+                object.append(command.charAt(i));
             }
         }
-        if (object != "")
-            processedCommand.add(object);
+        if (!object.toString().equals(""))
+            processedCommand.add(object.toString());
         return processedCommand;
     }
 
@@ -99,25 +74,8 @@ public class DataManipulationService {
     public static String boolToString(boolean theBoolean)
     {
         String string = "1";
-        if (theBoolean == false)
+        if (!theBoolean)
             string = "0";
         return string;
-    }
-
-    public static String[][] transformStringArray(List<List<String>> input)
-    {
-        String[][] nestedArray = input
-                // using the stream API
-                .stream()
-                // mapping each `List`...
-                .map(
-                        // ... to a resulting array
-                        (l) -> l.toArray(new String[l.size()])
-                )
-                // collecting as a List<String[]>
-                .collect(Collectors.toList())
-                // converting the resulting List<String[]> to a String[][]
-                .toArray(new String[input.size()][]);
-        return nestedArray;
     }
 }

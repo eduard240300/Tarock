@@ -5,101 +5,87 @@ import GUI.Main;
 import Repository.Repository;
 import Service.CommunicationService;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Objects;
 
 public class ControllerGameForm {
 
     public ControllerGameForm(){
-        GameForm.submitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (GameForm.typeOfActivation == "Declaration")
-                {
-                    boolean popeAtFinish = Main.gameForm.popeAtFinishCheckBox.isSelected();
-                    boolean pagatAtFinish = Main.gameForm.pagatAtFinishCheckBox.isSelected();
-                    boolean allPopes = Main.gameForm.allPopesCheckBox.isSelected();
-                    boolean trull = Main.gameForm.trullCheckBox.isSelected();
-                    int numberOfTarocks = 0;
-                    String numberOfTarocksString = Main.gameForm.numberOfTarocksComboBox.getSelectedItem().toString();
-                    if (!numberOfTarocksString.equals("No"))
-                        numberOfTarocks = Integer.parseInt(numberOfTarocksString);
+        GameForm.submitButton.addActionListener(e -> {
+            if (GameForm.typeOfActivation.equals("Declaration"))
+            {
+                boolean popeAtFinish = GameForm.popeAtFinishCheckBox.isSelected();
+                boolean pagatAtFinish = GameForm.pagatAtFinishCheckBox.isSelected();
+                boolean allPopes = GameForm.allPopesCheckBox.isSelected();
+                boolean trull = GameForm.trullCheckBox.isSelected();
+                int numberOfTarocks = 0;
+                String numberOfTarocksString = Objects.requireNonNull(GameForm.numberOfTarocksComboBox.getSelectedItem()).toString();
+                if (!numberOfTarocksString.equals("No"))
+                    numberOfTarocks = Integer.parseInt(numberOfTarocksString);
 
-                    String message = "";
-                    if ((popeAtFinish) && (!Repository.hasChosenPope()))
-                        message += "You don't have the requested pope ! ";
-                    if ((pagatAtFinish) && (!Repository.hasPagat()))
-                        message += "You don't have the pagat ! ";
-                    if (Repository.getNumberOfTarocks() < numberOfTarocks)
-                        message += "You don't have " + numberOfTarocksString + " tarocks !";
-                    if (message.equals(""))
-                    {
-                        Declaration declaration = new Declaration(popeAtFinish, pagatAtFinish, allPopes, trull, numberOfTarocks);
-                        CommunicationService.declaration = declaration;
-                    }
-                    else
-                    {
-                        GameForm.popUpMessage(message);
-                    }
+                String message = "";
+                if ((popeAtFinish) && (!Repository.hasChosenPope()))
+                    message += "You don't have the requested pope ! ";
+                if ((pagatAtFinish) && (!Repository.hasPagat()))
+                    message += "You don't have the pagat ! ";
+                if (Repository.getNumberOfTarocks() < numberOfTarocks)
+                    message += "You don't have " + numberOfTarocksString + " tarocks !";
+                if (message.equals(""))
+                {
+                    CommunicationService.declaration = new Declaration(popeAtFinish, pagatAtFinish, allPopes, trull, numberOfTarocks);
                 }
-                else if (GameForm.typeOfActivation == "Pope")
+                else
                 {
-                    int pope = -1;
-                    if (Main.gameForm.heartRadio.isSelected())
-                        pope = 0;
-                    else if (Main.gameForm.diamondRadio.isSelected())
-                        pope = 1;
-                    else if (Main.gameForm.clubRadio.isSelected())
-                        pope = 2;
-                    else if (Main.gameForm.spadeRadio.isSelected())
-                        pope = 3;
-                    if (pope != -1)
-                        Repository.chosenPope = pope;
+                    GameForm.popUpMessage(message);
+                }
+            }
+            else if (GameForm.typeOfActivation.equals("Pope"))
+            {
+                int pope = -1;
+                if (GameForm.heartRadio.isSelected())
+                    pope = 0;
+                else if (GameForm.diamondRadio.isSelected())
+                    pope = 1;
+                else if (GameForm.clubRadio.isSelected())
+                    pope = 2;
+                else if (GameForm.spadeRadio.isSelected())
+                    pope = 3;
+                if (pope != -1)
+                    Repository.chosenPope = pope;
 
-                    String message = "";
-                    if ((Repository.isRequestPlayer) && (pope == -1))
-                        message += "You didn't select a pope !";
+                String message = "";
+                if ((Repository.isRequestPlayer) && (pope == -1))
+                    message += "You didn't select a pope !";
 
-                    if (message.equals(""))
-                    {
-                        CommunicationService.pope = pope;
-                    }
-                    else
-                    {
-                        GameForm.popUpMessage(message);
-                    }
+                if (message.equals(""))
+                {
+                    CommunicationService.pope = pope;
+                }
+                else
+                {
+                    GameForm.popUpMessage(message);
                 }
             }
         });
-        GameForm.the1of2Button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CommunicationService.playerMode = "1/2";
-                Main.gameForm.the1of2Button.setEnabled(false);
-                Main.gameForm.passButton.setEnabled(false);
-                Main.gameForm.cancelGameButton.setEnabled(false);
-            }
+        GameForm.the1of2Button.addActionListener(e -> {
+            CommunicationService.playerMode = "1/2";
+            GameForm.the1of2Button.setEnabled(false);
+            GameForm.passButton.setEnabled(false);
+            GameForm.cancelGameButton.setEnabled(false);
         });
-        GameForm.passButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CommunicationService.playerMode = "pass";
-                Main.gameForm.the1of2Button.setEnabled(false);
-                Main.gameForm.passButton.setEnabled(false);
-                Main.gameForm.cancelGameButton.setEnabled(false);
-            }
+        GameForm.passButton.addActionListener(e -> {
+            CommunicationService.playerMode = "pass";
+            GameForm.the1of2Button.setEnabled(false);
+            GameForm.passButton.setEnabled(false);
+            GameForm.cancelGameButton.setEnabled(false);
         });
-        GameForm.cancelGameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (Repository.canCancelGame())
-                {
-                    CommunicationService.playerMode = "cancel";
-                    Main.gameForm.the1of2Button.setEnabled(false);
-                    Main.gameForm.passButton.setEnabled(false);
-                    Main.gameForm.cancelGameButton.setEnabled(false);
-                }
+        GameForm.cancelGameButton.addActionListener(e -> {
+            if (Repository.canCancelGame())
+            {
+                CommunicationService.playerMode = "cancel";
+                GameForm.the1of2Button.setEnabled(false);
+                GameForm.passButton.setEnabled(false);
+                GameForm.cancelGameButton.setEnabled(false);
             }
         });
     }

@@ -2,7 +2,7 @@ package com.TarockServer.Service;
 
 import com.TarockServer.Domain.Session;
 import com.TarockServer.Domain.Triple;
-import com.TarockServer.Main;
+import com.TarockServer.GUI.StatusForm;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -16,16 +16,17 @@ public class CommunicationService extends Thread{
     public static List<Triple<String, ClientService, Session>> socketsList;
     public static List<GameSessionService> gameSessions;
 
-    public void createServer() throws IOException, ClassNotFoundException, InterruptedException {
+    public void createServer() throws IOException {
         server = new ServerSocket(port);
-        socketsList = new ArrayList<Triple<String, ClientService, Session>>();
-        gameSessions = new ArrayList<GameSessionService>();
+        socketsList = new ArrayList<>();
+        gameSessions = new ArrayList<>();
+        //noinspection InfiniteLoopStatement
         while (true) {
             Socket socket = server.accept();
             ClientService clientService = new ClientService(socket);
-            Main.statusForm.addToStatusTextArea("Accepted new user");
+            StatusForm.addToStatusTextArea("Accepted new user");
             clientService.start();
-            Main.statusForm.addToStatusTextArea("Started client socket");
+            StatusForm.addToStatusTextArea("Started client socket");
         }
     }
 

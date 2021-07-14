@@ -1,8 +1,8 @@
 package com.TarockServer.Domain;
 
 public class ScoreAttribute {
-    private int ID;
-    private String attributeName;
+    private final int ID;
+    private final String attributeName;
     private String declaredOrDone;
     private int points;
 
@@ -14,14 +14,8 @@ public class ScoreAttribute {
         this.points = points;
     }
 
-    public ScoreAttribute() {}
-
     public String getAttributeName() {
         return attributeName;
-    }
-
-    public void setAttributeName(String attributeName) {
-        this.attributeName = attributeName;
     }
 
     public String getDeclaredOrDone() {
@@ -42,9 +36,5 @@ public class ScoreAttribute {
 
     public int getID() {
         return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 }

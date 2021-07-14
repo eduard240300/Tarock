@@ -3,7 +3,6 @@ package com.TarockServer.Domain;
 public class Session {
     private int sessionID;
     private String creator;
-    private String dateCreated;
     private String dateClosed;
     private String player1;
     private String player2;
@@ -11,29 +10,6 @@ public class Session {
     private String player4;
 
     public Session() {}
-
-    public Session(int sessionID, String creator, String dateCreated, String dateEnded, String player1, String player2, String player3, String player4)
-    {
-        this.sessionID = sessionID;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.dateClosed = dateEnded;
-        this.player1 = player1;
-        this.player2 = player2;
-        this.player3 = player3;
-        this.player4 = player4;
-    }
-
-    public Session(String creator, String dateCreated, String player1, String player2, String player3, String player4)
-    {
-        this.creator = creator;
-        this.dateClosed = dateCreated;
-        this.player1 = player1;
-        this.player2 = player2;
-        this.player3 = player3;
-        this.player4 = player4;
-    }
-
 
     public int getSessionID() {
         return sessionID;
@@ -49,14 +25,6 @@ public class Session {
 
     public void setCreator(String creator) {
         this.creator = creator;
-    }
-
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
     }
 
     public String getDateClosed() {

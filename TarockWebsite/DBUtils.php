@@ -31,9 +31,9 @@ class DBUtils {
 		WHERE Username = :username";
 		$statement = $this->pdo->prepare($query);
 		$statement->execute(
-		 array(
-		  'username' => $username
-		 )
+			array(
+				'username' => $username
+			)
 		);
 		$count = $statement->rowCount();
 		return ($count == 1);
@@ -45,9 +45,9 @@ class DBUtils {
 		WHERE SessionID = :sessionID";
 		$statement = $this->pdo->prepare($query);
 		$statement->execute(
-		 array(
-		  'sessionID' => $sessionID
-		 )
+			array(
+				'sessionID' => $sessionID
+			)
 		);
 		$count = $statement->rowCount();
 		return ($count == 1);
@@ -59,10 +59,10 @@ class DBUtils {
 		WHERE Creator = :username AND SessionID = :sessionID";
 		$statement = $this->pdo->prepare($query);
 		$statement->execute(
-		 array(
-		  'sessionID' => $sessionID,
-		  'username' => $username
-		 )
+			array(
+				'sessionID' => $sessionID,
+				'username' => $username
+			)
 		);
 		$count = $statement->rowCount();
 		return ($count == 1);
@@ -74,10 +74,10 @@ class DBUtils {
 		WHERE SessionID = :sessionID AND DateClosed IS NOT NULL";
 		$statement = $this->pdo->prepare($query);
 		$statement->execute(
-		 array(
-		  'sessionID' => $sessionID
-		 )
-		 );
+			array(
+				'sessionID' => $sessionID
+			)
+		);
 		$count = $statement->rowCount();
 		return ($count == 1);
 	}
@@ -88,7 +88,7 @@ class DBUtils {
 		$statement = $this->pdo->prepare($query);
 		$statement->execute(
 			array(
-			 'username' => $username
+				'username' => $username
 			)
 		);
 		return $statement->fetchAll()[0];
@@ -101,19 +101,16 @@ class DBUtils {
 
 		$statement = $this->pdo->prepare($query);
 		return $statement->execute(array(
-				'name' => $name,
-				'username' => $username,
-				'password' => password_hash($password, PASSWORD_DEFAULT),
-				'email' => $email
+			'name' => $name,
+			'username' => $username,
+			'password' => password_hash($password, PASSWORD_DEFAULT),
+			'email' => $email
 		));
 	}
 
 	public function deleteUser($username)
 	{
-		echo "123";
-
 		$query = "DELETE FROM Users_Tarock WHERE Username = " . "'" . $username . "';";
-		echo $query;
 
 		$statement = $this->pdo->prepare($query);
 		return $statement->execute();
@@ -127,8 +124,8 @@ class DBUtils {
 
 		$statement = $this->pdo->prepare($query);
 		return $statement->execute(array(
-				'username' => $username,
-				'password' => password_hash($password, PASSWORD_DEFAULT)
+			'username' => $username,
+			'password' => password_hash($password, PASSWORD_DEFAULT)
 		));
 	}
 
@@ -144,12 +141,12 @@ class DBUtils {
 
 		$statement = $this->pdo->prepare($query);
 		return $statement->execute(array(
-				'creator' => $creator,
-				'dateCreated' => $dateCreatedString,
-				'player1' => $player1,
-				'player2' => $player2,
-				'player3' => $player3,
-				'player4' => $player4
+			'creator' => $creator,
+			'dateCreated' => $dateCreatedString,
+			'player1' => $player1,
+			'player2' => $player2,
+			'player3' => $player3,
+			'player4' => $player4
 		));
 	}
 
@@ -183,8 +180,8 @@ class DBUtils {
 
 		$statement = $this->pdo->prepare($query);
 		return $statement->execute(array(
-				'sessionID' => $sessionID,
-				'dateClosed' => $dateClosedString
+			'sessionID' => $sessionID,
+			'dateClosed' => $dateClosedString
 		));
 
 		return True;
@@ -197,7 +194,7 @@ class DBUtils {
 		$statement = $this->pdo->prepare($query);
 		$statement->execute(
 			array(
-			 'sessionID' => $sessionID
+				'sessionID' => $sessionID
 			)
 		);
 		
@@ -220,7 +217,7 @@ class DBUtils {
 		$statement = $this->pdo->prepare($query);
 		$statement->execute(
 			array(
-			 'username' => $username
+				'username' => $username
 			)
 		);
 		
@@ -233,7 +230,7 @@ class DBUtils {
 		$statement = $this->pdo->prepare($query);
 		$statement->execute(
 			array(
-			 'sessionID' => $sessionID
+				'sessionID' => $sessionID
 			)
 		);
 		

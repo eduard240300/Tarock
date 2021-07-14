@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 public class Main {
     public static StatusForm statusForm;
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
         statusForm = new StatusForm();
         statusForm.setIconImage(ImageIO.read(new FileInputStream("./Resources/icon.png")));
 

@@ -75,9 +75,9 @@ public class ScoreForm extends JFrame{
         teamThatWonLabel.setText("Team that won : " + teamThatWon);
     }
 
-    public ScoreForm() throws IOException {
-        team1Cards = new ArrayList<JImage>();
-        team2Cards = new ArrayList<JImage>();
+    public ScoreForm() {
+        team1Cards = new ArrayList<>();
+        team2Cards = new ArrayList<>();
 
         Font arialDefault = new Font("Arial", Font.BOLD, 16);
         Font arialBig = new Font("Arial", Font.BOLD, 19);
@@ -96,11 +96,11 @@ public class ScoreForm extends JFrame{
         add(team2Label);
 
         for(int i=0;i<6;i++) {
-            team1Cards.add(new JImage(0, 100, 175));
+            team1Cards.add(new JImage(0));
             team1Cards.get(i).setBounds(80 + 110 * i, 60, 100, 180);
             add(team1Cards.get(i));
 
-            team2Cards.add(new JImage(0, 100, 175));
+            team2Cards.add(new JImage(0));
             team2Cards.get(i).setBounds(80 + 110 * i, 300, 100, 180);
             add(team2Cards.get(i));
         }
@@ -174,9 +174,7 @@ public class ScoreForm extends JFrame{
         getContentPane().setBackground(new Color(78, 154, 6));
         setLocationRelativeTo(null);
         addWindowListener(new MyWindowListener());
-        //setVisible(true);
-        //updateCards();
 
-        ControllerScoreForm controllerScoreForm = new ControllerScoreForm();
+        new ControllerScoreForm();
     }
 }

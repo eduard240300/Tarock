@@ -11,7 +11,7 @@ public class MyWindowListener implements WindowListener {
         boolean canClose = true;
         String name = arg0.getWindow().getClass().toString();
         if (!name.equals("class GUI.ConnectionForm.ConnectionForm"))
-            canClose = canClose & !Main.connectionForm.isVisible();
+            canClose = !Main.connectionForm.isVisible();
         if (!name.equals("class GUI.GameForm.GameForm"))
             canClose = canClose & !Main.gameForm.isVisible();
         if (!name.equals("class GUI.ScoreForm.ScoreForm"))
