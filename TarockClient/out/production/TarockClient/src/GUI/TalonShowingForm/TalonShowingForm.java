@@ -6,7 +6,6 @@ import Repository.Repository;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class TalonShowingForm extends JFrame{
     public static JLabel talonLabel;
     public static List<List<JImage>> talonCards;
 
-    public void updateCards() throws IOException {
+    public void updateCards() {
         for(int i=0;i<3;i++)
         {
             Repository.talonPart = i;
@@ -23,7 +22,7 @@ public class TalonShowingForm extends JFrame{
         Repository.talonPart = -1;
     }
 
-    public void revealTalonPart() throws IOException {
+    public void revealTalonPart() {
         int talonPart = Repository.talonPart;
         for(int i=0;i<2;i++)
         {
@@ -31,12 +30,11 @@ public class TalonShowingForm extends JFrame{
         }
     }
 
-    public TalonShowingForm() throws IOException {
+    public TalonShowingForm() {
         talonCards = new ArrayList<>();
         for(int i=0;i<3;i++)
-            talonCards.add(new ArrayList<JImage>());
+            talonCards.add(new ArrayList<>());
 
-        Font arialDefault = new Font("Arial", Font.BOLD, 16);
         Font arialBig = new Font("Arial", Font.BOLD, 19);
         setLayout(null);
 
@@ -50,7 +48,7 @@ public class TalonShowingForm extends JFrame{
         {
             for(int j=0;j<2;j++)
             {
-                talonCards.get(i).add(new JImage(0, 100, 175));
+                talonCards.get(i).add(new JImage(0));
                 talonCards.get(i).get(j).setBounds(40 + 110 * j + 260 * i, 60, 100, 180);
                 add(talonCards.get(i).get(j));
             }

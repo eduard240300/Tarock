@@ -166,8 +166,6 @@ public class CommunicationService extends Thread{
                     Main.gameForm.resetDeclarationSelection();
                     Main.gameForm.updatePreviousRoundWonByLabel("");
 
-                    ScoreForm.offset1 = 0;
-                    ScoreForm.offset2 = 0;
                     break;
                 case "cards":
                     Repository.cards.clear();
@@ -345,8 +343,11 @@ public class CommunicationService extends Thread{
                         Repository.cardsWon.get(1).add(Integer.valueOf(listOfObjects.get(j)));
                     }
 
-                    ScoreForm.previousTeam1Button.setEnabled(true);
-                    ScoreForm.previousTeam2Button.setEnabled(true);
+                    ScoreForm.previousTeam1Button.setEnabled(false);
+                    ScoreForm.previousTeam2Button.setEnabled(false);
+
+                    ScoreForm.offset1 = 0;
+                    ScoreForm.offset2 = 0;
 
                     ScoreForm.nextTeam1Button.setEnabled(Repository.cardsWon.get(0).size() > 6);
                     ScoreForm.nextTeam2Button.setEnabled(Repository.cardsWon.get(1).size() > 6);
@@ -362,7 +363,7 @@ public class CommunicationService extends Thread{
                     boolean isRadler = DataManipulationService.stringToBool(listOfObjects.get(6));
                     Main.gameForm.addToScoreTable(score1, score2, score3, score4, declaration);
                     if (isRadler) {
-                        GameForm.scoreTable.setRowColor(GameForm.scoreTable.getRowCount() - 1, Color.RED);
+                        GameForm.scoreTable.setRowColor(GameForm.scoreTable.getRowCount() - 1, new Color(168, 216, 231));
                     }
                     break;
                 case "scoreDetailed":

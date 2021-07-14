@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("InstantiationOfUtilityClass")
 public class TalonSelectionForm extends JFrame{
     public static JLabel talonLabel;
     public static CustomJButton takeButton;
@@ -28,13 +29,13 @@ public class TalonSelectionForm extends JFrame{
             playerCards.get(i).setCardID(0);
     }
 
-    public void updateTalonCards() throws IOException {
+    public void updateTalonCards() {
         int talonPart = Repository.talonPart;
         for(int i=0;i<2;i++)
             talonCards.get(i).setCardID(Repository.talon.get(talonPart*2+i));
     }
 
-    public void updateGivenCards() throws IOException {
+    public void updateGivenCards() {
         List<Integer> givenCardsRepo = Repository.givenCards;
         int size = givenCardsRepo.size();
         for(int i=0;i<size;i++)
@@ -47,16 +48,15 @@ public class TalonSelectionForm extends JFrame{
         }
     }
 
-    public void updateTalonLabel() throws IOException {
+    public void updateTalonLabel() {
         talonLabel.setText("Talon : " + Repository.the1of2 + "/2");
     }
 
     public TalonSelectionForm() throws IOException {
-        talonCards = new ArrayList<JImage>();
-        givenCards = new ArrayList<JImage>();
-        playerCards = new ArrayList<ClickableImage>();
+        talonCards = new ArrayList<>();
+        givenCards = new ArrayList<>();
+        playerCards = new ArrayList<>();
 
-        Font arialDefault = new Font("Arial", Font.BOLD, 16);
         Font arialBig = new Font("Arial", Font.BOLD, 19);
         setLayout(null);
 
@@ -79,17 +79,17 @@ public class TalonSelectionForm extends JFrame{
         add(myCardsLabel);
 
         for(int i=0;i<2;i++) {
-            talonCards.add(new JImage(0, 100, 175));
+            talonCards.add(new JImage(0));
             talonCards.get(i).setBounds(340 + 110 * i, 50, 100, 180);
             add(talonCards.get(i));
 
-            givenCards.add(new JImage(0, 100, 175));
+            givenCards.add(new JImage(0));
             givenCards.get(i).setBounds(1000 + 110 * i, 50, 100, 180);
             add(givenCards.get(i));
         }
 
         for(int i=0;i<14;i++) {
-            playerCards.add(new ClickableImage(0, "TalonSelectionForm",i, 100, 175));
+            playerCards.add(new ClickableImage(0, "TalonSelectionForm",i));
             playerCards.get(i).setBounds(10 + 110 * i, 280, 100, 180);
             add(playerCards.get(i));
         }
@@ -117,6 +117,6 @@ public class TalonSelectionForm extends JFrame{
         addWindowListener(new MyWindowListener());
         //setVisible(true);
 
-        ControllerTalonSelectionForm controllerTalonSelectionForm = new ControllerTalonSelectionForm();
+        new ControllerTalonSelectionForm();
     }
 }

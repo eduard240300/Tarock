@@ -44,11 +44,12 @@ public class CommunicationService extends Thread{
     public static boolean shouldCompleteRound = false;
     public static boolean connected = false;
 
+    @SuppressWarnings({"deprecation", "BusyWait"})
     public void runHelper () throws IOException, ClassNotFoundException, InterruptedException {
         //socket = new Socket("localhost", 9876);
         while(true) {
             try {
-                if (ipAddress != "") {
+                if (!ipAddress.equals("")) {
                     socket = new Socket(ipAddress, 9876);
                     connected = true;
                     System.out.println("Connected to " + ipAddress + ":9876 !");
@@ -89,337 +90,293 @@ public class CommunicationService extends Thread{
         }
     }
 
+    @SuppressWarnings("BusyWait")
     public void read() throws IOException, ClassNotFoundException, InterruptedException {
         String message = (String) inputStream.readObject();
         String sentMessage = "ok;";
         System.out.println(username + " Received : " + message);
         List<String> listOfCommands = DataManipulationService.processMessage(message);
-        for(int i=0;i<listOfCommands.size();i++)
-        {
-            List<String> listOfObjects = DataManipulationService.processCommand(listOfCommands.get(i));
-            if (listOfObjects.get(0).equals("require_auth")) {
-                while(user == null)
-                    Thread.sleep(1);
-                sentMessage = "auth " + user.getUsername() + " " + user.getPassword() + " " + sessionID + ";";
-                username = user.getUsername();
-                user = null;
-            } else if (listOfObjects.get(0).equals("failed_auth")) {
-                String errorMessage;
-                if (listOfObjects.get(1).equals("sessionIDEnded"))
-                    errorMessage = "Session already ended !";
-                else
-                    errorMessage = "Wrong " + listOfObjects.get(1) + " !";
-                ConnectionForm.popUpMessage(errorMessage);
-            } else if (listOfObjects.get(0).equals("successful_auth")) {
-                ControllerConnectionForm.finishLogin();
-            }
-            else if (listOfObjects.get(0).equals("players"))
-            {
-                for(int j=0;j<4;j++)
-                    Repository.players.set(j, DataManipulationService.getName(listOfObjects.get(j+1)));
-                Main.gameForm.resetPlayerNames();
-                Main.scoreForm.resetPlayerNames();
-            }
-            else if (listOfObjects.get(0).equals("chairNumber"))
-            {
-                Repository.chair = Integer.parseInt(listOfObjects.get(1));
-                Main.gameForm.updateChair();
-            }
-            else if (listOfObjects.get(0).equals("beginGame"))
-            {
-                playerMode = "";
-                declaration = null;
-                talonTakeDecision = "";
-                talonGiveDecision = "";
-                pope = -1;
-                cardGiven = -1;
-                canPopeAtFinish = true;
-                canPagatAtFinish = true;
-                canAllPopes = true;
-                canTrull = true;
-                round = 0;
-                shouldCompleteRound = false;
-
-                GameForm.the1of2 = 1;
-                GameForm.typeOfActivation = "";
-                GameForm.canGiveCard = false;
-                GameForm.the1of2Button.setEnabled(false);
-                GameForm.passButton.setEnabled(false);
-                GameForm.cancelGameButton.setEnabled(false);
-                GameForm.submitButton.setEnabled(false);
-                Repository.resetRepository();
-
-                TalonSelectionForm.nextButton.setEnabled(true);
-                TalonSelectionForm.takeButton.setEnabled(true);
-                TalonSelectionForm.giveButton.setEnabled(false);
-                Main.talonSelectionForm.updateGivenCards();
-                Main.talonShowingForm.updateCards();
-
-                Main.gameForm.resetCards();
-                Main.gameForm.resetPlayerNames();
-                Main.gameForm.updateCards();
-                Main.gameForm.reset1of2();
-                Main.gameForm.resetTeams();
-                Main.gameForm.updateNextStatus(-1, "Status");
-                Main.gameForm.updateNextStatus(-1, "Declaration");
-                Main.gameForm.resetDeclarationSelection();
-                Main.gameForm.updatePreviousRoundWonByLabel("");
-
-                ScoreForm.offset1 = 0;
-                ScoreForm.offset2 = 0;
-            }
-            else if (listOfObjects.get(0).equals("cards"))
-            {
-                Repository.cards.clear();
-                for(int j=0;j<12;j++)
-                    Repository.cards.add(Integer.parseInt(listOfObjects.get(j+1)));
-                Main.gameForm.updateCards();
-            }
-            else if (listOfObjects.get(0).equals("requestedPlayerMode"))
-            {
-                int requestedChair = Integer.parseInt(listOfObjects.get(1));
-                Main.gameForm.updateNextStatus(requestedChair, "Status");
-            }
-            else if (listOfObjects.get(0).equals("requestPlayerMode"))
-            {
-                Main.gameForm.the1of2Button.setEnabled(true);
-                Main.gameForm.passButton.setEnabled(true);
-                if (Repository.canCancelGame())
-                    Main.gameForm.cancelGameButton.setEnabled(true);
-                while (playerMode.equals(""))
-                    Thread.sleep(1);
-                sentMessage = "playerMode " + playerMode + ";";
-                playerMode = "";
-            }
-            else if (listOfObjects.get(0).equals("respondedPlayerMode"))
-            {
-                Repository.resetCardsWon();
-                Main.gameForm.changeStatusPlayer(Integer.parseInt(listOfObjects.get(1)), listOfObjects.get(2));
-            }
-            else if (listOfObjects.get(0).equals("increased1of2"))
-            {
-                Main.gameForm.increase1of2();
-            }
-            else if (listOfObjects.get(0).equals("playerRequest"))
-            {
-                Main.gameForm.updateNextStatus(-1, "Status");
-                Repository.playerRequest = Integer.parseInt(listOfObjects.get(1));
-                if (Repository.playerRequest == Repository.chair)
-                    Repository.isRequestPlayer = true;
-                Repository.the1of2 = Integer.parseInt(listOfObjects.get(2));
-            }
-            else if (listOfObjects.get(0).equals("requestedDeclaration"))
-            {
-                int requestedChair = Integer.parseInt(listOfObjects.get(1));
-                Main.gameForm.updateNextStatus(requestedChair, "Declaration");
-            }
-            else if (listOfObjects.get(0).equals("requestDeclaration"))
-            {
-                Main.gameForm.resetDeclarationSelection();
-                Main.gameForm.switchDeclarationSelection(canPopeAtFinish, canPagatAtFinish, canAllPopes, canTrull, Repository.isRequestPlayer, true);
-                while (declaration == null)
-                    Thread.sleep(1);
-                sentMessage = "declaration " + declaration.toSendableObject() + ";";
-                declaration = null;
-                Main.gameForm.switchDeclarationSelection(canPopeAtFinish, canPagatAtFinish, canAllPopes, canTrull, Repository.isRequestPlayer, false);
-            }
-            else if (listOfObjects.get(0).equals("respondedDeclaration"))
-            {
-                Main.gameForm.changeDeclarationPlayer(Integer.parseInt(listOfObjects.get(1)), DataManipulationService.getName(listOfObjects.get(2)));
-                boolean popeAtFinish = DataManipulationService.stringToBool(listOfObjects.get(3));
-                boolean pagatAtFinish = DataManipulationService.stringToBool(listOfObjects.get(4));
-                boolean allPopes = DataManipulationService.stringToBool(listOfObjects.get(5));
-                boolean trull = DataManipulationService.stringToBool(listOfObjects.get(6));
-                if (Integer.parseInt(listOfObjects.get(1)) == Repository.playerRequest)
-                {
-                    int pope = Integer.parseInt(listOfObjects.get(8));
-                    Repository.chosenPope = pope;
-                }
-                if (popeAtFinish)
-                    canPopeAtFinish = false;
-                if (pagatAtFinish)
-                    canPagatAtFinish = false;
-                if (allPopes)
-                    canAllPopes = false;
-                if (trull)
-                    canTrull = false;
-            }
-            else if (listOfObjects.get(0).equals("team1"))
-            {
-                for(int j=1;j<listOfObjects.size();j++)
-                {
-                    Repository.teams.get(0).add(Integer.parseInt(listOfObjects.get(j)));
-                }
-            }
-            else if (listOfObjects.get(0).equals("team2"))
-            {
-                for(int j=1;j<listOfObjects.size();j++)
-                {
-                    Repository.teams.get(1).add(Integer.parseInt(listOfObjects.get(j)));
-                }
-                Main.gameForm.showTeams();
-            }
-            else if (listOfObjects.get(0).equals("clearDeclarationTurn"))
-            {
-                Main.gameForm.updateNextStatus(-1, "Declaration");
-            }
-            else if (listOfObjects.get(0).equals("talon"))
-            {
-                for(int j=0;j<6;j++)
-                    Repository.talon.set(j, Integer.parseInt(listOfObjects.get(j+1)));
-            }
-            else if (listOfObjects.get(0).equals("requestedTalonSelection"))
-            {
-                Repository.talonPart = (Repository.the1of2-1)%3;
-                Main.talonShowingForm.setVisible(true);
-            }
-            else if (listOfObjects.get(0).equals("requestTalonSelection"))
-            {
-                if (Repository.talonPart == -1)
-                    Repository.talonPart = (Repository.the1of2-1)%3;
-                if (!Main.talonSelectionForm.isVisible()) {
-                    Main.talonSelectionForm.setVisible(true);
-                    Main.talonSelectionForm.updateCards();
-                }
-                Main.talonSelectionForm.updateTalonCards();
-                Main.talonSelectionForm.updateTalonLabel();
-                while (talonTakeDecision.equals(""))
-                    Thread.sleep(1);
-                sentMessage = "talonSelection ";
-                sentMessage += talonTakeDecision + ";";
-                talonTakeDecision = "";
-            }
-            else if (listOfObjects.get(0).equals("respondedTalonSelection"))
-            {
-                if (listOfObjects.get(1).equals("next"))
-                {
-                    Main.talonShowingForm.revealTalonPart();
-                    Repository.talonPart = Repository.talonPart + 1;
-                    Repository.talonPart = Repository.talonPart % 3;
-                    Repository.the1of2++;
-                }
-            }
-            else if (listOfObjects.get(0).equals("requestTalonReplacement"))
-            {
-                while (talonGiveDecision.equals(""))
-                    Thread.sleep(1);
-                sentMessage = "talonReplacement";
-                sentMessage += talonGiveDecision + ";";
-                talonGiveDecision = "";
-            }
-            else if (listOfObjects.get(0).equals("closeTalonWindow"))
-            {
-                if (listOfObjects.get(1).equals("show"))
-                    Main.talonShowingForm.setVisible(false);
-                else if (listOfObjects.get(1).equals("select"))
-                    Main.talonSelectionForm.setVisible(false);
-            }
-            else if (listOfObjects.get(0).equals("requestPope"))
-            {
-                Main.gameForm.switchPopeSelection(true);
-                while (pope == -1)
-                    Thread.sleep(1);
-                sentMessage = "pope " + pope + ";";
-                pope = -1;
-                Main.gameForm.switchPopeSelection(false);
-            }
-            else if (listOfObjects.get(0).equals("beginRound"))
-            {
-                shouldCompleteRound = true;
-                Repository.round = round;
-            }
-            else if (listOfObjects.get(0).equals("requestedCard"))
-            {
-                int requestedChair = Integer.parseInt(listOfObjects.get(1));
-                Main.gameForm.updateNextStatus(requestedChair, "Status");
-            }
-            else if (listOfObjects.get(0).equals("requestCard"))
-            {
-                GameForm.canGiveCard = true;
-                while (cardGiven == -1)
-                    Thread.sleep(1);
-                GameForm.canGiveCard = false;
-                sentMessage = "card " + cardGiven + ";";
-                cardGiven = -1;
-            }
-            else if (listOfObjects.get(0).equals("respondedCard"))
-            {
-                int player = Integer.parseInt(listOfObjects.get(1));
-                if (shouldCompleteRound)
-                {
+        for (String listOfCommand : listOfCommands) {
+            List<String> listOfObjects = DataManipulationService.processCommand(listOfCommand);
+            switch (listOfObjects.get(0)) {
+                case "require_auth":
+                    while (user == null)
+                        Thread.sleep(1);
+                    sentMessage = "auth " + user.getUsername() + " " + user.getPassword() + " " + sessionID + ";";
+                    username = user.getUsername();
+                    user = null;
+                    break;
+                case "failed_auth":
+                    String errorMessage;
+                    if (listOfObjects.get(1).equals("sessionIDEnded"))
+                        errorMessage = "Session already ended !";
+                    else
+                        errorMessage = "Wrong " + listOfObjects.get(1) + " !";
+                    ConnectionForm.popUpMessage(errorMessage);
+                    break;
+                case "successful_auth":
+                    ControllerConnectionForm.finishLogin();
+                    break;
+                case "players":
+                    for (int j = 0; j < 4; j++)
+                        Repository.players.set(j, DataManipulationService.getName(listOfObjects.get(j + 1)));
+                    Main.gameForm.resetPlayerNames();
+                    ScoreForm.resetPlayerNames();
+                    break;
+                case "chairNumber":
+                    Repository.chair = Integer.parseInt(listOfObjects.get(1));
+                    Main.gameForm.updateChair();
+                    break;
+                case "beginGame":
+                    playerMode = "";
+                    declaration = null;
+                    talonTakeDecision = "";
+                    talonGiveDecision = "";
+                    pope = -1;
+                    cardGiven = -1;
+                    canPopeAtFinish = true;
+                    canPagatAtFinish = true;
+                    canAllPopes = true;
+                    canTrull = true;
+                    round = 0;
                     shouldCompleteRound = false;
-                    Repository.rounds.add(new Round(round, player));
+
+                    GameForm.the1of2 = 1;
+                    GameForm.typeOfActivation = "";
+                    GameForm.canGiveCard = false;
+                    GameForm.the1of2Button.setEnabled(false);
+                    GameForm.passButton.setEnabled(false);
+                    GameForm.cancelGameButton.setEnabled(false);
+                    GameForm.submitButton.setEnabled(false);
+                    Repository.resetRepository();
+
+                    TalonSelectionForm.nextButton.setEnabled(true);
+                    TalonSelectionForm.takeButton.setEnabled(true);
+                    TalonSelectionForm.giveButton.setEnabled(false);
+                    Main.talonSelectionForm.updateGivenCards();
+                    Main.talonShowingForm.updateCards();
+
                     Main.gameForm.resetCards();
-                }
-                int cardID = Integer.parseInt(listOfObjects.get(2));
+                    Main.gameForm.resetPlayerNames();
+                    Main.gameForm.updateCards();
+                    Main.gameForm.reset1of2();
+                    Main.gameForm.resetTeams();
+                    Main.gameForm.updateNextStatus(-1, "Status");
+                    Main.gameForm.updateNextStatus(-1, "Declaration");
+                    Main.gameForm.resetDeclarationSelection();
+                    Main.gameForm.updatePreviousRoundWonByLabel("");
 
-                Repository.rounds.get(round).addCard(player, cardID);
-                Main.gameForm.updateCard(player, cardID);
-            }
-            else if (listOfObjects.get(0).equals("roundFinished"))
-            {
-                round++;
-                int playerThatWon = Repository.rounds.get(round-1).getPlayerThatWon();
-                Main.gameForm.updatePreviousRoundWonByLabel(Repository.players.get(playerThatWon));
-            }
-            else if (listOfObjects.get(0).equals("showScoreWindow"))
-            {
-                Main.scoreForm.setVisible(true);
-            }
-            else if (listOfObjects.get(0).equals("cardsTeam1"))
-            {
-                for(int j=1;j<listOfObjects.size();j++)
-                {
-                    Repository.cardsWon.get(0).add(Integer.valueOf(listOfObjects.get(j)));
+                    break;
+                case "cards":
+                    Repository.cards.clear();
+                    for (int j = 0; j < 12; j++)
+                        Repository.cards.add(Integer.parseInt(listOfObjects.get(j + 1)));
+                    Main.gameForm.updateCards();
+                    break;
+                case "requestedPlayerMode":
+                case "requestedCard": {
+                    int requestedChair = Integer.parseInt(listOfObjects.get(1));
+                    Main.gameForm.updateNextStatus(requestedChair, "Status");
+                    break;
                 }
-            }
-            else if (listOfObjects.get(0).equals("cardsTeam2"))
-            {
-                for(int j=1;j<listOfObjects.size();j++)
-                {
-                    Repository.cardsWon.get(1).add(Integer.valueOf(listOfObjects.get(j)));
+                case "requestPlayerMode":
+                    GameForm.the1of2Button.setEnabled(true);
+                    GameForm.passButton.setEnabled(true);
+                    if (Repository.canCancelGame())
+                        GameForm.cancelGameButton.setEnabled(true);
+                    while (playerMode.equals(""))
+                        Thread.sleep(1);
+                    sentMessage = "playerMode " + playerMode + ";";
+                    playerMode = "";
+                    break;
+                case "respondedPlayerMode":
+                    Repository.resetCardsWon();
+                    Main.gameForm.changeStatusPlayer(Integer.parseInt(listOfObjects.get(1)), listOfObjects.get(2));
+                    break;
+                case "increased1of2":
+                    Main.gameForm.increase1of2();
+                    break;
+                case "playerRequest":
+                    Main.gameForm.updateNextStatus(-1, "Status");
+                    Repository.playerRequest = Integer.parseInt(listOfObjects.get(1));
+                    if (Repository.playerRequest == Repository.chair)
+                        Repository.isRequestPlayer = true;
+                    Repository.the1of2 = Integer.parseInt(listOfObjects.get(2));
+                    break;
+                case "requestedDeclaration": {
+                    int requestedChair = Integer.parseInt(listOfObjects.get(1));
+                    Main.gameForm.updateNextStatus(requestedChair, "Declaration");
+                    break;
                 }
+                case "requestDeclaration":
+                    Main.gameForm.resetDeclarationSelection();
+                    Main.gameForm.switchDeclarationSelection(canPopeAtFinish, canPagatAtFinish, canAllPopes, canTrull, true);
+                    while (declaration == null)
+                        Thread.sleep(1);
+                    sentMessage = "declaration " + declaration.toSendableObject() + ";";
+                    declaration = null;
+                    Main.gameForm.switchDeclarationSelection(canPopeAtFinish, canPagatAtFinish, canAllPopes, canTrull, false);
+                    break;
+                case "respondedDeclaration":
+                    Main.gameForm.changeDeclarationPlayer(Integer.parseInt(listOfObjects.get(1)), DataManipulationService.getName(listOfObjects.get(2)));
+                    boolean popeAtFinish = DataManipulationService.stringToBool(listOfObjects.get(3));
+                    boolean pagatAtFinish = DataManipulationService.stringToBool(listOfObjects.get(4));
+                    boolean allPopes = DataManipulationService.stringToBool(listOfObjects.get(5));
+                    boolean trull = DataManipulationService.stringToBool(listOfObjects.get(6));
+                    if (Integer.parseInt(listOfObjects.get(1)) == Repository.playerRequest) {
+                        Repository.chosenPope = Integer.parseInt(listOfObjects.get(8));
+                    }
+                    if (popeAtFinish)
+                        canPopeAtFinish = false;
+                    if (pagatAtFinish)
+                        canPagatAtFinish = false;
+                    if (allPopes)
+                        canAllPopes = false;
+                    if (trull)
+                        canTrull = false;
+                    break;
+                case "team1":
+                    for (int j = 1; j < listOfObjects.size(); j++) {
+                        Repository.teams.get(0).add(Integer.parseInt(listOfObjects.get(j)));
+                    }
+                    break;
+                case "team2":
+                    for (int j = 1; j < listOfObjects.size(); j++) {
+                        Repository.teams.get(1).add(Integer.parseInt(listOfObjects.get(j)));
+                    }
+                    Main.gameForm.showTeams();
+                    break;
+                case "clearDeclarationTurn":
+                    Main.gameForm.updateNextStatus(-1, "Declaration");
+                    break;
+                case "talon":
+                    for (int j = 0; j < 6; j++)
+                        Repository.talon.set(j, Integer.parseInt(listOfObjects.get(j + 1)));
+                    break;
+                case "requestedTalonSelection":
+                    Repository.talonPart = (Repository.the1of2 - 1) % 3;
+                    Main.talonShowingForm.setVisible(true);
+                    break;
+                case "requestTalonSelection":
+                    if (Repository.talonPart == -1)
+                        Repository.talonPart = (Repository.the1of2 - 1) % 3;
+                    if (!Main.talonSelectionForm.isVisible()) {
+                        Main.talonSelectionForm.setVisible(true);
+                        Main.talonSelectionForm.updateCards();
+                    }
+                    Main.talonSelectionForm.updateTalonCards();
+                    Main.talonSelectionForm.updateTalonLabel();
+                    while (talonTakeDecision.equals(""))
+                        Thread.sleep(1);
+                    sentMessage = "talonSelection ";
+                    sentMessage += talonTakeDecision + ";";
+                    talonTakeDecision = "";
+                    break;
+                case "respondedTalonSelection":
+                    if (listOfObjects.get(1).equals("next")) {
+                        Main.talonShowingForm.revealTalonPart();
+                        Repository.talonPart = Repository.talonPart + 1;
+                        Repository.talonPart = Repository.talonPart % 3;
+                        Repository.the1of2++;
+                    }
+                    break;
+                case "requestTalonReplacement":
+                    while (talonGiveDecision.equals(""))
+                        Thread.sleep(1);
+                    sentMessage = "talonReplacement";
+                    sentMessage += talonGiveDecision + ";";
+                    talonGiveDecision = "";
+                    break;
+                case "closeTalonWindow":
+                    if (listOfObjects.get(1).equals("show"))
+                        Main.talonShowingForm.setVisible(false);
+                    else if (listOfObjects.get(1).equals("select"))
+                        Main.talonSelectionForm.setVisible(false);
+                    break;
+                case "requestPope":
+                    Main.gameForm.switchPopeSelection(true);
+                    while (pope == -1)
+                        Thread.sleep(1);
+                    sentMessage = "pope " + pope + ";";
+                    pope = -1;
+                    Main.gameForm.switchPopeSelection(false);
+                    break;
+                case "beginRound":
+                    shouldCompleteRound = true;
+                    Repository.round = round;
+                    break;
+                case "requestCard":
+                    GameForm.canGiveCard = true;
+                    while (cardGiven == -1)
+                        Thread.sleep(1);
+                    GameForm.canGiveCard = false;
+                    sentMessage = "card " + cardGiven + ";";
+                    cardGiven = -1;
+                    break;
+                case "respondedCard":
+                    int player = Integer.parseInt(listOfObjects.get(1));
+                    if (shouldCompleteRound) {
+                        shouldCompleteRound = false;
+                        Repository.rounds.add(new Round(player));
+                        Main.gameForm.resetCards();
+                    }
+                    int cardID = Integer.parseInt(listOfObjects.get(2));
 
-                ScoreForm.previousTeam1Button.setEnabled(true);
-                ScoreForm.previousTeam2Button.setEnabled(true);
+                    Repository.rounds.get(round).addCard(player, cardID);
+                    Main.gameForm.updateCard(player, cardID);
+                    break;
+                case "roundFinished":
+                    round++;
+                    int playerThatWon = Repository.rounds.get(round - 1).getPlayerThatWon();
+                    Main.gameForm.updatePreviousRoundWonByLabel(Repository.players.get(playerThatWon));
+                    break;
+                case "showScoreWindow":
+                    Main.scoreForm.setVisible(true);
+                    break;
+                case "cardsTeam1":
+                    for (int j = 1; j < listOfObjects.size(); j++) {
+                        Repository.cardsWon.get(0).add(Integer.valueOf(listOfObjects.get(j)));
+                    }
+                    break;
+                case "cardsTeam2":
+                    for (int j = 1; j < listOfObjects.size(); j++) {
+                        Repository.cardsWon.get(1).add(Integer.valueOf(listOfObjects.get(j)));
+                    }
 
-                if (Repository.cardsWon.get(0).size() <= 6)
-                    ScoreForm.nextTeam1Button.setEnabled(false);
-                else
-                    ScoreForm.nextTeam1Button.setEnabled(true);
-                if (Repository.cardsWon.get(1).size() <= 6)
-                    ScoreForm.nextTeam2Button.setEnabled(false);
-                else
-                    ScoreForm.nextTeam2Button.setEnabled(true);
+                    ScoreForm.previousTeam1Button.setEnabled(false);
+                    ScoreForm.previousTeam2Button.setEnabled(false);
 
-                ScoreForm.updateCards();
-            }
-            else if (listOfObjects.get(0).equals("score"))
-            {
-                int score1 = Integer.parseInt(listOfObjects.get(1));
-                int score2 = Integer.parseInt(listOfObjects.get(2));
-                int score3 = Integer.parseInt(listOfObjects.get(3));
-                int score4 = Integer.parseInt(listOfObjects.get(4));
-                String declaration = DataManipulationService.getName(listOfObjects.get(5));
-                boolean isRadler = DataManipulationService.stringToBool(listOfObjects.get(6));
-                Main.gameForm.addToScoreTable(score1, score2, score3, score4, declaration);
-                if (isRadler)
-                {
-                    GameForm.scoreTable.setRowColor(GameForm.scoreTable.getRowCount()-1, Color.RED);
-                }
-            }
-            else if (listOfObjects.get(0).equals("scoreDetailed"))
-            {
-                List<String> declaredOrDone = new ArrayList<String>();
-                List<Integer> points = new ArrayList<Integer>();
-                for(int j=1;j<13;j++)
-                {
-                    declaredOrDone.add(DataManipulationService.getName(listOfObjects.get(j)));
-                    points.add(Integer.parseInt(listOfObjects.get(j+12)));
-                }
-                String teamThatWon = DataManipulationService.getName(listOfObjects.get(25));
-                ScoreForm.updateTeamThatWon(teamThatWon);
-                ScoreForm.updateTable(declaredOrDone, points);
+                    ScoreForm.offset1 = 0;
+                    ScoreForm.offset2 = 0;
+
+                    ScoreForm.nextTeam1Button.setEnabled(Repository.cardsWon.get(0).size() > 6);
+                    ScoreForm.nextTeam2Button.setEnabled(Repository.cardsWon.get(1).size() > 6);
+
+                    ScoreForm.updateCards();
+                    break;
+                case "score":
+                    int score1 = Integer.parseInt(listOfObjects.get(1));
+                    int score2 = Integer.parseInt(listOfObjects.get(2));
+                    int score3 = Integer.parseInt(listOfObjects.get(3));
+                    int score4 = Integer.parseInt(listOfObjects.get(4));
+                    String declaration = DataManipulationService.getName(listOfObjects.get(5));
+                    boolean isRadler = DataManipulationService.stringToBool(listOfObjects.get(6));
+                    Main.gameForm.addToScoreTable(score1, score2, score3, score4, declaration);
+                    if (isRadler) {
+                        GameForm.scoreTable.setRowColor(GameForm.scoreTable.getRowCount() - 1, new Color(168, 216, 231));
+                    }
+                    break;
+                case "scoreDetailed":
+                    List<String> declaredOrDone = new ArrayList<>();
+                    List<Integer> points = new ArrayList<>();
+                    for (int j = 1; j < 13; j++) {
+                        declaredOrDone.add(DataManipulationService.getName(listOfObjects.get(j)));
+                        points.add(Integer.parseInt(listOfObjects.get(j + 12)));
+                    }
+                    String teamThatWon = DataManipulationService.getName(listOfObjects.get(25));
+                    ScoreForm.updateTeamThatWon(teamThatWon);
+                    ScoreForm.updateTable(declaredOrDone, points);
+                    break;
             }
         }
         System.out.println(username + " Sent : " + sentMessage);

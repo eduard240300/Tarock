@@ -2,19 +2,3 @@ Bugs:
 
 Solo
 Modifica culoarea rosie scor radler
-
-Resolved : 
-Trebuie adunate la scorul prezent scorurile precedente. (Resolved)
-Trebuie create in server doua entitati List<Score>, List<Game> (Resolved)
-Sunt dezactivate butoanele la selectie talon (Resolved)
-Trebuie resetate cartile talon show (Resolved)
-Trebuie puse in site restrictie de 10 caractere la Username. (Resolved)
-La Declaration "T1() T2()" trebuie pus semnul la popa (Resolved)
-Butonul OK trebuie sa inchida Window-ul de Scor (Resolved)
-Culoarea la scor (Resolved)
-Trebuie memorate in DB game-urile. (Resolved)
-Imi apare declaratia de data trecuta la selectie (Resolved)
-add to games field radlerTimes(Resolved)
-LunaCaught error (Resolved)
-ScoreShowing reset offsets (Resolved)
-Valat este 8 puncte (Resolved)

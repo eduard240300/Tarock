@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Round {
-    private int roundID;
-    private int firstPlayer;
-    private List<Integer> cards;
+    private final int firstPlayer;
+    private final List<Integer> cards;
     private int playerThatWon = -1;
 
-    public Round(int roundID, int firstPlayer)
+    public Round(int firstPlayer)
     {
-        this.roundID = roundID;
         this.firstPlayer = firstPlayer;
-        cards = new ArrayList<Integer>();
+        cards = new ArrayList<>();
         for(int i=0;i<4;i++)
             cards.add(0);
     }
@@ -30,16 +28,12 @@ public class Round {
 
     public static boolean isTarock(int cardID)
     {
-        if ((cardID >= 1) && (cardID <= 22))
-            return true;
-        return false;
+        return (cardID >= 1) && (cardID <= 22);
     }
 
     public static boolean isType(int cardID, int type)
     {
-        if ((cardID >= 23+type*8) && (cardID <= 30+type*8))
-            return true;
-        return false;
+        return (cardID >= 23 + type * 8) && (cardID <= 30 + type * 8);
     }
 
     public static int getCardType(int cardID)

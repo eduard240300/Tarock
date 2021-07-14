@@ -4,6 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataManipulationService {
+    public static boolean containsSpaces(String message)
+    {
+        for(int i=0;i<message.length();i++)
+        {
+            if (message.charAt(i) == ' ')
+                return true;
+        }
+        return false;
+    }
+
     public static String truncateClassName(String className){
         int i;
         StringBuilder result = new StringBuilder();

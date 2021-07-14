@@ -11,8 +11,8 @@ public class ClickableImage extends JImage implements MouseListener {
     public int CardPosition;
     public String GUI;
 
-    public ClickableImage(int CardID, String GUI, int CardPosition, int width, int height) throws IOException {
-        super(CardID, width, height);
+    public ClickableImage(int CardID, String GUI, int CardPosition) {
+        super(CardID);
         super.addMouseListener(this);
         this.CardPosition = CardPosition;
         this.GUI = GUI;
@@ -21,14 +21,14 @@ public class ClickableImage extends JImage implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 2 && mouseEvent.getButton() == MouseEvent.BUTTON1) {
-            if (GUI == "GameForm") {
+            if (GUI.equals("GameForm")) {
                 try {
                     ControllerGameForm.pressedCard(CardPosition);
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }
             }
-            else if (GUI == "TalonSelectionForm") {
+            else if (GUI.equals("TalonSelectionForm")) {
                 try {
                     ControllerTalonSelectionForm.pressedCard(CardPosition);
                 } catch (IOException exception) {

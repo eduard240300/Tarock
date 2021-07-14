@@ -2,18 +2,15 @@ package GUI.Template;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 
 public class JImage extends JLabel {
     public int CardID;
-    private int width;
-    private int height;
 
-    public void setCardID(int CardID) throws IOException {
+    public void setCardID(int CardID) {
         this.CardID = CardID;
         String SID;
         if (this.CardID < 10)
-            SID = "0" + String.valueOf(this.CardID);
+            SID = "0" + this.CardID;
         else
             SID = String.valueOf(this.CardID);
         File inputFile = new File("./Resources/TarockCards/r" + SID + ".png");
@@ -21,11 +18,7 @@ public class JImage extends JLabel {
         setIcon(icon);
     }
 
-    public JImage(int CardID, int width, int height) throws IOException {
-        this.width = width;
-        this.height = height;
+    public JImage(int CardID) {
         setCardID(CardID);
     }
-
-    public JImage() {}
 }

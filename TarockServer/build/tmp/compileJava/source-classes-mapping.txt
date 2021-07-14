@@ -2,8 +2,8 @@ at/favre/lib/bytes/BytesFactory.java
  at.favre.lib.bytes.BytesFactory
 com/TarockServer/Exception/LoginException.java
  com.TarockServer.Exception.LoginException
-com/TarockServer/Exception/ValidationException.java
- com.TarockServer.Exception.ValidationException
+com/TarockServer/Domain/ScoreAttribute.java
+ com.TarockServer.Domain.ScoreAttribute
 at/favre/lib/crypto/bcrypt/IllegalBCryptFormatException.java
  at.favre.lib.crypto.bcrypt.IllegalBCryptFormatException
 at/favre/lib/bytes/Util.java
@@ -107,37 +107,35 @@ at/favre/lib/crypto/bcrypt/LongPasswordStrategy.java
  at.favre.lib.crypto.bcrypt.LongPasswordStrategy$Sha512DerivationStrategy
  at.favre.lib.crypto.bcrypt.LongPasswordStrategy$StrictMaxPasswordLengthStrategy
  at.favre.lib.crypto.bcrypt.LongPasswordStrategy$TruncateStrategy
-com/TarockServer/Service/CommunicationService.java
- com.TarockServer.Service.CommunicationService
-com/TarockServer/Service/GameSessionService.java
- com.TarockServer.Service.GameSessionService
+com/TarockServer/Domain/Game.java
+ com.TarockServer.Domain.Game
+com/TarockServer/Domain/Triple.java
+ com.TarockServer.Domain.Triple
 com/TarockServer/Domain/Round.java
  com.TarockServer.Domain.Round
-com/TarockServer/Main.java
- com.TarockServer.Main
-com/TarockServer/Service/ScoreService.java
- com.TarockServer.Service.ScoreService
+com/TarockServer/Domain/Pair.java
+ com.TarockServer.Domain.Pair
+com/TarockServer/Domain/Session.java
+ com.TarockServer.Domain.Session
 com/TarockServer/Service/ClientService.java
  com.TarockServer.Service.ClientService
 com/TarockServer/Domain/User.java
  com.TarockServer.Domain.User
-com/TarockServer/Domain/Pair.java
- com.TarockServer.Domain.Pair
 com/TarockServer/Domain/Score.java
  com.TarockServer.Domain.Score
-com/TarockServer/Domain/Triple.java
- com.TarockServer.Domain.Triple
 com/TarockServer/GUI/StatusForm.java
  com.TarockServer.GUI.StatusForm
 com/TarockServer/Service/DataManipulationService.java
  com.TarockServer.Service.DataManipulationService
-com/TarockServer/Domain/Game.java
- com.TarockServer.Domain.Game
+com/TarockServer/Service/CommunicationService.java
+ com.TarockServer.Service.CommunicationService
+com/TarockServer/Service/GameSessionService.java
+ com.TarockServer.Service.GameSessionService
 com/TarockServer/Domain/Declaration.java
  com.TarockServer.Domain.Declaration
-com/TarockServer/Domain/Session.java
- com.TarockServer.Domain.Session
-com/TarockServer/Domain/ScoreAttribute.java
- com.TarockServer.Domain.ScoreAttribute
+com/TarockServer/Main.java
+ com.TarockServer.Main
+com/TarockServer/Service/ScoreService.java
+ com.TarockServer.Service.ScoreService
 com/TarockServer/ConnectionManager/PHPConnection.java
  com.TarockServer.ConnectionManager.PHPConnection

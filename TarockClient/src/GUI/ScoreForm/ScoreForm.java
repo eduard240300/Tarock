@@ -40,11 +40,6 @@ public class ScoreForm extends JFrame{
     }
 
     public static void updateCards() throws IOException {
-        if (Repository.cardsWon.get(0).size() <= 6)
-            ScoreForm.nextTeam1Button.setEnabled(false);
-        if (Repository.cardsWon.get(1).size() <= 6)
-            ScoreForm.nextTeam2Button.setEnabled(false);
-
         for(int i=0;i<6;i++)
         {
             if ((i+offset1) < Repository.cardsWon.get(0).size())

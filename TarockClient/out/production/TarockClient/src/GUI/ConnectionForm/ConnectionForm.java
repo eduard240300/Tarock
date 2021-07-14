@@ -14,6 +14,7 @@ public class ConnectionForm extends JFrame{
     public static JPasswordField passwordField;
     public static JTextField sessionIDField;
     public static JTextField ipAddressField;
+    @SuppressWarnings("ClassEscapesDefinedScope")
     public static CustomJButton loginButton;
 
     public static void popUpMessage(String message)

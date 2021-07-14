@@ -78,8 +78,18 @@ public class ClientService extends Thread {
         return null;
     }
 
+    public void log(String message)
+    {
+        if ((message.charAt(0) == 'c') && (message.charAt(1) == 'a') & (message.charAt(2) == 'r'))
+        {
+            message = "sentCards;";
+        }
+        StatusForm.addToStatusTextArea("Sent (" + username + ") : " + message);
+    }
+
     @SuppressWarnings({"deprecation", "SuspiciousListRemoveInLoop"})
     public List<String> write(String sendMessage) throws IOException, ClassNotFoundException {
+        log(sendMessage);
         String message = "";
         try {
             outputStream.writeObject(sendMessage);
@@ -100,6 +110,8 @@ public class ClientService extends Thread {
             }
             Thread.currentThread().stop();
         }
+        if (!message.equals("ok;"))
+            StatusForm.addToStatusTextArea("Received (" + username + ") : " + message);
         return DataManipulationService.processMessage(message);
     }
 
@@ -133,14 +145,23 @@ public class ClientService extends Thread {
         playersUsername.add(player3.getUsername());
         playersUsername.add(player4.getUsername());
 
+        StringBuilder message = new StringBuilder("players");
+        for(int i=0;i<4;i++)
+        {
+            message.append(" ").append(players.get(i));
+        }
+        message.append(";");
+        write(message.toString());
+
         getClientInList(username).write("chairNumber " + getChairNumber(session, username) + ";");
-        StatusForm.addToStatusTextArea("Sent (" + username + ") : " + "chairNumber " + getChairNumber(session, username) + ";");
 
         boolean startGameSession = true;
 
         for(int i=0;i<4;i++)
         {
             if (getClientInList(playersUsername.get(i)) == null)
+                startGameSession = false;
+            if (getSessionInList(playersUsername.get(i)).getSessionID() != session.getSessionID())
                 startGameSession = false;
         }
 
