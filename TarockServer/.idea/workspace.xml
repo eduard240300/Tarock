@@ -9,103 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70d3e364-245f-4546-918d-810c193e89da" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../TarockClient/.idea/artifacts/TarockClient_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/.idea/artifacts/TarockClient_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/TarockClient.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/artifacts/TarockClient_jar/TarockClient.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/.idea/artifacts/TarockClient_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/.idea/artifacts/TarockClient_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Domain/Declaration.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Domain/Declaration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Domain/Round.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Domain/Round.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Domain/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Exception/DBException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Exception/LoginException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ConnectionForm/ConnectionForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ConnectionForm/ConnectionForm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ConnectionForm/ControllerConnectionForm$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ConnectionForm/ControllerConnectionForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ConnectionForm/ControllerConnectionForm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/ControllerGameForm$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/ControllerGameForm$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/ControllerGameForm$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/ControllerGameForm$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/ControllerGameForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/ControllerGameForm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/GameForm/GameForm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ScoreForm/ControllerScoreForm$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ScoreForm/ControllerScoreForm$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ScoreForm/ControllerScoreForm$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ScoreForm/ControllerScoreForm$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ScoreForm/ControllerScoreForm$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ScoreForm/ControllerScoreForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ScoreForm/ControllerScoreForm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ScoreForm/ScoreForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/ScoreForm/ScoreForm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonSelectionForm/ControllerTalonSelectionForm$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonSelectionForm/ControllerTalonSelectionForm$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonSelectionForm/ControllerTalonSelectionForm$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonSelectionForm/ControllerTalonSelectionForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonSelectionForm/ControllerTalonSelectionForm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonSelectionForm/TalonSelectionForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonSelectionForm/TalonSelectionForm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonShowingForm/TalonShowingForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/TalonShowingForm/TalonShowingForm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/Template/ClickableImage.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/Template/ClickableImage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/Template/JImage.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/Template/JImage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/Template/MyWindowListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/Template/MyWindowListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/Template/RowTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/GUI/Template/RowTable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Repository/Repository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Repository/Repository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Service/BCrypt.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Service/BCrypt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Service/CommunicationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Service/CommunicationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Service/DataManipulationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/Service/DataManipulationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Domain/Declaration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Domain/Declaration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Domain/Round.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Domain/Round.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Domain/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Exception/DBException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Exception/LoginException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ConnectionForm/ConnectionForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ConnectionForm/ConnectionForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ConnectionForm/ControllerConnectionForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ConnectionForm/ControllerConnectionForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/GameForm/ControllerGameForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/GameForm/ControllerGameForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/GameForm/GameForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/GameForm/GameForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ScoreForm/ControllerScoreForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ScoreForm/ControllerScoreForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ScoreForm/ScoreForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/ScoreForm/ScoreForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/TalonSelectionForm/ControllerTalonSelectionForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/TalonSelectionForm/ControllerTalonSelectionForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/TalonSelectionForm/TalonSelectionForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/TalonSelectionForm/TalonSelectionForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/TalonShowingForm/TalonShowingForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/TalonShowingForm/TalonShowingForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/Template/ClickableImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/Template/ClickableImage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/Template/JImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/Template/JImage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/Template/MyWindowListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/Template/MyWindowListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/Template/RowTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/GUI/Template/RowTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Repository/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Repository/Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Service/BCrypt.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Service/BCrypt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Service/CommunicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Service/CommunicationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Service/DataManipulationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/out/production/TarockClient/src/Service/DataManipulationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/GUI/ScoreForm/ScoreForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/GUI/ScoreForm/ScoreForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/Service/CommunicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/Service/CommunicationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/Service/DataManipulationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/Service/DataManipulationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TarockClient/src/Validator/UserValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TarockClient/src/Validator/UserValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/ConnectionManager/PHPConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/ConnectionManager/PHPConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Domain/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Exception/ValidationException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Service/ClientService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Service/ClientService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Service/DataManipulationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Service/DataManipulationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Service/GameSessionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Service/GameSessionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Service/ScoreService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/TarockServer/Service/ScoreService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/TarockServer_jar/TarockServer.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/TarockServer_jar/TarockServer.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/TarockServer/Service/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/TarockServer/Service/ClientService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/TarockServer/Service/GameSessionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/TarockServer/Service/GameSessionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../bugs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../bugs.txt" afterDir="false" />
-    </list>
+    <list default="true" id="70d3e364-245f-4546-918d-810c193e89da" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -218,7 +122,7 @@
       <workItem from="1625767838209" duration="4952000" />
       <workItem from="1625851582962" duration="632000" />
       <workItem from="1625852440819" duration="5700000" />
-      <workItem from="1626241593561" duration="9426000" />
+      <workItem from="1626241593561" duration="10081000" />
     </task>
     <servers />
   </component>
