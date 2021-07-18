@@ -161,7 +161,7 @@ public class ClientService extends Thread {
         {
             if (getClientInList(playersUsername.get(i)) == null)
                 startGameSession = false;
-            if (getSessionInList(playersUsername.get(i)).getSessionID() != session.getSessionID())
+            else if (getSessionInList(playersUsername.get(i)).getSessionID() != session.getSessionID())
                 startGameSession = false;
         }
 

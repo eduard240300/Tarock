@@ -1,4 +1,4 @@
 Bugs:
 
 Solo
-Modifica culoarea rosie scor radler
+Modifica culoarea rosie scor radler (Resolved)
