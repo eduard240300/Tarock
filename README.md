@@ -2,7 +2,7 @@
 
 This project aims to create an application formed of two parts:
 
-1. Server which is written in Java and runs Java Servlets for the Web part and uses Sockets for the Client Connection Part.
-2. Client which is written in Java and uses Sockets to connect to the Server.
+1. Server : written in Java. It connects to the website (tarock.ml) with an PHP Connection and relays the information to the Client.
+2. Client : written in Java. It connects to the server throw Java Port Communication and waits for the server to send certain commands and sends information back to the server when appropriate.
 
-Server Deployment Address : http://185.229.224.215/tarock/
+Server Deployment Address : http://tarock.ml
