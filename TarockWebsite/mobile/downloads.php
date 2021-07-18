@@ -17,7 +17,7 @@ if(!isset($_COOKIE["username"]))
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Download Page</title>
+        <title>Downloads Page</title>
         <link rel="icon" href="images/icon.png">
         <script src="../resources/jquery.min.js"></script>
         <link rel="stylesheet" href="../resources/bootstrap.min.css" />
