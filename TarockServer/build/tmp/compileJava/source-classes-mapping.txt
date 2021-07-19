@@ -2,16 +2,10 @@ at/favre/lib/bytes/BytesFactory.java
  at.favre.lib.bytes.BytesFactory
 com/TarockServer/Exception/LoginException.java
  com.TarockServer.Exception.LoginException
-com/TarockServer/ConnectionManager/PHPConnection.java
- com.TarockServer.ConnectionManager.PHPConnection
-at/favre/lib/bytes/Util.java
- at.favre.lib.bytes.Util
- at.favre.lib.bytes.Util$Byte
- at.favre.lib.bytes.Util$BytesIterator
- at.favre.lib.bytes.Util$Converter
- at.favre.lib.bytes.Util$File
- at.favre.lib.bytes.Util$Obj
- at.favre.lib.bytes.Util$Validation
+com/TarockServer/Service/CommunicationService.java
+ com.TarockServer.Service.CommunicationService
+com/TarockServer/Service/GameSessionService.java
+ com.TarockServer.Service.GameSessionService
 at/favre/lib/crypto/bcrypt/BCryptFormatter.java
  at.favre.lib.crypto.bcrypt.BCryptFormatter
  at.favre.lib.crypto.bcrypt.BCryptFormatter$Default
@@ -109,8 +103,8 @@ at/favre/lib/crypto/bcrypt/BCryptParser.java
  at.favre.lib.crypto.bcrypt.BCryptParser$Default
 at/favre/lib/crypto/bcrypt/IllegalBCryptFormatException.java
  at.favre.lib.crypto.bcrypt.IllegalBCryptFormatException
-com/TarockServer/Service/DataManipulationService.java
- com.TarockServer.Service.DataManipulationService
+com/TarockServer/Service/ClientService.java
+ com.TarockServer.Service.ClientService
 at/favre/lib/crypto/bcrypt/BCryptOpenBSDProtocol.java
  at.favre.lib.crypto.bcrypt.BCryptOpenBSDProtocol
 com/TarockServer/Exception/ConnectionException.java
@@ -133,9 +127,15 @@ com/TarockServer/Domain/Score.java
  com.TarockServer.Domain.Score
 com/TarockServer/GUI/StatusForm.java
  com.TarockServer.GUI.StatusForm
-com/TarockServer/Service/ClientService.java
- com.TarockServer.Service.ClientService
-com/TarockServer/Service/CommunicationService.java
- com.TarockServer.Service.CommunicationService
-com/TarockServer/Service/GameSessionService.java
- com.TarockServer.Service.GameSessionService
+com/TarockServer/Service/DataManipulationService.java
+ com.TarockServer.Service.DataManipulationService
+at/favre/lib/bytes/Util.java
+ at.favre.lib.bytes.Util
+ at.favre.lib.bytes.Util$Byte
+ at.favre.lib.bytes.Util$BytesIterator
+ at.favre.lib.bytes.Util$Converter
+ at.favre.lib.bytes.Util$File
+ at.favre.lib.bytes.Util$Obj
+ at.favre.lib.bytes.Util$Validation
+com/TarockServer/ConnectionManager/PHPConnection.java
+ com.TarockServer.ConnectionManager.PHPConnection
