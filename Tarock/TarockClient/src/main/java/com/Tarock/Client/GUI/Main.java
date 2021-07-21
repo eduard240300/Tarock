@@ -9,8 +9,6 @@ import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Client.Service.DataManipulationService;
 
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class Main {

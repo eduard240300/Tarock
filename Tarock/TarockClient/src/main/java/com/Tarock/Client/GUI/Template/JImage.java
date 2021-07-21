@@ -1,12 +1,9 @@
 package com.Tarock.Client.GUI.Template;
 
-import com.Tarock.Client.GUI.Main;
 import com.Tarock.Client.Service.DataManipulationService;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 public class JImage extends JLabel {
     public int CardID;

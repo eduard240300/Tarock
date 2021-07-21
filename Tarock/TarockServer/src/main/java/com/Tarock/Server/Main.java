@@ -4,10 +4,9 @@ import com.Tarock.Server.ConnectionManager.PHPConnection;
 import com.Tarock.Server.GUI.StatusForm;
 import com.Tarock.Server.Service.CommunicationService;
 import com.Tarock.Server.Service.DataManipulationService;
-import org.apache.commons.io.FileUtils;
 
 import javax.imageio.ImageIO;
-import java.io.*;
+import java.io.InputStream;
 
 public class Main {
     public static StatusForm statusForm;
