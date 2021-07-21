@@ -3,6 +3,8 @@ package com.Tarock.Client.Domain;
 import com.Tarock.Client.Service.DataManipulationService;
 
 public class Declaration {
+
+    //salut
     private final boolean popeAtFinish;
     private final boolean pagatAtFinish;
     private final boolean allPopes;
