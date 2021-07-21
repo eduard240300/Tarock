@@ -13,7 +13,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: rm -r /opt/lampp/htdocs/*
+        script: rm -r -f /opt/lampp/htdocs/*
 
     - name: copy file via ssh password
       uses: appleboy/scp-action@master
