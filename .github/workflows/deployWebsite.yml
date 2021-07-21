@@ -9,6 +9,7 @@ jobs:
     - name: Run a multi-line script
       run: |
         mkdir ../build
+        ls -R
         cp -TR ./TarockWebsite/* ../build
         tar -cvf deploy.tar ../build/
     
