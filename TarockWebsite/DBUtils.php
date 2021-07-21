@@ -6,7 +6,7 @@ class DBUtils {
 	private $host = '127.0.0.1';
 	private $db   = 'Tarock';
 	private $user = 'root';
-	private $pass = '';
+	private $pass = 'GameofThronesPhoenix24';
 	private $charset = 'utf8';	
 
 	private $pdo;
