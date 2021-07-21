@@ -9,18 +9,14 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: ls
-
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Archive TarockWebsite
         run: |
          mkdir ../build
          cp -TR ./TarockWebsite/ ../build
          tar -cvf deploy.tar ../build/
 
-      - name: executing remote ssh commands using password
+      - name: Delete old TarockWebsite from server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -29,7 +25,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: rm -r -f /opt/lampp/htdocs/*
 
-      - name: copy file via ssh password
+      - name: Copy new TarockWebsite to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -38,3 +34,17 @@ jobs:
           port: ${{ secrets.PORT }}
           source: "deploy.tar"
           target: "/opt/lampp/htdocs/"
+
+      - name: Decompress TarockWebsite on Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /opt/lampp/htdocs
+            tar -xvf deploy.tar
+            rm -r -f deploy.tar
+            mv ./build/* .
+            rm -r -f ./build/
