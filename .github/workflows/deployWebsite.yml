@@ -10,6 +10,9 @@ jobs:
       run: |
         mkdir ../build
         ls -R
+        cd
+        ls -R
+        pwd
     
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
