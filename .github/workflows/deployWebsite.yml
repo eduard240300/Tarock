@@ -9,7 +9,7 @@ jobs:
     - name: Run a multi-line script
       run: |
         mkdir ../build
-        cp -TR /TarockWebsite/* ../build
+        cp -TR ./TarockWebsite/* ../build
         tar -cvf deploy.tar ../build/
     
     - name: executing remote ssh commands using password
