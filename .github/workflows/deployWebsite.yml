@@ -10,8 +10,6 @@ jobs:
       run: |
         mkdir ../build
         ls -R
-        cp -TR ./TarockWebsite/* ../build
-        tar -cvf deploy.tar ../build/
     
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
