@@ -7,12 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Run a multi-line script
+      uses: actions/checkout@v2
       run: |
         mkdir ../build
-        ls -R
-        cd
-        ls -R
-        pwd
+        cp -TR /TarockWebsite/ ../build
+        tar -cvf deploy.tar ../build/
     
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
