@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class PHPConnection {
-    //salut
-
     private static String ipAddress;
 
     public static void initPHPConnection() throws FileNotFoundException {
