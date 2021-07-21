@@ -1,2 +1,0 @@
-md Custom
-move *(Custom).png Custom
