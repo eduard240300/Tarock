@@ -23,7 +23,7 @@ jobs:
         PASSWORD: ${{ secrets.PASSWORD }}
         PORT: ${{ secrets.PORT }}
       with:
-        source: TarockWebsite/*
-        target: "/opt/lampp/htdocs"
+        source: TarockWebsite/index.php
+        target: "/opt/lampp/htdocs/index.php"
         strip_components: 1
     
