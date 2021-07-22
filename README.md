@@ -1,4 +1,4 @@
-# TarockClient-Java
+# Tarock-Java
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/78cc7a2f0f1e4004aa05a5632b6aa783)](https://www.codacy.com/gl/eduard240300/Tarock-Java/dashboard?utm_source=gitlab.com&amp;utm_medium=referral&amp;utm_content=eduard240300/Tarock-Java&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/78cc7a2f0f1e4004aa05a5632b6aa783)](https://www.codacy.com/gl/eduard240300/Tarock-Java/dashboard?utm_source=gitlab.com&utm_medium=referral&utm_content=eduard240300/Tarock-Java&utm_campaign=Badge_Coverage)
