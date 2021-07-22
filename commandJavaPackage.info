@@ -1,1 +1,0 @@
-jpackage --name "Tarock Server" --input . --main-jar TarockServer.jar --jlink-options --bind-services

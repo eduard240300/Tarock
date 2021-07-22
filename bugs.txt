@@ -1,4 +1,7 @@
 Bugs:
 
-Solo
-Modifica culoarea rosie scor radler (Resolved)
+Add Solo mode
+
+Resolved Bugs:
+
+Modify the red color in GameForm for radler (Resolved)
