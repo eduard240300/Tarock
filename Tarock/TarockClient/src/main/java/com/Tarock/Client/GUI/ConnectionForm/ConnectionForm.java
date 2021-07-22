@@ -4,8 +4,10 @@ import com.Tarock.Client.GUI.Template.CustomJButton;
 import com.Tarock.Client.GUI.Template.MyWindowListener;
 import com.Tarock.Common.Service.DataManipulationService;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.InputStream;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -91,6 +93,9 @@ public class ConnectionForm extends JFrame{
     }
 
     public ConnectionForm(){
+        InputStream icon = DataManipulationService.getInputStream("icon.png");
+        try { setIconImage(ImageIO.read(icon)); } catch (Exception ignored) {}
+
         setLayout(null);
 
         initUsernameLabel();

@@ -7,11 +7,13 @@ import com.Tarock.Client.GUI.Template.RowTable;
 import com.Tarock.Common.Service.DataManipulationService;
 import com.Tarock.Client.Repository.Repository;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -174,6 +176,9 @@ public class ScoreForm extends JFrame{
     }
 
     public ScoreForm() {
+        InputStream icon = DataManipulationService.getInputStream("icon.png");
+        try { setIconImage(ImageIO.read(icon)); } catch (Exception ignored) {}
+
         setLayout(null);
 
         initTeam1Label();

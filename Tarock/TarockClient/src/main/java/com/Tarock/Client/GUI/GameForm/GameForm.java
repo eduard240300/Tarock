@@ -7,6 +7,8 @@ import com.Tarock.Client.GUI.Template.MyWindowListener;
 import com.Tarock.Client.GUI.Template.RowTable;
 import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Common.Service.DataManipulationService;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalCheckBoxUI;
 import javax.swing.plaf.metal.MetalRadioButtonUI;
@@ -14,6 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.font.TextAttribute;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -575,6 +578,9 @@ public class GameForm extends JFrame{
     }
 
     public GameForm(){
+        InputStream icon = DataManipulationService.getInputStream("icon.png");
+        try { setIconImage(ImageIO.read(icon)); } catch (Exception ignored) {}
+
         initGameForm();
         setLayout(null);
 

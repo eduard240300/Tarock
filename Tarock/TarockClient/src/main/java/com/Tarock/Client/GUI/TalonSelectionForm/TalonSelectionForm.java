@@ -7,9 +7,11 @@ import com.Tarock.Client.GUI.Template.MyWindowListener;
 import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Common.Service.DataManipulationService;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,6 +116,9 @@ public class TalonSelectionForm extends JFrame{
     }
 
     public TalonSelectionForm(){
+        InputStream icon = DataManipulationService.getInputStream("icon.png");
+        try { setIconImage(ImageIO.read(icon)); } catch (Exception ignored) {}
+
         setLayout(null);
 
         initTalonLabel();
