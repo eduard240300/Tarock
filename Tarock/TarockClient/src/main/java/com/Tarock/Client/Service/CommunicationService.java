@@ -464,6 +464,8 @@ public class CommunicationService extends Thread{
                 case "scoreDetailed":
                     caseScoreDetailed(listOfObjects);
                     break;
+                default:
+                    break;
             }
         }
         System.out.println(username + " Sent : " + sentMessage);

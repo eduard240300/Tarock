@@ -39,15 +39,12 @@ public class ControllerTalonSelectionForm {
     }
 
     public static void pressedCard(int cardPosition) throws IOException {
-        if (TalonSelectionForm.giveButton.isEnabled())
+        if ((TalonSelectionForm.giveButton.isEnabled()) && (!Repository.givenCardsCompleted))
         {
-            if (!Repository.givenCardsCompleted)
-            {
-                if ((Repository.cards.size() > cardPosition) && (Repository.canPutCardDown(cardPosition)))
-                    Repository.addToGivenCards(cardPosition);
-                Main.talonSelectionForm.updateCards();
-                Main.talonSelectionForm.updateGivenCards();
-            }
+            if ((Repository.cards.size() > cardPosition) && (Repository.canPutCardDown(cardPosition)))
+                Repository.addToGivenCards(cardPosition);
+            Main.talonSelectionForm.updateCards();
+            Main.talonSelectionForm.updateGivenCards();
         }
     }
 }

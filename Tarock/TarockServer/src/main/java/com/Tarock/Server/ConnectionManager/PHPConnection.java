@@ -6,6 +6,7 @@ import com.Tarock.Common.Domain.Game;
 import com.Tarock.Common.Domain.Pair;
 import com.Tarock.Common.Domain.Session;
 import com.Tarock.Common.Domain.User;
+import com.Tarock.Common.Exception.ConnectionException;
 import com.Tarock.Common.Exception.PHPException;
 import com.Tarock.Server.GUI.StatusForm;
 import com.Tarock.Common.Service.DataManipulationService;
@@ -57,7 +58,7 @@ public class PHPConnection {
             out.write(post);
             out.close();
             if (con.getResponseCode() != 200) {
-                throw new Exception("Server returned bad response code: " + con.getResponseCode() + " " + con.getResponseMessage());
+                throw new ConnectionException("Server returned bad response code: " + con.getResponseCode() + " " + con.getResponseMessage());
             }
             InputStream in = con.getInputStream();
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -86,20 +87,16 @@ public class PHPConnection {
             for (Pair<String, String> stringStringPair : userJSON) {
                 switch (stringStringPair.getKey()) {
                     case "name":
-                    {
                         user.setName(stringStringPair.getValue());
                         break;
-                    }
                     case "username":
-                    {
                         user.setUsername(stringStringPair.getValue());
                         break;
-                    }
                     case "password":
-                    {
                         user.setPassword(stringStringPair.getValue());
                         break;
-                    }
+                    default:
+                        break;
                 }
             }
             return user;
@@ -119,40 +116,28 @@ public class PHPConnection {
             for (Pair<String, String> stringStringPair : sessionJSON) {
                 switch (stringStringPair.getKey()) {
                     case "sessionID":
-                    {
                         session.setSessionID(Integer.parseInt(stringStringPair.getValue()));
                         break;
-                    }
                     case "creator":
-                    {
                         session.setCreator(stringStringPair.getValue());
                         break;
-                    }
                     case "dateClosed":
-                    {
                         session.setDateClosed(DataManipulationService.getName(stringStringPair.getValue()));
                         break;
-                    }
                     case "player1":
-                    {
                         session.setPlayer1(stringStringPair.getValue());
                         break;
-                    }
                     case "player2":
-                    {
                         session.setPlayer2(stringStringPair.getValue());
                         break;
-                    }
                     case "player3":
-                    {
                         session.setPlayer3(stringStringPair.getValue());
                         break;
-                    }
                     case "player4":
-                    {
                         session.setPlayer4(stringStringPair.getValue());
                         break;
-                    }
+                    default:
+                        break;
                 }
             }
             return session;
@@ -200,45 +185,31 @@ public class PHPConnection {
             for (Pair<String, String> stringStringPair : gameJSON) {
                 switch (stringStringPair.getKey()) {
                     case "sessionID":
-                    {
                         game.setSessionID(Integer.parseInt(stringStringPair.getValue()));
                         break;
-                    }
                     case "scorePlayer1":
-                    {
                         game.setScorePlayer1(Integer.parseInt(stringStringPair.getValue()));
                         break;
-                    }
                     case "scorePlayer2":
-                    {
                         game.setScorePlayer2(Integer.parseInt(stringStringPair.getValue()));
                         break;
-                    }
                     case "scorePlayer3":
-                    {
                         game.setScorePlayer3(Integer.parseInt(stringStringPair.getValue()));
                         break;
-                    }
                     case "scorePlayer4":
-                    {
                         game.setScorePlayer4(Integer.parseInt(stringStringPair.getValue()));
                         break;
-                    }
                     case "declaration":
-                    {
                         game.setDeclaration(stringStringPair.getValue());
                         break;
-                    }
                     case "radler":
-                    {
                         game.setRadler(DataManipulationService.stringToBool(stringStringPair.getValue()));
                         break;
-                    }
                     case "radlerTimes":
-                    {
                         game.setRadlerTimes(Integer.parseInt(stringStringPair.getValue()));
                         break;
-                    }
+                    default:
+                        break;
                 }
             }
             games.add(game);

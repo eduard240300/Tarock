@@ -10,8 +10,6 @@ public class Game {
     private boolean radler;
     private int radlerTimes;
 
-    public Game() { }
-
     public int getSessionID() {
         return sessionID;
     }

@@ -9,8 +9,6 @@ public class Session {
     private String player3;
     private String player4;
 
-    public Session() {}
-
     public int getSessionID() {
         return sessionID;
     }

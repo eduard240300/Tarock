@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Score {
     private final List<ScoreAttribute> attributes;
-    boolean isRadler = false;
+    private boolean isRadler = false;
     private String teamThatWon;
 
     public Score(){

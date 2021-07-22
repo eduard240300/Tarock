@@ -22,20 +22,21 @@ public class ControllerConnectionForm {
     {
         loginService = null;
     }
+    public void initCommunicationService() { communicationService = new CommunicationService(); }
     public void initLoginService() { loginService = new LoginService(); }
     public void initSessionID() { sessionID = ConnectionForm.sessionIDField.getText(); }
     public void initUser() {
         String username = ConnectionForm.usernameField.getText();
         String password = ConnectionForm.passwordField.getText();
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
-        user = new User(username, hashedPassword); };
+        user = new User(username, hashedPassword); }
 
     public ControllerConnectionForm() {
         ConnectionForm.loginButton.addActionListener(e -> {
             CommunicationService.ipAddress = ConnectionForm.ipAddressField.getText();
 
             if (communicationService == null) {
-                communicationService = new CommunicationService();
+                initCommunicationService();
                 communicationService.start();
             }
             if (loginService == null)

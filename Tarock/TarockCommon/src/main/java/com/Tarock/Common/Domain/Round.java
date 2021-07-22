@@ -62,13 +62,10 @@ public class Round {
             int max = -1;
             for(int i=0;i<4;i++)
             {
-                if (isTarock(cards.get(i)))
+                if ((isTarock(cards.get(i))) && (max < cards.get(i)))
                 {
-                    if (max < cards.get(i))
-                    {
-                        max = cards.get(i);
-                        playerThatWon = i;
-                    }
+                    max = cards.get(i);
+                    playerThatWon = i;
                 }
             }
         }

@@ -273,9 +273,8 @@ public class ScoreService {
         //calculate if popeAtFinish done
         for(int i=0;i<teams.get(0).size();i++)
         {
-            if (team1WonLastRound)
-                if (rounds.get(11).getCard(teams.get(0).get(i)) == 30+pope*8)
-                    donePopeAtFinish = true;
+            if ((team1WonLastRound) && (rounds.get(11).getCard(teams.get(0).get(i)) == 30+pope*8))
+                donePopeAtFinish = true;
         }
 
         //calculate if pagatAtFinish done

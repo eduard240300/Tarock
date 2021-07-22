@@ -81,11 +81,12 @@ public class ClientService extends Thread {
 
     public void log(String message)
     {
+        String finalMessage = "";
         if ((message.charAt(0) == 'c') && (message.charAt(1) == 'a') & (message.charAt(2) == 'r'))
         {
-            message = "sentCards;";
+            finalMessage = "sentCards;";
         }
-        StatusForm.addToStatusTextArea("Sent (" + username + ") : " + message);
+        StatusForm.addToStatusTextArea("Sent (" + username + ") : " + finalMessage);
     }
 
     @SuppressWarnings({"deprecation", "SuspiciousListRemoveInLoop"})

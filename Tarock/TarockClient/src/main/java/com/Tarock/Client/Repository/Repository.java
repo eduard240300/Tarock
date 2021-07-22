@@ -217,7 +217,7 @@ public class Repository {
     public static boolean canGiveCard(int position)
     {
         int cardID = cards.get(position);
-        if (!(rounds.size() == round+1)) {
+        if (rounds.size() != round+1) {
             return true;
         }
         int firstPlayer = rounds.get(rounds.size()-1).getFirstPlayer();

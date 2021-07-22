@@ -34,49 +34,24 @@ public class Declaration {
         return result;
     }
 
+    private String addToResult(String result, String toAdd)
+    {
+        String finalResult = result;
+        if (!result.equals(""))
+            finalResult += ", ";
+        finalResult += toAdd;
+        return finalResult;
+    }
+
     public String toString()
     {
         String result = "";
-        if (the1of2 != 0) {
-            result = the1of2 + String.valueOf(pope);
-            if (popeAtFinish)
-                result += ", " + "PF";
-            if (pagatAtFinish)
-                result += ", " + "1F";
-            if (allPopes)
-                result += ", " + "AP";
-            if (trull)
-                result += ", " + "AT";
-            if (numberOfTarocks > 0)
-                result += ", " + numberOfTarocks + "T";
-        }
-        else
-        {
-            if (popeAtFinish) {
-                result += "PF";
-            }
-            if (pagatAtFinish) {
-                if (!result.equals(""))
-                    result += ", ";
-                result += "1F";
-            }
-            if (allPopes) {
-                if (!result.equals(""))
-                    result += ", ";
-                result += "AP";
-            }
-            if (trull) {
-                if (!result.equals(""))
-                    result += ", ";
-                result += "AT";
-            }
-            if (numberOfTarocks > 0)
-            {
-                if (!result.equals(""))
-                    result += ", ";
-                result += numberOfTarocks + "T";
-            }
-        }
+        if (the1of2 != 0) result = the1of2 + String.valueOf(pope);
+        if (popeAtFinish) result = addToResult(result, "PF");
+        if (pagatAtFinish) result = addToResult(result, "1F");
+        if (allPopes) result = addToResult(result, "AP");
+        if (trull) result = addToResult(result, "AT");
+        if (numberOfTarocks > 0) result = addToResult(result, numberOfTarocks + "T");
         if (result.equals(""))
             return "Nothing";
         return result;
