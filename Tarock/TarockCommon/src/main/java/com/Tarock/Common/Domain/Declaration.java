@@ -1,6 +1,6 @@
-package com.Tarock.Server.Domain;
+package com.Tarock.Common.Domain;
 
-import com.Tarock.Server.Service.DataManipulationService;
+import com.Tarock.Common.Service.DataManipulationService;
 
 public class Declaration {
     private int the1of2 = 0;
@@ -19,6 +19,7 @@ public class Declaration {
         this.trull = trull;
         this.numberOfTarocks = numberOfTarocks;
     }
+
 
     public String toSendableObject()
     {

@@ -1,4 +1,4 @@
-package com.Tarock.Server.Domain;
+package com.Tarock.Common.Domain;
 
 public class Pair<K, V> {
     private final K key;

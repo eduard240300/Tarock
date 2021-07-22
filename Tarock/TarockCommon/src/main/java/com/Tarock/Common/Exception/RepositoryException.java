@@ -1,4 +1,4 @@
-package com.Tarock.Client.Exception;
+package com.Tarock.Common.Exception;
 
 public class RepositoryException extends RuntimeException {
     public RepositoryException(String errorMessage) {

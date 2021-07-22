@@ -1,9 +1,8 @@
-package com.Tarock.Client.Service;
+package com.Tarock.Common.Service;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import com.Tarock.Common.Service.DataManipulationService;
 
 public class TestDataManipulationService {
     @Test

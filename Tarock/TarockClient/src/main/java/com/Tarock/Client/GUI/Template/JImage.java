@@ -1,6 +1,6 @@
 package com.Tarock.Client.GUI.Template;
 
-import com.Tarock.Client.Service.DataManipulationService;
+import com.Tarock.Common.Service.DataManipulationService;
 
 import javax.swing.*;
 import java.io.File;

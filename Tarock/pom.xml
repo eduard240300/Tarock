@@ -13,6 +13,7 @@
     <module>report</module>
     <module>TarockServer</module>
     <module>TarockClient</module>
+    <module>TarockCommon</module>
   </modules>
 
   <properties>

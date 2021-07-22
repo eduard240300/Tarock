@@ -1,4 +1,4 @@
-package com.Tarock.Server.Exception;
+package com.Tarock.Common.Exception;
 
 public class LoginException extends RuntimeException {
     public LoginException(String errorMessage) {

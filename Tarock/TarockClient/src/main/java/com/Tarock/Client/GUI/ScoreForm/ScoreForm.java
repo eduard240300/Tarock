@@ -5,7 +5,6 @@ import com.Tarock.Client.GUI.Template.JImage;
 import com.Tarock.Client.GUI.Template.MyWindowListener;
 import com.Tarock.Client.GUI.Template.RowTable;
 import com.Tarock.Client.Repository.Repository;
-import com.Tarock.Client.Service.DataManipulationService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

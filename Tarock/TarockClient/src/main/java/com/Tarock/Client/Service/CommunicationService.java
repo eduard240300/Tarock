@@ -1,8 +1,8 @@
 package com.Tarock.Client.Service;
 
-import com.Tarock.Client.Domain.Declaration;
-import com.Tarock.Client.Domain.Round;
-import com.Tarock.Client.Domain.User;
+import com.Tarock.Common.Domain.Declaration;
+import com.Tarock.Common.Domain.Round;
+import com.Tarock.Common.Domain.User;
 import com.Tarock.Client.GUI.ConnectionForm.ConnectionForm;
 import com.Tarock.Client.GUI.ConnectionForm.ControllerConnectionForm;
 import com.Tarock.Client.GUI.GameForm.GameForm;
@@ -10,6 +10,7 @@ import com.Tarock.Client.GUI.Main;
 import com.Tarock.Client.GUI.ScoreForm.ScoreForm;
 import com.Tarock.Client.GUI.TalonSelectionForm.TalonSelectionForm;
 import com.Tarock.Client.Repository.Repository;
+import com.Tarock.Common.Service.DataManipulationService;
 
 import java.awt.*;
 import java.io.EOFException;

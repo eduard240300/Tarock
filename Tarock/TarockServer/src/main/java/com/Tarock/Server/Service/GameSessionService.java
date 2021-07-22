@@ -1,8 +1,13 @@
 package com.Tarock.Server.Service;
 
 import com.Tarock.Server.ConnectionManager.PHPConnection;
-import com.Tarock.Server.Domain.*;
-
+import com.Tarock.Common.Domain.Round;
+import com.Tarock.Common.Domain.Session;
+import com.Tarock.Common.Domain.Declaration;
+import com.Tarock.Common.Domain.Game;
+import com.Tarock.Common.Domain.Score;
+import com.Tarock.Common.Domain.Pair;
+import com.Tarock.Common.Service.DataManipulationService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;

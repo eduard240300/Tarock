@@ -1,6 +1,6 @@
 package com.Tarock.Client.Service;
 
-import com.Tarock.Client.Domain.User;
+import com.Tarock.Common.Domain.User;
 
 public class LoginService {
 

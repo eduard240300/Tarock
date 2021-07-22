@@ -1,6 +1,6 @@
 package com.Tarock.Server.GUI;
 
-import com.Tarock.Server.Service.DataManipulationService;
+import com.Tarock.Common.Service.DataManipulationService;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,8 +1,8 @@
 package com.Tarock.Client.Repository;
 
-import com.Tarock.Client.Domain.Round;
-import com.Tarock.Client.Domain.User;
-import com.Tarock.Client.Exception.RepositoryException;
+import com.Tarock.Common.Domain.Round;
+import com.Tarock.Common.Domain.User;
+import com.Tarock.Common.Exception.RepositoryException;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -210,6 +210,12 @@ public class Repository {
         return sumTarocks < 11;
     }
 
+    public static int getCardType(int cardID)
+    {
+        int type = cardID - 23;
+        return type/8;
+    }
+
     public static boolean canGiveCard(int position)
     {
         int cardID = cards.get(position);
@@ -236,7 +242,7 @@ public class Repository {
             }
             else
             {
-                int type = Round.getCardType(firstCardID);
+                int type = getCardType(firstCardID);
                 if (getNumberOfType(type) == 0)
                 {
                     if (getNumberOfTarocks() == 0) {

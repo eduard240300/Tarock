@@ -1,12 +1,36 @@
-package com.Tarock.Server.Service;
+package com.Tarock.Common.Service;
 
-import com.Tarock.Server.Domain.Pair;
+import com.Tarock.Common.Domain.Pair;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
+import org.apache.commons.io.FileUtils;
 
 public class DataManipulationService {
+    public static boolean containsSpaces(String message)
+    {
+        for(int i=0;i<message.length();i++)
+        {
+            if (message.charAt(i) == ' ')
+                return true;
+        }
+        return false;
+    }
+
+    public static String truncateClassName(String className){
+        int i;
+        StringBuilder result = new StringBuilder();
+        i = className.length()-1;
+        while(className.charAt(i) != '.')
+            i--;
+        int j;
+        for(j=i+1;j<className.length();j++)
+            result.append(className.charAt(j));
+        return result.toString();
+    }
+
     public static String processName(String name){
         StringBuilder newName = new StringBuilder();
         int i;
@@ -158,11 +182,23 @@ public class DataManipulationService {
     }
 
     public static boolean containsJAR(String path) {
-        boolean contains = true;
-        contains &= (Character.toLowerCase(path.charAt(0)) == 'j');
+        boolean contains;
+        contains = (Character.toLowerCase(path.charAt(0)) == 'j');
         contains &= (Character.toLowerCase(path.charAt(1)) == 'a');
         contains &= (Character.toLowerCase(path.charAt(2)) == 'r');
         return contains;
+    }
+
+    public static File getFile(String path){
+        try{
+            InputStream inputStream = DataManipulationService.class.getClassLoader().getResourceAsStream(path);
+            File tempFile = File.createTempFile("new", "file");
+            assert inputStream != null;
+            FileUtils.copyInputStreamToFile(inputStream, tempFile);
+            return tempFile;
+        }
+        catch (Exception ignored) {}
+        return null;
     }
 
     public static InputStream getInputStream(String path){
@@ -171,9 +207,9 @@ public class DataManipulationService {
 
     public static String getPath(){
         String initPath = DataManipulationService.class.getResource("DataManipulationService.class").toString();
-        StringBuilder stringBuilder = new StringBuilder("");
+        StringBuilder stringBuilder = new StringBuilder();
         int initChar = 9;
-        int endChar = -1;
+        int endChar;
         int currentChar = initPath.length() - 1;
         while (initPath.charAt(currentChar) != '!')
             currentChar--;

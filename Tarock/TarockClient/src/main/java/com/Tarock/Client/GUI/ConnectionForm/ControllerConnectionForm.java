@@ -1,17 +1,16 @@
 package com.Tarock.Client.GUI.ConnectionForm;
 
-import com.Tarock.Client.Domain.User;
+import com.Tarock.Common.Domain.User;
 import com.Tarock.Client.GUI.Main;
 import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Client.Service.BCrypt;
 import com.Tarock.Client.Service.CommunicationService;
-import com.Tarock.Client.Service.DataManipulationService;
+import com.Tarock.Common.Service.DataManipulationService;
 import com.Tarock.Client.Service.LoginService;
-import com.Tarock.Client.Validator.IntegerValidator;
-import com.Tarock.Client.Validator.UserValidator;
+import com.Tarock.Common.Validator.IntegerValidator;
+import com.Tarock.Common.Validator.UserValidator;
 
-import java.util.Arrays;
-
+@SuppressWarnings("deprecation")
 public class ControllerConnectionForm {
     private static LoginService loginService = null;
     private static CommunicationService communicationService = null;
@@ -36,7 +35,7 @@ public class ControllerConnectionForm {
                 loginService = new LoginService();
 
             String username = ConnectionForm.usernameField.getText();
-            String password = Arrays.toString(ConnectionForm.passwordField.getPassword());
+            String password = ConnectionForm.passwordField.getText();
             sessionID = ConnectionForm.sessionIDField.getText();
 
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));

@@ -1,6 +1,6 @@
-package com.Tarock.Client.Validator;
+package com.Tarock.Common.Validator;
 
-import com.Tarock.Client.Exception.ValidationException;
+import com.Tarock.Common.Exception.ValidationException;
 
 public class IntegerValidator {
     public static void validateInteger(String potentialInteger){

@@ -1,4 +1,4 @@
-package com.Tarock.Server.Domain;
+package com.Tarock.Common.Domain;
 
 public class ScoreAttribute {
     private final int ID;

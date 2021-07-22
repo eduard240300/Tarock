@@ -1,9 +1,9 @@
-package com.Tarock.Server.Domain;
+package com.Tarock.Common.Domain;
 
-public class Triple<K, V1, V2> {
+public class Triple<K, V, P> {
     private final K key;
-    private V1 value1;
-    private V2 value2;
+    private V value1;
+    private P value2;
 
     public Triple(K key)
     {
@@ -14,19 +14,19 @@ public class Triple<K, V1, V2> {
         return key;
     }
 
-    public V1 getValue1() {
+    public V getValue1() {
         return value1;
     }
 
-    public void setValue1(V1 value1) {
+    public void setValue1(V value1) {
         this.value1 = value1;
     }
 
-    public V2 getValue2() {
+    public P getValue2() {
         return value2;
     }
 
-    public void setValue2(V2 value2) {
+    public void setValue2(P value2) {
         this.value2 = value2;
     }
 }

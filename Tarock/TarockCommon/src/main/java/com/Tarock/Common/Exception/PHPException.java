@@ -1,4 +1,4 @@
-package com.Tarock.Server.Exception;
+package com.Tarock.Common.Exception;
 
 public class PHPException extends RuntimeException {
     public PHPException(String errorMessage) {

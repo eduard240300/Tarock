@@ -2,13 +2,13 @@ package com.Tarock.Server.ConnectionManager;
 
 import at.favre.lib.bytes.Bytes;
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.Tarock.Server.Domain.Game;
-import com.Tarock.Server.Domain.Pair;
-import com.Tarock.Server.Domain.Session;
-import com.Tarock.Server.Domain.User;
-import com.Tarock.Server.Exception.PHPException;
+import com.Tarock.Common.Domain.Game;
+import com.Tarock.Common.Domain.Pair;
+import com.Tarock.Common.Domain.Session;
+import com.Tarock.Common.Domain.User;
+import com.Tarock.Common.Exception.PHPException;
 import com.Tarock.Server.GUI.StatusForm;
-import com.Tarock.Server.Service.DataManipulationService;
+import com.Tarock.Common.Service.DataManipulationService;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -29,7 +29,7 @@ public class PHPConnection {
 
             try {
                 ipAddress = reader.readLine();
-            } catch (Exception e) {}
+            } catch (Exception ignored) {}
         }
         else
         {
@@ -40,7 +40,7 @@ public class PHPConnection {
 
             try {
                 ipAddress = reader.readLine();
-            } catch (Exception e) {}
+            } catch (Exception ignored) {}
         }
     }
 

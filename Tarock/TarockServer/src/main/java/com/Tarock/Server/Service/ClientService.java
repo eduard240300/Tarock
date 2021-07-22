@@ -1,13 +1,14 @@
 package com.Tarock.Server.Service;
 
 import com.Tarock.Server.ConnectionManager.PHPConnection;
-import com.Tarock.Server.Domain.Session;
-import com.Tarock.Server.Domain.Triple;
-import com.Tarock.Server.Domain.User;
-import com.Tarock.Server.Exception.ConnectionException;
-import com.Tarock.Server.Exception.LoginException;
-import com.Tarock.Server.Exception.PHPException;
+import com.Tarock.Common.Domain.Session;
+import com.Tarock.Common.Domain.Triple;
+import com.Tarock.Common.Domain.User;
+import com.Tarock.Common.Exception.ConnectionException;
+import com.Tarock.Common.Exception.LoginException;
+import com.Tarock.Common.Exception.PHPException;
 import com.Tarock.Server.GUI.StatusForm;
+import com.Tarock.Common.Service.DataManipulationService;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("SuspiciousListRemoveInLoop")
 public class ClientService extends Thread {
     public Socket socket;
     public ObjectInputStream inputStream;
@@ -29,7 +31,6 @@ public class ClientService extends Thread {
         inputStream = new ObjectInputStream(socket.getInputStream());
     }
 
-    @SuppressWarnings("SuspiciousListRemoveInLoop")
     public void removeConnection(String username)
     {
         for(int i=0;i<CommunicationService.socketsList.size();i++)

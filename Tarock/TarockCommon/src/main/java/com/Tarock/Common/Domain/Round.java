@@ -1,4 +1,4 @@
-package com.Tarock.Server.Domain;
+package com.Tarock.Common.Domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class Round {
         return (cardID >= 1) && (cardID <= 22);
     }
 
-    public boolean isType(int cardID, int type)
+    public static boolean isType(int cardID, int type)
     {
         return (cardID >= 23 + type * 8) && (cardID <= 30 + type * 8);
     }
@@ -109,5 +109,9 @@ public class Round {
     {
         calculateWinner();
         return playerThatWon;
+    }
+
+    public int getFirstPlayer() {
+        return firstPlayer;
     }
 }

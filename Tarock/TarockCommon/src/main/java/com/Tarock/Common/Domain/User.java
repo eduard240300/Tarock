@@ -1,4 +1,4 @@
-package com.Tarock.Server.Domain;
+package com.Tarock.Common.Domain;
 
 public class User {
     private String name = null;
@@ -6,6 +6,11 @@ public class User {
     private String password = null;
 
     public User() {}
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public String getName() {
         return name;

@@ -17,9 +17,14 @@
     </properties>
 
     <dependencies>
-    <dependency>
+        <dependency>
             <groupId>com.Tarock</groupId>
             <artifactId>TarockClient</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.Tarock</groupId>
+            <artifactId>TarockCommon</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

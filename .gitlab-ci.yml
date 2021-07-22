@@ -54,6 +54,7 @@ deploy-and-send-tests:
   - mkdir -p /builds/eduard240300/Tarock-Java/Tarock/target/surefire-reports/
   - cp -r /builds/eduard240300/Tarock-Java/Tarock/TarockServer/target/surefire-reports/* /builds/eduard240300/Tarock-Java/Tarock/target/surefire-reports/
   - cp -r /builds/eduard240300/Tarock-Java/Tarock/TarockClient/target/surefire-reports/* /builds/eduard240300/Tarock-Java/Tarock/target/surefire-reports/
+  - cp -r /builds/eduard240300/Tarock-Java/Tarock/TarockCommon/target/surefire-reports/* /builds/eduard240300/Tarock-Java/Tarock/target/surefire-reports/
   - java -cp target/codacy-coverage-reporter-assembly-latest.jar com.codacy.CodacyCoverageReporter report -l Java -r /builds/eduard240300/Tarock-Java/Tarock/report/target/site/jacoco-aggregate/jacoco.xml
 # - bash <(curl -s https://codecov.io/bash)
   only:

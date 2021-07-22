@@ -6,7 +6,7 @@ import com.Tarock.Client.GUI.ScoreForm.ScoreForm;
 import com.Tarock.Client.GUI.TalonSelectionForm.TalonSelectionForm;
 import com.Tarock.Client.GUI.TalonShowingForm.TalonShowingForm;
 import com.Tarock.Client.Repository.Repository;
-import com.Tarock.Client.Service.DataManipulationService;
+import com.Tarock.Common.Service.DataManipulationService;
 
 import javax.imageio.ImageIO;
 import java.io.InputStream;
@@ -18,7 +18,7 @@ public class Main {
     public static TalonSelectionForm talonSelectionForm;
     public static TalonShowingForm talonShowingForm;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args){
         InputStream icon = DataManipulationService.getInputStream("icon.png");
 
         Repository.initRepository();

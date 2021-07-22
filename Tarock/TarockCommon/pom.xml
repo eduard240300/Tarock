@@ -8,10 +8,10 @@
     </parent>
 
     <groupId>com.Tarock</groupId>
-    <artifactId>TarockServer</artifactId>
+    <artifactId>TarockCommon</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>TarockServer</name>
+    <name>TarockCommon</name>
     <url>http://www.tarock.ml</url>
 
     <properties>

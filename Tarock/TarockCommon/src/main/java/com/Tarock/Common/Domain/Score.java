@@ -1,6 +1,6 @@
-package com.Tarock.Server.Domain;
+package com.Tarock.Common.Domain;
 
-import com.Tarock.Server.Service.DataManipulationService;
+import com.Tarock.Common.Service.DataManipulationService;
 
 import java.util.ArrayList;
 import java.util.List;

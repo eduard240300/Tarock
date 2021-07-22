@@ -1,4 +1,4 @@
-package com.Tarock.Server.Exception;
+package com.Tarock.Common.Exception;
 
 public class ConnectionException extends RuntimeException {
     public ConnectionException(String errorMessage) {

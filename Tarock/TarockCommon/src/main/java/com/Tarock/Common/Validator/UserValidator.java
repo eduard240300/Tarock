@@ -1,8 +1,8 @@
-package com.Tarock.Client.Validator;
+package com.Tarock.Common.Validator;
 
-import com.Tarock.Client.Domain.User;
-import com.Tarock.Client.Exception.ValidationException;
-import com.Tarock.Client.Service.DataManipulationService;
+import com.Tarock.Common.Domain.User;
+import com.Tarock.Common.Exception.ValidationException;
+import com.Tarock.Common.Service.DataManipulationService;
 
 public class UserValidator {
     public void validateUser(User user)

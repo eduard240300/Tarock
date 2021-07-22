@@ -1,6 +1,6 @@
 package com.Tarock.Client.GUI.GameForm;
 
-import com.Tarock.Client.Domain.Declaration;
+import com.Tarock.Common.Domain.Declaration;
 import com.Tarock.Client.GUI.Main;
 import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Client.Service.CommunicationService;
@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class ControllerGameForm {
-
     public ControllerGameForm(){
         GameForm.submitButton.addActionListener(e -> {
             if (GameForm.typeOfActivation.equals("Declaration"))
