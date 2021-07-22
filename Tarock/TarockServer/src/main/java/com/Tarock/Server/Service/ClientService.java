@@ -82,7 +82,7 @@ public class ClientService extends Thread {
     public void log(String message)
     {
         String finalMessage = message;
-        if ((message.charAt(0) == 'c') && (message.charAt(1) == 'a') & (message.charAt(2) == 'r'))
+        if ((message.charAt(0) == 'c') && (message.charAt(1) == 'a') && (message.charAt(2) == 'r'))
         {
             finalMessage = "sentCards;";
         }
