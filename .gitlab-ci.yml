@@ -1,0 +1,76 @@
+image: maven:3.8.1-jdk-11
+
+default:
+  interruptible: true
+  retry: 2
+
+
+variables:
+  # prevent git clean to happen after repo checkout
+  #GIT_CLEAN_FLAGS: none
+  # maven related
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+  - .m2/repository/
+  - target/
+
+stages:
+  - deploy-and-test
+
+################################################################################
+## Stage: test
+###################
+# Runs all sort of checks (tests) to validate functionality and regression
+################################################################################
+
+deploy-and-send-tests:
+  stage: deploy-and-test
+  before_script:
+  ## Deploy
+  - wget http://ftp.br.debian.org/debian/pool/main/s/sshpass/sshpass_1.06-1_amd64.deb
+  - dpkg -i ./sshpass_1.06-1_amd64.deb
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan tarock.ml >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  ## End Deploy
+  - cd /builds/eduard240300/Tarock-Java/Tarock/
+  - mkdir -p target
+  - if [[ ! -f "target/codacy-coverage-reporter-assembly-latest.jar" ]]; then wget -O target/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | grep url.*assembly | cut -d \" -f 4);fi
+  script:
+  ## Deploy
+  - mkdir ../build
+  - cp -TR ../TarockWebsite/ ../build
+  - tar -cvf deploy.tar ../build/
+  - sshpass -p $PASSWORD_WEBSITE ssh root@tarock.ml 'rm -r -f /opt/lampp/htdocs/*'
+  - sshpass -p $PASSWORD_WEBSITE scp /builds/eduard240300/Tarock-Java/Tarock/deploy.tar root@tarock.ml:/opt/lampp/htdocs/
+  - sshpass -p $PASSWORD_WEBSITE ssh root@tarock.ml 'cd /opt/lampp/htdocs && tar -xvf deploy.tar && rm -r -f deploy.tar && mv ./build/* . && rm -r -f ./build/'
+  ## End Deploy
+  - mvn verify -P jacoco
+  after_script:
+  - java -cp target/codacy-coverage-reporter-assembly-latest.jar com.codacy.CodacyCoverageReporter report -l Java -r report/target/site/jacoco-aggregate/jacoco.xml
+# - bash <(curl -s https://codecov.io/bash)
+  only:
+#    refs:
+#    - merge_requests
+    changes:
+    - "**/src/**/*"
+  allow_failure: false
+  timeout: 50 minutes
+  retry: 0
+  needs: []
+  artifacts:
+    expire_in: 1 day
+    reports:
+      junit: "*/target/surefire-reports/TEST-*.xml"
+
+
+#code_quality:
+#  timeout: 50 minutes
+#  retry: 0
+#  needs: []
+#  artifacts:
+#    paths: [gl-code-quality-report.json]
