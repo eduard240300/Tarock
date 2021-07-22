@@ -50,6 +50,6 @@ public class Main {
             scoreForm.setIconImage(ImageIO.read(icon));
             talonSelectionForm.setIconImage(ImageIO.read(icon));
             talonShowingForm.setIconImage(ImageIO.read(icon));
-        }catch(Exception ignored){}
+        } catch(Exception ignored){}
     }
 }

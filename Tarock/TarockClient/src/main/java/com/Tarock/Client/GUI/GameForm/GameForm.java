@@ -624,6 +624,7 @@ public class GameForm extends JFrame{
         setLocationRelativeTo(null);
         addWindowListener(new MyWindowListener());
         setResizable(false);
+        //setVisible(true);
 
         new ControllerGameForm();
     }

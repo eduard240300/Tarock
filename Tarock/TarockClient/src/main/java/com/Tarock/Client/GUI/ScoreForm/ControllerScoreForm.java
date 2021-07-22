@@ -2,7 +2,6 @@ package com.Tarock.Client.GUI.ScoreForm;
 
 import com.Tarock.Client.GUI.Main;
 import com.Tarock.Client.Repository.Repository;
-
 import java.io.IOException;
 
 public class ControllerScoreForm {

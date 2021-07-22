@@ -3,7 +3,6 @@ package com.Tarock.Client.GUI.TalonSelectionForm;
 import com.Tarock.Client.GUI.Main;
 import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Client.Service.CommunicationService;
-
 import java.io.IOException;
 
 public class ControllerTalonSelectionForm {

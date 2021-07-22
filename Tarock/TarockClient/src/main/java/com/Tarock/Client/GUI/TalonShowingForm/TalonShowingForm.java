@@ -3,6 +3,7 @@ package com.Tarock.Client.GUI.TalonShowingForm;
 import com.Tarock.Client.GUI.Template.JImage;
 import com.Tarock.Client.GUI.Template.MyWindowListener;
 import com.Tarock.Client.Repository.Repository;
+import com.Tarock.Client.Service.DataManipulationService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,7 +60,7 @@ public class TalonShowingForm extends JFrame{
         else if (System.getProperty("os.name").equals("Windows 10"))
             setSize(818, 300);
         setTitle("Tarock Client : Talon Selection Showing");
-        getContentPane().setBackground(new Color(78, 154, 6));
+        getContentPane().setBackground(DataManipulationService.backgroundColor);
         setLocationRelativeTo(null);
         addWindowListener(new MyWindowListener());
         setResizable(false);

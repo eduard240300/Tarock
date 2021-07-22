@@ -5,6 +5,7 @@ import com.Tarock.Client.GUI.Template.CustomJButton;
 import com.Tarock.Client.GUI.Template.JImage;
 import com.Tarock.Client.GUI.Template.MyWindowListener;
 import com.Tarock.Client.Repository.Repository;
+import com.Tarock.Client.Service.DataManipulationService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("InstantiationOfUtilityClass")
 public class TalonSelectionForm extends JFrame{
     public static JLabel talonLabel;
     public static CustomJButton takeButton;
@@ -52,7 +52,7 @@ public class TalonSelectionForm extends JFrame{
         talonLabel.setText("Talon : " + Repository.the1of2 + "/2");
     }
 
-    public TalonSelectionForm() throws IOException {
+    public TalonSelectionForm(){
         talonCards = new ArrayList<>();
         givenCards = new ArrayList<>();
         playerCards = new ArrayList<>();
@@ -112,7 +112,7 @@ public class TalonSelectionForm extends JFrame{
         else if (System.getProperty("os.name").equals("Windows 10"))
             setSize(1568, 510);
         setTitle("Tarock Client : Talon Selection");
-        getContentPane().setBackground(new Color(78, 154, 6));
+        getContentPane().setBackground(DataManipulationService.backgroundColor);
         setLocationRelativeTo(null);
         addWindowListener(new MyWindowListener());
         setResizable(false);

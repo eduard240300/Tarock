@@ -10,6 +10,8 @@ import com.Tarock.Client.Service.LoginService;
 import com.Tarock.Client.Validator.IntegerValidator;
 import com.Tarock.Client.Validator.UserValidator;
 
+import java.util.Arrays;
+
 public class ControllerConnectionForm {
     private static LoginService loginService = null;
     private static CommunicationService communicationService = null;
@@ -22,7 +24,6 @@ public class ControllerConnectionForm {
         loginService = null;
     }
 
-    @SuppressWarnings("deprecation")
     public ControllerConnectionForm() {
         ConnectionForm.loginButton.addActionListener(e -> {
             CommunicationService.ipAddress = ConnectionForm.ipAddressField.getText();
@@ -35,7 +36,7 @@ public class ControllerConnectionForm {
                 loginService = new LoginService();
 
             String username = ConnectionForm.usernameField.getText();
-            String password = ConnectionForm.passwordField.getText();
+            String password = Arrays.toString(ConnectionForm.passwordField.getPassword());
             sessionID = ConnectionForm.sessionIDField.getText();
 
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
