@@ -22,6 +22,13 @@ public class ControllerConnectionForm {
     {
         loginService = null;
     }
+    public void initLoginService() { loginService = new LoginService(); }
+    public void initSessionID() { sessionID = ConnectionForm.sessionIDField.getText(); }
+    public void initUser() {
+        String username = ConnectionForm.usernameField.getText();
+        String password = ConnectionForm.passwordField.getText();
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
+        user = new User(username, hashedPassword); };
 
     public ControllerConnectionForm() {
         ConnectionForm.loginButton.addActionListener(e -> {
@@ -32,15 +39,14 @@ public class ControllerConnectionForm {
                 communicationService.start();
             }
             if (loginService == null)
-                loginService = new LoginService();
+                initLoginService();
 
             String username = ConnectionForm.usernameField.getText();
             String password = ConnectionForm.passwordField.getText();
-            sessionID = ConnectionForm.sessionIDField.getText();
-
-            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
+            initSessionID();
+            initUser();
             User inputUser = new User(username, password);
-            user = new User(username, hashedPassword);
+
             try {
                 userValidator.validateUser(inputUser);
                 IntegerValidator.validateInteger(sessionID);

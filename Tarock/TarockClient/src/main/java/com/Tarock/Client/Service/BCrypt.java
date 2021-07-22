@@ -387,7 +387,8 @@ public class BCrypt {
             throws IllegalArgumentException {
         int off = 0;
         StringBuilder rs = new StringBuilder();
-        int c1, c2;
+        int c1;
+        int c2;
 
         if (len <= 0 || len > d.length)
             throw new IllegalArgumentException ("Invalid len");
@@ -653,7 +654,8 @@ public class BCrypt {
         String real_salt;
         byte[] passwordb, saltb, hashed;
         char minor = (char)0;
-        int rounds, off;
+        int rounds;
+        int off;
         StringBuilder rs = new StringBuilder();
 
         if (salt.charAt(0) != '$' || salt.charAt(1) != '2')
