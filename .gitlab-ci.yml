@@ -51,6 +51,7 @@ deploy-and-send-tests:
   ## End Deploy
   - mvn verify -P jacoco
   after_script:
+  - ls -R
   - java -cp target/codacy-coverage-reporter-assembly-latest.jar com.codacy.CodacyCoverageReporter report -l Java -r report/target/site/jacoco-aggregate/jacoco.xml
 # - bash <(curl -s https://codecov.io/bash)
   only:
