@@ -195,7 +195,7 @@ public class ScoreForm extends JFrame{
         setSize(sizeX, sizeY);
         setTitle("Tarock Client : Score");
 
-        getContentPane().setBackground(DataManipulationService.backgroundColor);
+        getContentPane().setBackground(Repository.backgroundColor);
         setLocationRelativeTo(null);
         addWindowListener(new MyWindowListener());
         setResizable(false);

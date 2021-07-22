@@ -112,7 +112,7 @@ public class TalonSelectionForm extends JFrame{
         else if (System.getProperty("os.name").equals("Windows 10"))
             setSize(1568, 510);
         setTitle("Tarock Client : Talon Selection");
-        getContentPane().setBackground(DataManipulationService.backgroundColor);
+        getContentPane().setBackground(Repository.backgroundColor);
         setLocationRelativeTo(null);
         addWindowListener(new MyWindowListener());
         setResizable(false);

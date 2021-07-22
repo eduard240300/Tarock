@@ -60,7 +60,7 @@ public class TalonShowingForm extends JFrame{
         else if (System.getProperty("os.name").equals("Windows 10"))
             setSize(818, 300);
         setTitle("Tarock Client : Talon Selection Showing");
-        getContentPane().setBackground(DataManipulationService.backgroundColor);
+        getContentPane().setBackground(Repository.backgroundColor);
         setLocationRelativeTo(null);
         addWindowListener(new MyWindowListener());
         setResizable(false);
