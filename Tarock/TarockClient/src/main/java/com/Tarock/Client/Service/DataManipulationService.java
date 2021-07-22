@@ -2,12 +2,15 @@ package com.Tarock.Client.Service;
 
 import org.apache.commons.io.FileUtils;
 
+import java.awt.*;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataManipulationService {
+    public static Color backgroundColor = new Color(78, 154, 6);
+
     public static boolean containsSpaces(String message)
     {
         for(int i=0;i<message.length();i++)

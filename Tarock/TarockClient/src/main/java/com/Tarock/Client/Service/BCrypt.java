@@ -441,7 +441,11 @@ public class BCrypt {
         StringBuilder rs = new StringBuilder();
         int off = 0, slen = s.length(), olen = 0;
         byte[] ret;
-        byte c1, c2, c3, c4, o;
+        byte c1;
+        byte c2;
+        byte c3;
+        byte c4;
+        byte o;
 
         if (BCrypt.BCRYPT_SALT_LEN <= 0)
             throw new IllegalArgumentException ("Invalid maxolen");

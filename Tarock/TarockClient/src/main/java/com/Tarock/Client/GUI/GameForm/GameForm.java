@@ -1,8 +1,12 @@
 package com.Tarock.Client.GUI.GameForm;
 
-import com.Tarock.Client.GUI.Template.*;
+import com.Tarock.Client.GUI.Template.ClickableImage;
+import com.Tarock.Client.GUI.Template.CustomJButton;
+import com.Tarock.Client.GUI.Template.JImage;
+import com.Tarock.Client.GUI.Template.MyWindowListener;
+import com.Tarock.Client.GUI.Template.RowTable;
 import com.Tarock.Client.Repository.Repository;
-
+import com.Tarock.Client.Service.DataManipulationService;
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalCheckBoxUI;
 import javax.swing.plaf.metal.MetalRadioButtonUI;
@@ -10,12 +14,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.font.TextAttribute;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class GameForm extends JFrame{
@@ -24,6 +26,8 @@ public class GameForm extends JFrame{
     public static int clubCode = 0x2663;
     public static int spadeCode = 0x2660;
     public static int the1of2 = 1;
+    public static int sizeX = 1330;
+    public static int sizeY = 690;
     public static String typeOfActivation = "";
     public static boolean canGiveCard = false;
     public static List<JLabel> playerLabels;
@@ -35,19 +39,24 @@ public class GameForm extends JFrame{
     public static CustomJButton the1of2Button;
     public static CustomJButton passButton;
     public static CustomJButton cancelGameButton;
+    public static JPanel declarationsPanel;
     public static JCheckBox popeAtFinishCheckBox;
     public static JCheckBox pagatAtFinishCheckBox;
     public static JCheckBox allPopesCheckBox;
     public static JCheckBox trullCheckBox;
+    public static JLabel numberOfTarocksLabel;
     public static JComboBox<String> numberOfTarocksComboBox;
     public static CustomJButton submitButton;
-    public static ButtonGroup popeButtonGroup;
+    public static JPanel selectPopePanel;
     public static JRadioButton heartRadio;
     public static JRadioButton diamondRadio;
     public static JRadioButton clubRadio;
     public static JRadioButton spadeRadio;
+    public static ButtonGroup popeButtonGroup;
+    public static JLabel scoreLabel;
     public static DefaultTableModel scoreTableModel;
     public static RowTable scoreTable;
+    public static JLabel declarationsLabel;
     public static List<JLabel> declarationsPlayers;
     public static List<JLabel> declarationsTurnsLabels;
     public static JLabel previousRoundWonByLabel;
@@ -59,18 +68,14 @@ public class GameForm extends JFrame{
     {
         showMessageDialog(null, message);
     }
-
     public void updateCard(int chair, int cardID) {
         cardsRound.get(chair).setCardID(cardID);
     }
-
     public void resetCards() {
         for(int i=0;i<4;i++)
             updateCard(i, 0);
     }
-
-    public void resetPlayerNames()
-    {
+    public void resetPlayerNames() {
         for(int i=0;i<4;i++)
         {
             playerLabels.get(i).setText((i + 1) + ". " + Repository.players.get(i) + " : ");
@@ -96,9 +101,7 @@ public class GameForm extends JFrame{
             scoreTable.getColumnModel().getColumn(4).setPreferredWidth(200);
         }
     }
-
-    public void addToScoreTable(int score1, int score2, int score3, int score4, String declaration)
-    {
+    public void addToScoreTable(int score1, int score2, int score3, int score4, String declaration) {
         StringBuilder declarationBuilder = new StringBuilder(declaration);
         String stringScore1 = String.valueOf(score1);
         String stringScore2 = String.valueOf(score2);
@@ -112,43 +115,34 @@ public class GameForm extends JFrame{
             declarationBuilder.setCharAt(4, (char)(clubCode));
         else if (declaration.charAt(4) == '3')
             declarationBuilder.setCharAt(4, (char)(spadeCode));
-        declaration = declarationBuilder.toString();
-        scoreTableModel.addRow(new Object[]{stringScore1, stringScore2, stringScore3, stringScore4, declaration});
+        String resultDeclaration = declarationBuilder.toString();
+        scoreTableModel.addRow(new Object[]{stringScore1, stringScore2, stringScore3, stringScore4, resultDeclaration});
     }
-
     public void updateCards() {
         for(int i=0;i<Repository.cards.size();i++)
             playerCards.get(i).setCardID(Repository.cards.get(i));
         for(int i=Repository.cards.size();i<12;i++)
             playerCards.get(i).setCardID(0);
     }
-
     public void updateChair()
     {
         playerLabels.get(Repository.chair).setFont(arialChair);
     }
-
     public void reset1of2()
     {
         the1of2Button.setText(the1of2 + "/2");
     }
-
-    public void increase1of2()
-    {
+    public void increase1of2() {
         the1of2++;
         the1of2Button.setText(the1of2 + "/2");
     }
-
-    public void resetTeams()
-    {
+    public void resetTeams() {
         for(int i=0;i<4;i++)
         {
             teamsLabels.get(i).setText("");
         }
     }
-
-    public void showTeams()
-    {
+    public void showTeams() {
         for(int i=0;i<Repository.teams.get(0).size();i++)
         {
             teamsLabels.get(Repository.teams.get(0).get(i)).setText("Team 1");
@@ -158,9 +152,7 @@ public class GameForm extends JFrame{
             teamsLabels.get(Repository.teams.get(1).get(i)).setText("Team 2");
         }
     }
-
-    public void updateNextStatus(int requestedChair, String type)
-    {
+    public void updateNextStatus(int requestedChair, String type) {
         List<JLabel> updateList = null;
         if (type.equals("Status"))
             updateList = playerTurnsLabels;
@@ -184,7 +176,6 @@ public class GameForm extends JFrame{
             }
         }
     }
-
     public void changeStatusPlayer(int player, String status) {
         String text = Repository.players.get(player) + " : ";
         if (status.equals("1/2"))
@@ -193,7 +184,6 @@ public class GameForm extends JFrame{
             text = text + "Pass";
         statusPlayers.get(player).setText(text);
     }
-
     public void changeDeclarationPlayer(int player, String declaration) {
         StringBuilder declarationBuilder = new StringBuilder(declaration);
 
@@ -213,7 +203,6 @@ public class GameForm extends JFrame{
         text = text + declarationBuilder.toString();
         declarationsPlayers.get(player).setText(text);
     }
-
     public void resetDeclarationSelection() {
         popeAtFinishCheckBox.setSelected(false);
         pagatAtFinishCheckBox.setSelected(false);
@@ -222,7 +211,6 @@ public class GameForm extends JFrame{
         numberOfTarocksComboBox.setSelectedIndex(0);
         popeButtonGroup.clearSelection();
     }
-
     public void switchDeclarationSelection(boolean canPopeAtFinish, boolean canPagatAtFinish, boolean canAllPopes, boolean canTrull, boolean value) {
         if (value)
             typeOfActivation = "Declaration";
@@ -239,7 +227,6 @@ public class GameForm extends JFrame{
         submitButton.setEnabled(value);
         numberOfTarocksComboBox.setEnabled(value);
     }
-
     public void switchPopeSelection(boolean value) {
         if (value)
             typeOfActivation = "Pope";
@@ -251,16 +238,14 @@ public class GameForm extends JFrame{
         spadeRadio.setEnabled(value);
         submitButton.setEnabled(value);
     }
-
-    public void updatePreviousRoundWonByLabel(String text)
-    {
+    public void updatePreviousRoundWonByLabel(String text) {
         if (text.equals(""))
             previousRoundWonByLabel.setText("");
         else
             previousRoundWonByLabel.setText("Previous round won by : " + text);
     }
 
-    public GameForm() throws IOException {
+    public void initGameForm(){
         playerLabels = new ArrayList<>();
         cardsRound = new ArrayList<>();
         playerCards = new ArrayList<>();
@@ -269,16 +254,14 @@ public class GameForm extends JFrame{
         teamsLabels = new ArrayList<>();
         declarationsPlayers = new ArrayList<>();
         declarationsTurnsLabels = new ArrayList<>();
-
         arialDefault = new Font("Arial", Font.BOLD, 16);
-
         Map<TextAttribute, Integer> fontAttributes = new HashMap<>();
         fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         arialChair = new Font("Arial",Font.BOLD, 16).deriveFont(fontAttributes);
-
         arialBig = new Font("Arial", Font.BOLD, 19);
-        setLayout(null);
+    }
 
+    public void initPlayerLabelsAndCardsRound() {
         for(int i=0;i<4;i++)
         {
             playerLabels.add(new JLabel());
@@ -299,64 +282,80 @@ public class GameForm extends JFrame{
         cardsRound.get(1).setBounds(30, 140, 100, 180);
         cardsRound.get(2).setBounds(190, 260, 100, 180);
         cardsRound.get(3).setBounds(350, 140, 100, 180);
-
+    }
+    public void initPlayerCards() {
         for(int i=0;i<12;i++){
             playerCards.add(new ClickableImage(0, "GameForm",i));
             playerCards.get(i).setBounds(10+110*i, 460, 100, 180);
             add(playerCards.get(i));
         }
-
+    }
+    public void initStatusLabel() {
         JLabel statusLabel = new JLabel();
         statusLabel.setText("Status : ");
         statusLabel.setFont(arialDefault);
         statusLabel.setBounds(470, 10, 80, 19);
         add(statusLabel);
+    }
 
-        for(int i=0;i<4;i++)
-        {
+    public void initStatusPlayers() {
+        for (int i = 0; i < 4; i++) {
             statusPlayers.add(new JLabel());
             statusPlayers.get(i).setText("Player " + (i + 1) + " : ");
             statusPlayers.get(i).setFont(arialDefault);
-            statusPlayers.get(i).setBounds(470, 30+i*20, 230, 19);
+            statusPlayers.get(i).setBounds(470, 30 + i * 20, 230, 19);
             add(statusPlayers.get(i));
-
+        }
+    }
+    public void initPlayerTurnsLabels() {
+        for (int i = 0; i < 4; i++) {
             playerTurnsLabels.add(new JLabel());
             playerTurnsLabels.get(i).setText("");
             playerTurnsLabels.get(i).setFont(arialDefault);
             playerTurnsLabels.get(i).setBounds(650, 30+i*20, 230, 19);
             add(playerTurnsLabels.get(i));
-
+        }
+    }
+    public void initTeamsLabels() {
+        for (int i = 0; i < 4; i++) {
             teamsLabels.add(new JLabel());
             teamsLabels.get(i).setText("");
             teamsLabels.get(i).setFont(arialDefault);
             teamsLabels.get(i).setBounds(720, 30+i*20, 230, 19);
             add(teamsLabels.get(i));
         }
+    }
 
+    public void initThe1of2Button() {
         the1of2Button = new CustomJButton("1/2", arialDefault);
         the1of2Button.setBounds(470, 120, 94, 27);
         the1of2Button.setEnabled(false);
         add(the1of2Button);
-
+    }
+    public void initThePassButton() {
         passButton = new CustomJButton("Pass", arialDefault);
         passButton.setBounds(570, 120, 94, 27);
         passButton.setEnabled(false);
         add(passButton);
-
+    }
+    public void initCancelGameButton() {
         cancelGameButton = new CustomJButton("Cancel Game", arialDefault);
         cancelGameButton.setBounds(670, 120, 111, 27);
         cancelGameButton.setEnabled(false);
         add(cancelGameButton);
+    }
 
-        JPanel declarationsPanel = new JPanel();
+    public void initDeclarationsPanel() {
+        declarationsPanel = new JPanel();
         declarationsPanel.setLayout(null);
         declarationsPanel.setBorder(BorderFactory.createTitledBorder("Declarations"));
-        declarationsPanel.setBackground(new Color(78, 154, 6));
+        declarationsPanel.setBackground(DataManipulationService.backgroundColor);
         declarationsPanel.setName("Declarations");
         declarationsPanel.setFont(arialDefault);
         declarationsPanel.setBounds(470, 160, 341, 241);
         add(declarationsPanel);
-
+    }
+    public void initPopeAtFinishCheckBox() {
         popeAtFinishCheckBox = new JCheckBox();
         popeAtFinishCheckBox.setUI(new MetalCheckBoxUI() {
             protected Color getDisabledTextColor() {
@@ -364,13 +363,14 @@ public class GameForm extends JFrame{
             }
         });
         popeAtFinishCheckBox.setEnabled(false);
-        popeAtFinishCheckBox.setBackground(new Color(78, 154, 6));
+        popeAtFinishCheckBox.setBackground(DataManipulationService.backgroundColor);
         popeAtFinishCheckBox.setFocusPainted(false);
         popeAtFinishCheckBox.setText("Pope at finish");
         popeAtFinishCheckBox.setFont(arialDefault);
         popeAtFinishCheckBox.setBounds(10, 20, 150, 25);
         declarationsPanel.add(popeAtFinishCheckBox);
-
+    }
+    public void initPagatAtFinishCheckBox() {
         pagatAtFinishCheckBox = new JCheckBox();
         pagatAtFinishCheckBox.setUI(new MetalCheckBoxUI() {
             protected Color getDisabledTextColor() {
@@ -378,13 +378,14 @@ public class GameForm extends JFrame{
             }
         });
         pagatAtFinishCheckBox.setEnabled(false);
-        pagatAtFinishCheckBox.setBackground(new Color(78, 154, 6));
+        pagatAtFinishCheckBox.setBackground(DataManipulationService.backgroundColor);
         pagatAtFinishCheckBox.setFocusPainted(false);
         pagatAtFinishCheckBox.setText("Pagat at finish");
         pagatAtFinishCheckBox.setFont(arialDefault);
         pagatAtFinishCheckBox.setBounds(10, 50, 150, 25);
         declarationsPanel.add(pagatAtFinishCheckBox);
-
+    }
+    public void initAllPopesCheckBox() {
         allPopesCheckBox = new JCheckBox();
         allPopesCheckBox.setUI(new MetalCheckBoxUI() {
             protected Color getDisabledTextColor() {
@@ -392,13 +393,14 @@ public class GameForm extends JFrame{
             }
         });
         allPopesCheckBox.setEnabled(false);
-        allPopesCheckBox.setBackground(new Color(78, 154, 6));
+        allPopesCheckBox.setBackground(DataManipulationService.backgroundColor);
         allPopesCheckBox.setFocusPainted(false);
         allPopesCheckBox.setText("All popes");
         allPopesCheckBox.setFont(arialDefault);
         allPopesCheckBox.setBounds(10, 80, 150, 25);
         declarationsPanel.add(allPopesCheckBox);
-
+    }
+    public void initTrullCheckBox() {
         trullCheckBox = new JCheckBox();
         trullCheckBox.setUI(new MetalCheckBoxUI() {
             protected Color getDisabledTextColor() {
@@ -406,19 +408,22 @@ public class GameForm extends JFrame{
             }
         });
         trullCheckBox.setEnabled(false);
-        trullCheckBox.setBackground(new Color(78, 154, 6));
+        trullCheckBox.setBackground(DataManipulationService.backgroundColor);
         trullCheckBox.setFocusPainted(false);
         trullCheckBox.setText("All trull cards");
         trullCheckBox.setFont(arialDefault);
         trullCheckBox.setBounds(10, 110, 150, 25);
         declarationsPanel.add(trullCheckBox);
+    }
 
-        JLabel numberOfTarocksLabel = new JLabel();
+    public void initNumberOfTarocksLabel() {
+        numberOfTarocksLabel = new JLabel();
         numberOfTarocksLabel.setText("No. Tarocks : ");
         numberOfTarocksLabel.setFont(arialDefault);
         numberOfTarocksLabel.setBounds(10, 145, 110, 31);
         declarationsPanel.add(numberOfTarocksLabel);
-
+    }
+    public void initNumberOfTarocksComboBox() {
         numberOfTarocksComboBox = new JComboBox<>();
         numberOfTarocksComboBox.setEnabled(false);
         numberOfTarocksComboBox.addItem("No");
@@ -428,21 +433,25 @@ public class GameForm extends JFrame{
         numberOfTarocksComboBox.setFont(arialDefault);
         numberOfTarocksComboBox.setBounds(120, 145, 51, 31);
         declarationsPanel.add(numberOfTarocksComboBox);
-
+    }
+    public void initSubmitButton() {
         submitButton = new CustomJButton("Submit", arialDefault);
         submitButton.setEnabled(false);
         submitButton.setBounds(30, 190, 94, 27);
         declarationsPanel.add(submitButton);
+    }
 
-        JPanel selectPopePanel = new JPanel();
+    public void initSelectPopePanel() {
+        selectPopePanel = new JPanel();
         selectPopePanel.setLayout(null);
         selectPopePanel.setBorder(BorderFactory.createTitledBorder("Select Pope : "));
-        selectPopePanel.setBackground(new Color(78, 154, 6));
+        selectPopePanel.setBackground(DataManipulationService.backgroundColor);
         selectPopePanel.setName("Selected Pope");
         selectPopePanel.setFont(arialDefault);
         selectPopePanel.setBounds(180, 30, 151, 151);
         declarationsPanel.add(selectPopePanel);
-
+    }
+    public void initHeartRadio() {
         heartRadio = new JRadioButton();
         heartRadio.setUI(new MetalRadioButtonUI() {
             protected Color getDisabledTextColor() {
@@ -450,14 +459,15 @@ public class GameForm extends JFrame{
             }
         });
         heartRadio.setEnabled(false);
-        heartRadio.setBackground(new Color(78, 154, 6));
+        heartRadio.setBackground(DataManipulationService.backgroundColor);
         heartRadio.setFocusPainted(false);
         String text = "Heart (" + (char) (heartCode) + ")";
         heartRadio.setText(text);
         heartRadio.setFont(arialDefault);
         heartRadio.setBounds(10, 20, 117, 25);
         selectPopePanel.add(heartRadio);
-
+    }
+    public void initDiamondRadio() {
         diamondRadio = new JRadioButton();
         diamondRadio.setUI(new MetalRadioButtonUI() {
             protected Color getDisabledTextColor() {
@@ -465,14 +475,15 @@ public class GameForm extends JFrame{
             }
         });
         diamondRadio.setEnabled(false);
-        diamondRadio.setBackground(new Color(78, 154, 6));
+        diamondRadio.setBackground(DataManipulationService.backgroundColor);
         diamondRadio.setFocusPainted(false);
-        text = "Diamond (" + (char) (diamondCode) + ")";
+        String text = "Diamond (" + (char) (diamondCode) + ")";
         diamondRadio.setText(text);
         diamondRadio.setFont(arialDefault);
         diamondRadio.setBounds(10, 50, 117, 25);
         selectPopePanel.add(diamondRadio);
-
+    }
+    public void initClubRadio() {
         clubRadio = new JRadioButton();
         clubRadio.setUI(new MetalRadioButtonUI() {
             protected Color getDisabledTextColor() {
@@ -480,14 +491,15 @@ public class GameForm extends JFrame{
             }
         });
         clubRadio.setEnabled(false);
-        clubRadio.setBackground(new Color(78, 154, 6));
+        clubRadio.setBackground(DataManipulationService.backgroundColor);
         clubRadio.setFocusPainted(false);
-        text = "Club (" + (char) (clubCode) + ")";
+        String text = "Club (" + (char) (clubCode) + ")";
         clubRadio.setText(text);
         clubRadio.setFont(arialDefault);
         clubRadio.setBounds(10, 80, 117, 25);
         selectPopePanel.add(clubRadio);
-
+    }
+    public void initSpadeRadio() {
         spadeRadio = new JRadioButton();
         spadeRadio.setUI(new MetalRadioButtonUI() {
             protected Color getDisabledTextColor() {
@@ -495,26 +507,37 @@ public class GameForm extends JFrame{
             }
         });
         spadeRadio.setEnabled(false);
-        spadeRadio.setBackground(new Color(78, 154, 6));
+        spadeRadio.setBackground(DataManipulationService.backgroundColor);
         spadeRadio.setFocusPainted(false);
-        text = "Spade (" + (char) (spadeCode) + ")";
+        String text = "Spade (" + (char) (spadeCode) + ")";
         spadeRadio.setText(text);
         spadeRadio.setFont(arialDefault);
         spadeRadio.setBounds(10, 110, 117, 25);
         selectPopePanel.add(spadeRadio);
-
+    }
+    public void initPopeButtonGroup() {
         popeButtonGroup = new ButtonGroup();
         popeButtonGroup.add(heartRadio);
         popeButtonGroup.add(diamondRadio);
         popeButtonGroup.add(clubRadio);
         popeButtonGroup.add(spadeRadio);
+    }
+    public void initPreviousRoundWonByLabel() {
+        previousRoundWonByLabel = new JLabel();
+        previousRoundWonByLabel.setText("");
+        previousRoundWonByLabel.setFont(arialDefault);
+        previousRoundWonByLabel.setBounds(470, 420, 400, 19);
+        add(previousRoundWonByLabel);
+    }
 
-        JLabel scoreLabel = new JLabel();
+    public void initScoreLabel() {
+        scoreLabel = new JLabel();
         scoreLabel.setText("Score : ");
         scoreLabel.setFont(arialBig);
         scoreLabel.setBounds(820, 10, 150, 19);
         add(scoreLabel);
-
+    }
+    public void initScoreTable() {
         scoreTableModel = new DefaultTableModel();
         scoreTable = new RowTable(scoreTableModel);
         scoreTable.setRowHeight(scoreTable.getRowHeight() + 12);
@@ -523,46 +546,85 @@ public class GameForm extends JFrame{
         JScrollPane scoreTableScrollPane = new JScrollPane(scoreTable);
         scoreTableScrollPane.setBounds(820, 40, 500, 281);
         add(scoreTableScrollPane);
+    }
 
-        JLabel declarationsLabel = new JLabel();
+    public void initDeclarationsLabel() {
+        declarationsLabel = new JLabel();
         declarationsLabel.setText("Declarations : ");
         declarationsLabel.setFont(arialDefault);
         declarationsLabel.setBounds(830, 340, 150, 19);
         add(declarationsLabel);
-
-        for(int i=0;i<4;i++)
-        {
+    }
+    public void initDeclarationsPlayers() {
+        for(int i=0;i<4;i++) {
             declarationsPlayers.add(new JLabel());
             declarationsPlayers.get(i).setText("Player " + (i + 1) + " : ");
             declarationsPlayers.get(i).setFont(arialDefault);
-            declarationsPlayers.get(i).setBounds(830, 360+20*i, 400, 19);
+            declarationsPlayers.get(i).setBounds(830, 360 + 20 * i, 400, 19);
             add(declarationsPlayers.get(i));
-
+        }
+    }
+    public void initDeclarationsTurnsLabels() {
+        for(int i=0;i<4;i++) {
             declarationsTurnsLabels.add(new JLabel());
             declarationsTurnsLabels.get(i).setText("");
             declarationsTurnsLabels.get(i).setFont(arialDefault);
             declarationsTurnsLabels.get(i).setBounds(1150, 360+i*20, 230, 19);
             add(declarationsTurnsLabels.get(i));
         }
+    }
 
-        previousRoundWonByLabel = new JLabel();
-        previousRoundWonByLabel.setText("");
-        previousRoundWonByLabel.setFont(arialDefault);
-        previousRoundWonByLabel.setBounds(470, 420, 400, 19);
-        add(previousRoundWonByLabel);
+    public GameForm(){
+        initGameForm();
+        setLayout(null);
 
-        if (System.getProperty("os.name").equals("Linux"))
-            setSize(1330, 690);
-        else if (System.getProperty("os.name").equals("Windows 10"))
-            setSize(1348, 690);
+        initPlayerLabelsAndCardsRound();
+        initPlayerCards();
+        initStatusLabel();
+
+        initStatusPlayers();
+        initPlayerTurnsLabels();
+        initTeamsLabels();
+
+        initThe1of2Button();
+        initThePassButton();
+        initCancelGameButton();
+
+        initDeclarationsPanel();
+        initPopeAtFinishCheckBox();
+        initPagatAtFinishCheckBox();
+        initAllPopesCheckBox();
+        initTrullCheckBox();
+
+        initNumberOfTarocksLabel();
+        initNumberOfTarocksComboBox();
+        initSubmitButton();
+
+        initSelectPopePanel();
+        initHeartRadio();
+        initDiamondRadio();
+        initClubRadio();
+        initSpadeRadio();
+        initPopeButtonGroup();
+        initPreviousRoundWonByLabel();
+
+        initScoreLabel();
+        initScoreTable();
+
+        initDeclarationsLabel();
+        initDeclarationsPlayers();
+        initDeclarationsTurnsLabels();
+
+        if (System.getProperty("os.name").equals("Windows 10"))
+            sizeX += 18;
+        setSize(sizeX, sizeY);
         setTitle("Tarock Client : Game");
-        getContentPane().setBackground(new Color(78, 154, 6));
+
+        getContentPane().setBackground(DataManipulationService.backgroundColor);
         setLocationRelativeTo(null);
         addWindowListener(new MyWindowListener());
         setResizable(false);
-        //setVisible(true);
 
-        //noinspection InstantiationOfUtilityClass
         new ControllerGameForm();
     }
 }
