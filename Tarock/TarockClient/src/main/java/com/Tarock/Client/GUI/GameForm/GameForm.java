@@ -6,6 +6,7 @@ import com.Tarock.Client.GUI.Template.JImage;
 import com.Tarock.Client.GUI.Template.MyWindowListener;
 import com.Tarock.Client.GUI.Template.RowTable;
 import com.Tarock.Client.Repository.Repository;
+import com.Tarock.Common.Service.DataManipulationService;
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalCheckBoxUI;
 import javax.swing.plaf.metal.MetalRadioButtonUI;
@@ -348,7 +349,7 @@ public class GameForm extends JFrame{
         declarationsPanel = new JPanel();
         declarationsPanel.setLayout(null);
         declarationsPanel.setBorder(BorderFactory.createTitledBorder("Declarations"));
-        declarationsPanel.setBackground(Repository.backgroundColor);
+        declarationsPanel.setBackground(DataManipulationService.backgroundColor);
         declarationsPanel.setName("Declarations");
         declarationsPanel.setFont(arialDefault);
         declarationsPanel.setBounds(470, 160, 341, 241);
@@ -362,7 +363,7 @@ public class GameForm extends JFrame{
             }
         });
         popeAtFinishCheckBox.setEnabled(false);
-        popeAtFinishCheckBox.setBackground(Repository.backgroundColor);
+        popeAtFinishCheckBox.setBackground(DataManipulationService.backgroundColor);
         popeAtFinishCheckBox.setFocusPainted(false);
         popeAtFinishCheckBox.setText("Pope at finish");
         popeAtFinishCheckBox.setFont(arialDefault);
@@ -377,7 +378,7 @@ public class GameForm extends JFrame{
             }
         });
         pagatAtFinishCheckBox.setEnabled(false);
-        pagatAtFinishCheckBox.setBackground(Repository.backgroundColor);
+        pagatAtFinishCheckBox.setBackground(DataManipulationService.backgroundColor);
         pagatAtFinishCheckBox.setFocusPainted(false);
         pagatAtFinishCheckBox.setText("Pagat at finish");
         pagatAtFinishCheckBox.setFont(arialDefault);
@@ -392,7 +393,7 @@ public class GameForm extends JFrame{
             }
         });
         allPopesCheckBox.setEnabled(false);
-        allPopesCheckBox.setBackground(Repository.backgroundColor);
+        allPopesCheckBox.setBackground(DataManipulationService.backgroundColor);
         allPopesCheckBox.setFocusPainted(false);
         allPopesCheckBox.setText("All popes");
         allPopesCheckBox.setFont(arialDefault);
@@ -407,7 +408,7 @@ public class GameForm extends JFrame{
             }
         });
         trullCheckBox.setEnabled(false);
-        trullCheckBox.setBackground(Repository.backgroundColor);
+        trullCheckBox.setBackground(DataManipulationService.backgroundColor);
         trullCheckBox.setFocusPainted(false);
         trullCheckBox.setText("All trull cards");
         trullCheckBox.setFont(arialDefault);
@@ -444,7 +445,7 @@ public class GameForm extends JFrame{
         selectPopePanel = new JPanel();
         selectPopePanel.setLayout(null);
         selectPopePanel.setBorder(BorderFactory.createTitledBorder("Select Pope : "));
-        selectPopePanel.setBackground(Repository.backgroundColor);
+        selectPopePanel.setBackground(DataManipulationService.backgroundColor);
         selectPopePanel.setName("Selected Pope");
         selectPopePanel.setFont(arialDefault);
         selectPopePanel.setBounds(180, 30, 151, 151);
@@ -458,7 +459,7 @@ public class GameForm extends JFrame{
             }
         });
         heartRadio.setEnabled(false);
-        heartRadio.setBackground(Repository.backgroundColor);
+        heartRadio.setBackground(DataManipulationService.backgroundColor);
         heartRadio.setFocusPainted(false);
         String text = "Heart (" + (char) (heartCode) + ")";
         heartRadio.setText(text);
@@ -474,7 +475,7 @@ public class GameForm extends JFrame{
             }
         });
         diamondRadio.setEnabled(false);
-        diamondRadio.setBackground(Repository.backgroundColor);
+        diamondRadio.setBackground(DataManipulationService.backgroundColor);
         diamondRadio.setFocusPainted(false);
         String text = "Diamond (" + (char) (diamondCode) + ")";
         diamondRadio.setText(text);
@@ -490,7 +491,7 @@ public class GameForm extends JFrame{
             }
         });
         clubRadio.setEnabled(false);
-        clubRadio.setBackground(Repository.backgroundColor);
+        clubRadio.setBackground(DataManipulationService.backgroundColor);
         clubRadio.setFocusPainted(false);
         String text = "Club (" + (char) (clubCode) + ")";
         clubRadio.setText(text);
@@ -506,7 +507,7 @@ public class GameForm extends JFrame{
             }
         });
         spadeRadio.setEnabled(false);
-        spadeRadio.setBackground(Repository.backgroundColor);
+        spadeRadio.setBackground(DataManipulationService.backgroundColor);
         spadeRadio.setFocusPainted(false);
         String text = "Spade (" + (char) (spadeCode) + ")";
         spadeRadio.setText(text);
@@ -619,7 +620,7 @@ public class GameForm extends JFrame{
         setSize(sizeX, sizeY);
         setTitle("Tarock Client : Game");
 
-        getContentPane().setBackground(Repository.backgroundColor);
+        getContentPane().setBackground(DataManipulationService.backgroundColor);
         setLocationRelativeTo(null);
         addWindowListener(new MyWindowListener());
         setResizable(false);

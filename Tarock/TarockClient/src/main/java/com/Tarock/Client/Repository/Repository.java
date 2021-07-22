@@ -4,13 +4,11 @@ import com.Tarock.Common.Domain.Round;
 import com.Tarock.Common.Domain.User;
 import com.Tarock.Common.Exception.RepositoryException;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Repository {
-    public static Color backgroundColor = new Color(78, 154, 6);
     public static boolean loggedIn;
     public static User loggedUser;
     public static int sessionID;

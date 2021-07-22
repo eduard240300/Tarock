@@ -2,7 +2,8 @@ package com.Tarock.Client.GUI.ConnectionForm;
 
 import com.Tarock.Client.GUI.Template.CustomJButton;
 import com.Tarock.Client.GUI.Template.MyWindowListener;
-import com.Tarock.Client.Repository.Repository;
+import com.Tarock.Common.Service.DataManipulationService;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -85,6 +86,9 @@ public class ConnectionForm extends JFrame{
         loginButton.setBounds(20, 220, 500, 40);
         add(loginButton);
     }
+    public void initControllerConnectionForm() {
+        controllerConnectionForm = new ControllerConnectionForm();
+    }
 
     public ConnectionForm(){
         setLayout(null);
@@ -104,12 +108,12 @@ public class ConnectionForm extends JFrame{
         setSize(sizeX, sizeY);
         setTitle("Tarock Client : Login");
 
-        getContentPane().setBackground(Repository.backgroundColor);
+        getContentPane().setBackground(DataManipulationService.backgroundColor);
         setLocationRelativeTo(null);
         addWindowListener(new MyWindowListener());
         setVisible(true);
         setResizable(false);
 
-        controllerConnectionForm = new ControllerConnectionForm();
+        initControllerConnectionForm();
     }
 }

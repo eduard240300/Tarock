@@ -4,6 +4,7 @@ import com.Tarock.Client.GUI.Template.CustomJButton;
 import com.Tarock.Client.GUI.Template.JImage;
 import com.Tarock.Client.GUI.Template.MyWindowListener;
 import com.Tarock.Client.GUI.Template.RowTable;
+import com.Tarock.Common.Service.DataManipulationService;
 import com.Tarock.Client.Repository.Repository;
 
 import javax.swing.*;
@@ -194,7 +195,7 @@ public class ScoreForm extends JFrame{
         setSize(sizeX, sizeY);
         setTitle("Tarock Client : Score");
 
-        getContentPane().setBackground(Repository.backgroundColor);
+        getContentPane().setBackground(DataManipulationService.backgroundColor);
         setLocationRelativeTo(null);
         addWindowListener(new MyWindowListener());
         setResizable(false);
