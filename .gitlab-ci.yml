@@ -51,6 +51,9 @@ deploy-and-send-tests:
   ## End Deploy
   - mvn verify -P jacoco
   after_script:
+  - mkdir -p /builds/eduard240300/Tarock-Java/Tarock/target/surefire-reports/
+  - cp -r /builds/eduard240300/Tarock-Java/Tarock/TarockServer/target/surefire-reports/* /builds/eduard240300/Tarock-Java/Tarock/target/surefire-reports/
+  - cp -r /builds/eduard240300/Tarock-Java/Tarock/TarockClient/target/surefire-reports/* /builds/eduard240300/Tarock-Java/Tarock/target/surefire-reports/
   - ls -R
   - java -cp target/codacy-coverage-reporter-assembly-latest.jar com.codacy.CodacyCoverageReporter report -l Java -r /builds/eduard240300/Tarock-Java/Tarock/report/target/site/jacoco-aggregate/jacoco.xml
 # - bash <(curl -s https://codecov.io/bash)
@@ -66,7 +69,8 @@ deploy-and-send-tests:
   artifacts:
     expire_in: 1 day
     reports:
-      junit: "*/builds/eduard240300/Tarock-Java/Tarock/report/target/surefire-reports/TEST-*.xml"
+      junit: "*/builds/eduard240300/Tarock-Java/Tarock/target/surefire-reports/TEST-*.xml"
+      
 
 
 #code_quality:
