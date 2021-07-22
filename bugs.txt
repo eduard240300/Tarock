@@ -1,6 +1,7 @@
 Bugs:
 
 Add Solo mode
+When closing an client from the close button an NullPointerException is thrown in the Server.
 
 Resolved Bugs:
 
