@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class RowTable extends JTable
 {
-    private Map<Integer, Color> rowColor = new HashMap<>();
+    private final Map<Integer, Color> rowColor = new HashMap<>();
     public RowTable(TableModel model)
     {
         super(model);
