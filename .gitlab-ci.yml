@@ -34,7 +34,7 @@ deploy-and-send-tests:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
-  - ssh-keyscan tarock.ml >> ~/.ssh/known_hosts
+  - ssh-keyscan redstorm.ml >> ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
   ## End Deploy
   - cd /builds/eduard240300/Tarock-Java/Tarock/
@@ -45,9 +45,9 @@ deploy-and-send-tests:
   - mkdir ../build
   - cp -TR ../TarockWebsite/ ../build
   - tar -cvf deploy.tar ../build/
-  - sshpass -p $PASSWORD_WEBSITE ssh root@tarock.ml 'rm -r -f /opt/lampp/htdocs/*'
-  - sshpass -p $PASSWORD_WEBSITE scp /builds/eduard240300/Tarock-Java/Tarock/deploy.tar root@tarock.ml:/opt/lampp/htdocs/
-  - sshpass -p $PASSWORD_WEBSITE ssh root@tarock.ml 'cd /opt/lampp/htdocs && tar -xvf deploy.tar && rm -r -f deploy.tar && mv ./build/* . && rm -r -f ./build/'
+  - sshpass -p $PASSWORD_WEBSITE ssh root@redstorm.ml 'rm -r -f /opt/lampp/htdocs/tarock/*'
+  - sshpass -p $PASSWORD_WEBSITE scp /builds/eduard240300/Tarock-Java/Tarock/deploy.tar root@redstorm.ml:/opt/lampp/htdocs/tarock/
+  - sshpass -p $PASSWORD_WEBSITE ssh root@redstorm.ml 'cd /opt/lampp/htdocs/tarock/ && tar -xvf deploy.tar && rm -r -f deploy.tar && mv ./build/* . && rm -r -f ./build/'
   ## End Deploy
   - mvn verify -P jacoco
   after_script:
