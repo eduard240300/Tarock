@@ -601,7 +601,7 @@ public class GameForm extends JFrame {
         }
     }
 
-    public GameForm() {
+    public GameForm(boolean initializeController) {
         InputStream icon = DataManipulationService.getInputStream("icon.png");
         try {
             setIconImage(ImageIO.read(icon));
@@ -659,6 +659,7 @@ public class GameForm extends JFrame {
         setResizable(false);
         //setVisible(true);
 
-        new ControllerGameForm();
+        if (initializeController)
+            new ControllerGameForm();
     }
 }

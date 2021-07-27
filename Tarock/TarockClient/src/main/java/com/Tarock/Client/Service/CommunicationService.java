@@ -73,7 +73,7 @@ public class CommunicationService extends Thread {
                 } catch (EOFException eofException) {
                     GameForm.popUpMessage("Server forcefully closed !");
                     Main.gameForm.setVisible(false);
-                    Main.gameForm = new GameForm();
+                    Main.gameForm = new GameForm(true);
                     Main.connectionForm.setVisible(true);
                     ConnectionForm.controllerConnectionForm.resetServices();
                     Repository.logout();

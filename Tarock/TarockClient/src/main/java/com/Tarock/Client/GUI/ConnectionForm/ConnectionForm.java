@@ -98,10 +98,10 @@ public class ConnectionForm extends JFrame {
     }
 
     public void initControllerConnectionForm() {
-        controllerConnectionForm = new ControllerConnectionForm();
+        controllerConnectionForm = new ControllerConnectionForm(false);
     }
 
-    public ConnectionForm() {
+    public ConnectionForm(boolean isVisible, boolean initializeController) {
         InputStream icon = DataManipulationService.getInputStream("icon.png");
         try {
             setIconImage(ImageIO.read(icon));
@@ -128,9 +128,10 @@ public class ConnectionForm extends JFrame {
         getContentPane().setBackground(DataManipulationService.backgroundColor);
         setLocationRelativeTo(null);
         addWindowListener(new MyWindowListener());
-        setVisible(true);
+        setVisible(isVisible);
         setResizable(false);
 
-        initControllerConnectionForm();
+        if (initializeController)
+            initControllerConnectionForm();
     }
 }

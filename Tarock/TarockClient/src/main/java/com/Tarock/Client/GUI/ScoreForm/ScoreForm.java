@@ -182,7 +182,7 @@ public class ScoreForm extends JFrame {
         add(OKButton);
     }
 
-    public ScoreForm() {
+    public ScoreForm(boolean initializeController) {
         InputStream icon = DataManipulationService.getInputStream("icon.png");
         try {
             setIconImage(ImageIO.read(icon));
@@ -216,6 +216,7 @@ public class ScoreForm extends JFrame {
         setResizable(false);
         //setVisible(true);
 
-        new ControllerScoreForm();
+        if (initializeController)
+            new ControllerScoreForm();
     }
 }

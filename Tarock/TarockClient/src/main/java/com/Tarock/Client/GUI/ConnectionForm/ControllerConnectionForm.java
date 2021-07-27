@@ -17,6 +17,7 @@ public class ControllerConnectionForm {
     private static final UserValidator userValidator = new UserValidator();
     private static User user;
     private static String sessionID;
+    private static String exceptionMessage;
 
     public void resetServices() {
         loginService = null;
@@ -41,7 +42,7 @@ public class ControllerConnectionForm {
         user = new User(username, hashedPassword);
     }
 
-    public ControllerConnectionForm() {
+    public ControllerConnectionForm(boolean isTesting) {
         ConnectionForm.loginButton.addActionListener(e -> {
             CommunicationService.ipAddress = ConnectionForm.ipAddressField.getText();
 
@@ -64,8 +65,9 @@ public class ControllerConnectionForm {
                 loginService.login(inputUser, Integer.parseInt(sessionID));
             } catch (RuntimeException exception) {
                 String className = DataManipulationService.truncateClassName(exception.getClass().getName());
-                String message = exception.getMessage();
-                ConnectionForm.popUpMessage(className + " : " + message);
+                exceptionMessage = exception.getMessage();
+                if (!isTesting)
+                    ConnectionForm.popUpMessage(className + " : " + exceptionMessage);
             }
         });
     }
