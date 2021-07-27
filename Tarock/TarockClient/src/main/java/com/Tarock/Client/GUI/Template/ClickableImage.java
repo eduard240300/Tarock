@@ -2,6 +2,7 @@ package com.Tarock.Client.GUI.Template;
 
 import com.Tarock.Client.GUI.GameForm.ControllerGameForm;
 import com.Tarock.Client.GUI.TalonSelectionForm.ControllerTalonSelectionForm;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -26,8 +27,7 @@ public class ClickableImage extends JImage implements MouseListener {
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }
-            }
-            else if (GUI.equals("TalonSelectionForm")) {
+            } else if (GUI.equals("TalonSelectionForm")) {
                 try {
                     ControllerTalonSelectionForm.pressedCard(CardPosition);
                 } catch (IOException exception) {
@@ -36,12 +36,20 @@ public class ClickableImage extends JImage implements MouseListener {
             }
         }
     }
+
     @Override
-    public void mousePressed(MouseEvent mouseEvent) { }
+    public void mousePressed(MouseEvent mouseEvent) {
+    }
+
     @Override
-    public void mouseReleased(MouseEvent mouseEvent) { }
+    public void mouseReleased(MouseEvent mouseEvent) {
+    }
+
     @Override
-    public void mouseEntered(MouseEvent mouseEvent) { }
+    public void mouseEntered(MouseEvent mouseEvent) {
+    }
+
     @Override
-    public void mouseExited(MouseEvent mouseEvent) { }
+    public void mouseExited(MouseEvent mouseEvent) {
+    }
 }

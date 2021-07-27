@@ -6,7 +6,7 @@ import com.Tarock.Common.Domain.User;
 import com.Tarock.Client.GUI.ConnectionForm.ConnectionForm;
 import com.Tarock.Client.GUI.ConnectionForm.ControllerConnectionForm;
 import com.Tarock.Client.GUI.GameForm.GameForm;
-import com.Tarock.Client.GUI.Main;
+import com.Tarock.Client.Main;
 import com.Tarock.Client.GUI.ScoreForm.ScoreForm;
 import com.Tarock.Client.GUI.TalonSelectionForm.TalonSelectionForm;
 import com.Tarock.Client.Repository.Repository;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings({"BusyWait", "deprecation"})
-public class CommunicationService extends Thread{
+public class CommunicationService extends Thread {
     public static String ipAddress = "";
     public static Socket socket;
     public static ObjectInputStream inputStream;
@@ -46,8 +46,8 @@ public class CommunicationService extends Thread{
     public static boolean shouldCompleteRound = false;
     public static boolean connected = false;
 
-    public void runHelper () throws IOException, ClassNotFoundException, InterruptedException {
-        while(true) {
+    public void runHelper() throws IOException, ClassNotFoundException, InterruptedException {
+        while (true) {
             try {
                 if (!ipAddress.equals("")) {
                     socket = new Socket(ipAddress, 9876);
@@ -58,25 +58,19 @@ public class CommunicationService extends Thread{
             } catch (ConnectException connectException) {
                 ipAddress = "";
                 ConnectionForm.popUpMessage("Could not connect to server !");
-            }
-            catch (UnknownHostException unknownHostException)
-            {
+            } catch (UnknownHostException unknownHostException) {
                 ipAddress = "";
                 ConnectionForm.popUpMessage("Server is down or IP is incorrect !");
             }
             Thread.sleep(200);
         }
-        if (connected)
-        {
+        if (connected) {
             inputStream = new ObjectInputStream(socket.getInputStream());
             outputStream = new ObjectOutputStream(socket.getOutputStream());
-            while(true)
-            {
+            while (true) {
                 try {
                     read();
-                }
-                catch(EOFException eofException)
-                {
+                } catch (EOFException eofException) {
                     GameForm.popUpMessage("Server forcefully closed !");
                     Main.gameForm.setVisible(false);
                     Main.gameForm = new GameForm();
@@ -98,6 +92,7 @@ public class CommunicationService extends Thread{
         user = null;
         return sentMessage;
     }
+
     public void caseFailedAuth(List<String> listOfObjects) {
         String errorMessage;
         if (listOfObjects.get(1).equals("sessionIDEnded"))
@@ -106,16 +101,19 @@ public class CommunicationService extends Thread{
             errorMessage = "Wrong " + listOfObjects.get(1) + " !";
         ConnectionForm.popUpMessage(errorMessage);
     }
+
     public void casePlayers(List<String> listOfObjects) {
         for (int j = 0; j < 4; j++)
             Repository.players.set(j, DataManipulationService.getName(listOfObjects.get(j + 1)));
         Main.gameForm.resetPlayerNames();
         ScoreForm.resetPlayerNames();
     }
+
     public void caseChairNumber(List<String> listOfObjects) {
         Repository.chair = Integer.parseInt(listOfObjects.get(1));
         Main.gameForm.updateChair();
     }
+
     public void caseBeginGame() {
         playerMode = "";
         declaration = null;
@@ -155,16 +153,19 @@ public class CommunicationService extends Thread{
         Main.gameForm.resetDeclarationSelection();
         Main.gameForm.updatePreviousRoundWonByLabel("");
     }
+
     public void caseCards(List<String> listOfObjects) {
         Repository.cards.clear();
         for (int j = 0; j < 12; j++)
             Repository.cards.add(Integer.parseInt(listOfObjects.get(j + 1)));
         Main.gameForm.updateCards();
     }
+
     public void caseRequestedPlayerModeOrCard(List<String> listOfObjects) {
         int requestedChair = Integer.parseInt(listOfObjects.get(1));
         Main.gameForm.updateNextStatus(requestedChair, "Status");
     }
+
     public String caseRequestPlayerMode() throws InterruptedException {
         GameForm.the1of2Button.setEnabled(true);
         GameForm.passButton.setEnabled(true);
@@ -176,10 +177,12 @@ public class CommunicationService extends Thread{
         playerMode = "";
         return sentMessage;
     }
+
     public void caseRespondedPlayerMode(List<String> listOfObjects) {
         Repository.resetCardsWon();
         Main.gameForm.changeStatusPlayer(Integer.parseInt(listOfObjects.get(1)), listOfObjects.get(2));
     }
+
     public void casePlayerRequest(List<String> listOfObjects) {
         Main.gameForm.updateNextStatus(-1, "Status");
         Repository.playerRequest = Integer.parseInt(listOfObjects.get(1));
@@ -187,10 +190,12 @@ public class CommunicationService extends Thread{
             Repository.isRequestPlayer = true;
         Repository.the1of2 = Integer.parseInt(listOfObjects.get(2));
     }
+
     public void caseRequestedDeclaration(List<String> listOfObjects) {
         int requestedChair = Integer.parseInt(listOfObjects.get(1));
         Main.gameForm.updateNextStatus(requestedChair, "Declaration");
     }
+
     public String caseRequestDeclaration() throws InterruptedException {
         Main.gameForm.resetDeclarationSelection();
         Main.gameForm.switchDeclarationSelection(canPopeAtFinish, canPagatAtFinish, canAllPopes, canTrull, true);
@@ -201,6 +206,7 @@ public class CommunicationService extends Thread{
         Main.gameForm.switchDeclarationSelection(canPopeAtFinish, canPagatAtFinish, canAllPopes, canTrull, false);
         return sentMessage;
     }
+
     public void caseRespondedDeclaration(List<String> listOfObjects) {
         Main.gameForm.changeDeclarationPlayer(Integer.parseInt(listOfObjects.get(1)), DataManipulationService.getName(listOfObjects.get(2)));
         boolean popeAtFinish = DataManipulationService.stringToBool(listOfObjects.get(3));
@@ -219,20 +225,24 @@ public class CommunicationService extends Thread{
         if (trull)
             canTrull = false;
     }
+
     public void caseTeam(List<String> listOfObjects, int team) {
         for (int j = 1; j < listOfObjects.size(); j++) {
             Repository.teams.get(team).add(Integer.parseInt(listOfObjects.get(j)));
         }
     }
+
     public void caseTalon(List<String> listOfObjects) {
         for (int j = 0; j < 6; j++) {
             Repository.talon.set(j, Integer.parseInt(listOfObjects.get(j + 1)));
         }
     }
+
     public void caseRequestedTalonSelection() {
         Repository.talonPart = (Repository.the1of2 - 1) % 3;
         Main.talonShowingForm.setVisible(true);
     }
+
     public String caseRequestTalonSelection() throws IOException, InterruptedException {
         if (Repository.talonPart == -1)
             Repository.talonPart = (Repository.the1of2 - 1) % 3;
@@ -249,6 +259,7 @@ public class CommunicationService extends Thread{
         talonTakeDecision = "";
         return sentMessage;
     }
+
     public void caseRespondedTalonSelection(List<String> listOfObjects) {
         if (listOfObjects.get(1).equals("next")) {
             Main.talonShowingForm.revealTalonPart();
@@ -257,6 +268,7 @@ public class CommunicationService extends Thread{
             Repository.the1of2++;
         }
     }
+
     public String caseRequestTalonReplacement() throws InterruptedException {
         while (talonGiveDecision.equals(""))
             Thread.sleep(1);
@@ -265,12 +277,14 @@ public class CommunicationService extends Thread{
         talonGiveDecision = "";
         return sentMessage;
     }
+
     public void caseCloseTalonWindows(List<String> listOfObjects) {
         if (listOfObjects.get(1).equals("show"))
             Main.talonShowingForm.setVisible(false);
         else if (listOfObjects.get(1).equals("select"))
             Main.talonSelectionForm.setVisible(false);
     }
+
     public String caseRequestPope() throws InterruptedException {
         Main.gameForm.switchPopeSelection(true);
         while (pope == -1)
@@ -280,10 +294,12 @@ public class CommunicationService extends Thread{
         Main.gameForm.switchPopeSelection(false);
         return sentMessage;
     }
+
     public void caseBeginRound() {
         shouldCompleteRound = true;
         Repository.round = round;
     }
+
     public String caseRequestCard() throws InterruptedException {
         GameForm.canGiveCard = true;
         while (cardGiven == -1)
@@ -293,6 +309,7 @@ public class CommunicationService extends Thread{
         cardGiven = -1;
         return sentMessage;
     }
+
     public void caseRespondedCard(List<String> listOfObjects) {
         int player = Integer.parseInt(listOfObjects.get(1));
         if (shouldCompleteRound) {
@@ -305,16 +322,19 @@ public class CommunicationService extends Thread{
         Repository.rounds.get(round).addCard(player, cardID);
         Main.gameForm.updateCard(player, cardID);
     }
+
     public void caseRoundFinished() {
         round++;
         int playerThatWon = Repository.rounds.get(round - 1).getPlayerThatWon();
         Main.gameForm.updatePreviousRoundWonByLabel(Repository.players.get(playerThatWon));
     }
+
     public void caseCardsTeam(List<String> listOfObjects, int team) {
         for (int j = 1; j < listOfObjects.size(); j++) {
             Repository.cardsWon.get(team).add(Integer.valueOf(listOfObjects.get(j)));
         }
     }
+
     public void triggerCardsTeam() throws IOException {
         ScoreForm.previousTeam1Button.setEnabled(false);
         ScoreForm.previousTeam2Button.setEnabled(false);
@@ -327,6 +347,7 @@ public class CommunicationService extends Thread{
 
         ScoreForm.updateCards();
     }
+
     public void caseScore(List<String> listOfObjects) {
         int score1 = Integer.parseInt(listOfObjects.get(1));
         int score2 = Integer.parseInt(listOfObjects.get(2));
@@ -339,6 +360,7 @@ public class CommunicationService extends Thread{
             GameForm.scoreTable.setRowColor(GameForm.scoreTable.getRowCount() - 1, new Color(168, 216, 231));
         }
     }
+
     public void caseScoreDetailed(List<String> listOfObjects) {
         List<String> declaredOrDone = new ArrayList<>();
         List<Integer> points = new ArrayList<>();
@@ -472,13 +494,10 @@ public class CommunicationService extends Thread{
         outputStream.writeObject(sentMessage);
     }
 
-    public void run()
-    {
-        try{
+    public void run() {
+        try {
             runHelper();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

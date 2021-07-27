@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TalonShowingForm extends JFrame{
+public class TalonShowingForm extends JFrame {
     public static Font arialBig = new Font("Arial", Font.BOLD, 19);
     public static int sizeX = 800;
     public static int sizeY = 300;
@@ -20,26 +20,26 @@ public class TalonShowingForm extends JFrame{
     public static List<List<JImage>> talonCards = new ArrayList<>();
 
     public void updateCards() {
-        for(int i=0;i<3;i++)
-        {
+        for (int i = 0; i < 3; i++) {
             Repository.talonPart = i;
             revealTalonPart();
         }
         Repository.talonPart = -1;
     }
+
     public void revealTalonPart() {
         int talonPart = Repository.talonPart;
-        for(int i=0;i<2;i++)
-        {
-            talonCards.get(talonPart).get(i).setCardID(Repository.talon.get(talonPart*2+i));
+        for (int i = 0; i < 2; i++) {
+            talonCards.get(talonPart).get(i).setCardID(Repository.talon.get(talonPart * 2 + i));
         }
     }
 
     public void initFirstTalonCards() {
-        for(int i=0;i<3;i++) {
+        for (int i = 0; i < 3; i++) {
             talonCards.add(new ArrayList<>());
         }
     }
+
     public void initTalonLabel() {
         talonLabel = new JLabel();
         talonLabel.setText("Talon : ");
@@ -47,11 +47,10 @@ public class TalonShowingForm extends JFrame{
         talonLabel.setBounds(40, 20, 131, 31);
         add(talonLabel);
     }
+
     public void initTalonCards() {
-        for(int i=0;i<3;i++)
-        {
-            for(int j=0;j<2;j++)
-            {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 2; j++) {
                 talonCards.get(i).add(new JImage(0));
                 talonCards.get(i).get(j).setBounds(40 + 110 * j + 260 * i, 60, 100, 180);
                 add(talonCards.get(i).get(j));
@@ -61,7 +60,10 @@ public class TalonShowingForm extends JFrame{
 
     public TalonShowingForm() {
         InputStream icon = DataManipulationService.getInputStream("icon.png");
-        try { setIconImage(ImageIO.read(icon)); } catch (Exception ignored) {}
+        try {
+            setIconImage(ImageIO.read(icon));
+        } catch (Exception ignored) {
+        }
 
         initFirstTalonCards();
 

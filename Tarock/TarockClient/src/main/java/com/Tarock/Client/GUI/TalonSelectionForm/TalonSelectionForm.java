@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TalonSelectionForm extends JFrame{
+public class TalonSelectionForm extends JFrame {
     public static Font arialBig = new Font("Arial", Font.BOLD, 19);
     public static int sizeX = 1550;
     public static int sizeY = 510;
@@ -30,28 +30,29 @@ public class TalonSelectionForm extends JFrame{
     public static List<ClickableImage> playerCards = new ArrayList<>();
 
     public void updateCards() throws IOException {
-        for(int i=0;i<Repository.cards.size();i++)
+        for (int i = 0; i < Repository.cards.size(); i++)
             playerCards.get(i).setCardID(Repository.cards.get(i));
-        for(int i=Repository.cards.size();i<14;i++)
+        for (int i = Repository.cards.size(); i < 14; i++)
             playerCards.get(i).setCardID(0);
     }
+
     public void updateTalonCards() {
         int talonPart = Repository.talonPart;
-        for(int i=0;i<2;i++)
-            talonCards.get(i).setCardID(Repository.talon.get(talonPart*2+i));
+        for (int i = 0; i < 2; i++)
+            talonCards.get(i).setCardID(Repository.talon.get(talonPart * 2 + i));
     }
+
     public void updateGivenCards() {
         List<Integer> givenCardsRepo = Repository.givenCards;
         int size = givenCardsRepo.size();
-        for(int i=0;i<size;i++)
-        {
+        for (int i = 0; i < size; i++) {
             givenCards.get(i).setCardID(givenCardsRepo.get(i));
         }
-        for(int i=size;i<2;i++)
-        {
+        for (int i = size; i < 2; i++) {
             givenCards.get(i).setCardID(0);
         }
     }
+
     public void updateTalonLabel() {
         talonLabel.setText("Talon : " + Repository.the1of2 + "/2");
     }
@@ -63,6 +64,7 @@ public class TalonSelectionForm extends JFrame{
         talonLabel.setBounds(350, 20, 131, 31);
         add(talonLabel);
     }
+
     public void initGivenCardsLabel() {
         givenCardsLabel = new JLabel();
         givenCardsLabel.setText("Given cards :");
@@ -70,6 +72,7 @@ public class TalonSelectionForm extends JFrame{
         givenCardsLabel.setBounds(1010, 20, 140, 31);
         add(givenCardsLabel);
     }
+
     public void initMyCardsLabel() {
         myCardsLabel = new JLabel();
         myCardsLabel.setText("My cards :");
@@ -77,37 +80,43 @@ public class TalonSelectionForm extends JFrame{
         myCardsLabel.setBounds(710, 240, 130, 31);
         add(myCardsLabel);
     }
+
     public void initTalonCards() {
-        for(int i=0;i<2;i++) {
+        for (int i = 0; i < 2; i++) {
             talonCards.add(new JImage(0));
             talonCards.get(i).setBounds(340 + 110 * i, 50, 100, 180);
             add(talonCards.get(i));
         }
     }
+
     public void initGivenCards() {
-        for(int i=0;i<2;i++) {
+        for (int i = 0; i < 2; i++) {
             givenCards.add(new JImage(0));
             givenCards.get(i).setBounds(1000 + 110 * i, 50, 100, 180);
             add(givenCards.get(i));
         }
     }
+
     public void initPlayerCards() {
-        for(int i=0;i<14;i++) {
-            playerCards.add(new ClickableImage(0, "TalonSelectionForm",i));
+        for (int i = 0; i < 14; i++) {
+            playerCards.add(new ClickableImage(0, "TalonSelectionForm", i));
             playerCards.get(i).setBounds(10 + 110 * i, 280, 100, 180);
             add(playerCards.get(i));
         }
     }
+
     public void initTakeButton() {
         takeButton = new CustomJButton("Take", arialBig);
         takeButton.setBounds(270, 110, 60, 60);
         add(takeButton);
     }
+
     public void initNextButton() {
         nextButton = new CustomJButton(">", arialBig);
         nextButton.setBounds(560, 110, 60, 60);
         add(nextButton);
     }
+
     public void initGiveButton() {
         giveButton = new CustomJButton("Give", arialBig);
         giveButton.setBounds(930, 110, 60, 60);
@@ -115,9 +124,12 @@ public class TalonSelectionForm extends JFrame{
         add(giveButton);
     }
 
-    public TalonSelectionForm(){
+    public TalonSelectionForm() {
         InputStream icon = DataManipulationService.getInputStream("icon.png");
-        try { setIconImage(ImageIO.read(icon)); } catch (Exception ignored) {}
+        try {
+            setIconImage(ImageIO.read(icon));
+        } catch (Exception ignored) {
+        }
 
         setLayout(null);
 

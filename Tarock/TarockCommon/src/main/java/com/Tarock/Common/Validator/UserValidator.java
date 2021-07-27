@@ -5,8 +5,7 @@ import com.Tarock.Common.Exception.ValidationException;
 import com.Tarock.Common.Service.DataManipulationService;
 
 public class UserValidator {
-    public void validateUser(User user)
-    {
+    public void validateUser(User user) {
         String message = "";
         if (DataManipulationService.containsSpaces(user.getUsername()))
             message = message + "Username can't contain spaces !\n";

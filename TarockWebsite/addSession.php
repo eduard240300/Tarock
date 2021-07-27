@@ -83,7 +83,7 @@ else{
 				<a href="downloads.php">Downloads</a>
 				<a href="account.php">My Account</a>
 				<a href="logout.php">Logout</a>
-				<img src="images/standard.png" width="40" height="40">
+				<img src="images/standard.jpg" width="40" height="40">
 				<?php
 					echo $_COOKIE["name"];
 				?>

@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScoreForm extends JFrame{
+public class ScoreForm extends JFrame {
     public static Font arialDefault = new Font("Arial", Font.BOLD, 16);
     public static Font arialBig = new Font("Arial", Font.BOLD, 19);
     public static int sizeX = 1330;
@@ -39,34 +39,33 @@ public class ScoreForm extends JFrame{
 
     public static void resetPlayerNames() {
         List<String> players = Repository.players;
-        for(int i=7;i<11;i++)
-        {
-            scoreTable.setValueAt("Tarocks " + players.get(i-7), i, 1);
+        for (int i = 7; i < 11; i++) {
+            scoreTable.setValueAt("Tarocks " + players.get(i - 7), i, 1);
         }
     }
+
     public static void updateCards() throws IOException {
-        for(int i=0;i<6;i++)
-        {
-            if ((i+offset1) < Repository.cardsWon.get(0).size())
-                team1Cards.get(i).setCardID(Repository.cardsWon.get(0).get(i+offset1));
+        for (int i = 0; i < 6; i++) {
+            if ((i + offset1) < Repository.cardsWon.get(0).size())
+                team1Cards.get(i).setCardID(Repository.cardsWon.get(0).get(i + offset1));
             else
                 team1Cards.get(i).setCardID(0);
         }
-        for(int i=0;i<6;i++)
-        {
-            if ((i+offset2) < Repository.cardsWon.get(1).size())
-                team2Cards.get(i).setCardID(Repository.cardsWon.get(1).get(i+offset2));
+        for (int i = 0; i < 6; i++) {
+            if ((i + offset2) < Repository.cardsWon.get(1).size())
+                team2Cards.get(i).setCardID(Repository.cardsWon.get(1).get(i + offset2));
             else
                 team2Cards.get(i).setCardID(0);
         }
     }
+
     public static void updateTable(List<String> declaredOrDone, List<Integer> points) {
-        for(int i=0;i<12;i++)
-        {
+        for (int i = 0; i < 12; i++) {
             scoreTable.setValueAt(declaredOrDone.get(i), i, 2);
             scoreTable.setValueAt(points.get(i), i, 3);
         }
     }
+
     public static void updateTeamThatWon(String teamThatWon) {
         teamThatWonLabel.setText("Team that won : " + teamThatWon);
     }
@@ -78,6 +77,7 @@ public class ScoreForm extends JFrame{
         team1Label.setBounds(20, 20, 191, 31);
         add(team1Label);
     }
+
     public void initTeam2Label() {
         team2Label = new JLabel();
         team2Label.setText("Team 02 Cards : ");
@@ -85,15 +85,17 @@ public class ScoreForm extends JFrame{
         team2Label.setBounds(20, 260, 191, 31);
         add(team2Label);
     }
+
     public void initTeam1Cards() {
-        for(int i=0;i<6;i++) {
+        for (int i = 0; i < 6; i++) {
             team1Cards.add(new JImage(0));
             team1Cards.get(i).setBounds(80 + 110 * i, 60, 100, 180);
             add(team1Cards.get(i));
         }
     }
+
     public void initTeam2Cards() {
-        for(int i=0;i<6;i++) {
+        for (int i = 0; i < 6; i++) {
             team2Cards.add(new JImage(0));
             team2Cards.get(i).setBounds(80 + 110 * i, 300, 100, 180);
             add(team2Cards.get(i));
@@ -106,17 +108,20 @@ public class ScoreForm extends JFrame{
         previousTeam1Button.setEnabled(false);
         add(previousTeam1Button);
     }
+
     public void initNextTeam1Button() {
         nextTeam1Button = new CustomJButton(">", arialDefault);
         nextTeam1Button.setBounds(740, 120, 60, 60);
         add(nextTeam1Button);
     }
+
     public void initPreviousTeam2Button() {
         previousTeam2Button = new CustomJButton("<", arialDefault);
         previousTeam2Button.setBounds(10, 360, 60, 60);
         previousTeam2Button.setEnabled(false);
         add(previousTeam2Button);
     }
+
     public void initNextTeam2Button() {
         nextTeam2Button = new CustomJButton(">", arialDefault);
         nextTeam2Button.setBounds(740, 360, 60, 60);
@@ -130,6 +135,7 @@ public class ScoreForm extends JFrame{
         teamThatWonLabel.setBounds(820, 20, 600, 31);
         add(teamThatWonLabel);
     }
+
     public void initScoreTable() {
         scoreTableModel = new DefaultTableModel();
         scoreTable = new RowTable(scoreTableModel);
@@ -165,10 +171,11 @@ public class ScoreForm extends JFrame{
         scoreTableModel.addRow(new String[]{"12", "Total", "", ""});
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-        for(int i=0;i<4;i++)
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for (int i = 0; i < 4; i++)
             scoreTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
     }
+
     public void initOKButton() {
         OKButton = new CustomJButton("OK", arialBig);
         OKButton.setBounds(965, 449, 211, 41);
@@ -177,7 +184,10 @@ public class ScoreForm extends JFrame{
 
     public ScoreForm() {
         InputStream icon = DataManipulationService.getInputStream("icon.png");
-        try { setIconImage(ImageIO.read(icon)); } catch (Exception ignored) {}
+        try {
+            setIconImage(ImageIO.read(icon));
+        } catch (Exception ignored) {
+        }
 
         setLayout(null);
 

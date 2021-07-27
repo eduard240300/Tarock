@@ -1,11 +1,12 @@
 package com.Tarock.Client.GUI.ScoreForm;
 
-import com.Tarock.Client.GUI.Main;
+import com.Tarock.Client.Main;
 import com.Tarock.Client.Repository.Repository;
+
 import java.io.IOException;
 
 public class ControllerScoreForm {
-    public ControllerScoreForm(){
+    public ControllerScoreForm() {
         ScoreForm.previousTeam1Button.addActionListener(e -> {
             if (ScoreForm.offset1 > 0) {
                 ScoreForm.offset1--;

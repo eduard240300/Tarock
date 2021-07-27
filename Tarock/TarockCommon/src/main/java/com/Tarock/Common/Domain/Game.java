@@ -66,8 +66,7 @@ public class Game {
         this.radler = radler;
     }
 
-    public void setScorePlayer(int player, int score)
-    {
+    public void setScorePlayer(int player, int score) {
         if (player == 0)
             setScorePlayer1(score);
         else if (player == 1)
@@ -78,8 +77,7 @@ public class Game {
             setScorePlayer4(score);
     }
 
-    public int getScorePlayer(int player)
-    {
+    public int getScorePlayer(int player) {
         if (player == 0)
             return getScorePlayer1();
         else if (player == 1)

@@ -5,7 +5,7 @@ import com.Tarock.Common.Service.DataManipulationService;
 import javax.swing.*;
 import java.awt.*;
 
-public class StatusForm extends JFrame{
+public class StatusForm extends JFrame {
     public static Font arialBig = new Font("Arial", Font.PLAIN, 30);
     public static Font arialDefault = new Font("Arial", Font.BOLD, 16);
     public static int sizeX = 900;
@@ -22,9 +22,10 @@ public class StatusForm extends JFrame{
     public void initStatusLabel() {
         statusLabel = new JLabel("Server log : ", SwingConstants.CENTER);
         statusLabel.setFont(arialBig);
-        statusLabel.setBounds(40, 20, 820,40);
+        statusLabel.setBounds(40, 20, 820, 40);
         add(statusLabel);
     }
+
     public void initStatusTextArea() {
         statusTextArea = new JTextArea();
         statusTextArea.setFont(arialDefault);
@@ -36,7 +37,7 @@ public class StatusForm extends JFrame{
         add(statusScrollPane);
     }
 
-    public StatusForm(){
+    public StatusForm() {
         setLayout(null);
 
         initStatusLabel();

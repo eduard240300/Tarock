@@ -11,8 +11,7 @@ public class Declaration {
     private final int numberOfTarocks;
     private int pope = -1;
 
-    public Declaration(boolean popeAtFinish, boolean pagatAtFinish, boolean allPopes, boolean trull, int numberOfTarocks)
-    {
+    public Declaration(boolean popeAtFinish, boolean pagatAtFinish, boolean allPopes, boolean trull, int numberOfTarocks) {
         this.popeAtFinish = popeAtFinish;
         this.pagatAtFinish = pagatAtFinish;
         this.allPopes = allPopes;
@@ -21,8 +20,7 @@ public class Declaration {
     }
 
 
-    public String toSendableObject()
-    {
+    public String toSendableObject() {
         String result = "";
         result += DataManipulationService.boolToString(popeAtFinish) + " ";
         result += DataManipulationService.boolToString(pagatAtFinish) + " ";
@@ -34,8 +32,7 @@ public class Declaration {
         return result;
     }
 
-    private String addToResult(String result, String toAdd)
-    {
+    private String addToResult(String result, String toAdd) {
         String finalResult = result;
         if (!result.equals(""))
             finalResult += ", ";
@@ -43,8 +40,7 @@ public class Declaration {
         return finalResult;
     }
 
-    public String toString()
-    {
+    public String toString() {
         String result = "";
         if (the1of2 != 0) result = the1of2 + String.valueOf(pope);
         if (popeAtFinish) result = addToResult(result, "PF");

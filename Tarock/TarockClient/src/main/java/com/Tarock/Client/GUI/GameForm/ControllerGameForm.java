@@ -1,9 +1,10 @@
 package com.Tarock.Client.GUI.GameForm;
 
 import com.Tarock.Common.Domain.Declaration;
-import com.Tarock.Client.GUI.Main;
+import com.Tarock.Client.Main;
 import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Client.Service.CommunicationService;
+
 import java.io.IOException;
 import java.util.Objects;
 
@@ -25,15 +26,13 @@ public class ControllerGameForm {
             message += "You don't have the pagat ! ";
         if (Repository.getNumberOfTarocks() < numberOfTarocks)
             message += "You don't have " + numberOfTarocksString + " tarocks !";
-        if (message.equals(""))
-        {
+        if (message.equals("")) {
             CommunicationService.declaration = new Declaration(popeAtFinish, pagatAtFinish, allPopes, trull, numberOfTarocks);
-        }
-        else
-        {
+        } else {
             GameForm.popUpMessage(message);
         }
     }
+
     public void actionSubmitButtonPope() {
         int pope = -1;
         if (GameForm.heartRadio.isSelected())
@@ -51,27 +50,23 @@ public class ControllerGameForm {
         if ((Repository.isRequestPlayer) && (pope == -1))
             message += "You didn't select a pope !";
 
-        if (message.equals(""))
-        {
+        if (message.equals("")) {
             CommunicationService.pope = pope;
-        }
-        else
-        {
+        } else {
             GameForm.popUpMessage(message);
         }
     }
+
     public void listenerSubmitButton() {
         GameForm.submitButton.addActionListener(e -> {
-            if (GameForm.typeOfActivation.equals("Declaration"))
-            {
+            if (GameForm.typeOfActivation.equals("Declaration")) {
                 actionSubmitButtonDeclaration();
-            }
-            else if (GameForm.typeOfActivation.equals("Pope"))
-            {
+            } else if (GameForm.typeOfActivation.equals("Pope")) {
                 actionSubmitButtonPope();
             }
         });
     }
+
     public void listenerThe1of2Button() {
         GameForm.the1of2Button.addActionListener(e -> {
             CommunicationService.playerMode = "1/2";
@@ -80,6 +75,7 @@ public class ControllerGameForm {
             GameForm.cancelGameButton.setEnabled(false);
         });
     }
+
     public void listenerPassButton() {
         GameForm.passButton.addActionListener(e -> {
             CommunicationService.playerMode = "pass";
@@ -88,10 +84,10 @@ public class ControllerGameForm {
             GameForm.cancelGameButton.setEnabled(false);
         });
     }
+
     public void listenerCancelGameButton() {
         GameForm.cancelGameButton.addActionListener(e -> {
-            if (Repository.canCancelGame())
-            {
+            if (Repository.canCancelGame()) {
                 CommunicationService.playerMode = "cancel";
                 GameForm.the1of2Button.setEnabled(false);
                 GameForm.passButton.setEnabled(false);
@@ -99,15 +95,16 @@ public class ControllerGameForm {
             }
         });
     }
+
     public ControllerGameForm() {
         listenerSubmitButton();
         listenerThe1of2Button();
         listenerPassButton();
         listenerCancelGameButton();
     }
+
     public static void pressedCard(int cardPosition) throws IOException {
-        if ((GameForm.canGiveCard) && (Repository.canGiveCard(cardPosition)))
-        {
+        if ((GameForm.canGiveCard) && (Repository.canGiveCard(cardPosition))) {
             GameForm.canGiveCard = false;
             CommunicationService.cardGiven = Repository.cards.get(cardPosition);
             Repository.giveCard(cardPosition);

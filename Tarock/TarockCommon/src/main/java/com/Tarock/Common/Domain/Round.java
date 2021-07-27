@@ -8,45 +8,37 @@ public class Round {
     private final List<Integer> cards;
     private int playerThatWon = -1;
 
-    public Round(int firstPlayer)
-    {
+    public Round(int firstPlayer) {
         this.firstPlayer = firstPlayer;
         cards = new ArrayList<>();
-        for(int i=0;i<4;i++)
+        for (int i = 0; i < 4; i++)
             cards.add(0);
     }
 
-    public void addCard(int player, int cardID)
-    {
+    public void addCard(int player, int cardID) {
         cards.set(player, cardID);
     }
 
-    public int getCard(int player)
-    {
+    public int getCard(int player) {
         return cards.get(player);
     }
 
-    public static boolean isTarock(int cardID)
-    {
+    public static boolean isTarock(int cardID) {
         return (cardID >= 1) && (cardID <= 22);
     }
 
-    public static boolean isType(int cardID, int type)
-    {
+    public static boolean isType(int cardID, int type) {
         return (cardID >= 23 + type * 8) && (cardID <= 30 + type * 8);
     }
 
-    public int getCardType(int cardID)
-    {
+    public int getCardType(int cardID) {
         int type = cardID - 23;
-        return type/8;
+        return type / 8;
     }
 
-    public void caseAreTarocks()
-    {
+    public void caseAreTarocks() {
         int numberOfTrullCards = 0;
-        for(int i = 0;i < 4;i++)
-        {
+        for (int i = 0; i < 4; i++) {
             if ((cards.get(i) == 1) || (cards.get(i) == 21) || (cards.get(i) == 22))
                 numberOfTrullCards++;
         }
@@ -56,14 +48,10 @@ public class Round {
                     playerThatWon = i;
                 }
             }
-        }
-        else
-        {
+        } else {
             int max = -1;
-            for(int i=0;i<4;i++)
-            {
-                if ((isTarock(cards.get(i))) && (max < cards.get(i)))
-                {
+            for (int i = 0; i < 4; i++) {
+                if ((isTarock(cards.get(i))) && (max < cards.get(i))) {
                     max = cards.get(i);
                     playerThatWon = i;
                 }
@@ -71,27 +59,20 @@ public class Round {
         }
     }
 
-    public void calculateWinner()
-    {
-        if (isTarock(cards.get(firstPlayer)))
-        {
+    public void calculateWinner() {
+        if (isTarock(cards.get(firstPlayer))) {
             caseAreTarocks();
-        }
-        else
-        {
+        } else {
             int type = getCardType(cards.get(firstPlayer));
-            for(int i=0;i<4;i++)
-            {
+            for (int i = 0; i < 4; i++) {
                 if (isTarock(cards.get(i))) {
                     caseAreTarocks();
                     return;
                 }
             }
             int max = -1;
-            for(int i=0;i<4;i++)
-            {
-                if ((isType(cards.get(i), type)) && (max < cards.get(i)))
-                {
+            for (int i = 0; i < 4; i++) {
+                if ((isType(cards.get(i), type)) && (max < cards.get(i))) {
                     max = cards.get(i);
                     playerThatWon = i;
                 }
@@ -99,8 +80,7 @@ public class Round {
         }
     }
 
-    public int getPlayerThatWon()
-    {
+    public int getPlayerThatWon() {
         calculateWinner();
         return playerThatWon;
     }

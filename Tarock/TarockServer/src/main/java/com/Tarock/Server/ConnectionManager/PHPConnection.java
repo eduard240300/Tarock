@@ -10,6 +10,7 @@ import com.Tarock.Common.Exception.ConnectionException;
 import com.Tarock.Common.Exception.PHPException;
 import com.Tarock.Server.GUI.StatusForm;
 import com.Tarock.Common.Service.DataManipulationService;
+import com.Tarock.Server.Main;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -22,35 +23,32 @@ public class PHPConnection {
     private static String ipAddress;
 
     public static void initPHPConnection() throws FileNotFoundException {
-        if (!DataManipulationService.containsJAR(PHPConnection.class.getResource("PHPConnection.class").toString()))
-        {
-            System.out.println("Not jar");
+        if (!DataManipulationService.containsJAR(PHPConnection.class.getResource("PHPConnection.class").toString())) {
             InputStream inputStream = DataManipulationService.getInputStream("websiteIP.conf");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
             try {
                 ipAddress = reader.readLine();
-            } catch (Exception ignored) {}
-        }
-        else
-        {
-            System.out.println(DataManipulationService.getPath());
+            } catch (Exception ignored) {
+            }
+        } else {
             String path = DataManipulationService.getPath() + "websiteIP.conf";
             FileInputStream file = new FileInputStream(path);
             BufferedReader reader = new BufferedReader(new InputStreamReader(file));
 
             try {
                 ipAddress = reader.readLine();
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
     }
 
-    public static String read(String inputString){
+    public static String read(String inputString) {
 
         try {
             byte[] post = inputString.getBytes();
 
-            URL u = new URL("http://" + ipAddress + "/controllerHelper.php");
+            URL u = new URL("http://" + ipAddress + "/tarock/controllerHelper.php");
             HttpURLConnection con = (HttpURLConnection) u.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
@@ -68,10 +66,14 @@ public class PHPConnection {
                 outputStream.write(buff, 0, cur);
             }
             in.close();
-            StatusForm.addToStatusTextArea("Received from website : " + outputStream.toString());
+            if (Main.noGUI)
+                System.out.println("Received from website : " + outputStream.toString());
+            else
+                StatusForm.addToStatusTextArea("Received from website : " + outputStream.toString());
             return outputStream.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (Exception e) { e.printStackTrace();}
         return null;
     }
 
@@ -79,11 +81,9 @@ public class PHPConnection {
         User user = new User();
         String post = "functionName=getUser&username=" + username;
         List<Pair<String, String>> userJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));
-        if (userJSON.get(0).getKey().equals("exception"))
-        {
+        if (userJSON.get(0).getKey().equals("exception")) {
             throw new PHPException(userJSON.get(0).getValue());
-        }
-        else {
+        } else {
             for (Pair<String, String> stringStringPair : userJSON) {
                 switch (stringStringPair.getKey()) {
                     case "name":
@@ -107,12 +107,9 @@ public class PHPConnection {
         Session session = new Session();
         String post = "functionName=getSession&sessionID=" + sessionID;
         List<Pair<String, String>> sessionJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));
-        if (sessionJSON.get(0).getKey().equals("exception"))
-        {
+        if (sessionJSON.get(0).getKey().equals("exception")) {
             throw new PHPException(sessionJSON.get(0).getValue());
-        }
-        else
-        {
+        } else {
             for (Pair<String, String> stringStringPair : sessionJSON) {
                 switch (stringStringPair.getKey()) {
                     case "sessionID":
@@ -152,16 +149,14 @@ public class PHPConnection {
     public static void addGame(String username, Game game) {
         StringBuilder post = new StringBuilder("functionName=addGame&username=" + username);
         post.append("&sessionID=").append(game.getSessionID());
-        for(int i=0;i<4;i++)
-        {
+        for (int i = 0; i < 4; i++) {
             post.append("&scorePlayer").append(i + 1).append("=").append(game.getScorePlayer(i));
         }
         post.append("&declaration=").append(DataManipulationService.processDeclaration(game.getDeclaration()));
         post.append("&radler=").append(DataManipulationService.boolToString(game.getRadler()));
         post.append("&radlerTimes=").append(game.getRadlerTimes());
         List<Pair<String, String>> sessionJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post.toString())));
-        if (sessionJSON.get(0).getKey().equals("exception"))
-        {
+        if (sessionJSON.get(0).getKey().equals("exception")) {
             throw new PHPException(sessionJSON.get(0).getValue());
         }
     }
@@ -172,12 +167,10 @@ public class PHPConnection {
         String post = "functionName=getGamesSize&username=" + creator;
         post += "&sessionID=" + sessionID;
         List<Pair<String, String>> gameJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));
-        if (gameJSON.get(0).getKey().equals("result"))
-        {
+        if (gameJSON.get(0).getKey().equals("result")) {
             gamesSize = Integer.parseInt(gameJSON.get(0).getValue());
         }
-        for(int i=0;i<gamesSize;i++)
-        {
+        for (int i = 0; i < gamesSize; i++) {
             post = "functionName=getGame&sessionID=" + sessionID;
             post += "&gameRow=" + i;
             gameJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));

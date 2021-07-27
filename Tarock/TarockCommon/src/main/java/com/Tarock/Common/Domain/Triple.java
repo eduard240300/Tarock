@@ -5,8 +5,7 @@ public class Triple<K, V, P> {
     private V value1;
     private P value2;
 
-    public Triple(K key)
-    {
+    public Triple(K key) {
         this.key = key;
     }
 

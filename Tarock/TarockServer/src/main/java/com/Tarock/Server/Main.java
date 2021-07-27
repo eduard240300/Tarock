@@ -10,13 +10,20 @@ import java.io.InputStream;
 
 public class Main {
     public static StatusForm statusForm;
+    public static boolean noGUI;
 
     public static void main(String[] args) throws Exception {
         InputStream icon = DataManipulationService.getInputStream("icon.png");
         PHPConnection.initPHPConnection();
 
-        statusForm = new StatusForm();
-        statusForm.setIconImage(ImageIO.read(icon));
+        if (args.length == 1) {
+            if (args[0].equals("noGUI")) {
+                noGUI = true;
+            }
+        } else {
+            statusForm = new StatusForm();
+            statusForm.setIconImage(ImageIO.read(icon));
+        }
 
         CommunicationService communicationService = new CommunicationService();
         communicationService.start();

@@ -1,4 +1,4 @@
-package com.Tarock.Client.GUI;
+package com.Tarock.Client;
 
 import com.Tarock.Client.GUI.ConnectionForm.ConnectionForm;
 import com.Tarock.Client.GUI.GameForm.GameForm;
@@ -14,19 +14,16 @@ public class Main {
     public static TalonSelectionForm talonSelectionForm;
     public static TalonShowingForm talonShowingForm;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Repository.initRepository();
 
         connectionForm = new ConnectionForm();
 
-        if (args.length == 3)
-        {
+        if (args.length == 3) {
             ConnectionForm.usernameField.setText(args[0]);
             ConnectionForm.passwordField.setText(args[1]);
             ConnectionForm.sessionIDField.setText(args[2]);
-        }
-        else if (args.length == 4)
-        {
+        } else if (args.length == 4) {
             ConnectionForm.usernameField.setText(args[0]);
             ConnectionForm.passwordField.setText(args[1]);
             ConnectionForm.sessionIDField.setText(args[2]);

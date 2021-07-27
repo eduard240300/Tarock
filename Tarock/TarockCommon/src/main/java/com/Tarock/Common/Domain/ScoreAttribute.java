@@ -6,8 +6,7 @@ public class ScoreAttribute {
     private String declaredOrDone;
     private int points;
 
-    public ScoreAttribute(int ID, String attributeName, String declaredOrDone, int points)
-    {
+    public ScoreAttribute(int ID, String attributeName, String declaredOrDone, int points) {
         this.ID = ID;
         this.attributeName = attributeName;
         this.declaredOrDone = declaredOrDone;

@@ -28,38 +28,31 @@ public class Repository {
     public static boolean isRequestPlayer = false;
     public static List<List<Integer>> teams;
 
-    public static boolean isTarock(int cardID)
-    {
+    public static boolean isTarock(int cardID) {
         return (cardID >= 1) && (cardID <= 22);
     }
 
-    public static boolean isPope(int cardID)
-    {
+    public static boolean isPope(int cardID) {
         return (cardID == 30) || (cardID == 38) || (cardID == 46) || (cardID == 54);
     }
 
-    public static boolean hasChosenPope()
-    {
-        for(int i=0;i<12;i++)
-        {
-            if (cards.get(i) == 30+chosenPope*8)
+    public static boolean hasChosenPope() {
+        for (int i = 0; i < 12; i++) {
+            if (cards.get(i) == 30 + chosenPope * 8)
                 return true;
         }
         return false;
     }
 
-    public static boolean hasPagat()
-    {
-        for(int i=0;i<12;i++)
-        {
+    public static boolean hasPagat() {
+        for (int i = 0; i < 12; i++) {
             if (cards.get(i) == 1)
                 return true;
         }
         return false;
     }
 
-    public static int getNumberOfTarocks()
-    {
+    public static int getNumberOfTarocks() {
         int result = 0;
         for (Integer card : cards) {
             if (isTarock(card))
@@ -67,8 +60,8 @@ public class Repository {
         }
         return result;
     }
-    public static int getNumberOfSpecialCards()
-    {
+
+    public static int getNumberOfSpecialCards() {
         int result = 0;
         for (Integer card : cards) {
             if (isTarock(card))
@@ -79,8 +72,7 @@ public class Repository {
         return result;
     }
 
-    public static int sizeWithout0(List<Integer> list)
-    {
+    public static int sizeWithout0(List<Integer> list) {
         int size = 0;
         for (Integer integer : list) {
             if (integer != 0)
@@ -89,8 +81,7 @@ public class Repository {
         return size;
     }
 
-    public static int getNumberOfType(int type)
-    {
+    public static int getNumberOfType(int type) {
         int result = 0;
         for (Integer card : cards) {
             if (Round.isType(card, type)) {
@@ -100,8 +91,7 @@ public class Repository {
         return result;
     }
 
-    public static void initRepository()
-    {
+    public static void initRepository() {
         loggedIn = false;
         loggedUser = null;
         players = new ArrayList<>();
@@ -113,18 +103,17 @@ public class Repository {
         resetCardsWon();
     }
 
-    public static void resetRepository()
-    {
+    public static void resetRepository() {
         givenCardsCompleted = false;
         rounds = new ArrayList<>();
         teams = new ArrayList<>();
         givenCards = new ArrayList<>();
-        for(int i=0;i<2;i++) {
+        for (int i = 0; i < 2; i++) {
             teams.add(new ArrayList<>());
         }
         cards = new ArrayList<>();
         talon = new ArrayList<>();
-        for(int i=0;i<6;i++)
+        for (int i = 0; i < 6; i++)
             talon.add(0);
         playerRequest = 0;
         the1of2 = 0;
@@ -134,30 +123,26 @@ public class Repository {
         isRequestPlayer = false;
     }
 
-    public static void resetCardsWon(){
+    public static void resetCardsWon() {
         cardsWon = new ArrayList<>();
-        for(int i=0;i<2;i++) {
+        for (int i = 0; i < 2; i++) {
             cardsWon.add(new ArrayList<>());
         }
     }
 
-    public static void login(User newUser)
-    {
+    public static void login(User newUser) {
         if (loggedIn)
             throw new RepositoryException("Already logged in !");
-        else
-        {
+        else {
             loggedIn = true;
             loggedUser = newUser;
         }
     }
 
-    public static void logout()
-    {
+    public static void logout() {
         if (!loggedIn)
             throw new RepositoryException("Not logged in !");
-        else
-        {
+        else {
             loggedIn = false;
             loggedUser = null;
         }
@@ -167,12 +152,9 @@ public class Repository {
         if ((cards.get(cardPosition) == 1) || (cards.get(cardPosition) == 21) ||
                 (cards.get(cardPosition) == 22))
             return false;
-        if (isPope(cards.get(cardPosition)))
-        {
+        if (isPope(cards.get(cardPosition))) {
             return false;
-        }
-        else if (isTarock(cards.get(cardPosition)))
-        {
+        } else if (isTarock(cards.get(cardPosition))) {
             return sizeWithout0(cards) == getNumberOfSpecialCards();
         }
         return true;
@@ -188,15 +170,13 @@ public class Repository {
     }
 
     public static void addTalonPartToCards() {
-        for(int i=0;i<2;i++)
-        {
-            cards.add(talon.get(talonPart*2+i));
+        for (int i = 0; i < 2; i++) {
+            cards.add(talon.get(talonPart * 2 + i));
         }
         Collections.sort(cards);
     }
 
-    public static boolean canCancelGame()
-    {
+    public static boolean canCancelGame() {
         int sumTarocks = 0;
         for (Integer card : cards) {
             if ((card == 30) || (card == 38) || (card == 46) || (card == 54))
@@ -208,59 +188,43 @@ public class Repository {
         return sumTarocks < 11;
     }
 
-    public static int getCardType(int cardID)
-    {
+    public static int getCardType(int cardID) {
         int type = cardID - 23;
-        return type/8;
+        return type / 8;
     }
 
-    public static boolean canGiveCard(int position)
-    {
+    public static boolean canGiveCard(int position) {
         int cardID = cards.get(position);
-        if (rounds.size() != round+1) {
+        if (rounds.size() != round + 1) {
             return true;
         }
-        int firstPlayer = rounds.get(rounds.size()-1).getFirstPlayer();
-        if (firstPlayer == chair)
-        {
+        int firstPlayer = rounds.get(rounds.size() - 1).getFirstPlayer();
+        if (firstPlayer == chair) {
             return true;
-        }
-        else
-        {
-            int firstCardID = rounds.get(rounds.size()-1).getCard(firstPlayer);
-            if (Round.isTarock(firstCardID))
-            {
+        } else {
+            int firstCardID = rounds.get(rounds.size() - 1).getCard(firstPlayer);
+            if (Round.isTarock(firstCardID)) {
                 if (getNumberOfTarocks() == 0) {
                     return true;
-                }
-                else
-                {
+                } else {
                     return Round.isTarock(cardID);
                 }
-            }
-            else
-            {
+            } else {
                 int type = getCardType(firstCardID);
-                if (getNumberOfType(type) == 0)
-                {
+                if (getNumberOfType(type) == 0) {
                     if (getNumberOfTarocks() == 0) {
                         return true;
-                    }
-                    else
-                    {
+                    } else {
                         return Round.isTarock(cardID);
                     }
-                }
-                else
-                {
+                } else {
                     return Round.isType(cardID, type);
                 }
             }
         }
     }
 
-    public static void giveCard(int position)
-    {
+    public static void giveCard(int position) {
         cards.remove(position);
     }
 }

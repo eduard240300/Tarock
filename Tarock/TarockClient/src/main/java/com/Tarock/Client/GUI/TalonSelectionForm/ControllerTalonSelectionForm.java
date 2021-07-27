@@ -1,13 +1,14 @@
 package com.Tarock.Client.GUI.TalonSelectionForm;
 
-import com.Tarock.Client.GUI.Main;
+import com.Tarock.Client.Main;
 import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Client.Service.CommunicationService;
+
 import java.io.IOException;
 
 public class ControllerTalonSelectionForm {
 
-    public ControllerTalonSelectionForm(){
+    public ControllerTalonSelectionForm() {
         TalonSelectionForm.takeButton.addActionListener(e -> {
             CommunicationService.talonTakeDecision = "take";
             Repository.addTalonPartToCards();
@@ -27,10 +28,9 @@ public class ControllerTalonSelectionForm {
             Repository.talonPart = Repository.talonPart % 3;
         });
         TalonSelectionForm.giveButton.addActionListener(e -> {
-            if (Repository.givenCardsCompleted)
-            {
+            if (Repository.givenCardsCompleted) {
                 StringBuilder message = new StringBuilder();
-                for(int i=0;i<2;i++)
+                for (int i = 0; i < 2; i++)
                     message.append(" ").append(Repository.givenCards.get(i));
                 CommunicationService.talonGiveDecision = message.toString();
                 TalonSelectionForm.giveButton.setEnabled(false);
@@ -39,8 +39,7 @@ public class ControllerTalonSelectionForm {
     }
 
     public static void pressedCard(int cardPosition) throws IOException {
-        if ((TalonSelectionForm.giveButton.isEnabled()) && (!Repository.givenCardsCompleted))
-        {
+        if ((TalonSelectionForm.giveButton.isEnabled()) && (!Repository.givenCardsCompleted)) {
             if ((Repository.cards.size() > cardPosition) && (Repository.canPutCardDown(cardPosition)))
                 Repository.addToGivenCards(cardPosition);
             Main.talonSelectionForm.updateCards();

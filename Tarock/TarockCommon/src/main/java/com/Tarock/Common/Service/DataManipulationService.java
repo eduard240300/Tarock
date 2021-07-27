@@ -7,38 +7,36 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
+
 import org.apache.commons.io.FileUtils;
 
 public class DataManipulationService {
     public static Color backgroundColor = new Color(78, 154, 6);
 
-    public static boolean containsSpaces(String message)
-    {
-        for(int i=0;i<message.length();i++)
-        {
+    public static boolean containsSpaces(String message) {
+        for (int i = 0; i < message.length(); i++) {
             if (message.charAt(i) == ' ')
                 return true;
         }
         return false;
     }
 
-    public static String truncateClassName(String className){
+    public static String truncateClassName(String className) {
         int i;
         StringBuilder result = new StringBuilder();
-        i = className.length()-1;
-        while(className.charAt(i) != '.')
+        i = className.length() - 1;
+        while (className.charAt(i) != '.')
             i--;
         int j;
-        for(j=i+1;j<className.length();j++)
+        for (j = i + 1; j < className.length(); j++)
             result.append(className.charAt(j));
         return result.toString();
     }
 
-    public static String processName(String name){
+    public static String processName(String name) {
         StringBuilder newName = new StringBuilder();
         int i;
-        for(i=0;i<name.length();i++)
-        {
+        for (i = 0; i < name.length(); i++) {
             if (name.charAt(i) == ' ')
                 newName.append('_');
             else
@@ -47,19 +45,15 @@ public class DataManipulationService {
         return newName.toString();
     }
 
-    public static List<String> processMessage(String message)
-    {
+    public static List<String> processMessage(String message) {
         List<String> listOfCommands = new ArrayList<>();
         int i;
         StringBuilder currentCommand = new StringBuilder();
-        for(i=0;i<message.length();i++)
-        {
-            if (message.charAt(i) == ';')
-            {
+        for (i = 0; i < message.length(); i++) {
+            if (message.charAt(i) == ';') {
                 listOfCommands.add(currentCommand.toString());
                 currentCommand = new StringBuilder();
-            }
-            else currentCommand.append(message.charAt(i));
+            } else currentCommand.append(message.charAt(i));
         }
         return listOfCommands;
     }
@@ -81,11 +75,10 @@ public class DataManipulationService {
         return processedCommand;
     }
 
-    public static String getName(String name){
+    public static String getName(String name) {
         StringBuilder newName = new StringBuilder();
         int i;
-        for(i=0;i<name.length();i++)
-        {
+        for (i = 0; i < name.length(); i++) {
             if (name.charAt(i) == '_')
                 newName.append(' ');
             else if (name.charAt(i) == '.')
@@ -96,24 +89,21 @@ public class DataManipulationService {
         return newName.toString();
     }
 
-    public static boolean stringToBool(String string)
-    {
+    public static boolean stringToBool(String string) {
         boolean theBoolean = true;
         if (string.equals("0"))
             theBoolean = false;
         return theBoolean;
     }
 
-    public static String boolToString(boolean theBoolean)
-    {
+    public static String boolToString(boolean theBoolean) {
         String string = "1";
         if (!theBoolean)
             string = "0";
         return string;
     }
 
-    public static List<Pair<String, String>> JSONtoList(String inputJSON)
-    {
+    public static List<Pair<String, String>> JSONtoList(String inputJSON) {
         boolean isKey = true;
         boolean isInQuote = false;
 
@@ -122,32 +112,23 @@ public class DataManipulationService {
         String value = "";
 
         List<Pair<String, String>> output = new ArrayList<>();
-        for(int i=0;i<inputJSON.length();i++)
-        {
-            if (inputJSON.charAt(i) == '"')
-            {
+        for (int i = 0; i < inputJSON.length(); i++) {
+            if (inputJSON.charAt(i) == '"') {
                 isInQuote = !isInQuote;
-                if (!isInQuote)
-                {
+                if (!isInQuote) {
                     if (isKey)
                         key = message.toString();
                     else
                         value = message.toString();
                     message = new StringBuilder();
                 }
-            }
-            else if (inputJSON.charAt(i) == ':')
-            {
+            } else if (inputJSON.charAt(i) == ':') {
                 isKey = false;
-            }
-            else if (inputJSON.charAt(i) == ',')
-            {
+            } else if (inputJSON.charAt(i) == ',') {
                 isKey = true;
                 Pair<String, String> pair = new Pair<>(key, value);
                 output.add(pair);
-            }
-            else if (isInQuote)
-            {
+            } else if (isInQuote) {
                 if (inputJSON.charAt(i) == '*')
                     message.append(',');
                 else if (inputJSON.charAt(i) != '\\')
@@ -159,21 +140,19 @@ public class DataManipulationService {
         return output;
     }
 
-    public static String eliminateNewLines(String line){
+    public static String eliminateNewLines(String line) {
         StringBuilder result = new StringBuilder();
-        for(int i=0;i<line.length();i++)
-        {
+        for (int i = 0; i < line.length(); i++) {
             if (line.charAt(i) != '\n')
                 result.append(line.charAt(i));
         }
         return result.toString();
     }
 
-    public static String processDeclaration(String declaration){
+    public static String processDeclaration(String declaration) {
         StringBuilder newName = new StringBuilder();
         int i;
-        for(i=0;i<declaration.length();i++)
-        {
+        for (i = 0; i < declaration.length(); i++) {
             if (declaration.charAt(i) == ' ')
                 newName.append('_');
             else if (declaration.charAt(i) == ',')
@@ -192,23 +171,23 @@ public class DataManipulationService {
         return contains;
     }
 
-    public static File getFile(String path){
-        try{
+    public static File getFile(String path) {
+        try {
             InputStream inputStream = DataManipulationService.class.getClassLoader().getResourceAsStream(path);
             File tempFile = File.createTempFile("new", "file");
             assert inputStream != null;
             FileUtils.copyInputStreamToFile(inputStream, tempFile);
             return tempFile;
+        } catch (Exception ignored) {
         }
-        catch (Exception ignored) {}
         return null;
     }
 
-    public static InputStream getInputStream(String path){
+    public static InputStream getInputStream(String path) {
         return DataManipulationService.class.getClassLoader().getResourceAsStream(path);
     }
 
-    public static String getPath(){
+    public static String getPath() {
         String initPath = DataManipulationService.class.getResource("DataManipulationService.class").toString();
         StringBuilder stringBuilder = new StringBuilder();
         int initChar = 9;
@@ -219,8 +198,7 @@ public class DataManipulationService {
         while ((initPath.charAt(currentChar) != '\\') && (initPath.charAt(currentChar) != '/'))
             currentChar--;
         endChar = currentChar;
-        for(int i = initChar; i <= endChar; i++)
-        {
+        for (int i = initChar; i <= endChar; i++) {
             stringBuilder.append(initPath.charAt(i));
         }
         return stringBuilder.toString();

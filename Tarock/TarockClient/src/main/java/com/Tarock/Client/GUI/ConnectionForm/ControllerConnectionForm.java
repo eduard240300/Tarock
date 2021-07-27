@@ -1,7 +1,7 @@
 package com.Tarock.Client.GUI.ConnectionForm;
 
 import com.Tarock.Common.Domain.User;
-import com.Tarock.Client.GUI.Main;
+import com.Tarock.Client.Main;
 import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Client.Service.BCrypt;
 import com.Tarock.Client.Service.CommunicationService;
@@ -18,18 +18,28 @@ public class ControllerConnectionForm {
     private static User user;
     private static String sessionID;
 
-    public void resetServices()
-    {
+    public void resetServices() {
         loginService = null;
     }
-    public void initCommunicationService() { communicationService = new CommunicationService(); }
-    public void initLoginService() { loginService = new LoginService(); }
-    public void initSessionID() { sessionID = ConnectionForm.sessionIDField.getText(); }
+
+    public void initCommunicationService() {
+        communicationService = new CommunicationService();
+    }
+
+    public void initLoginService() {
+        loginService = new LoginService();
+    }
+
+    public void initSessionID() {
+        sessionID = ConnectionForm.sessionIDField.getText();
+    }
+
     public void initUser() {
         String username = ConnectionForm.usernameField.getText();
         String password = ConnectionForm.passwordField.getText();
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
-        user = new User(username, hashedPassword); }
+        user = new User(username, hashedPassword);
+    }
 
     public ControllerConnectionForm() {
         ConnectionForm.loginButton.addActionListener(e -> {
@@ -52,9 +62,7 @@ public class ControllerConnectionForm {
                 userValidator.validateUser(inputUser);
                 IntegerValidator.validateInteger(sessionID);
                 loginService.login(inputUser, Integer.parseInt(sessionID));
-            }
-            catch (RuntimeException exception)
-            {
+            } catch (RuntimeException exception) {
                 String className = DataManipulationService.truncateClassName(exception.getClass().getName());
                 String message = exception.getMessage();
                 ConnectionForm.popUpMessage(className + " : " + message);
@@ -62,8 +70,7 @@ public class ControllerConnectionForm {
         });
     }
 
-    public static void finishLogin()
-    {
+    public static void finishLogin() {
         Repository.login(user);
         Repository.sessionID = Integer.parseInt(sessionID);
         Main.gameForm.setVisible(true);

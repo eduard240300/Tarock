@@ -11,7 +11,7 @@ import java.io.InputStream;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class ConnectionForm extends JFrame{
+public class ConnectionForm extends JFrame {
     public static int sizeX = 540;
     public static int sizeY = 320;
     public static ControllerConnectionForm controllerConnectionForm = null;
@@ -26,56 +26,63 @@ public class ConnectionForm extends JFrame{
     public static JTextField ipAddressField;
     public static CustomJButton loginButton;
 
-    public static void popUpMessage(String message)
-    {
+    public static void popUpMessage(String message) {
         showMessageDialog(null, message);
     }
+
     public void initUsernameLabel() {
         usernameLabel = new JLabel();
         usernameLabel.setFont(arialDefault);
         usernameLabel.setText("Username : ");
-        usernameLabel.setBounds(20, 20, 300,40);
+        usernameLabel.setBounds(20, 20, 300, 40);
         add(usernameLabel);
     }
+
     public void initUsernameField() {
         usernameField = new JTextField();
         usernameField.setFont(arialDefault);
         usernameField.setBounds(190, 20, 330, 40);
         add(usernameField);
     }
+
     public void initPasswordLabel() {
         passwordLabel = new JLabel();
         passwordLabel.setFont(arialDefault);
         passwordLabel.setText("Password : ");
-        passwordLabel.setBounds(20, 70, 300,40);
+        passwordLabel.setBounds(20, 70, 300, 40);
         add(passwordLabel);
     }
+
     public void initPasswordField() {
         passwordField = new JPasswordField();
         passwordField.setFont(arialDefault);
         passwordField.setBounds(190, 70, 330, 40);
         add(passwordField);
     }
+
     public void initSessionIDLabel() {
         sessionIDLabel = new JLabel();
         sessionIDLabel.setFont(arialDefault);
         sessionIDLabel.setText("SessionID : ");
-        sessionIDLabel.setBounds(20, 120, 300,40);
+        sessionIDLabel.setBounds(20, 120, 300, 40);
         add(sessionIDLabel);
     }
+
     public void initSessionIDField() {
         sessionIDField = new JTextField();
         sessionIDField.setFont(arialDefault);
         sessionIDField.setBounds(190, 120, 330, 40);
         add(sessionIDField);
     }
+
     public void initIPAddressLabel() {
         ipAddressLabel = new JLabel();
         ipAddressLabel.setFont(arialDefault);
         ipAddressLabel.setText("Server IP : ");
-        ipAddressLabel.setBounds(20, 170, 300,40);
+        ipAddressLabel.setBounds(20, 170, 300, 40);
         add(ipAddressLabel);
     }
+
     public void initIPAddressField() {
         ipAddressField = new JTextField();
         ipAddressField.setFont(arialDefault);
@@ -83,18 +90,23 @@ public class ConnectionForm extends JFrame{
         ipAddressField.setBounds(190, 170, 330, 40);
         add(ipAddressField);
     }
+
     public void initLoginButton() {
         loginButton = new CustomJButton("Start/Resume Session", arialDefault);
         loginButton.setBounds(20, 220, 500, 40);
         add(loginButton);
     }
+
     public void initControllerConnectionForm() {
         controllerConnectionForm = new ControllerConnectionForm();
     }
 
-    public ConnectionForm(){
+    public ConnectionForm() {
         InputStream icon = DataManipulationService.getInputStream("icon.png");
-        try { setIconImage(ImageIO.read(icon)); } catch (Exception ignored) {}
+        try {
+            setIconImage(ImageIO.read(icon));
+        } catch (Exception ignored) {
+        }
 
         setLayout(null);
 

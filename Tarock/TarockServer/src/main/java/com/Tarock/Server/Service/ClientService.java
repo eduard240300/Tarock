@@ -9,6 +9,7 @@ import com.Tarock.Common.Exception.LoginException;
 import com.Tarock.Common.Exception.PHPException;
 import com.Tarock.Server.GUI.StatusForm;
 import com.Tarock.Common.Service.DataManipulationService;
+import com.Tarock.Server.Main;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -31,36 +32,33 @@ public class ClientService extends Thread {
         inputStream = new ObjectInputStream(socket.getInputStream());
     }
 
-    public void removeConnection(String username)
-    {
-        for(int i=0;i<CommunicationService.socketsList.size();i++)
-        {
+    public void removeConnection(String username) {
+        for (int i = 0; i < CommunicationService.socketsList.size(); i++) {
             if (CommunicationService.socketsList.get(i).getKey().equals(username)) {
                 try {
                     CommunicationService.socketsList.get(i).getValue1().socket.close();
+                } catch (IOException ignored) {
                 }
-                catch(IOException ignored)
-                {}
                 CommunicationService.socketsList.remove(i);
                 StatusForm.addToStatusTextArea("Removed client " + username);
             }
         }
     }
 
-    public void addClientToList(ClientService clientService, String username, Session session)
-    {
+    public void addClientToList(ClientService clientService, String username, Session session) {
         Triple<String, ClientService, Session> newPair = new Triple<>(username);
         newPair.setValue1(clientService);
         newPair.setValue2(session);
         removeConnection(username);
-        StatusForm.addToStatusTextArea("Added client " + username);
+        if (Main.noGUI)
+            System.out.println("Added client " + username);
+        else
+            StatusForm.addToStatusTextArea("Added client " + username);
         CommunicationService.socketsList.add(newPair);
     }
 
-    public ClientService getClientInList(String username)
-    {
-        for(int i=0;i<CommunicationService.socketsList.size();i++)
-        {
+    public ClientService getClientInList(String username) {
+        for (int i = 0; i < CommunicationService.socketsList.size(); i++) {
             if (CommunicationService.socketsList.get(i).getKey().equals(username)) {
                 return CommunicationService.socketsList.get(i).getValue1();
             }
@@ -68,10 +66,8 @@ public class ClientService extends Thread {
         return null;
     }
 
-    public Session getSessionInList(String username)
-    {
-        for(int i=0;i<CommunicationService.socketsList.size();i++)
-        {
+    public Session getSessionInList(String username) {
+        for (int i = 0; i < CommunicationService.socketsList.size(); i++) {
             if (CommunicationService.socketsList.get(i).getKey().equals(username)) {
                 return CommunicationService.socketsList.get(i).getValue2();
             }
@@ -79,14 +75,16 @@ public class ClientService extends Thread {
         return null;
     }
 
-    public void log(String message)
-    {
-        String finalMessage = message;
-        if ((message.charAt(0) == 'c') && (message.charAt(1) == 'a') && (message.charAt(2) == 'r'))
-        {
-            finalMessage = "sentCards;";
+    public void log(String message) {
+        String processedMessage = message;
+        if ((message.charAt(0) == 'c') && (message.charAt(1) == 'a') && (message.charAt(2) == 'r')) {
+            processedMessage = "sentCards;";
         }
-        StatusForm.addToStatusTextArea("Sent (" + username + ") : " + finalMessage);
+        String finalMessage = "Sent (" + username + ") : " + processedMessage;
+        if (Main.noGUI)
+            System.out.println(finalMessage);
+        else
+            StatusForm.addToStatusTextArea(finalMessage);
     }
 
     @SuppressWarnings({"deprecation", "SuspiciousListRemoveInLoop"})
@@ -96,29 +94,28 @@ public class ClientService extends Thread {
         try {
             outputStream.writeObject(sendMessage);
             message = (String) inputStream.readObject();
-        }
-        catch (EOFException exception)
-        {
+        } catch (EOFException exception) {
             socket.close();
             Session session = getSessionInList(username);
             StatusForm.addToStatusTextArea(exception.getMessage());
-            for(int i=0;i<CommunicationService.gameSessions.size();i++)
-            {
-                if (CommunicationService.gameSessions.get(i).session.getSessionID() == session.getSessionID())
-                {
+            for (int i = 0; i < CommunicationService.gameSessions.size(); i++) {
+                if (CommunicationService.gameSessions.get(i).session.getSessionID() == session.getSessionID()) {
                     CommunicationService.gameSessions.get(i).stop();
                     CommunicationService.gameSessions.remove(i);
                 }
             }
             Thread.currentThread().stop();
         }
-        if (!message.equals("ok;"))
-            StatusForm.addToStatusTextArea("Received (" + username + ") : " + message);
+        if (!message.equals("ok;")) {
+            if (Main.noGUI)
+                System.out.println("Received (" + username + ") : " + message);
+            else
+                StatusForm.addToStatusTextArea("Received (" + username + ") : " + message);
+        }
         return DataManipulationService.processMessage(message);
     }
 
-    public int getChairNumber(Session session, String username)
-    {
+    public int getChairNumber(Session session, String username) {
         int chair = -1;
         if (session.getPlayer1().equals(username))
             chair = 0;
@@ -148,8 +145,7 @@ public class ClientService extends Thread {
         playersUsername.add(player4.getUsername());
 
         StringBuilder message = new StringBuilder("players");
-        for(int i=0;i<4;i++)
-        {
+        for (int i = 0; i < 4; i++) {
             message.append(" ").append(players.get(i));
         }
         message.append(";");
@@ -159,16 +155,14 @@ public class ClientService extends Thread {
 
         boolean startGameSession = true;
 
-        for(int i=0;i<4;i++)
-        {
+        for (int i = 0; i < 4; i++) {
             if (getClientInList(playersUsername.get(i)) == null)
                 startGameSession = false;
             else if (getSessionInList(playersUsername.get(i)).getSessionID() != session.getSessionID())
                 startGameSession = false;
         }
 
-        if (startGameSession)
-        {
+        if (startGameSession) {
             List<ClientService> clientServiceList = new ArrayList<>();
             clientServiceList.add(getClientInList(playersUsername.get(0)));
             clientServiceList.add(getClientInList(playersUsername.get(1)));
@@ -229,9 +223,12 @@ public class ClientService extends Thread {
         }
     }
 
-    public void run(){
+    public void run() {
         try {
-            StatusForm.addToStatusTextArea("Started thread");
+            if (Main.noGUI)
+                System.out.println("Started thread");
+            else
+                StatusForm.addToStatusTextArea("Started thread");
             List<String> listOfCommands = write("require_auth;");
             runAuthentication(listOfCommands);
         } catch (Exception e) {
