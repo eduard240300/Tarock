@@ -2,17 +2,12 @@ package com.Tarock.Common.Service;
 
 import com.Tarock.Common.Domain.Pair;
 
-import java.awt.Color;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 
-import org.apache.commons.io.FileUtils;
-
 public class DataManipulationService {
-    public static Color backgroundColor = new Color(78, 154, 6);
-
     public static boolean containsSpaces(String message) {
         for (int i = 0; i < message.length(); i++) {
             if (message.charAt(i) == ' ')
@@ -169,18 +164,6 @@ public class DataManipulationService {
         contains &= (Character.toLowerCase(path.charAt(1)) == 'a');
         contains &= (Character.toLowerCase(path.charAt(2)) == 'r');
         return contains;
-    }
-
-    public static File getFile(String path) {
-        try {
-            InputStream inputStream = DataManipulationService.class.getClassLoader().getResourceAsStream(path);
-            File tempFile = File.createTempFile("new", "file");
-            assert inputStream != null;
-            FileUtils.copyInputStreamToFile(inputStream, tempFile);
-            return tempFile;
-        } catch (Exception ignored) {
-        }
-        return null;
     }
 
     public static InputStream getInputStream(String path) {
