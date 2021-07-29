@@ -17,7 +17,7 @@ public class Main {
         PHPConnection.initPHPConnection();
 
         if (args.length == 1) {
-            if (args[0].equals("noGUI")) {
+            if (args[0].equals("nogui")) {
                 noGUI = true;
             }
         } else {

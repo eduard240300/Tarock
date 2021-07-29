@@ -40,7 +40,10 @@ public class ClientService extends Thread {
                 } catch (IOException ignored) {
                 }
                 CommunicationService.socketsList.remove(i);
-                StatusForm.addToStatusTextArea("Removed client " + username);
+                if (Main.noGUI)
+                    System.out.println("Removed client " + username);
+                else
+                    StatusForm.addToStatusTextArea("Removed client " + username);
             }
         }
     }
@@ -97,7 +100,10 @@ public class ClientService extends Thread {
         } catch (EOFException exception) {
             socket.close();
             Session session = getSessionInList(username);
-            StatusForm.addToStatusTextArea(exception.getMessage());
+            if (Main.noGUI)
+                System.out.println(exception.getMessage());
+            else
+                StatusForm.addToStatusTextArea(exception.getMessage());
             for (int i = 0; i < CommunicationService.gameSessions.size(); i++) {
                 if (CommunicationService.gameSessions.get(i).session.getSessionID() == session.getSessionID()) {
                     CommunicationService.gameSessions.get(i).stop();
