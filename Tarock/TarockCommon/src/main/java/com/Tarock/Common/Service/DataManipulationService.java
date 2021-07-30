@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
+import java.util.Objects;
 
 import org.apache.commons.io.FileUtils;
 
@@ -90,10 +91,7 @@ public class DataManipulationService {
     }
 
     public static boolean stringToBool(String string) {
-        boolean theBoolean = true;
-        if (string.equals("0"))
-            theBoolean = false;
-        return theBoolean;
+        return !string.equals("0");
     }
 
     public static String boolToString(boolean theBoolean) {
@@ -188,7 +186,7 @@ public class DataManipulationService {
     }
 
     public static String getPath() {
-        String initPath = DataManipulationService.class.getResource("DataManipulationService.class").toString();
+        String initPath = Objects.requireNonNull(DataManipulationService.class.getResource("DataManipulationService.class")).toString();
         StringBuilder stringBuilder = new StringBuilder();
         int initChar = 9;
         int endChar;

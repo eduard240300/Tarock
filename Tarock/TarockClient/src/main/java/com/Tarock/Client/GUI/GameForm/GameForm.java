@@ -203,7 +203,7 @@ public class GameForm extends JFrame {
         }
 
         String text = Repository.players.get(player) + " : ";
-        text = text + declarationBuilder.toString();
+        text = text + declarationBuilder;
         declarationsPlayers.get(player).setText(text);
     }
 

@@ -23,7 +23,7 @@ public class PHPConnection {
     private static String ipAddress;
 
     public static void initPHPConnection() throws FileNotFoundException {
-        if (!DataManipulationService.containsJAR(PHPConnection.class.getResource("PHPConnection.class").toString())) {
+        if (!DataManipulationService.containsJAR(Objects.requireNonNull(PHPConnection.class.getResource("PHPConnection.class")).toString())) {
             InputStream inputStream = DataManipulationService.getInputStream("websiteIP.conf");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
@@ -67,9 +67,9 @@ public class PHPConnection {
             }
             in.close();
             if (Main.noGUI)
-                System.out.println("Received from website : " + outputStream.toString());
+                System.out.println("Received from website : " + outputStream);
             else
-                StatusForm.addToStatusTextArea("Received from website : " + outputStream.toString());
+                StatusForm.addToStatusTextArea("Received from website : " + outputStream);
             return outputStream.toString();
         } catch (Exception e) {
             e.printStackTrace();
