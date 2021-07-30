@@ -1,16 +1,12 @@
 package com.Tarock.Server.Service;
 
-import com.Tarock.Common.Domain.Score;
-import com.Tarock.Common.Domain.Declaration;
-import com.Tarock.Common.Domain.Game;
-import com.Tarock.Common.Domain.Round;
-import com.Tarock.Common.Domain.Pair;
+import com.Tarock.Common.Domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScoreService {
-    public static void getPointsMethod(String type, int teamDeclared, int teamDone, Score score) {
+    public static void getPointsMethodWithThreeChecks(String type, int teamDeclared, int teamDone, Score score) {
         int points;
         String declaredOrDone;
         if (teamDeclared == 0) {
@@ -56,22 +52,22 @@ public class ScoreService {
         score.getAttribute(type).setDeclaredOrDone(declaredOrDone);
     }
 
-    public static List<Declaration> getDeclarationsTeams(List<Declaration> declarations, List<List<Integer>> teams, int playerRequest) {
+    public static List<Declaration> getDeclarationsTeams(ScoreComputationArguments computation) {
+        List<List<Integer>> teams = computation.getTeams();
+        List<Declaration> declarations = computation.getDeclarations();
+        int playerRequest = computation.getPlayerRequest();
+
         List<Declaration> declarationsTeams = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            Declaration declaration = new Declaration(false, false, false, false, 0);
-            for (int j = 0; j < teams.get(i).size(); j++) {
-                if (declarations.get(teams.get(i).get(j)).getPopeAtFinish())
-                    declaration.setPopeAtFinish(true);
-                if (declarations.get(teams.get(i).get(j)).getPagatAtFinish())
-                    declaration.setPagatAtFinish(true);
-                if (declarations.get(teams.get(i).get(j)).getAllPopes())
-                    declaration.setAllPopes(true);
-                if (declarations.get(teams.get(i).get(j)).getTrull())
-                    declaration.setTrull(true);
-                if (teams.get(i).get(j) == playerRequest) {
-                    declaration.setThe1of2(declarations.get(teams.get(i).get(j)).getThe1of2());
-                    declaration.setPope(declarations.get(teams.get(i).get(j)).getPope());
+        for (List<Integer> team : teams) {
+            Declaration declaration = new Declaration();
+            for (int player : team) {
+                declaration.setPopeAtFinish(declarations.get(player).getPopeAtFinish());
+                declaration.setPagatAtFinish(declarations.get(player).getPagatAtFinish());
+                declaration.setAllPopes(declarations.get(player).getAllPopes());
+                declaration.setTrull(declarations.get(player).getTrull());
+                if (player == playerRequest) {
+                    declaration.setThe1of2(declarations.get(player).getThe1of2());
+                    declaration.setPope(declarations.get(player).getPope());
                 }
             }
             declarationsTeams.add(declaration);
@@ -125,22 +121,10 @@ public class ScoreService {
             return 0;
     }
 
-    public static Pair<Game, Score> getScore(int playerRequest, List<String> players, List<List<Integer>> teams, List<Round> rounds, List<Declaration> declarations, List<List<Integer>> cardsWon, boolean popeInTalon, boolean isRadler) {
-        Game game = new Game();
-        Score score = new Score();
-        score.setRadler(isRadler);
-        List<Declaration> declarationsTeams = getDeclarationsTeams(declarations, teams, playerRequest);
-        String declarationMessage = getDeclarationMessage(declarationsTeams);
-        int pope = declarations.get(playerRequest).getPope();
-        int the1of2 = declarations.get(playerRequest).getThe1of2();
-        if (popeInTalon) {
-            swapPope(cardsWon, pope);
-        }
-
+    public static int getTeamThatWon(List<List<Integer>> cardsWon) {
         int teamThatWon = 0;
         List<Double> pointsTeams = new ArrayList<>();
 
-        //calculate points won by each team
         for (int i = 0; i < 2; i++) {
             double pointsTeam = 0;
 
@@ -159,7 +143,16 @@ public class ScoreService {
         if (pointsTeams.get(1) > pointsTeams.get(0))
             teamThatWon = 1;
 
-        //calculate game points
+        return teamThatWon;
+    }
+
+    public static void computeGamePoints(Score score, int teamThatWon, ScoreComputationArguments computation) {
+        List<List<Integer>> teams = computation.getTeams();
+        List<String> players = computation.getPlayers();
+        List<List<Integer>> cardsWon = computation.getCardsWon();
+        int playerRequest = computation.getPlayerRequest();
+        int the1of2 = computation.getDeclarations().get(playerRequest).getThe1of2();
+
         StringBuilder tagTeamThatWon = new StringBuilder("Team 0" + (teamThatWon + 1));
         tagTeamThatWon.append("(");
         for (int i = 0; i < teams.get(teamThatWon).size(); i++) {
@@ -192,32 +185,12 @@ public class ScoreService {
 
         score.getAttribute("Game").setPoints(pointsGame);
         score.getAttribute("Game").setDeclaredOrDone(declaredOrDoneGame);
+    }
 
-        //variables declarations
-        boolean declaredPopeAtFinish = false;
-        int teamDeclaredPagatAtFinish = -1;
-        int teamDeclaredAllPopes = -1;
-        int teamDeclaredAllTrullCards = -1;
-        boolean donePopeAtFinish = false;
-        int teamDonePagatAtFinish = -1;
-        int teamDoneAllPopes = -1;
-        int teamDoneAllTrullCards = -1;
-        boolean popeCaught = false;
-        int lunaCaughtFromTeam = -1;
+    public static boolean computeTeam1WonLastRound(ScoreComputationArguments computation) {
+        List<Round> rounds = computation.getRounds();
+        List<List<Integer>> teams = computation.getTeams();
 
-        //get values of variables declaration
-        for (int i = 0; i < 2; i++) {
-            if (declarationsTeams.get(i).getPopeAtFinish())
-                declaredPopeAtFinish = true;
-            if (declarationsTeams.get(i).getPagatAtFinish())
-                teamDeclaredPagatAtFinish = i;
-            if (declarationsTeams.get(i).getAllPopes())
-                teamDeclaredAllPopes = i;
-            if (declarationsTeams.get(i).getTrull())
-                teamDeclaredAllTrullCards = i;
-        }
-
-        //calculate if team 1 won the last round
         int playerThatWonLastRound = rounds.get(11).getPlayerThatWon();
         boolean team1WonLastRound = false;
         for (int i = 0; i < teams.get(0).size(); i++) {
@@ -227,13 +200,32 @@ public class ScoreService {
             }
         }
 
-        //calculate if popeAtFinish done
+        return team1WonLastRound;
+    }
+
+    public static boolean computeDonePopeAtFinish(boolean team1WonLastRound, ScoreComputationArguments computation) {
+        List<List<Integer>> teams = computation.getTeams();
+        List<Round> rounds = computation.getRounds();
+        List<Declaration> declarations = computation.getDeclarations();
+        int playerRequest = computation.getPlayerRequest();
+        int pope = declarations.get(playerRequest).getPope();
+
+        boolean donePopeAtFinish = false;
+
         for (int i = 0; i < teams.get(0).size(); i++) {
             if ((team1WonLastRound) && (rounds.get(11).getCard(teams.get(0).get(i)) == 30 + pope * 8))
                 donePopeAtFinish = true;
         }
 
-        //calculate if pagatAtFinish done
+        return donePopeAtFinish;
+    }
+
+    public static int computeDonePagatAtFinish(ScoreComputationArguments computation) {
+        List<List<Integer>> teams = computation.getTeams();
+        List<Round> rounds = computation.getRounds();
+
+        int teamDonePagatAtFinish = -1;
+
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < teams.get(i).size(); j++) {
                 if ((rounds.get(11).getCard(teams.get(i).get(j)) == 1) &&
@@ -243,7 +235,14 @@ public class ScoreService {
             }
         }
 
-        //calculate if allPopes and allTrullCards done
+        return teamDonePagatAtFinish;
+    }
+
+    public static Pair<Integer, Integer> computeTeamDoneAllPopesAndTeamDoneAllTrullCards(ScoreComputationArguments computation) {
+        int teamDoneAllPopes = -1;
+        int teamDoneAllTrullCards = -1;
+        List<List<Integer>> cardsWon = computation.getCardsWon();
+
         for (int i = 0; i < 2; i++) {
             int numberOfTrullCards = 0;
             int numberOfPopes = 0;
@@ -261,7 +260,16 @@ public class ScoreService {
                 teamDoneAllPopes = i;
         }
 
-        //calculate if popeCaught
+        return new Pair<>(teamDoneAllPopes, teamDoneAllTrullCards);
+    }
+
+    public static boolean computePopeCaught(ScoreComputationArguments computation) {
+        List<List<Integer>> cardsWon = computation.getCardsWon();
+        List<Declaration> declarations = computation.getDeclarations();
+        int playerRequest = computation.getPlayerRequest();
+        int pope = declarations.get(playerRequest).getPope();
+        boolean popeCaught = false;
+
         for (int i = 0; i < cardsWon.get(1).size(); i++) {
             if (cardsWon.get(1).get(i) == 30 + pope * 8) {
                 popeCaught = true;
@@ -269,7 +277,14 @@ public class ScoreService {
             }
         }
 
-        //calculate if lunaCaught
+        return popeCaught;
+    }
+
+    public static int computeLunaCaught(ScoreComputationArguments computation) {
+        List<List<Integer>> teams = computation.getTeams();
+        List<Round> rounds = computation.getRounds();
+        int lunaCaughtFromTeam = -1;
+
         int playerThatGaveLuna = -1;
         for (int i = 0; i < 12; i++) {
             for (int j = 0; j < 4; j++) {
@@ -288,31 +303,10 @@ public class ScoreService {
             }
         }
 
-        //calculate popeAtFinish points
-        int pointsPopeAtFinish;
-        String declaredOrDonePopeAtFinish;
-        if (declaredPopeAtFinish) {
-            if (donePopeAtFinish) {
-                declaredOrDonePopeAtFinish = "Declared and done";
-                pointsPopeAtFinish = 2;
-            } else {
-                declaredOrDonePopeAtFinish = "Declared and not done";
-                pointsPopeAtFinish = -2;
-            }
-        } else {
-            if (donePopeAtFinish) {
-                declaredOrDonePopeAtFinish = "Done";
-                pointsPopeAtFinish = 1;
-            } else {
-                declaredOrDonePopeAtFinish = "No";
-                pointsPopeAtFinish = 0;
-            }
-        }
+        return lunaCaughtFromTeam;
+    }
 
-        score.getAttribute("Pope at finish").setPoints(pointsPopeAtFinish);
-        score.getAttribute("Pope at finish").setDeclaredOrDone(declaredOrDonePopeAtFinish);
-
-        //calculate pagatAtFinish points
+    public static void computePointsPagatAtFinish(Score score, int teamDeclaredPagatAtFinish, int teamDonePagatAtFinish) {
         int pointsPagatAtFinish = -1;
         String declaredOrDonePagatAtFinish;
         if (teamDeclaredPagatAtFinish == 0) {
@@ -345,14 +339,34 @@ public class ScoreService {
 
         score.getAttribute("Pagat at finish").setPoints(pointsPagatAtFinish);
         score.getAttribute("Pagat at finish").setDeclaredOrDone(declaredOrDonePagatAtFinish);
+    }
 
-        //calculate allPopes
-        getPointsMethod("All popes", teamDeclaredAllPopes, teamDoneAllPopes, score);
+    public static void computePointsPopeAtFinish(Score score, boolean declaredPopeAtFinish, boolean donePopeAtFinish) {
+        int pointsPopeAtFinish;
+        String declaredOrDonePopeAtFinish;
+        if (declaredPopeAtFinish) {
+            if (donePopeAtFinish) {
+                declaredOrDonePopeAtFinish = "Declared and done";
+                pointsPopeAtFinish = 2;
+            } else {
+                declaredOrDonePopeAtFinish = "Declared and not done";
+                pointsPopeAtFinish = -2;
+            }
+        } else {
+            if (donePopeAtFinish) {
+                declaredOrDonePopeAtFinish = "Done";
+                pointsPopeAtFinish = 1;
+            } else {
+                declaredOrDonePopeAtFinish = "No";
+                pointsPopeAtFinish = 0;
+            }
+        }
 
-        //calculate allTrullCards
-        getPointsMethod("All trull cards", teamDeclaredAllTrullCards, teamDoneAllTrullCards, score);
+        score.getAttribute("Pope at finish").setPoints(pointsPopeAtFinish);
+        score.getAttribute("Pope at finish").setDeclaredOrDone(declaredOrDonePopeAtFinish);
+    }
 
-        //calculate popeCaught
+    public static void computePointsPopeCaught(Score score, boolean popeCaught) {
         int pointsPopeCaught = -1;
         String declaredOrDonePopeCaught;
         if (popeCaught) {
@@ -364,8 +378,9 @@ public class ScoreService {
 
         score.getAttribute("Pope caught").setPoints(pointsPopeCaught);
         score.getAttribute("Pope caught").setDeclaredOrDone(declaredOrDonePopeCaught);
+    }
 
-        //calculate lunaCaught
+    public static void computePointsLunaCaught(Score score, int lunaCaughtFromTeam) {
         int pointsLunaCaught = -1;
         String declaredOrDoneLunaCaught;
         if (lunaCaughtFromTeam == 0) {
@@ -380,10 +395,49 @@ public class ScoreService {
 
         score.getAttribute("Luna caught").setPoints(pointsLunaCaught);
         score.getAttribute("Luna caught").setDeclaredOrDone(declaredOrDoneLunaCaught);
+    }
 
-        for (int i = 0; i < 4; i++) {
-            calculateScoreTarocks(teamThatWon, i, teams, declarations, score);
+    public static void computeScoreTarocks(Score score, int teamThatWon, int player, ScoreComputationArguments computation) {
+        List<List<Integer>> teams = computation.getTeams();
+        List<Declaration> declarations = computation.getDeclarations();
+
+        int pointsTarocksPlayer;
+        String declaredOrDoneTarocksPlayer;
+        int teamPlayer = -1;
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < teams.get(i).size(); j++) {
+                if (teams.get(i).get(j) == player) {
+                    teamPlayer = i;
+                    break;
+                }
+            }
         }
+        if (declarations.get(player).getNumberOfTarocks() == 8) {
+            declaredOrDoneTarocksPlayer = "8T";
+            pointsTarocksPlayer = 1;
+        } else if (declarations.get(player).getNumberOfTarocks() == 9) {
+            declaredOrDoneTarocksPlayer = "9T";
+            pointsTarocksPlayer = 2;
+        } else if (declarations.get(player).getNumberOfTarocks() == 10) {
+            declaredOrDoneTarocksPlayer = "10T";
+            pointsTarocksPlayer = 3;
+        } else {
+            declaredOrDoneTarocksPlayer = "No";
+            pointsTarocksPlayer = 0;
+        }
+
+        score.getAttribute("Tarocks Player 0" + (player + 1)).setPoints(pointsTarocksPlayer);
+        score.getAttribute("Tarocks Player 0" + (player + 1)).setDeclaredOrDone(declaredOrDoneTarocksPlayer);
+        if (teamPlayer != teamThatWon) {
+            score.getAttribute("Tarocks Player 0" + (player + 1)).setPoints(-pointsTarocksPlayer);
+        }
+    }
+
+    public static void computeTotal(int teamThatWon, List<Declaration> declarationsTeams, Score score, Game game, ScoreComputationArguments computation) {
+        String declarationMessage = getDeclarationMessage(declarationsTeams);
+
+        List<List<Integer>> teams = computation.getTeams();
+        int playerRequest = computation.getPlayerRequest();
 
         if (teamThatWon == 1) {
             for (int i = 1; i < 7; i++) {
@@ -393,7 +447,7 @@ public class ScoreService {
         }
 
         score.computeTotal();
-        game.setRadler(isRadler);
+        game.setRadler(computation.isRadler());
         game.setDeclaration(declarationMessage);
         int total = score.getAttribute("Total").getPoints();
         if (teams.get(0).size() == 1) {
@@ -429,41 +483,67 @@ public class ScoreService {
                 }
             }
         }
-
-        return new Pair<>(game, score);
     }
 
-    public static void calculateScoreTarocks(int teamThatWon, int player, List<List<Integer>> teams, List<Declaration> declarations, Score score) {
-        //calculate TarocksPlayer
-        int pointsTarocksPlayer;
-        String declaredOrDoneTarocksPlayer;
-        int teamPlayer = -1;
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < teams.get(i).size(); j++) {
-                if (teams.get(i).get(j) == player) {
-                    teamPlayer = i;
-                    break;
-                }
-            }
-        }
-        if (declarations.get(player).getNumberOfTarocks() == 8) {
-            declaredOrDoneTarocksPlayer = "8T";
-            pointsTarocksPlayer = 1;
-        } else if (declarations.get(player).getNumberOfTarocks() == 9) {
-            declaredOrDoneTarocksPlayer = "9T";
-            pointsTarocksPlayer = 2;
-        } else if (declarations.get(player).getNumberOfTarocks() == 10) {
-            declaredOrDoneTarocksPlayer = "10T";
-            pointsTarocksPlayer = 3;
-        } else {
-            declaredOrDoneTarocksPlayer = "No";
-            pointsTarocksPlayer = 0;
+    public static Pair<Game, Score> getScore(ScoreComputationArguments computation) {
+        Game game = new Game();
+        Score score = new Score();
+        score.setRadler(computation.isRadler());
+
+        List<Declaration> declarations = computation.getDeclarations();
+        int playerRequest = computation.getPlayerRequest();
+        boolean popeInTalon = computation.isPopeInTalon();
+        List<List<Integer>> cardsWon = computation.getCardsWon();
+
+        List<Declaration> declarationsTeams = getDeclarationsTeams(computation);
+        int pope = declarations.get(playerRequest).getPope();
+        if (popeInTalon) {
+            swapPope(cardsWon, pope);
         }
 
-        score.getAttribute("Tarocks Player 0" + (player + 1)).setPoints(pointsTarocksPlayer);
-        score.getAttribute("Tarocks Player 0" + (player + 1)).setDeclaredOrDone(declaredOrDoneTarocksPlayer);
-        if (teamPlayer != teamThatWon) {
-            score.getAttribute("Tarocks Player 0" + (player + 1)).setPoints(-pointsTarocksPlayer);
+        int teamThatWon = getTeamThatWon(cardsWon);
+        computeGamePoints(score, teamThatWon, computation);
+
+        //variables declarations
+        boolean declaredPopeAtFinish = false;
+        int teamDeclaredPagatAtFinish = -1;
+        int teamDeclaredAllPopes = -1;
+        int teamDeclaredAllTrullCards = -1;
+
+        //get values of variables declaration
+        for (int i = 0; i < 2; i++) {
+            declaredPopeAtFinish = declarationsTeams.get(i).getPopeAtFinish();
+            if (declarationsTeams.get(i).getPagatAtFinish())
+                teamDeclaredPagatAtFinish = i;
+            if (declarationsTeams.get(i).getAllPopes())
+                teamDeclaredAllPopes = i;
+            if (declarationsTeams.get(i).getTrull())
+                teamDeclaredAllTrullCards = i;
         }
+
+        boolean team1WonLastRound = computeTeam1WonLastRound(computation);
+        boolean donePopeAtFinish = computeDonePopeAtFinish(team1WonLastRound, computation);
+        int teamDonePagatAtFinish = computeDonePagatAtFinish(computation);
+
+        Pair<Integer, Integer> popesAndTrull = computeTeamDoneAllPopesAndTeamDoneAllTrullCards(computation);
+        int teamDoneAllPopes = popesAndTrull.getKey();
+        int teamDoneAllTrullCards = popesAndTrull.getValue();
+        boolean popeCaught = computePopeCaught(computation);
+        int lunaCaughtFromTeam = computeLunaCaught(computation);
+
+        computePointsPagatAtFinish(score, teamDeclaredPagatAtFinish, teamDonePagatAtFinish);
+        computePointsPopeAtFinish(score, declaredPopeAtFinish, donePopeAtFinish);
+        getPointsMethodWithThreeChecks("All popes", teamDeclaredAllPopes, teamDoneAllPopes, score);
+        getPointsMethodWithThreeChecks("All trull cards", teamDeclaredAllTrullCards, teamDoneAllTrullCards, score);
+        computePointsPopeCaught(score, popeCaught);
+        computePointsLunaCaught(score, lunaCaughtFromTeam);
+
+        for (int i = 0; i < 4; i++) {
+            computeScoreTarocks(score, teamThatWon, i, computation);
+        }
+
+        computeTotal(teamThatWon, declarationsTeams, score, game, computation);
+
+        return new Pair<>(game, score);
     }
 }

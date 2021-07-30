@@ -124,7 +124,7 @@ public class TalonSelectionForm extends JFrame {
         add(giveButton);
     }
 
-    public TalonSelectionForm(boolean initializeController) {
+    public TalonSelectionForm() {
         InputStream icon = DataManipulationService.getInputStream("icon.png");
         try {
             setIconImage(ImageIO.read(icon));
@@ -156,7 +156,6 @@ public class TalonSelectionForm extends JFrame {
         setResizable(false);
         //setVisible(true);
 
-        if (initializeController)
-            new ControllerTalonSelectionForm();
+        new ControllerTalonSelectionForm();
     }
 }

@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
         Repository.initRepository();
 
-        connectionForm = new ConnectionForm(true, true);
+        connectionForm = new ConnectionForm();
 
         if (args.length == 3) {
             ConnectionForm.usernameField.setText(args[0]);
@@ -30,9 +30,9 @@ public class Main {
             ConnectionForm.ipAddressField.setText(args[3]);
         }
 
-        gameForm = new GameForm(true);
-        scoreForm = new ScoreForm(true);
-        talonSelectionForm = new TalonSelectionForm(true);
+        gameForm = new GameForm();
+        scoreForm = new ScoreForm();
+        talonSelectionForm = new TalonSelectionForm();
         talonShowingForm = new TalonShowingForm();
     }
 }

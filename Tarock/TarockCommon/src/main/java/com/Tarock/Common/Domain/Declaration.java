@@ -11,6 +11,14 @@ public class Declaration {
     private final int numberOfTarocks;
     private int pope = -1;
 
+    public Declaration() {
+        this.popeAtFinish = false;
+        this.pagatAtFinish = false;
+        this.allPopes = false;
+        this.trull = false;
+        this.numberOfTarocks = 0;
+    }
+
     public Declaration(boolean popeAtFinish, boolean pagatAtFinish, boolean allPopes, boolean trull, int numberOfTarocks) {
         this.popeAtFinish = popeAtFinish;
         this.pagatAtFinish = pagatAtFinish;
