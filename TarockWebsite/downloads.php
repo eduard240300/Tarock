@@ -112,7 +112,7 @@ if(!isset($_COOKIE["username"]))
 					</tr>
 					<tr>
 						<td><center>6</center></td>
-						<td><center>Tarock Client</center></td>
+						<td><center>Tarock Server</center></td>
 						<td><center>1.0</center></td>
 						<td><center>Latest Android OS</center></td>
 						<td><center><form method="get" action="../resources/releases/android/tarock-server.apk">
