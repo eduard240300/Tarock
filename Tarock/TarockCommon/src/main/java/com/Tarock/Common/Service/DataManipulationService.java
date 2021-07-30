@@ -162,16 +162,16 @@ public class DataManipulationService {
         StringBuilder message = new StringBuilder(startMessage);
         for(Integer card : cards)
         {
-            message.append(" " + card);
+            message.append(" ").append(card);
         }
         message.append(";");
         return message.toString();
     }
 
-    public static String getRespondedDeclaration(int playerRequest, List<Declaration> declarations){
-        return "respondedDeclaration " + playerRequest + " " +
-                processName(declarations.get(playerRequest).toString()) + " " +
-                declarations.get(playerRequest).toSendableObject() + ";";
+    public static String getRespondedDeclaration(int player, List<Declaration> declarations){
+        return "respondedDeclaration " + player + " " +
+                processName(declarations.get(player).toString()) + " " +
+                declarations.get(player).toSendableObject() + ";";
     }
 
     public static String getScore(Game game)

@@ -61,10 +61,14 @@ public class ScoreService {
         for (List<Integer> team : teams) {
             Declaration declaration = new Declaration();
             for (int player : team) {
-                declaration.setPopeAtFinish(declarations.get(player).getPopeAtFinish());
-                declaration.setPagatAtFinish(declarations.get(player).getPagatAtFinish());
-                declaration.setAllPopes(declarations.get(player).getAllPopes());
-                declaration.setTrull(declarations.get(player).getTrull());
+                if (declarations.get(player).getPopeAtFinish())
+                    declaration.setPopeAtFinish(true);
+                if (declarations.get(player).getPagatAtFinish())
+                    declaration.setPagatAtFinish(true);
+                if (declarations.get(player).getAllPopes())
+                    declaration.setAllPopes(true);
+                if (declarations.get(player).getTrull())
+                    declaration.setTrull(true);
                 if (player == playerRequest) {
                     declaration.setThe1of2(declarations.get(player).getThe1of2());
                     declaration.setPope(declarations.get(player).getPope());
@@ -512,7 +516,8 @@ public class ScoreService {
 
         //get values of variables declaration
         for (int i = 0; i < 2; i++) {
-            declaredPopeAtFinish = declarationsTeams.get(i).getPopeAtFinish();
+            if (declarationsTeams.get(i).getPopeAtFinish())
+                declaredPopeAtFinish = true;
             if (declarationsTeams.get(i).getPagatAtFinish())
                 teamDeclaredPagatAtFinish = i;
             if (declarationsTeams.get(i).getAllPopes())

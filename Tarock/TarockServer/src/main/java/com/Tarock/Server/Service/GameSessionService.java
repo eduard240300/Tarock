@@ -43,6 +43,7 @@ public class GameSessionService extends Thread {
         playersStatus = new ArrayList<>();
         cards = new ArrayList<>();
         cardsPlayers = new ArrayList<>();
+        talon = new ArrayList<>();
         declarations = new ArrayList<>();
         teams = new ArrayList<>();
         rounds = new ArrayList<>();
@@ -168,7 +169,7 @@ public class GameSessionService extends Thread {
 
     public void sendTeams() throws IOException, ClassNotFoundException {
         String message1 = DataManipulationService.getListOfInteger(Teams().get(0), "team1");
-        String message2 = DataManipulationService.getListOfInteger(Teams().get(0), "team2");
+        String message2 = DataManipulationService.getListOfInteger(Teams().get(1), "team2");
         sendAllPlayers(message1 + message2);
     }
 
@@ -295,7 +296,7 @@ public class GameSessionService extends Thread {
             Declarations().set(player, declaration);
         }
 
-        sendAllPlayers(DataManipulationService.getRespondedDeclaration(PlayerRequest(), Declarations()));
+        sendAllPlayers(DataManipulationService.getRespondedDeclaration(player, Declarations()));
     }
 
     public void playerModeCancelOrRadler() throws IOException, ClassNotFoundException {
@@ -315,8 +316,7 @@ public class GameSessionService extends Thread {
         runHelper();
     }
 
-    public Round requestCard(int player, int firstRequest) throws IOException, ClassNotFoundException {
-        Round round = new Round(firstRequest);
+    public void requestCard(int player, Round round) throws IOException, ClassNotFoundException {
         List<String> listOfObjects;
         sendAllPlayers("requestedCard " + player + ";");
         listOfObjects = getListOfObjectsFromPlayer(player, "requestCard;");
@@ -331,8 +331,6 @@ public class GameSessionService extends Thread {
 
         if (cardGiven == 30 + Pope() * 8)
             sendTeams();
-
-        return round;
     }
 
     public void requestPlayerMode(int player) throws IOException, ClassNotFoundException {
@@ -363,9 +361,9 @@ public class GameSessionService extends Thread {
 
         sendAllPlayers("beginRound;");
 
-        Round round = null;
+        Round round = new Round(firstRequest);
         for (int i = firstRequest; i < firstRequest + 4; i++) {
-            round = requestCard(i % 4, firstRequest);
+            requestCard(i % 4, round);
         }
         Rounds().add(round);
 
