@@ -212,7 +212,7 @@ public class GameForm extends JFrame {
             }
             index++;
         }
-        
+
         if (positionPope != -1) {
             declarationBuilder.deleteCharAt(positionPope);
             if (declarationBuilder.charAt(positionPope) == '0')
