@@ -224,6 +224,14 @@ class DBUtils {
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+	public function selectAllSessions() {
+		$query="SELECT * FROM Sessions";
+		$statement = $this->pdo->prepare($query);
+		$statement->execute();
+		
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 	public function selectGames($sessionID) {
 		$query="SELECT * FROM Games
 		WHERE SessionID = :sessionID";

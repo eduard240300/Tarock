@@ -98,6 +98,18 @@ class Model {
 	    return $sessions;
 	}
 
+	public function getAllSessions() {
+		$resultset = $this->db->selectAllSessions();
+		$sessions = array();
+		foreach($resultset as $key=>$val) {
+			$session = $val;
+			$newSession = new Session($session['SessionID'], $session['Creator'], $session['DateCreated'], $session['DateClosed'], $session['Player1'], $session['Player2'], $session['Player3'], $session['Player4']);
+	    	array_push($sessions, $newSession);
+		}
+
+	    return $sessions;
+	}
+
 	public function getGames($sessionID) {
         $resultset = $this->db->selectGames($sessionID);
 		$games = array();

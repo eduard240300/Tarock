@@ -143,6 +143,10 @@ class Controller
        return $this->model->getSessions($username);
     }
 
+    public function getAllSessions() {
+        return $this->model->getAllSessions($username);
+    }
+
     public function getGames($sessionID) {
         return $this->model->getGames($sessionID);
     }

@@ -42,16 +42,11 @@ if(!isset($_COOKIE["username"]))
 				?>
 			</div>
 			<br />
-			<?php
-				if(isset($_COOKIE["username"]))
-				{
-					echo '<h2 align="center">' . $_COOKIE["name"] . '\'s List of Sessions</h2>';
-				}
-			?>
+			<h2 align="center">List of Sessions</h2>
 			<h2> </h2>
 			<?php
 				$username = $_COOKIE["username"];
-				$sessions = $controller->getSessions($username);
+				$sessions = $controller->getAllSessions();
 				$cnt = count($sessions);
 			?>
 			<?php if ($cnt > 0): ?>
@@ -72,6 +67,7 @@ if(!isset($_COOKIE["username"]))
 						<td><b><center>Player 2</center></b></td>
 						<td><b><center>Player 3</center></b></td>
 						<td><b><center>Player 4</center></b></td>
+						<td><b><center>Creator</center></b></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -84,6 +80,7 @@ if(!isset($_COOKIE["username"]))
 						<td><center><?php echo $session->getPlayer2(); ?></center></td>
 						<td><center><?php echo $session->getPlayer3(); ?></center></td>
 						<td><center><?php echo $session->getPlayer4(); ?></center></td>
+						<td><center><?php echo $session->getCreator(); ?></center></td>
 					</tr>
 					<?php } ?>
 				</tbody>
