@@ -32,7 +32,7 @@ public class ControllerConnectionForm {
 
     public ControllerConnectionForm() {
         ConnectionForm.loginButton.addActionListener(e -> {
-            CommunicationService.ipAddress = ConnectionForm.ipAddressField.getText();
+            CommunicationService.address = ConnectionForm.ipAddressField.getText();
 
             if (communicationService == null) {
                 initCommunicationService();

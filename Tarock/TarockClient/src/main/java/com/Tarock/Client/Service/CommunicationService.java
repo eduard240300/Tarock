@@ -1,6 +1,7 @@
 package com.Tarock.Client.Service;
 
 import com.Tarock.Common.Domain.Declaration;
+import com.Tarock.Common.Domain.Pair;
 import com.Tarock.Common.Domain.Round;
 import com.Tarock.Common.Domain.User;
 import com.Tarock.Client.GUI.ConnectionForm.ConnectionForm;
@@ -10,6 +11,7 @@ import com.Tarock.Client.Main;
 import com.Tarock.Client.GUI.ScoreForm.ScoreForm;
 import com.Tarock.Client.GUI.TalonSelectionForm.TalonSelectionForm;
 import com.Tarock.Client.Repository.Repository;
+import com.Tarock.Common.Exception.ServiceException;
 import com.Tarock.Common.Service.DataManipulationService;
 
 import java.awt.*;
@@ -25,7 +27,7 @@ import java.util.List;
 
 @SuppressWarnings({"BusyWait", "deprecation"})
 public class CommunicationService extends Thread {
-    public static String ipAddress = "";
+    public static String address = "";
     public static Socket socket;
     public static ObjectInputStream inputStream;
     public static ObjectOutputStream outputStream;
@@ -47,19 +49,28 @@ public class CommunicationService extends Thread {
     public static boolean connected = false;
 
     public void runHelper() throws IOException, ClassNotFoundException, InterruptedException {
-        while (true) {
+        while (!connected) {
             try {
-                if (!ipAddress.equals("")) {
-                    socket = new Socket(ipAddress, 9876);
+                if (!address.equals("")) {
+                    Pair<String, Integer> addressSplit;
+                    addressSplit = DataManipulationService.getIPAndPort(address);
+                    String ipAddress = addressSplit.getKey();
+                    int port = addressSplit.getValue();
+                    System.out.println("Connecting to " + ipAddress + ":" + port + " !");
+                    socket = new Socket(ipAddress, port);
                     connected = true;
-                    System.out.println("Connected to " + ipAddress + ":9876 !");
-                    break;
+                    System.out.println("Connected to " + ipAddress + ":" + port + " !");
                 }
+            }
+            catch (ServiceException serviceException)
+            {
+                address = "";
+                ConnectionForm.popUpMessage("Port is incorrect !");
             } catch (ConnectException connectException) {
-                ipAddress = "";
+                address = "";
                 ConnectionForm.popUpMessage("Could not connect to server !");
             } catch (UnknownHostException unknownHostException) {
-                ipAddress = "";
+                address = "";
                 ConnectionForm.popUpMessage("Server is down or IP is incorrect !");
             }
             Thread.sleep(200);

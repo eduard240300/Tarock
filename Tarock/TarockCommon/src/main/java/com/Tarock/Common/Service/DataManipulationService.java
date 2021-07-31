@@ -10,6 +10,9 @@ import java.util.*;
 import java.io.File;
 
 import com.Tarock.Common.Domain.Score;
+import com.Tarock.Common.Exception.ServiceException;
+import com.Tarock.Common.Exception.ValidationException;
+import com.Tarock.Common.Validator.IntegerValidator;
 import org.apache.commons.io.FileUtils;
 
 public class DataManipulationService {
@@ -155,6 +158,26 @@ public class DataManipulationService {
             stringBuilder.append(initPath.charAt(i));
         }
         return stringBuilder.toString();
+    }
+
+    public static Pair<String, Integer> getIPAndPort(String address)
+    {
+        if (address.contains(":")) {
+            String[] splitAddress = address.split(":");
+            String ipAddress = splitAddress[0];
+            try {
+                IntegerValidator.validateInteger(splitAddress[1]);
+                int port = Integer.parseInt(splitAddress[1]);
+                return new Pair<>(ipAddress, port);
+            }
+            catch(ValidationException validationException)
+            {
+                throw new ServiceException(validationException.getMessage());
+            }
+        }
+        else {
+            return new Pair<>(address, 9876);
+        }
     }
 
     public static String getListOfInteger(List<Integer> cards, String startMessage)
