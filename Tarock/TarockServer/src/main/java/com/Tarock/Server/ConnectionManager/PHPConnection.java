@@ -22,24 +22,13 @@ import java.util.Objects;
 public class PHPConnection {
     private static String ipAddress;
 
-    public static void initPHPConnection() throws FileNotFoundException {
-        if (!DataManipulationService.containsJAR(Objects.requireNonNull(PHPConnection.class.getResource("PHPConnection.class")).toString())) {
-            InputStream inputStream = DataManipulationService.getInputStream("websiteIP.conf");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+    public static void initPHPConnection(){
+        InputStream inputStream = DataManipulationService.getInputStream("websiteIP.conf");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            try {
-                ipAddress = reader.readLine();
-            } catch (Exception ignored) {
-            }
-        } else {
-            String path = DataManipulationService.getPath() + "websiteIP.conf";
-            FileInputStream file = new FileInputStream(path);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(file));
-
-            try {
-                ipAddress = reader.readLine();
-            } catch (Exception ignored) {
-            }
+        try {
+            ipAddress = reader.readLine();
+        } catch (Exception ignored) {
         }
     }
 

@@ -68,7 +68,7 @@ if(!isset($_COOKIE["username"]))
 						<td><center>Tarock Client</center></td>
 						<td><center>1.0</center></td>
 						<td><center>Windows 10 x64</center></td>
-						<td><center><form method="get" action="../resources/releases/windows/Tarock-Client-Setup.exe">
+						<td><center><form method="get" action="../../resources/releases/windows/Tarock-Client-Setup.exe">
 							<button type="submit">Download</button>
 							</form></center>
 						</td>
@@ -78,7 +78,7 @@ if(!isset($_COOKIE["username"]))
 						<td><center>Tarock Client</center></td>
 						<td><center>1.0</center></td>
 						<td><center>Ubuntu 20.04 amd64</center></td>
-						<td><center><form method="get" action="../resources/releases/linux/tarock-client_1.0-1_amd64.deb">
+						<td><center><form method="get" action="../../resources/releases/linux/tarock-client_1.0-1_amd64.deb">
 							<button type="submit">Download</button>
 							</form></center>
 						</td>
@@ -88,7 +88,7 @@ if(!isset($_COOKIE["username"]))
 						<td><center>Tarock Client</center></td>
 						<td><center>1.0</center></td>
 						<td><center>Latest Android OS</center></td>
-						<td><center><form method="get" action="../resources/releases/android/tarock-client.apk">
+						<td><center><form method="get" action="../../resources/releases/android/tarock-client.apk">
 							<button type="submit">Download</button>
 							</form></center>
 						</td>
@@ -98,7 +98,7 @@ if(!isset($_COOKIE["username"]))
 						<td><center>Tarock Server</center></td>
 						<td><center>1.0</center></td>
 						<td><center>Windows 10 x64</center></td>
-						<td><center><form method="get" action="../resources/releases/windows/Tarock-Server-Setup.exe">
+						<td><center><form method="get" action="../../resources/releases/windows/Tarock-Server-Setup.exe">
   							<button type="submit">Download</button>
 							</form></center>
 						</td>
@@ -108,7 +108,7 @@ if(!isset($_COOKIE["username"]))
 						<td><center>Tarock Server</center></td>
 						<td><center>1.0</center></td>
 						<td><center>Ubuntu 20.04 amd64</center></td>
-						<td><center><form method="get" action="../resources/releases/linux/tarock-server_1.0-1_amd64.deb">
+						<td><center><form method="get" action="../../resources/releases/linux/tarock-server_1.0-1_amd64.deb">
 							<button type="submit">Download</button>
 							</form></center>
 						</td>
@@ -118,7 +118,7 @@ if(!isset($_COOKIE["username"]))
 						<td><center>Tarock Server</center></td>
 						<td><center>1.0</center></td>
 						<td><center>Latest Android OS</center></td>
-						<td><center><form method="get" action="../resources/releases/android/tarock-server.apk">
+						<td><center><form method="get" action="../../resources/releases/android/tarock-server.apk">
 							<button type="submit">Download</button>
 							</form></center>
 						</td>
