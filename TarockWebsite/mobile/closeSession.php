@@ -47,7 +47,7 @@ if(isset($_POST["close"]))
 		}
 		else
 		{
-			$message = "<div class='alert alert-danger'>Session does not exist</div>";  
+			$message = "<div class='alert alert-danger'>Session does not exist or you don't own it</div>";  
 		}
 	}
 }

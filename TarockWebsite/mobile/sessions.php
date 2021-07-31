@@ -21,7 +21,7 @@ if(!isset($_COOKIE["username"]))
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Sessions of <?php echo $_COOKIE["name"] ?></title>
+		<title>List of Sessions</title>
 		<link rel="icon" href="../images/icon.png">
 		<script src="../resources/jquery.min.js"></script>
 		<link rel="stylesheet" href="../resources/bootstrap.min.css" />
