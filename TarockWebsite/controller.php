@@ -60,24 +60,40 @@ class Controller
 
     public function processDeclaration($string)
     {
-        $result = "";
-        $iter = str_split($string);
-        $cursor = 0;
-        foreach($iter as $char)
+        $result_eliminate_p_char = "";
+        $final_result = "";
+        $iter1 = str_split($string);
+        $cursor1 = 0;
+        $cursor2 = 0;
+        $location_pope = 0;
+        foreach($iter1 as $char1)
         {
-            if ($cursor == 4)
+            if ($char1 === "p")
             {
-                $result = $result . $this->getPope($char);
+                $location_pope = $cursor1;
             }
-            else if ($char === "_")
-                $result = $result . " ";
-            else if ($char === "*")
-                $result = $result . ",";
             else
-                $result = $result . $char;
-            $cursor = $cursor + 1;
+            {
+                $result_eliminate_p_char = $result_eliminate_p_char . $char1;
+            }
+            $cursor1 = $cursor1 + 1;
         }
-        return $result;
+        $iter2 = str_split($result_eliminate_p_char);
+        foreach($iter2 as $char2)
+        {
+            if ($cursor2 == $location_pope)
+            {
+                $final_result = $final_result . $this->getPope($char);
+            }
+            else if ($char2 === "_")
+                $final_result = $final_result . " ";
+            else if ($char2 === "*")
+                $final_result = $final_result . ",";
+            else
+                $final_result = $final_result . $char2;
+            $cursor2 = $cursor2 + 1;
+        }
+        return $final_result;
     }
 
     public function existsUsername($username) {

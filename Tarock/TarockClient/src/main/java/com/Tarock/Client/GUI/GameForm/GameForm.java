@@ -111,14 +111,25 @@ public class GameForm extends JFrame {
         String stringScore2 = String.valueOf(score2);
         String stringScore3 = String.valueOf(score3);
         String stringScore4 = String.valueOf(score4);
-        if (declaration.charAt(4) == '0')
-            declarationBuilder.setCharAt(4, (char) (heartCode));
-        else if (declaration.charAt(4) == '1')
-            declarationBuilder.setCharAt(4, (char) (diamondCode));
-        else if (declaration.charAt(4) == '2')
-            declarationBuilder.setCharAt(4, (char) (clubCode));
-        else if (declaration.charAt(4) == '3')
-            declarationBuilder.setCharAt(4, (char) (spadeCode));
+        int index = 0;
+        int positionPope = 0;
+        for(char c : declaration.toCharArray())
+        {
+            if (c == 'p')
+            {
+                positionPope = index;
+            }
+            index++;
+        }
+        declarationBuilder.deleteCharAt(positionPope);
+        if (declarationBuilder.charAt(positionPope) == '0')
+            declarationBuilder.setCharAt(positionPope, (char) (heartCode));
+        else if (declarationBuilder.charAt(positionPope) == '1')
+            declarationBuilder.setCharAt(positionPope, (char) (diamondCode));
+        else if (declarationBuilder.charAt(positionPope) == '2')
+            declarationBuilder.setCharAt(positionPope, (char) (clubCode));
+        else if (declarationBuilder.charAt(positionPope) == '3')
+            declarationBuilder.setCharAt(positionPope, (char) (spadeCode));
         String resultDeclaration = declarationBuilder.toString();
         scoreTableModel.addRow(new Object[]{stringScore1, stringScore2, stringScore3, stringScore4, resultDeclaration});
     }

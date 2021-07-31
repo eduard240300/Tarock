@@ -50,7 +50,7 @@ public class Declaration {
 
     public String toString() {
         String result = "";
-        if (the1of2 != 0) result = the1of2 + String.valueOf(pope);
+        if (the1of2 != 0) result = the1of2 + "p" + pope;
         if (popeAtFinish) result = addToResult(result, "PF");
         if (pagatAtFinish) result = addToResult(result, "1F");
         if (allPopes) result = addToResult(result, "AP");

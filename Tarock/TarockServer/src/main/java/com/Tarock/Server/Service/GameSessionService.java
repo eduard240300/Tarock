@@ -487,20 +487,14 @@ public class GameSessionService extends Thread {
     public void runHelper() throws IOException, ClassNotFoundException {
         initialization();
 
-        StringBuilder message;
         int firstRequest = (gameNumber + offsetGameNumber) % 4;
 
+        sendAllPlayers("beginGame;");
+
         for (int i = 0; i < 4; i++) {
-            message = new StringBuilder("beginGame;");
-            listOfClients.get(i).write(message.toString());
+            sendPlayer(i, DataManipulationService.getListOfInteger(CardsPlayers().get(i), "cards"));
         }
-        for (int i = 0; i < 4; i++) {
-            message = new StringBuilder("cards");
-            for (int j = 0; j < 12; j++)
-                message.append(" ").append(CardsPlayers().get(i).get(j));
-            message.append(";");
-            listOfClients.get(i).write(message.toString());
-        }
+
         for (int i = firstRequest; i < firstRequest + 4; i++)
             requestPlayerMode(i % 4);
         if (getNumberOf1of2Sent() == 0) {
