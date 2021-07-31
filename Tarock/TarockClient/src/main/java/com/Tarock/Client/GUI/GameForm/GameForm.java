@@ -202,19 +202,32 @@ public class GameForm extends JFrame {
     public void changeDeclarationPlayer(int player, String declaration) {
         StringBuilder declarationBuilder = new StringBuilder(declaration);
 
-        if ((declaration.length() < 3) || (declaration.charAt(2) != 'T')) {
-            if (declaration.charAt(1) == '0')
-                declarationBuilder.setCharAt(1, (char) (heartCode));
-            else if (declaration.charAt(1) == '1')
-                declarationBuilder.setCharAt(1, (char) (diamondCode));
-            else if (declaration.charAt(1) == '2')
-                declarationBuilder.setCharAt(1, (char) (clubCode));
-            else if (declaration.charAt(1) == '3')
-                declarationBuilder.setCharAt(1, (char) (spadeCode));
+        int index = 0;
+        int positionPope = -1;
+        for(char c : declaration.toCharArray())
+        {
+            if (c == 'p')
+            {
+                positionPope = index;
+            }
+            index++;
         }
+        
+        if (positionPope != -1) {
+            declarationBuilder.deleteCharAt(positionPope);
+            if (declarationBuilder.charAt(positionPope) == '0')
+                declarationBuilder.setCharAt(positionPope, (char) (heartCode));
+            else if (declarationBuilder.charAt(positionPope) == '1')
+                declarationBuilder.setCharAt(positionPope, (char) (diamondCode));
+            else if (declarationBuilder.charAt(positionPope) == '2')
+                declarationBuilder.setCharAt(positionPope, (char) (clubCode));
+            else if (declarationBuilder.charAt(positionPope) == '3')
+                declarationBuilder.setCharAt(positionPope, (char) (spadeCode));
+        }
+        String resultDeclaration = declarationBuilder.toString();
 
         String text = Repository.players.get(player) + " : ";
-        text = text + declarationBuilder;
+        text = text + resultDeclaration;
         declarationsPlayers.get(player).setText(text);
     }
 
