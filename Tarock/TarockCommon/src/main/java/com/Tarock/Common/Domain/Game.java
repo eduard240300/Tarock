@@ -1,5 +1,13 @@
 package com.Tarock.Common.Domain;
 
+import lombok.Builder;
+import lombok.Data;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Builder
+@Data
 public class Game {
     private int sessionID;
     private int scorePlayer1;
@@ -9,62 +17,6 @@ public class Game {
     private String declaration;
     private boolean radler;
     private int radlerTimes;
-
-    public int getSessionID() {
-        return sessionID;
-    }
-
-    public void setSessionID(int sessionID) {
-        this.sessionID = sessionID;
-    }
-
-    public int getScorePlayer1() {
-        return scorePlayer1;
-    }
-
-    public void setScorePlayer1(int scorePlayer1) {
-        this.scorePlayer1 = scorePlayer1;
-    }
-
-    public int getScorePlayer2() {
-        return scorePlayer2;
-    }
-
-    public void setScorePlayer2(int scorePlayer2) {
-        this.scorePlayer2 = scorePlayer2;
-    }
-
-    public int getScorePlayer3() {
-        return scorePlayer3;
-    }
-
-    public void setScorePlayer3(int scorePlayer3) {
-        this.scorePlayer3 = scorePlayer3;
-    }
-
-    public int getScorePlayer4() {
-        return scorePlayer4;
-    }
-
-    public void setScorePlayer4(int scorePlayer4) {
-        this.scorePlayer4 = scorePlayer4;
-    }
-
-    public String getDeclaration() {
-        return declaration;
-    }
-
-    public void setDeclaration(String declaration) {
-        this.declaration = declaration;
-    }
-
-    public boolean getRadler() {
-        return radler;
-    }
-
-    public void setRadler(boolean radler) {
-        this.radler = radler;
-    }
 
     public void setScorePlayer(int player, int score) {
         if (player == 0)
@@ -89,11 +41,16 @@ public class Game {
         return 0;
     }
 
-    public int getRadlerTimes() {
-        return radlerTimes;
-    }
-
-    public void setRadlerTimes(int radlerTimes) {
-        this.radlerTimes = radlerTimes;
+    public Map<String, String> getMap(){
+        Map<String, String> map = new HashMap<>();
+        map.put("sessionID", String.valueOf(sessionID));
+        map.put("scorePlayer1", String.valueOf(scorePlayer1));
+        map.put("scorePlayer2", String.valueOf(scorePlayer2));
+        map.put("scorePlayer3", String.valueOf(scorePlayer3));
+        map.put("scorePlayer4", String.valueOf(scorePlayer4));
+        map.put("declaration", declaration);
+        map.put("radler", String.valueOf(radler));
+        map.put("radlerTimes", String.valueOf(radlerTimes));
+        return map;
     }
 }

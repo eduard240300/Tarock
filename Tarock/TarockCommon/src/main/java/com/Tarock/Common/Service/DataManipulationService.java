@@ -3,17 +3,17 @@ package com.Tarock.Common.Service;
 import com.Tarock.Common.Domain.Declaration;
 import com.Tarock.Common.Domain.Game;
 import com.Tarock.Common.Domain.Pair;
-
-import java.awt.Color;
-import java.io.InputStream;
-import java.util.*;
-import java.io.File;
-
 import com.Tarock.Common.Domain.Score;
 import com.Tarock.Common.Exception.ServiceException;
 import com.Tarock.Common.Exception.ValidationException;
 import com.Tarock.Common.Validator.IntegerValidator;
 import org.apache.commons.io.FileUtils;
+
+import java.awt.*;
+import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataManipulationService {
     public static Color backgroundColor = new Color(78, 154, 6);
@@ -78,49 +78,18 @@ public class DataManipulationService {
         return bool ? "1" : "0";
     }
 
-    public static List<Pair<String, String>> JSONtoList(String inputJSON) {
-        boolean isKey = true;
-        boolean isInQuote = false;
-
-        StringBuilder message = new StringBuilder();
-        String key = "";
-        String value = "";
-
-        List<Pair<String, String>> output = new ArrayList<>();
-        for (char c : inputJSON.toCharArray()) {
-            if (c == '"') {
-                isInQuote = !isInQuote;
-                if (!isInQuote) {
-                    if (isKey)
-                        key = message.toString();
-                    else
-                        value = message.toString();
-                    message = new StringBuilder();
-                }
-            } else if (c == ':') {
-                isKey = false;
-            } else if (c == ',') {
-                isKey = true;
-                Pair<String, String> pair = new Pair<>(key, value);
-                output.add(pair);
-            } else if (isInQuote) {
-                if (c == '*')
-                    message.append(',');
-                else if (c != '\\')
-                    message.append(c);
-            }
-        }
-        Pair<String, String> pair = new Pair<>(key, value);
-        output.add(pair);
-        return output;
-    }
-
     public static String eliminateNewLines(String line) {
         return line.replace('\n', (char) 0);
     }
 
-    public static String processDeclaration(String declaration) {
-        return declaration.replace(' ', '_').replace(',', '*');
+    public static String removeCharFromString(char charToRemove, String input){
+        StringBuilder result = new StringBuilder();
+        for(int i=0;i<input.length();i++){
+            if (input.charAt(i) != charToRemove){
+                result.append(input.charAt(i));
+            }
+        }
+        return result.toString();
     }
 
     public static File getFile(String path) {
@@ -184,7 +153,7 @@ public class DataManipulationService {
         }
         String declaration = DataManipulationService.processName(game.getDeclaration());
         message.append(" ").append(declaration).append(" ");
-        String radler = boolToString(game.getRadler());
+        String radler = boolToString(game.isRadler());
         message.append(radler).append(";");
         return message.toString();
     }

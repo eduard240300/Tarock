@@ -59,15 +59,15 @@ public class ScoreService {
 
         List<Declaration> declarationsTeams = new ArrayList<>();
         for (List<Integer> team : teams) {
-            Declaration declaration = new Declaration();
+            Declaration declaration = Declaration.builder().build();
             for (int player : team) {
-                if (declarations.get(player).getPopeAtFinish())
+                if (declarations.get(player).isPopeAtFinish())
                     declaration.setPopeAtFinish(true);
-                if (declarations.get(player).getPagatAtFinish())
+                if (declarations.get(player).isPagatAtFinish())
                     declaration.setPagatAtFinish(true);
-                if (declarations.get(player).getAllPopes())
+                if (declarations.get(player).isAllPopes())
                     declaration.setAllPopes(true);
-                if (declarations.get(player).getTrull())
+                if (declarations.get(player).isTrull())
                     declaration.setTrull(true);
                 if (player == playerRequest) {
                     declaration.setThe1of2(declarations.get(player).getThe1of2());
@@ -490,7 +490,7 @@ public class ScoreService {
     }
 
     public static Pair<Game, Score> getScore(ScoreComputationArguments computation) {
-        Game game = new Game();
+        Game game = Game.builder().build();
         Score score = new Score();
         score.setRadler(computation.isRadler());
 
@@ -516,13 +516,13 @@ public class ScoreService {
 
         //get values of variables declaration
         for (int i = 0; i < 2; i++) {
-            if (declarationsTeams.get(i).getPopeAtFinish())
+            if (declarationsTeams.get(i).isPopeAtFinish())
                 declaredPopeAtFinish = true;
-            if (declarationsTeams.get(i).getPagatAtFinish())
+            if (declarationsTeams.get(i).isPagatAtFinish())
                 teamDeclaredPagatAtFinish = i;
-            if (declarationsTeams.get(i).getAllPopes())
+            if (declarationsTeams.get(i).isAllPopes())
                 teamDeclaredAllPopes = i;
-            if (declarationsTeams.get(i).getTrull())
+            if (declarationsTeams.get(i).isTrull())
                 teamDeclaredAllTrullCards = i;
         }
 

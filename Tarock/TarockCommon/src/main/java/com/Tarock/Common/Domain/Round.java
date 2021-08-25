@@ -1,8 +1,11 @@
 package com.Tarock.Common.Domain;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class Round {
     private final int firstPlayer;
     private final List<Integer> cards;
@@ -83,9 +86,5 @@ public class Round {
     public int getPlayerThatWon() {
         calculateWinner();
         return playerThatWon;
-    }
-
-    public int getFirstPlayer() {
-        return firstPlayer;
     }
 }

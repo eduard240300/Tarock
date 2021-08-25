@@ -1,9 +1,9 @@
 package com.Tarock.Client.GUI.GameForm;
 
-import com.Tarock.Common.Domain.Declaration;
 import com.Tarock.Client.Main;
 import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Client.Service.CommunicationService;
+import com.Tarock.Common.Domain.Declaration;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -27,7 +27,13 @@ public class ControllerGameForm {
         if (Repository.getNumberOfTarocks() < numberOfTarocks)
             message += "You don't have " + numberOfTarocksString + " tarocks !";
         if (message.equals("")) {
-            CommunicationService.declaration = new Declaration(popeAtFinish, pagatAtFinish, allPopes, trull, numberOfTarocks);
+            CommunicationService.declaration = Declaration.builder()
+                    .popeAtFinish(popeAtFinish)
+                    .pagatAtFinish(pagatAtFinish)
+                    .allPopes(allPopes)
+                    .trull(trull)
+                    .numberOfTarocks(numberOfTarocks)
+                    .build();
         } else {
             GameForm.popUpMessage(message);
         }

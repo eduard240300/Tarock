@@ -1,8 +1,8 @@
 package com.Tarock.Server.Service;
 
 import com.Tarock.Common.Domain.*;
-import com.Tarock.Server.ConnectionManager.PHPConnection;
 import com.Tarock.Common.Service.DataManipulationService;
+import com.Tarock.Server.ConnectionManager.PHPConnection;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -262,7 +262,13 @@ public class GameSessionService extends Thread {
 
         if (listOfObjects.get(0).equals("pope")) {
             int pope = Integer.parseInt(listOfObjects.get(1));
-            Declaration declaration = new Declaration(false, false, false, false, 0);
+            Declaration declaration = Declaration.builder()
+                    .the1of2(0)
+                    .popeAtFinish(false)
+                    .pagatAtFinish(false)
+                    .allPopes(false)
+                    .trull(false)
+                    .build();
             declaration.setPope(pope);
             declaration.setThe1of2(The1of2());
             Declarations().set(PlayerRequest(), declaration);
@@ -287,7 +293,13 @@ public class GameSessionService extends Thread {
             boolean allPopes = DataManipulationService.stringToBool(listOfObjects.get(3));
             boolean trull = DataManipulationService.stringToBool(listOfObjects.get(4));
             int numberOfTarocks = Integer.parseInt(listOfObjects.get(5));
-            declaration = new Declaration(popeAtFinish, pagatAtFinish, allPopes, trull, numberOfTarocks);
+            declaration = Declaration.builder()
+                    .popeAtFinish(popeAtFinish)
+                    .pagatAtFinish(pagatAtFinish)
+                    .allPopes(allPopes)
+                    .trull(trull)
+                    .numberOfTarocks(numberOfTarocks)
+                    .build();
             if (player == PlayerRequest()) {
                 int pope = Declarations().get(PlayerRequest()).getPope();
                 declaration.setThe1of2(The1of2());

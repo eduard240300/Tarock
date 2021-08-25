@@ -1,26 +1,32 @@
 package com.Tarock.Server.ConnectionManager;
 
-import at.favre.lib.bytes.Bytes;
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.Tarock.Common.Domain.Game;
-import com.Tarock.Common.Domain.Pair;
+import com.Tarock.Common.Domain.PHPResponse;
 import com.Tarock.Common.Domain.Session;
 import com.Tarock.Common.Domain.User;
-import com.Tarock.Common.Exception.ConnectionException;
 import com.Tarock.Common.Exception.PHPException;
-import com.Tarock.Server.GUI.StatusForm;
 import com.Tarock.Common.Service.DataManipulationService;
-import com.Tarock.Server.Main;
+import com.Tarock.Server.GUI.StatusForm;
+import com.google.gson.Gson;
+import lombok.SneakyThrows;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 
 public class PHPConnection {
     private static String ipAddress;
+    private static final Gson gson = new Gson();
 
     public static void initPHPConnection(){
         InputStream inputStream = DataManipulationService.getInputStream("websiteIP.conf");
@@ -32,170 +38,129 @@ public class PHPConnection {
         }
     }
 
-    public static String read(String inputString) {
+    @SneakyThrows
+    public static String read(String requestBodyJSON){
+        CloseableHttpClient client = HttpClientBuilder.create().build();
+        HttpPost httpPost = new HttpPost("http://" + ipAddress + "/tarock/controllerHelper.php");
 
-        try {
-            byte[] post = inputString.getBytes();
+        StringEntity entity = new StringEntity(requestBodyJSON);
+        httpPost.setEntity(entity);
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
 
-            URL u = new URL("http://" + ipAddress + "/tarock/controllerHelper.php");
-            HttpURLConnection con = (HttpURLConnection) u.openConnection();
-            con.setRequestMethod("POST");
-            con.setDoOutput(true);
-            OutputStream out = con.getOutputStream();
-            out.write(post);
-            out.close();
-            if (con.getResponseCode() != 200) {
-                throw new ConnectionException("Server returned bad response code: " + con.getResponseCode() + " " + con.getResponseMessage());
-            }
-            InputStream in = con.getInputStream();
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            byte[] buff = new byte[8192];
-            int cur;
-            while ((cur = in.read(buff)) > 0) {
-                outputStream.write(buff, 0, cur);
-            }
-            in.close();
-            if (Main.noGUI)
-                System.out.println("Received from website : " + outputStream);
-            else
-                StatusForm.addToStatusTextArea("Received from website : " + outputStream);
-            return outputStream.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        CloseableHttpResponse response = client.execute(httpPost);
+        String result = EntityUtils.toString(response.getEntity());
+        result = result.replace('*', ',');
+        result = DataManipulationService.removeCharFromString('\\', result);
+        return result;
     }
 
     public static User getUser(String username) {
-        User user = new User();
-        String post = "functionName=getUser&username=" + username;
-        List<Pair<String, String>> userJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));
-        if (userJSON.get(0).getKey().equals("exception")) {
-            throw new PHPException(userJSON.get(0).getValue());
-        } else {
-            for (Pair<String, String> stringStringPair : userJSON) {
-                switch (stringStringPair.getKey()) {
-                    case "name":
-                        user.setName(stringStringPair.getValue());
-                        break;
-                    case "username":
-                        user.setUsername(stringStringPair.getValue());
-                        break;
-                    case "password":
-                        user.setPassword(stringStringPair.getValue());
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return user;
+        User user;
+        Map<String, String> inputMap = new HashMap<>();
+        inputMap.put("functionName", "getUser");
+        inputMap.put("username", username);
+        String jsonStr = gson.toJson(inputMap);
+        String responseJSON = read(jsonStr);
+        PHPResponse response = gson.fromJson(responseJSON, PHPResponse.class);
+        if (response.getError() != null){
+            throw new PHPException(response.getError());
         }
+        else if (response.getException() != null) {
+            throw new PHPException(response.getException());
+        }
+        else{
+            user = gson.fromJson(responseJSON, User.class);
+        }
+        StatusForm.addToStatusTextArea("Received from server: " + user.toString());
+        return user;
     }
 
     public static Session getSession(int sessionID) {
-        Session session = new Session();
-        String post = "functionName=getSession&sessionID=" + sessionID;
-        List<Pair<String, String>> sessionJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));
-        if (sessionJSON.get(0).getKey().equals("exception")) {
-            throw new PHPException(sessionJSON.get(0).getValue());
-        } else {
-            for (Pair<String, String> stringStringPair : sessionJSON) {
-                switch (stringStringPair.getKey()) {
-                    case "sessionID":
-                        session.setSessionID(Integer.parseInt(stringStringPair.getValue()));
-                        break;
-                    case "creator":
-                        session.setCreator(stringStringPair.getValue());
-                        break;
-                    case "dateClosed":
-                        session.setDateClosed(DataManipulationService.getName(stringStringPair.getValue()));
-                        break;
-                    case "player1":
-                        session.setPlayer1(stringStringPair.getValue());
-                        break;
-                    case "player2":
-                        session.setPlayer2(stringStringPair.getValue());
-                        break;
-                    case "player3":
-                        session.setPlayer3(stringStringPair.getValue());
-                        break;
-                    case "player4":
-                        session.setPlayer4(stringStringPair.getValue());
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return session;
+        Session session;
+        Map<String, String> inputMap = new HashMap<>();
+        inputMap.put("functionName", "getSession");
+        inputMap.put("sessionID", String.valueOf(sessionID));
+        String jsonStr = gson.toJson(inputMap);
+
+        String responseJSON = read(jsonStr);
+        PHPResponse response = gson.fromJson(responseJSON, PHPResponse.class);
+        if (response.getError() != null){
+            throw new PHPException(response.getError());
         }
+        else if (response.getException() != null) {
+            throw new PHPException(response.getException());
+        }
+        else{
+            session = gson.fromJson(responseJSON, Session.class);
+        }
+        StatusForm.addToStatusTextArea("Received from server: " + session.toString());
+        return session;
     }
 
-    public static boolean verifyPassword(String username, String password) {
+    public static String getPassword(String username) {
         User user = getUser(username);
-        return (BCrypt.verifyer(BCrypt.Version.VERSION_2Y).verify(Bytes.from(password).array(), Bytes.from(user.getPassword()).array()).verified);
+        return user.getPassword();
     }
 
     public static void addGame(String username, Game game) {
-        StringBuilder post = new StringBuilder("functionName=addGame&username=" + username);
-        post.append("&sessionID=").append(game.getSessionID());
-        for (int i = 0; i < 4; i++) {
-            post.append("&scorePlayer").append(i + 1).append("=").append(game.getScorePlayer(i));
+        Map<String, String> inputMap = game.getMap();
+        inputMap.put("functionName", "addGame");
+        inputMap.put("username", username);
+        String jsonStr = gson.toJson(inputMap);
+
+        String receivedJSON = read(jsonStr);
+        PHPResponse response = gson.fromJson(receivedJSON, PHPResponse.class);
+        if (response.getError() != null){
+            throw new PHPException(response.getError());
         }
-        post.append("&declaration=").append(DataManipulationService.processDeclaration(game.getDeclaration()));
-        post.append("&radler=").append(DataManipulationService.boolToString(game.getRadler()));
-        post.append("&radlerTimes=").append(game.getRadlerTimes());
-        List<Pair<String, String>> sessionJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post.toString())));
-        if (sessionJSON.get(0).getKey().equals("exception")) {
-            throw new PHPException(sessionJSON.get(0).getValue());
+        else if (response.getException() != null) {
+            throw new PHPException(response.getException());
         }
+        StatusForm.addToStatusTextArea("Added game successfully");
     }
 
-    public static List<Game> getGames(String creator, int sessionID) {
-        int gamesSize = 0;
+    public static List<Game> getGames(String username, int sessionID) {
         List<Game> games = new ArrayList<>();
-        String post = "functionName=getGamesSize&username=" + creator;
-        post += "&sessionID=" + sessionID;
-        List<Pair<String, String>> gameJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));
-        if (gameJSON.get(0).getKey().equals("result")) {
-            gamesSize = Integer.parseInt(gameJSON.get(0).getValue());
+        Map<String, String> inputMap = new HashMap<>();
+        inputMap.put("functionName", "getGamesSize");
+        inputMap.put("username", username);
+        inputMap.put("sessionID", String.valueOf(sessionID));
+        String jsonStr = gson.toJson(inputMap);
+
+        String responseJSON = read(jsonStr);
+        PHPResponse response = gson.fromJson(responseJSON, PHPResponse.class);
+        if (response.getError() != null){
+            throw new PHPException(response.getError());
         }
-        for (int i = 0; i < gamesSize; i++) {
-            post = "functionName=getGame&sessionID=" + sessionID;
-            post += "&gameRow=" + i;
-            gameJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));
-            Game game = new Game();
-            for (Pair<String, String> stringStringPair : gameJSON) {
-                switch (stringStringPair.getKey()) {
-                    case "sessionID":
-                        game.setSessionID(Integer.parseInt(stringStringPair.getValue()));
-                        break;
-                    case "scorePlayer1":
-                        game.setScorePlayer1(Integer.parseInt(stringStringPair.getValue()));
-                        break;
-                    case "scorePlayer2":
-                        game.setScorePlayer2(Integer.parseInt(stringStringPair.getValue()));
-                        break;
-                    case "scorePlayer3":
-                        game.setScorePlayer3(Integer.parseInt(stringStringPair.getValue()));
-                        break;
-                    case "scorePlayer4":
-                        game.setScorePlayer4(Integer.parseInt(stringStringPair.getValue()));
-                        break;
-                    case "declaration":
-                        game.setDeclaration(stringStringPair.getValue());
-                        break;
-                    case "radler":
-                        game.setRadler(DataManipulationService.stringToBool(stringStringPair.getValue()));
-                        break;
-                    case "radlerTimes":
-                        game.setRadlerTimes(Integer.parseInt(stringStringPair.getValue()));
-                        break;
-                    default:
-                        break;
+        else if (response.getException() != null) {
+            throw new PHPException(response.getException());
+        }
+        else{
+            int gamesSize = Integer.parseInt(response.getResult());
+            for(int i=0;i<gamesSize;i++){
+                Game game;
+                inputMap = new HashMap<>();
+                inputMap.put("functionName", "getGame");
+                inputMap.put("gameRow", String.valueOf(i));
+                inputMap.put("sessionID", String.valueOf(sessionID));
+                jsonStr = gson.toJson(inputMap);
+
+                responseJSON = read(jsonStr);
+                response = gson.fromJson(responseJSON, PHPResponse.class);
+                if (response.getError() != null){
+                    throw new PHPException(response.getError());
                 }
+                else if (response.getException() != null) {
+                    throw new PHPException(response.getException());
+                }
+                else{
+                    game = gson.fromJson(responseJSON, Game.class);
+                }
+                games.add(game);
             }
-            games.add(game);
         }
+        StatusForm.addToStatusTextArea("Received from server: " + games);
         return games;
     }
 }

@@ -1,10 +1,6 @@
 package com.Tarock.Client.GUI.GameForm;
 
-import com.Tarock.Client.GUI.Template.ClickableImage;
-import com.Tarock.Client.GUI.Template.CustomJButton;
-import com.Tarock.Client.GUI.Template.JImage;
-import com.Tarock.Client.GUI.Template.MyWindowListener;
-import com.Tarock.Client.GUI.Template.RowTable;
+import com.Tarock.Client.GUI.Template.*;
 import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Common.Service.DataManipulationService;
 

@@ -1,14 +1,14 @@
 package com.Tarock.Server.Service;
 
-import com.Tarock.Server.ConnectionManager.PHPConnection;
 import com.Tarock.Common.Domain.Session;
 import com.Tarock.Common.Domain.Triple;
 import com.Tarock.Common.Domain.User;
 import com.Tarock.Common.Exception.ConnectionException;
 import com.Tarock.Common.Exception.LoginException;
 import com.Tarock.Common.Exception.PHPException;
-import com.Tarock.Server.GUI.StatusForm;
 import com.Tarock.Common.Service.DataManipulationService;
+import com.Tarock.Server.ConnectionManager.PHPConnection;
+import com.Tarock.Server.GUI.StatusForm;
 import com.Tarock.Server.Main;
 
 import java.io.EOFException;
@@ -49,15 +49,13 @@ public class ClientService extends Thread {
     }
 
     public void addClientToList(ClientService clientService, String username, Session session) {
-        Triple<String, ClientService, Session> newPair = new Triple<>(username);
-        newPair.setValue1(clientService);
-        newPair.setValue2(session);
+        Triple<String, ClientService, Session> newTriple = new Triple<>(username, clientService, session);
         removeConnection(username);
         if (Main.noGUI)
             System.out.println("Added client " + username);
         else
             StatusForm.addToStatusTextArea("Added client " + username);
-        CommunicationService.socketsList.add(newPair);
+        CommunicationService.socketsList.add(newTriple);
     }
 
     public ClientService getClientInList(String username) {
@@ -207,7 +205,7 @@ public class ClientService extends Thread {
         }
     }
 
-    public void authPassword(String password, int sessionID) throws IOException, ClassNotFoundException {
+    public void authPassword(int sessionID) throws IOException, ClassNotFoundException {
         List<String> listOfCommands;
 
         try {
@@ -216,7 +214,10 @@ public class ClientService extends Thread {
             throw new LoginException(phpException.getMessage());
         }
 
-        if (PHPConnection.verifyPassword(username, password)) {
+        String encryptedPassword = PHPConnection.getPassword(username);
+        listOfCommands = write("encryptedPassword " + encryptedPassword + ";");
+        List<String> listOfObjects = DataManipulationService.processCommand(listOfCommands.get(0));
+        if (listOfObjects.get(0).equals("passwordOK")) {
             authSession(sessionID);
         } else {
             write("failed_auth password;");
@@ -225,10 +226,10 @@ public class ClientService extends Thread {
         }
     }
 
-    public void authUsername(String password, int sessionID) throws IOException, ClassNotFoundException {
+    public void authUsername(int sessionID) throws IOException, ClassNotFoundException {
         List<String> listOfCommands;
         try {
-            authPassword(password, sessionID);
+            authPassword(sessionID);
         } catch (LoginException dbException) {
             write("failed_auth username;");
             listOfCommands = write("require_auth;");
@@ -241,9 +242,8 @@ public class ClientService extends Thread {
             List<String> listOfObjects = DataManipulationService.processCommand(listOfCommand);
             if (listOfObjects.get(0).equals("auth")) {
                 username = listOfObjects.get(1);
-                String password = listOfObjects.get(2);
-                int sessionID = Integer.parseInt(listOfObjects.get(3));
-                authUsername(password, sessionID);
+                int sessionID = Integer.parseInt(listOfObjects.get(2));
+                authUsername(sessionID);
             } else
                 throw new ConnectionException("Invalid authentication !");
         }

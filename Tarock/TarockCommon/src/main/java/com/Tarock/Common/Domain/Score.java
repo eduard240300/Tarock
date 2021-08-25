@@ -1,10 +1,12 @@
 package com.Tarock.Common.Domain;
 
 import com.Tarock.Common.Service.DataManipulationService;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class Score {
     private final List<ScoreAttribute> attributes;
     private boolean isRadler = false;
@@ -39,10 +41,6 @@ public class Score {
         return string.toString();
     }
 
-    public void setRadler(boolean isRadler) {
-        this.isRadler = isRadler;
-    }
-
     public void computeTotal() {
         int total = 0;
         for (int i = 0; i < 11; i++) {
@@ -73,13 +71,5 @@ public class Score {
             }
         }
         return null;
-    }
-
-    public String getTeamThatWon() {
-        return teamThatWon;
-    }
-
-    public void setTeamThatWon(String teamThatWon) {
-        this.teamThatWon = teamThatWon;
     }
 }

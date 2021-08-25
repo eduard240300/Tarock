@@ -1,32 +1,19 @@
 package com.Tarock.Common.Domain;
 
 import com.Tarock.Common.Service.DataManipulationService;
+import lombok.Builder;
+import lombok.Data;
 
+@Builder
+@Data
 public class Declaration {
-    private int the1of2 = 0;
+    private int the1of2;
     private boolean popeAtFinish;
     private boolean pagatAtFinish;
     private boolean allPopes;
     private boolean trull;
-    private final int numberOfTarocks;
-    private int pope = -1;
-
-    public Declaration() {
-        this.popeAtFinish = false;
-        this.pagatAtFinish = false;
-        this.allPopes = false;
-        this.trull = false;
-        this.numberOfTarocks = 0;
-    }
-
-    public Declaration(boolean popeAtFinish, boolean pagatAtFinish, boolean allPopes, boolean trull, int numberOfTarocks) {
-        this.popeAtFinish = popeAtFinish;
-        this.pagatAtFinish = pagatAtFinish;
-        this.allPopes = allPopes;
-        this.trull = trull;
-        this.numberOfTarocks = numberOfTarocks;
-    }
-
+    private int numberOfTarocks;
+    private int pope;
 
     public String toSendableObject() {
         String result = "";
@@ -59,57 +46,5 @@ public class Declaration {
         if (result.equals(""))
             return "Nothing";
         return result;
-    }
-
-    public boolean getPopeAtFinish() {
-        return popeAtFinish;
-    }
-
-    public void setPopeAtFinish(boolean popeAtFinish) {
-        this.popeAtFinish = popeAtFinish;
-    }
-
-    public boolean getPagatAtFinish() {
-        return pagatAtFinish;
-    }
-
-    public void setPagatAtFinish(boolean pagatAtFinish) {
-        this.pagatAtFinish = pagatAtFinish;
-    }
-
-    public boolean getAllPopes() {
-        return allPopes;
-    }
-
-    public void setAllPopes(boolean allPopes) {
-        this.allPopes = allPopes;
-    }
-
-    public boolean getTrull() {
-        return trull;
-    }
-
-    public void setTrull(boolean trull) {
-        this.trull = trull;
-    }
-
-    public int getNumberOfTarocks() {
-        return numberOfTarocks;
-    }
-
-    public int getPope() {
-        return pope;
-    }
-
-    public void setPope(int pope) {
-        this.pope = pope;
-    }
-
-    public int getThe1of2() {
-        return the1of2;
-    }
-
-    public void setThe1of2(int the1of2) {
-        this.the1of2 = the1of2;
     }
 }

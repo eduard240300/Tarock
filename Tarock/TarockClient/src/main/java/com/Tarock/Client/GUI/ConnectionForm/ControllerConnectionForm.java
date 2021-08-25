@@ -1,9 +1,9 @@
 package com.Tarock.Client.GUI.ConnectionForm;
 
-import com.Tarock.Common.Domain.User;
 import com.Tarock.Client.Main;
 import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Client.Service.CommunicationService;
+import com.Tarock.Common.Domain.User;
 import com.Tarock.Common.Service.DataManipulationService;
 import com.Tarock.Common.Validator.IntegerValidator;
 import com.Tarock.Common.Validator.UserValidator;
@@ -27,7 +27,7 @@ public class ControllerConnectionForm {
     public void initUser() {
         String username = ConnectionForm.usernameField.getText();
         String password = ConnectionForm.passwordField.getText();
-        user = new User(username, password);
+        user = User.builder().username(username).password(password).build();
     }
 
     public ControllerConnectionForm() {
@@ -43,7 +43,7 @@ public class ControllerConnectionForm {
             String password = ConnectionForm.passwordField.getText();
             initSessionID();
             initUser();
-            User inputUser = new User(username, password);
+            User inputUser = User.builder().username(username).password(password).build();
 
             try {
                 userValidator.validateUser(inputUser);

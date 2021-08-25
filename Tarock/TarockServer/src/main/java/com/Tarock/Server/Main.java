@@ -1,9 +1,9 @@
 package com.Tarock.Server;
 
+import com.Tarock.Common.Service.DataManipulationService;
 import com.Tarock.Server.ConnectionManager.PHPConnection;
 import com.Tarock.Server.GUI.StatusForm;
 import com.Tarock.Server.Service.CommunicationService;
-import com.Tarock.Common.Service.DataManipulationService;
 
 import javax.imageio.ImageIO;
 import java.io.InputStream;

@@ -5,8 +5,8 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class Triple<K, V, P> {
-    private final K key;
-    private V value1;
-    private P value2;
+public class PHPResponse {
+    private String result;
+    private String exception;
+    private String error;
 }

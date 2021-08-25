@@ -5,6 +5,7 @@ require_once("game.php");
 
 $controller = new Controller();
 
+$_POST = json_decode(file_get_contents('php://input'), true);
 $aResult = array();
 
     if( !isset($_POST['functionName']) ) 
@@ -23,7 +24,6 @@ $aResult = array();
                     $aResult['name'] = $user['Name'];
                     $aResult['username'] = $user['Username'];
                     $aResult['password'] = $user['Password'];
-                    $aResult['email'] = $user['Email'];
                 }
                 else
                 {
@@ -38,7 +38,6 @@ $aResult = array();
                     $session = $controller->getSession($sessionID);
                     $aResult['sessionID'] = $controller->processName($session->getId());
                     $aResult['creator'] = $session->getCreator();
-                    $aResult['dateCreated'] = $controller->processName($session->getDateCreated());
                     $aResult['dateClosed'] = $controller->processName($session->getDateClosed());
                     $aResult['player1'] = $session->getPlayer1();
                     $aResult['player2'] = $session->getPlayer2();
@@ -92,7 +91,6 @@ $aResult = array();
                 if ($controller->existsSession($sessionID))
                 {
                     $game = $controller->getGame($sessionID, $gameRow);
-                    $aResult['gameID'] = $controller->processName($game->getGameID());
                     $aResult['sessionID'] = $controller->processName($game->getSessionID());
                     $aResult['scorePlayer1'] = $controller->processName($game->getScorePlayer1());
                     $aResult['scorePlayer2'] = $controller->processName($game->getScorePlayer2());

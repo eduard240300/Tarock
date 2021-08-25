@@ -1,16 +1,18 @@
 package com.Tarock.Client.Service;
 
+import at.favre.lib.bytes.Bytes;
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.Tarock.Client.GUI.ConnectionForm.ConnectionForm;
+import com.Tarock.Client.GUI.ConnectionForm.ControllerConnectionForm;
+import com.Tarock.Client.GUI.GameForm.GameForm;
+import com.Tarock.Client.GUI.ScoreForm.ScoreForm;
+import com.Tarock.Client.GUI.TalonSelectionForm.TalonSelectionForm;
+import com.Tarock.Client.Main;
+import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Common.Domain.Declaration;
 import com.Tarock.Common.Domain.Pair;
 import com.Tarock.Common.Domain.Round;
 import com.Tarock.Common.Domain.User;
-import com.Tarock.Client.GUI.ConnectionForm.ConnectionForm;
-import com.Tarock.Client.GUI.ConnectionForm.ControllerConnectionForm;
-import com.Tarock.Client.GUI.GameForm.GameForm;
-import com.Tarock.Client.Main;
-import com.Tarock.Client.GUI.ScoreForm.ScoreForm;
-import com.Tarock.Client.GUI.TalonSelectionForm.TalonSelectionForm;
-import com.Tarock.Client.Repository.Repository;
 import com.Tarock.Common.Exception.ServiceException;
 import com.Tarock.Common.Service.DataManipulationService;
 
@@ -32,6 +34,7 @@ public class CommunicationService extends Thread {
     public static ObjectInputStream inputStream;
     public static ObjectOutputStream outputStream;
     public static User user = null;
+    public static String inputPassword = null;
     public static String username = "unknown";
     public static int sessionID = 0;
     public static String playerMode = "";
@@ -95,10 +98,22 @@ public class CommunicationService extends Thread {
     public String caseRequireAuth() throws InterruptedException {
         while (user == null)
             Thread.sleep(1);
-        String sentMessage = "auth " + user.getUsername() + " " + user.getPassword() + " " + sessionID + ";";
+        String sentMessage = "auth " + user.getUsername() + " " + sessionID + ";";
         username = user.getUsername();
+        inputPassword = user.getPassword();
         user = null;
         return sentMessage;
+    }
+
+    public String caseEncryptedPassword(List<String> listOfObjects){
+        String encryptedPassword = listOfObjects.get(1);
+        boolean verified = (BCrypt.verifyer(BCrypt.Version.VERSION_2Y).verify(Bytes.from(inputPassword).array(), Bytes.from(encryptedPassword).array()).verified);
+        if (verified){
+            return "passwordOK;";
+        }
+        else{
+            return "passwordNotOK;";
+        }
     }
 
     public void caseFailedAuth(List<String> listOfObjects) {
@@ -391,6 +406,9 @@ public class CommunicationService extends Thread {
             switch (listOfObjects.get(0)) {
                 case "require_auth":
                     sentMessage = caseRequireAuth();
+                    break;
+                case "encryptedPassword":
+                    sentMessage = caseEncryptedPassword(listOfObjects);
                     break;
                 case "failed_auth":
                     caseFailedAuth(listOfObjects);
