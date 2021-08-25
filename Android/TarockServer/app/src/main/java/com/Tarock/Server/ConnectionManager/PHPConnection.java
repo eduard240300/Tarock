@@ -1,9 +1,5 @@
 package com.Tarock.Server.ConnectionManager;
 
-import android.os.StrictMode;
-
-import at.favre.lib.bytes.Bytes;
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.Tarock.Common.Domain.Game;
 import com.Tarock.Common.Domain.Pair;
 import com.Tarock.Common.Domain.Session;
@@ -12,31 +8,32 @@ import com.Tarock.Common.Exception.ConnectionException;
 import com.Tarock.Common.Exception.PHPException;
 import com.Tarock.Common.Service.DataManipulationService;
 import com.Tarock.Server.ScrollingActivity;
-import com.Tarock.Server.Service.CommunicationService;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import at.favre.lib.bytes.Bytes;
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class PHPConnection {
     private static String ipAddress;
 
-    public static void initPHPConnection() throws FileNotFoundException {
+    public static void initPHPConnection(){
         ipAddress = "194.36.88.249";
     }
 
     public static String read(String inputString) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
-        StrictMode.setThreadPolicy(policy);
 
         try {
             byte[] post = inputString.getBytes();
 
-            URL u = new URL("http://194.36.88.249/tarock/controllerHelper.php");
+            URL u = new URL("http://" + ipAddress + "/tarock/controllerHelper.php");
             HttpURLConnection con = (HttpURLConnection) u.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
@@ -54,7 +51,7 @@ public class PHPConnection {
                 outputStream.write(buff, 0, cur);
             }
             in.close();
-            CommunicationService.updateText("Received from website : " + outputStream.toString());
+            ScrollingActivity.getInstance().log("Received from website : " + outputStream + '\n');
             return outputStream.toString();
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,9 +62,7 @@ public class PHPConnection {
     public static User getUser(String username) {
         User user = new User();
         String post = "functionName=getUser&username=" + username;
-        List<Pair<String, String>> userJSON =
-                DataManipulationService.JSONtoList(Objects.requireNonNull(
-                        PHPConnection.read(post)));
+        List<Pair<String, String>> userJSON = DataManipulationService.JSONtoList(Objects.requireNonNull(PHPConnection.read(post)));
         if (userJSON.get(0).getKey().equals("exception")) {
             throw new PHPException(userJSON.get(0).getValue());
         } else {

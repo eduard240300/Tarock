@@ -1,7 +1,5 @@
 package com.Tarock.Server.Service;
 
-import android.app.Activity;
-
 import com.Tarock.Common.Domain.Session;
 import com.Tarock.Common.Domain.Triple;
 import com.Tarock.Server.ScrollingActivity;
@@ -18,11 +16,6 @@ public class CommunicationService extends Thread {
     public static List<Triple<String, ClientService, Session>> socketsList;
     public static List<GameSessionService> gameSessions;
 
-    public static void updateText(String text)
-    {
-        ScrollingActivity.activity.runOnUiThread(() -> ScrollingActivity.binding.textView.append(text + "\n"));
-    }
-
     public void createServer() throws IOException {
         server = new ServerSocket(port);
         socketsList = new ArrayList<>();
@@ -31,8 +24,9 @@ public class CommunicationService extends Thread {
         while (true) {
             Socket socket = server.accept();
             ClientService clientService = new ClientService(socket);
-            updateText("Accepted new user");
+            ScrollingActivity.getInstance().log("Accepted new user" + "\n");
             clientService.start();
+            ScrollingActivity.getInstance().log("Started client socket" + "\n");
         }
     }
 

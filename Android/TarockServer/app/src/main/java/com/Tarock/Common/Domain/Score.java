@@ -1,5 +1,7 @@
 package com.Tarock.Common.Domain;
 
+import androidx.annotation.NonNull;
+
 import com.Tarock.Common.Service.DataManipulationService;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class Score {
         attributes.add(new ScoreAttribute(11, "Total", "", 0));
     }
 
+    @NonNull
     public String toString() {
         StringBuilder string = new StringBuilder();
         for (int i = 0; i < 12; i++) {

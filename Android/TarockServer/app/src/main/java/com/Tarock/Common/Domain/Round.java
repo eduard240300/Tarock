@@ -84,8 +84,4 @@ public class Round {
         calculateWinner();
         return playerThatWon;
     }
-
-    public int getFirstPlayer() {
-        return firstPlayer;
-    }
 }

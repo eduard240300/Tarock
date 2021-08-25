@@ -1,5 +1,7 @@
 package com.Tarock.Common.Domain;
 
+import androidx.annotation.NonNull;
+
 import com.Tarock.Common.Service.DataManipulationService;
 
 public class Declaration {
@@ -10,6 +12,14 @@ public class Declaration {
     private boolean trull;
     private final int numberOfTarocks;
     private int pope = -1;
+
+    public Declaration() {
+        this.popeAtFinish = false;
+        this.pagatAtFinish = false;
+        this.allPopes = false;
+        this.trull = false;
+        this.numberOfTarocks = 0;
+    }
 
     public Declaration(boolean popeAtFinish, boolean pagatAtFinish, boolean allPopes, boolean trull, int numberOfTarocks) {
         this.popeAtFinish = popeAtFinish;
@@ -40,9 +50,10 @@ public class Declaration {
         return finalResult;
     }
 
+    @NonNull
     public String toString() {
         String result = "";
-        if (the1of2 != 0) result = the1of2 + String.valueOf(pope);
+        if (the1of2 != 0) result = the1of2 + "p" + pope;
         if (popeAtFinish) result = addToResult(result, "PF");
         if (pagatAtFinish) result = addToResult(result, "1F");
         if (allPopes) result = addToResult(result, "AP");

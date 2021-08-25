@@ -1,101 +1,56 @@
 package com.Tarock.Common.Service;
 
+import com.Tarock.Common.Domain.Declaration;
+import com.Tarock.Common.Domain.Game;
 import com.Tarock.Common.Domain.Pair;
+import com.Tarock.Common.Domain.Score;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
 
 public class DataManipulationService {
-    public static boolean containsSpaces(String message) {
-        for (int i = 0; i < message.length(); i++) {
-            if (message.charAt(i) == ' ')
-                return true;
-        }
-        return false;
-    }
-
-    public static String truncateClassName(String className) {
-        int i;
-        StringBuilder result = new StringBuilder();
-        i = className.length() - 1;
-        while (className.charAt(i) != '.')
-            i--;
-        int j;
-        for (j = i + 1; j < className.length(); j++)
-            result.append(className.charAt(j));
-        return result.toString();
-    }
-
     public static String processName(String name) {
-        StringBuilder newName = new StringBuilder();
-        int i;
-        for (i = 0; i < name.length(); i++) {
-            if (name.charAt(i) == ' ')
-                newName.append('_');
-            else
-                newName.append(name.charAt(i));
-        }
-        return newName.toString();
+        return name.replace(' ', '_');
     }
 
     public static List<String> processMessage(String message) {
         List<String> listOfCommands = new ArrayList<>();
-        int i;
         StringBuilder currentCommand = new StringBuilder();
-        for (i = 0; i < message.length(); i++) {
-            if (message.charAt(i) == ';') {
+        for (char c : message.toCharArray()) {
+            if (c == ';') {
                 listOfCommands.add(currentCommand.toString());
                 currentCommand = new StringBuilder();
-            } else currentCommand.append(message.charAt(i));
+            } else currentCommand.append(c);
         }
         return listOfCommands;
     }
 
     public static List<String> processCommand(String command) {
         List<String> processedCommand = new ArrayList<>();
-        StringBuilder object = new StringBuilder();
-        int i;
-        for (i = 0; i < command.length(); i++) {
-            if (command.charAt(i) == ' ') {
-                processedCommand.add(object.toString());
-                object = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (char c : command.toCharArray()) {
+            if (c == ' ') {
+                processedCommand.add(stringBuilder.toString());
+                stringBuilder = new StringBuilder();
             } else {
-                object.append(command.charAt(i));
+                stringBuilder.append(c);
             }
         }
-        if (!object.toString().equals(""))
-            processedCommand.add(object.toString());
+        if (!stringBuilder.toString().equals(""))
+            processedCommand.add(stringBuilder.toString());
         return processedCommand;
     }
 
     public static String getName(String name) {
-        StringBuilder newName = new StringBuilder();
-        int i;
-        for (i = 0; i < name.length(); i++) {
-            if (name.charAt(i) == '_')
-                newName.append(' ');
-            else if (name.charAt(i) == '.')
-                newName.append(':');
-            else
-                newName.append(name.charAt(i));
-        }
-        return newName.toString();
+        return name.replace('_', ' ').replace('.', ':');
     }
 
     public static boolean stringToBool(String string) {
-        boolean theBoolean = true;
-        if (string.equals("0"))
-            theBoolean = false;
-        return theBoolean;
+        return !string.equals("0");
     }
 
-    public static String boolToString(boolean theBoolean) {
-        String string = "1";
-        if (!theBoolean)
-            string = "0";
-        return string;
+    public static String boolToString(boolean bool) {
+        return bool ? "1" : "0";
     }
 
     public static List<Pair<String, String>> JSONtoList(String inputJSON) {
@@ -107,8 +62,8 @@ public class DataManipulationService {
         String value = "";
 
         List<Pair<String, String>> output = new ArrayList<>();
-        for (int i = 0; i < inputJSON.length(); i++) {
-            if (inputJSON.charAt(i) == '"') {
+        for (char c : inputJSON.toCharArray()) {
+            if (c == '"') {
                 isInQuote = !isInQuote;
                 if (!isInQuote) {
                     if (isKey)
@@ -117,17 +72,17 @@ public class DataManipulationService {
                         value = message.toString();
                     message = new StringBuilder();
                 }
-            } else if (inputJSON.charAt(i) == ':') {
+            } else if (c == ':') {
                 isKey = false;
-            } else if (inputJSON.charAt(i) == ',') {
+            } else if (c == ',') {
                 isKey = true;
                 Pair<String, String> pair = new Pair<>(key, value);
                 output.add(pair);
             } else if (isInQuote) {
-                if (inputJSON.charAt(i) == '*')
+                if (c == '*')
                     message.append(',');
-                else if (inputJSON.charAt(i) != '\\')
-                    message.append(inputJSON.charAt(i));
+                else if (c != '\\')
+                    message.append(c);
             }
         }
         Pair<String, String> pair = new Pair<>(key, value);
@@ -135,55 +90,41 @@ public class DataManipulationService {
         return output;
     }
 
-    public static String eliminateNewLines(String line) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < line.length(); i++) {
-            if (line.charAt(i) != '\n')
-                result.append(line.charAt(i));
-        }
-        return result.toString();
-    }
-
     public static String processDeclaration(String declaration) {
-        StringBuilder newName = new StringBuilder();
-        int i;
-        for (i = 0; i < declaration.length(); i++) {
-            if (declaration.charAt(i) == ' ')
-                newName.append('_');
-            else if (declaration.charAt(i) == ',')
-                newName.append('*');
-            else
-                newName.append(declaration.charAt(i));
+        return declaration.replace(' ', '_').replace(',', '*');
+    }
+
+    public static String getListOfInteger(List<Integer> cards, String startMessage)
+    {
+        StringBuilder message = new StringBuilder(startMessage);
+        for(Integer card : cards)
+        {
+            message.append(" ").append(card);
         }
-        return newName.toString();
+        message.append(";");
+        return message.toString();
     }
 
-    public static boolean containsJAR(String path) {
-        boolean contains;
-        contains = (Character.toLowerCase(path.charAt(0)) == 'j');
-        contains &= (Character.toLowerCase(path.charAt(1)) == 'a');
-        contains &= (Character.toLowerCase(path.charAt(2)) == 'r');
-        return contains;
+    public static String getRespondedDeclaration(int player, List<Declaration> declarations){
+        return "respondedDeclaration " + player + " " +
+                processName(declarations.get(player).toString()) + " " +
+                declarations.get(player).toSendableObject() + ";";
     }
 
-    public static InputStream getInputStream(String path) {
-        return DataManipulationService.class.getClassLoader().getResourceAsStream(path);
-    }
-
-    public static String getPath() {
-        String initPath = DataManipulationService.class.getResource("DataManipulationService.class").toString();
-        StringBuilder stringBuilder = new StringBuilder();
-        int initChar = 9;
-        int endChar;
-        int currentChar = initPath.length() - 1;
-        while (initPath.charAt(currentChar) != '!')
-            currentChar--;
-        while ((initPath.charAt(currentChar) != '\\') && (initPath.charAt(currentChar) != '/'))
-            currentChar--;
-        endChar = currentChar;
-        for (int i = initChar; i <= endChar; i++) {
-            stringBuilder.append(initPath.charAt(i));
+    public static String getScore(Game game)
+    {
+        StringBuilder message = new StringBuilder("score");
+        for (int i = 0; i < 4; i++) {
+            message.append(" ").append(game.getScorePlayer(i));
         }
-        return stringBuilder.toString();
+        String declaration = DataManipulationService.processName(game.getDeclaration());
+        message.append(" ").append(declaration).append(" ");
+        String radler = boolToString(game.getRadler());
+        message.append(radler).append(";");
+        return message.toString();
+    }
+
+    public static String getScoreDetailed(Score score){
+        return "scoreDetailed " + score.toString() + " " + processName(score.getTeamThatWon()) + ";";
     }
 }
