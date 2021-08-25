@@ -80,8 +80,6 @@ public class DataManipulationService {
 
     public static int boolToInt(boolean bool) { return bool ? 1 : 0; }
 
-    public static boolean intToBool(int integer) { return (integer == 1); }
-
     public static String eliminateNewLines(String line) {
         return line.replace('\n', (char) 0);
     }

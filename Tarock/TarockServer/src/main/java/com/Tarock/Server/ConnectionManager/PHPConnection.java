@@ -160,7 +160,10 @@ public class PHPConnection {
                 games.add(game);
             }
         }
-        StatusForm.addToStatusTextArea("Received from server: " + games);
+        StatusForm.addToStatusTextArea("Received from server: ");
+        for(int i=0;i<games.size();i++){
+            StatusForm.addToStatusTextArea(games.get(i).toString());
+        }
         return games;
     }
 }

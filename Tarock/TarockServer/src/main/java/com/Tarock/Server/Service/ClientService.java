@@ -81,6 +81,9 @@ public class ClientService extends Thread {
         if (message.startsWith("car")) {
             processedMessage = "sentCards;";
         }
+        if (message.startsWith("encrypted")) {
+            processedMessage = "sentPasswordForVerification;";
+        }
         String finalMessage = "Sent (" + username + ") : " + processedMessage;
         if (Main.noGUI)
             System.out.println(finalMessage);
