@@ -98,11 +98,6 @@ public class PHPConnection {
         return session;
     }
 
-    public static String getPassword(String username) {
-        User user = getUser(username);
-        return user.getPassword();
-    }
-
     public static void addGame(String username, Game game) {
         Map<String, String> inputMap = game.getMap();
         inputMap.put("functionName", "addGame");
@@ -161,8 +156,8 @@ public class PHPConnection {
             }
         }
         StatusForm.addToStatusTextArea("Received from server: ");
-        for(int i=0;i<games.size();i++){
-            StatusForm.addToStatusTextArea(games.get(i).toString());
+        for (Game game : games) {
+            StatusForm.addToStatusTextArea(game.toString());
         }
         return games;
     }

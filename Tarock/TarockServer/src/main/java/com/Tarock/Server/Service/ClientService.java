@@ -25,6 +25,7 @@ public class ClientService extends Thread {
     public ObjectInputStream inputStream;
     public ObjectOutputStream outputStream;
     public String username = null;
+    public User savedUser = null;
 
     public ClientService(Socket socket) throws IOException {
         this.socket = socket;
@@ -147,10 +148,27 @@ public class ClientService extends Thread {
     }
 
     public void runGame(Session session) throws IOException, ClassNotFoundException {
-        List<User> users = List.of(PHPConnection.getUser(session.getPlayer1()),
-                PHPConnection.getUser(session.getPlayer2()),
-                PHPConnection.getUser(session.getPlayer3()),
-                PHPConnection.getUser(session.getPlayer4()));
+        List<User> users = new ArrayList<>();
+        if (!CommunicationService.savedUsers.containsKey(session.getPlayer1())){
+            User user = PHPConnection.getUser(session.getPlayer1());
+            CommunicationService.savedUsers.put(session.getPlayer1(), user);
+        }
+        if (!CommunicationService.savedUsers.containsKey(session.getPlayer2())){
+            User user = PHPConnection.getUser(session.getPlayer2());
+            CommunicationService.savedUsers.put(session.getPlayer2(), user);
+        }
+        if (!CommunicationService.savedUsers.containsKey(session.getPlayer3())){
+            User user = PHPConnection.getUser(session.getPlayer3());
+            CommunicationService.savedUsers.put(session.getPlayer3(), user);
+        }
+        if (!CommunicationService.savedUsers.containsKey(session.getPlayer4())){
+            User user = PHPConnection.getUser(session.getPlayer4());
+            CommunicationService.savedUsers.put(session.getPlayer4(), user);
+        }
+        users.add(CommunicationService.savedUsers.get(session.getPlayer1()));
+        users.add(CommunicationService.savedUsers.get(session.getPlayer2()));
+        users.add(CommunicationService.savedUsers.get(session.getPlayer3()));
+        users.add(CommunicationService.savedUsers.get(session.getPlayer4()));
         List<String> players = List.of(users.get(0).getName(), users.get(1).getName(),
                 users.get(2).getName(), users.get(3).getName());
         List<String> playersUsername = List.of(users.get(0).getUsername(), users.get(1).getUsername(),
@@ -188,7 +206,11 @@ public class ClientService extends Thread {
         List<String> listOfCommands;
 
         try {
-            Session session = PHPConnection.getSession(sessionID);
+            if (!CommunicationService.savedSessions.containsKey(sessionID)) {
+                Session session = PHPConnection.getSession(sessionID);
+                CommunicationService.savedSessions.put(session.getSessionID(), session);
+            }
+            Session session = CommunicationService.savedSessions.get(sessionID);
             if ((!session.getPlayer1().equals(username)) && (!session.getPlayer2().equals(username)) &&
                     (!session.getPlayer3().equals(username)) && (!session.getPlayer4().equals(username)))
                 throw new PHPException("Session does not include " + username);
@@ -212,12 +234,15 @@ public class ClientService extends Thread {
         List<String> listOfCommands;
 
         try {
-            PHPConnection.getUser(username);
+            if (!CommunicationService.savedUsers.containsKey(username)) {
+                CommunicationService.savedUsers.put(username, PHPConnection.getUser(username));
+            }
+            savedUser = CommunicationService.savedUsers.get(username);
         } catch (PHPException phpException) {
             throw new LoginException(phpException.getMessage());
         }
 
-        String encryptedPassword = PHPConnection.getPassword(username);
+        String encryptedPassword = savedUser.getPassword();
         listOfCommands = write("encryptedPassword " + encryptedPassword + ";");
         List<String> listOfObjects = DataManipulationService.processCommand(listOfCommands.get(0));
         if (listOfObjects.get(0).equals("passwordOK")) {
