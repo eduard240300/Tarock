@@ -121,15 +121,7 @@ public class GameForm extends JFrame {
             }
             index++;
         }
-        declarationBuilder.deleteCharAt(positionPope);
-        if (declarationBuilder.charAt(positionPope) == '0')
-            declarationBuilder.setCharAt(positionPope, (char) (heartCode));
-        else if (declarationBuilder.charAt(positionPope) == '1')
-            declarationBuilder.setCharAt(positionPope, (char) (diamondCode));
-        else if (declarationBuilder.charAt(positionPope) == '2')
-            declarationBuilder.setCharAt(positionPope, (char) (clubCode));
-        else if (declarationBuilder.charAt(positionPope) == '3')
-            declarationBuilder.setCharAt(positionPope, (char) (spadeCode));
+        declarationBuilder = replacePopeDeclaration(declarationBuilder, positionPope);
         String resultDeclaration = declarationBuilder.toString();
         scoreTableModel.addRow(new Object[]{stringScore1, stringScore2, stringScore3, stringScore4, resultDeclaration});
     }
@@ -199,6 +191,19 @@ public class GameForm extends JFrame {
         statusPlayers.get(player).setText(text);
     }
 
+    public StringBuilder replacePopeDeclaration(StringBuilder declarationBuilder, int positionPope){
+        declarationBuilder.deleteCharAt(positionPope);
+        if (declarationBuilder.charAt(positionPope) == '0')
+            declarationBuilder.setCharAt(positionPope, (char) (heartCode));
+        else if (declarationBuilder.charAt(positionPope) == '1')
+            declarationBuilder.setCharAt(positionPope, (char) (diamondCode));
+        else if (declarationBuilder.charAt(positionPope) == '2')
+            declarationBuilder.setCharAt(positionPope, (char) (clubCode));
+        else if (declarationBuilder.charAt(positionPope) == '3')
+            declarationBuilder.setCharAt(positionPope, (char) (spadeCode));
+        return declarationBuilder;
+    }
+
     public void changeDeclarationPlayer(int player, String declaration) {
         StringBuilder declarationBuilder = new StringBuilder(declaration);
 
@@ -214,15 +219,7 @@ public class GameForm extends JFrame {
         }
 
         if (positionPope != -1) {
-            declarationBuilder.deleteCharAt(positionPope);
-            if (declarationBuilder.charAt(positionPope) == '0')
-                declarationBuilder.setCharAt(positionPope, (char) (heartCode));
-            else if (declarationBuilder.charAt(positionPope) == '1')
-                declarationBuilder.setCharAt(positionPope, (char) (diamondCode));
-            else if (declarationBuilder.charAt(positionPope) == '2')
-                declarationBuilder.setCharAt(positionPope, (char) (clubCode));
-            else if (declarationBuilder.charAt(positionPope) == '3')
-                declarationBuilder.setCharAt(positionPope, (char) (spadeCode));
+            declarationBuilder = replacePopeDeclaration(declarationBuilder, positionPope);
         }
         String resultDeclaration = declarationBuilder.toString();
 

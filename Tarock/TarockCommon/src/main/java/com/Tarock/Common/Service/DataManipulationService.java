@@ -123,10 +123,6 @@ public class DataManipulationService {
         return declaration.replace(' ', '_').replace(',', '*');
     }
 
-    public static boolean containsJAR(String path) {
-        return path.startsWith("jar");
-    }
-
     public static File getFile(String path) {
         try {
             InputStream inputStream = DataManipulationService.class.getClassLoader().getResourceAsStream(path);
@@ -141,23 +137,6 @@ public class DataManipulationService {
 
     public static InputStream getInputStream(String path) {
         return DataManipulationService.class.getClassLoader().getResourceAsStream(path);
-    }
-
-    public static String getPath() {
-        String initPath = Objects.requireNonNull(DataManipulationService.class.getResource("DataManipulationService.class")).toString();
-        StringBuilder stringBuilder = new StringBuilder();
-        int initChar = 9;
-        int endChar;
-        int currentChar = initPath.length() - 1;
-        while (initPath.charAt(currentChar) != '!')
-            currentChar--;
-        while ((initPath.charAt(currentChar) != '\\') && (initPath.charAt(currentChar) != '/'))
-            currentChar--;
-        endChar = currentChar;
-        for (int i = initChar; i <= endChar; i++) {
-            stringBuilder.append(initPath.charAt(i));
-        }
-        return stringBuilder.toString();
     }
 
     public static Pair<String, Integer> getIPAndPort(String address)

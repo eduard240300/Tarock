@@ -75,21 +75,19 @@ public class CommunicationService extends Thread {
             }
             Thread.sleep(200);
         }
-        if (connected) {
-            inputStream = new ObjectInputStream(socket.getInputStream());
-            outputStream = new ObjectOutputStream(socket.getOutputStream());
-            while (true) {
-                try {
-                    read();
-                } catch (EOFException eofException) {
-                    GameForm.popUpMessage("Server forcefully closed !");
-                    Main.gameForm.setVisible(false);
-                    Main.gameForm = new GameForm();
-                    Main.connectionForm.setVisible(true);
-                    Repository.logout();
-                    stop();
-                    break;
-                }
+        inputStream = new ObjectInputStream(socket.getInputStream());
+        outputStream = new ObjectOutputStream(socket.getOutputStream());
+        while (true) {
+            try {
+                read();
+            } catch (EOFException eofException) {
+                GameForm.popUpMessage("Server forcefully closed !");
+                Main.gameForm.setVisible(false);
+                Main.gameForm = new GameForm();
+                Main.connectionForm.setVisible(true);
+                Repository.logout();
+                stop();
+                break;
             }
         }
     }
