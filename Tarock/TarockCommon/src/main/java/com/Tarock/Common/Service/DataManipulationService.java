@@ -78,6 +78,10 @@ public class DataManipulationService {
         return bool ? "1" : "0";
     }
 
+    public static int boolToInt(boolean bool) { return bool ? 1 : 0; }
+
+    public static boolean intToBool(int integer) { return (integer == 1); }
+
     public static String eliminateNewLines(String line) {
         return line.replace('\n', (char) 0);
     }
@@ -153,7 +157,7 @@ public class DataManipulationService {
         }
         String declaration = DataManipulationService.processName(game.getDeclaration());
         message.append(" ").append(declaration).append(" ");
-        String radler = boolToString(game.isRadler());
+        String radler = String.valueOf(game.getRadler());
         message.append(radler).append(";");
         return message.toString();
     }

@@ -1,6 +1,7 @@
 package com.Tarock.Server.Service;
 
 import com.Tarock.Common.Domain.*;
+import com.Tarock.Common.Service.DataManipulationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -451,7 +452,7 @@ public class ScoreService {
         }
 
         score.computeTotal();
-        game.setRadler(computation.isRadler());
+        game.setRadler(DataManipulationService.boolToInt(computation.isRadler()));
         game.setDeclaration(declarationMessage);
         int total = score.getAttribute("Total").getPoints();
         if (teams.get(0).size() == 1) {

@@ -15,7 +15,7 @@ public class Game {
     private int scorePlayer3;
     private int scorePlayer4;
     private String declaration;
-    private boolean radler;
+    private int radler;
     private int radlerTimes;
 
     public void setScorePlayer(int player, int score) {
