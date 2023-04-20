@@ -41,7 +41,7 @@ public class PHPConnection {
     @SneakyThrows
     public static String read(String requestBodyJSON){
         CloseableHttpClient client = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost("http://" + ipAddress + "/tarock/controllerHelper.php");
+        HttpPost httpPost = new HttpPost("https://" + ipAddress + "/tarock/controllerHelper.php");
 
         StringEntity entity = new StringEntity(requestBodyJSON);
         httpPost.setEntity(entity);
