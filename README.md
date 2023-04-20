@@ -1,4 +1,4 @@
-# Tarock-Java
+# Tarock
 
 This project aims to create an application formed of two parts:
 
